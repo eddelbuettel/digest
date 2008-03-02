@@ -1,0 +1,10 @@
+Package: digest
+Title: Create cryptographic hash digests of R objects
+Version: 0.0.1
+Author: Dirk Eddelbuettel
+Description: Create md5 or sha-1 digests for arbitrary R objects
+Maintainer: Dirk Eddelbuettel <edd@debian.org>
+Depends: R (>= 1.8.0)
+License: GPL Version 2 
+URL: http://www.cr0.net:8040/code/crypto/ for the C code for md5 and sha-1
+
