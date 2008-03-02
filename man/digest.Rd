@@ -1,18 +1,23 @@
-% $Id$
+% $Id: digest.Rd,v 1.1 2003/11/29 01:47:55 edd Exp $
 \name{digest}
 \alias{digest}
 \title{Create hash function digests for arbitrary R objects}
 \description{
   The \code{digest} function applies a cryptographical hash function to
-  arbitrary R objects. The objects are internally serialized, and either
-  one of the currently implemented MD5 and SHA-1 hash functions
-  algorithms can be used.
+  arbitrary R objects. By default, the objects are internally
+  serialized, and either one of the currently implemented MD5 and SHA-1
+  hash functions algorithms can be used to compute a compact digest of
+  the serialized object.
+
+  In order to compare this implementation with others, serialization of
+  the input argument can also be turned off in which the input argument
+  must be a character string for which its digest is returned.
 }
 \usage{
 digest(object, algo="md5", serialize=TRUE)
 }
 \arguments{
-  \item{object}{An arbitrary R object which be passed to the
+  \item{object}{An arbitrary R object which will then be passed to the
     \code{\link{serialize}} function, unless the \code{serialize}
     argument is set to \code{FALSE}}
   \item{algo}{The algorithms to be used; currently available choices are
@@ -53,15 +58,50 @@ digest(object, algo="md5", serialize=TRUE)
 \seealso{\code{\link{serialize}}, \code{\link{md5sum}}}
 
 \examples{
-# one of the RFC 1321 test vectors
-md5 <- digest("message digest", serialize=FALSE)
-# and its output
-stopifnot(identical(md5, "f96b697d7cb7938d525a2f31aaf161d0"))
+
+## Standard RFC 1321 test vectors
+md5Input <-
+  c("",
+    "a",
+    "abc",
+    "message digest",
+    "abcdefghijklmnopqrstuvwxyz",
+    "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789",
+    paste("12345678901234567890123456789012345678901234567890123456789012",
+          "345678901234567890", sep=""))
+md5Output <-
+  c("d41d8cd98f00b204e9800998ecf8427e",
+    "0cc175b9c0f1b6a831c399e269772661",
+    "900150983cd24fb0d6963f7d28e17f72",
+    "f96b697d7cb7938d525a2f31aaf161d0",
+    "c3fcd3d76192e4007dfb496cca67e13b",
+    "d174ab98d277d9f5a5611c2c9f419d9f",
+    "57edf4a22be3c955ac49da2e2107b67a")
+
+for (i in seq(along=md5Input)) {
+  md5 <- digest(md5Input[i], serialize=FALSE)
+  stopifnot(identical(md5, md5Output[i]))
+}
+
+sha1Input <-
+  c("abc",
+    "abcdbcdecdefdefgefghfghighijhijkijkljklmklmnlmnomnopnopq",
+    NULL)
+sha1Output <- 
+  c("a9993e364706816aba3e25717850c26c9cd0d89d",
+    "84983e441c3bd26ebaae4aa1f95129e5e54670f1",
+    "34aa973cd4c4daa4f61eeb2bdbad27316534016f")
+
+for (i in seq(along=sha1Input)) {
+  sha1 <- digest(sha1Input[i], algo="sha1", serialize=FALSE)
+  stopifnot(identical(sha1, sha1Output[i]))
+}
 
 # one of the FIPS-
 sha1 <- digest("abc", algo="sha1", serialize=FALSE)
 stopifnot(identical(sha1, "a9993e364706816aba3e25717850c26c9cd0d89d"))
 
+# example of a digest of a standard R list structure
 digest(list(LETTERS, data.frame(a=letters[1:5], b=matrix(1:10,ncol=2))))
 }
 \keyword{misc}
