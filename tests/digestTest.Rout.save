@@ -17,7 +17,7 @@ Type 'q()' to quit R.
 
 > 
 > ## tests for digest, taken from the examples in the manual page
-> 
+>  
 > stopifnot(require(digest))
 Loading required package: digest
 > 
@@ -95,7 +95,7 @@ a9993e364706816aba3e25717850c26c9cd0d89d
 > cat(digest(list(LETTERS, data.frame(a=letters[1:5],
 +                            b=matrix(1:10,
 +                              ncol=2)))), "\n")
-eaa5edd8a2202684f35a51b564140576 
+dd3de4e230276e1322489f9f0eadc36a
 > 
 > # test 'length' parameter and file input
 > fname = file.path(R.home(),"COPYING")

@@ -1,6 +1,24 @@
+2007-03-15  Dirk Eddelbuettel  <edd@debian.org>
+
+	* Release 0.3.0-to-be
+	* R/digest.R: Adopted two more changes suggested by Henrik
+
+2007-03-12  Dirk Eddelbuettel  <edd@debian.org>
+
+	* R/digest.R: Adopted a few changes suggested by Henrik
+
+2007-03-09  Dirk Eddelbuettel  <edd@debian.org>
+
+	- R/digest.R, man/digest.Rd, Applied two more patches by
+	  Simon Urbanek that clean object mangling (for better comparison
+	  across R versions, adds an ascii flag, adds skip="auto" support
+	  to by pass the version header info, and clean the file option
+	  interface. This effectively replaces Henrik's patch relative to
+	  the 0.2.3 release.  Thanks for the patches, Simon!
+	- tests/digestTest.Rout.save: New reference output; one line changed
+
 2007-03-08  Dirk Eddelbuettel  <edd@debian.org>
 
-	* Release 0.2.4-to-be
 	- R/digest.R, man/digest.Rd, src/digest.C: Applied two 
 	  patches by Simon Urbanek to help improve consistence 
 	  of digest output across different R versions by allowing

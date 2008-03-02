@@ -1,4 +1,4 @@
-% $Id: digest.Rd,v 1.9 2007/03/09 03:53:21 edd Exp $
+% $Id: digest.Rd,v 1.11 2007/03/13 02:53:22 edd Exp $
 \name{digest}
 \alias{digest}
 \title{Create hash function digests for arbitrary R objects}
@@ -15,7 +15,7 @@
 }
 \usage{
 digest(object, algo=c("md5", "sha1", "crc32"), 
-       serialize=TRUE, file=FALSE, length=Inf, skip=0)
+       serialize=TRUE, file=FALSE, length=Inf, skip="auto", ascii=FALSE)
 }
 \arguments{
   \item{object}{An arbitrary R object which will then be passed to the
@@ -30,12 +30,21 @@ digest(object, algo=c("md5", "sha1", "crc32"),
     allows the use of raw vectors such as the output of non-ASCII
     serialization.
  }
-  \item{file}{A logical variable indicating whether the object is a file name.}
+  \item{file}{A logical variable indicating whether the object is a file
+    name or a file name if \code{object} is not specified.}
   \item{length}{Number of characters to process. By default, when
     \code{length} is set to \code{Inf}, the whole string or file is
     processed.}
   \item{skip}{Number of input bytes to skip before calculating the
-    digest. Negative values are invalid and currently treated as zero.}
+    digest. Negative values are invalid and currently treated as zero.
+    Special value \code{"auto"} will cause serialization header to be
+    skipped if \code{serialize} is set to \code{TRUE} (the serialization
+    header contains the R version number thus skipping it allows the
+    comparison of hashes across platoforms and some R versions).
+  }
+  \item{ascii}{This flag is passed to the \code{serialize} function if
+    \code{serialize} is set to \code{TRUE}, determining whether the hash
+    is computed on the ASCII or binary represenataion.}
 }
 \value{
   The \code{digest} function returns a character string of a fixed
