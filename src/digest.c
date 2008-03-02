@@ -5,7 +5,7 @@
 
   Copyright 2003, 2004, 2005  Dirk Eddelbuettel <edd@debian.org>
 
-  $Id: digest.c,v 1.5 2005/11/03 05:04:42 edd Exp $
+  $Id: digest.c,v 1.6 2006/07/29 01:50:49 edd Exp $
 
   This file is part of the digest packages for GNU R.
   It is made available under the terms of the GNU General Public
@@ -33,6 +33,7 @@
 #include "sha1.h"		
 #include "md5.h"
 #include "zlib.h"
+
 unsigned long ZEXPORT digest_crc32(unsigned long crc,
 				   const unsigned char FAR *buf,
 				   unsigned len);
@@ -81,7 +82,7 @@ SEXP digest(SEXP Txt, SEXP Algo, SEXP Length) {
       l = nChar;
 
       val  = digest_crc32(0L, 0, 0);
-      val  =  digest_crc32(val , txt,(unsigned) l);
+      val  = digest_crc32(val, (unsigned char*) txt, (unsigned) l);
       
       sprintf(output, "%2.2x", (unsigned int) val);
 
@@ -99,7 +100,8 @@ SEXP digest(SEXP Txt, SEXP Algo, SEXP Length) {
       }
       md5_starts( &ctx );
       if (length>=0) {  
-        while( ( nChar = fread( buf, 1, sizeof( buf ), fp ) ) > 0 && length>0) {
+        while( ( nChar = fread( buf, 1, sizeof( buf ), fp ) ) > 0 
+	       && length>0) {
           if (nChar>length) nChar=length;
           md5_update( &ctx, buf, nChar );
           length -= nChar;
@@ -125,7 +127,8 @@ SEXP digest(SEXP Txt, SEXP Algo, SEXP Length) {
       }
       sha1_starts ( &ctx );
       if (length>=0) {  
-        while( ( nChar = fread( buf, 1, sizeof( buf ), fp ) ) > 0 && length>0) {
+        while( ( nChar = fread( buf, 1, sizeof( buf ), fp ) ) > 0 
+	       && length>0) {
           if (nChar>length) nChar=length;
           sha1_update( &ctx, buf, nChar );
           length -= nChar;
@@ -149,7 +152,8 @@ SEXP digest(SEXP Txt, SEXP Algo, SEXP Length) {
       }
       val  = digest_crc32(0L, 0, 0);
       if (length>=0) {  
-        while( ( nChar = fread( buf, 1, sizeof( buf ), fp ) ) > 0 && length>0) {
+        while( ( nChar = fread( buf, 1, sizeof( buf ), fp ) ) > 0 
+	       && length>0) {
           if (nChar>length) nChar=length;
           val  = digest_crc32(val , buf, (unsigned) nChar);
           length -= nChar;
