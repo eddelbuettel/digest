@@ -1,11 +1,11 @@
 
-# $Id: digest.R,v 1.5 2006/07/29 01:40:15 edd Exp $
+# $Id: digest.R,v 1.6 2006/12/12 03:53:38 edd Exp $
 
  digest <- function(object, algo=c("md5", "sha1", "crc32"), 
                     serialize=TRUE, file=FALSE, length=Inf) {
   algo <- match.arg(algo)
   if (is.infinite(length)) {
-    length <- -1;              # internally we use -1 for infinite len
+    length <- -1               # internally we use -1 for infinite len
   }
   if (serialize && !file) {
     ## next two lines by
@@ -32,7 +32,8 @@
                     sha1=2,
                     crc32=3)
   if (file) {
-    algoint <- algoint+100;
+    algoint <- algoint+100
+    object <- path.expand(object)
     if (file.access(object)<0) {
       stop(c("Can't open input file:", object))
     }

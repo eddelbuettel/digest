@@ -1,6 +1,6 @@
 Package: digest
-Version: 0.2.2
-Date: $Date: 2006/07/29 01:56:55 $
+Version: 0.2.3
+Date: $Date: 2006/12/30 01:25:58 $
 Author: Dirk Eddelbuettel <edd@debian.org> with contributions 
         by Antoine Lucas and Jarek Tuszynski	
 Maintainer: Dirk Eddelbuettel <edd@debian.org>
@@ -21,4 +21,4 @@ Description: The digest package provides functions for the creation of
 Depends: R (>= 2.0.0)
 License: GPL Version 2 
 URL: http://www.cr0.net:8040/code/crypto/, ftp://ftp.rocksoft.com/cliens/rocksoft/papers/crc_v3.txt
-Packaged: Sun Jul 30 12:18:11 2006; edd
+Packaged: Fri Dec 29 19:39:08 2006; edd

@@ -1,0 +1,5 @@
+## package has dynamic library
+useDynLib(digest)
+
+## and one and only one core function
+export(digest)

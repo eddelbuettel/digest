@@ -1,5 +1,5 @@
-# $Id: zzz.R,v 1.2 2004/05/27 01:43:40 edd Exp $
-.First.lib <- function(lib, pkg) {
+# $Id: zzz.R,v 1.3 2006/12/29 21:29:57 edd Exp $
+.onLoad <- function(lib, pkg) {
   library.dynam("digest", pkg, lib )
 }
 

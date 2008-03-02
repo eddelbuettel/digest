@@ -1,8 +1,6 @@
 
 ## tests for digest, taken from the examples in the manual page
-##
-## $Id: digestTest.R,v 1.1 2006/07/29 01:56:01 edd Exp $
-
+ 
 stopifnot(require(digest))
 
 ## Standard RFC 1321 test vectors
