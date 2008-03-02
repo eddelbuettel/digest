@@ -1,4 +1,4 @@
-% $Id: digest.Rd,v 1.4 2005/03/23 03:49:06 edd Exp $
+% $Id: digest.Rd,v 1.7 2005/11/04 04:49:32 edd Exp $
 \name{digest}
 \alias{digest}
 \title{Create hash function digests for arbitrary R objects}
@@ -14,7 +14,8 @@
   must be a character string for which its digest is returned.
 }
 \usage{
-digest(object, algo="md5", serialize=TRUE)
+digest(object, algo=c("md5", "sha1", "crc32"), 
+       serialize=TRUE, file=FALSE, length=Inf)
 }
 \arguments{
   \item{object}{An arbitrary R object which will then be passed to the
@@ -24,16 +25,18 @@ digest(object, algo="md5", serialize=TRUE)
     \code{md5}, which is also the default, \code{sha1} and \code{crc32}}
   \item{serialize}{A logical variable indicating whether the object
     should be serialized using \code{serialize}. Setting this to
-    \code{FALSE} allows to compares the digest output of given character
+    \code{FALSE} allows to compare the digest output of given character
     strings to known control output.}
+  \item{file}{A logical variable indicating whether the object is a file name.}
+  \item{length}{Number of characters to process. By default, when
+    \code{length} is set to \code{Inf}, the whole string or file is
+    processed.}
 }
 \value{
   The \code{digest} function returns a character string of a fixed
   length containing the requested digest of the supplied R object. For
   MD5, a string of length 32 is returned; for SHA-1, a string of length
   40 is returned; for CRC32 a string of length 8.
-
-  NULL is returned if an bad argument for \code{algo} had been supplied.
 }
 \details{
   Cryptographic hash functions are well researched and documented. The
@@ -66,9 +69,10 @@ digest(object, algo="md5", serialize=TRUE)
   supplied the code for crc32.
 }
 \author{Dirk Eddelbuettel \email{edd@debian.org} for the \R interface;
-  Antoine Lucas for the integration of crc32; Christophe Devine for the
-  hash function implementations for sha-1 and md5; Jean-loup Gailly and
-  Mark Adler for crc32.} 
+  Antoine Lucas for the integration of crc32; Jarek Tuszynski for the
+  file-based operationss; Christophe Devine for the hash function
+  implementations for sha-1 and md5; Jean-loup Gailly and Mark Adler
+  for crc32.} 
 \seealso{\code{\link{serialize}}, \code{\link{md5sum}}}
 
 \examples{
@@ -125,14 +129,34 @@ for (i in seq(along=crc32Input)) {
   stopifnot(identical(crc32, crc32Output[i]))
 }
 
-
-
 # one of the FIPS-
 sha1 <- digest("abc", algo="sha1", serialize=FALSE)
 stopifnot(identical(sha1, "a9993e364706816aba3e25717850c26c9cd0d89d"))
 
 # example of a digest of a standard R list structure
 digest(list(LETTERS, data.frame(a=letters[1:5], b=matrix(1:10,ncol=2))))
+
+# test 'length' parameter and file input
+fname = file.path(R.home(),"COPYING")
+x = readChar(fname, file.info(fname)$size) # read file
+for (alg in c("sha1", "md5", "crc32")) {
+  # partial file
+  h1 = digest(x    , length=18000, algo=alg, serialize=FALSE)
+  h2 = digest(fname, length=18000, algo=alg, serialize=FALSE, file=TRUE)
+  h3 = digest( substr(x,1,18000) , algo=alg, serialize=FALSE)
+  stopifnot( identical(h1,h2), identical(h1,h3) )
+  # whole file
+  h1 = digest(x    , algo=alg, serialize=FALSE)
+  h2 = digest(fname, algo=alg, serialize=FALSE, file=TRUE)
+  stopifnot( identical(h1,h2) )
+}
+
+# compare md5 algorithm to other tools
+library(tools)
+fname = file.path(R.home(),"COPYING")
+h1 = as.character(md5sum(fname))
+h2 = digest(fname, algo="md5", file=TRUE)
+stopifnot( identical(h1,h2) )
 }
 \keyword{misc}
 

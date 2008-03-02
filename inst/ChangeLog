@@ -1,3 +1,9 @@
+2005-11-02  Dirk Eddelbuettel  <deddelbu@lx-chprd97.wfg.com>
+
+	* Release 0.2.1
+	- R/digest.R, src/digest.c, man/digest.Rd: add support for file
+	  mode based on a complete set of patches by Jarek Tuszynski
+
 2005-04-06  Dirk Eddelbuettel  <edd@debian.org>
 
 	* Release 0.2.0
