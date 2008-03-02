@@ -1,11 +1,9 @@
 /*
-  hey emacs this is -*- c++ -*-
-
   digest -- hash digest functions for R
 
   Copyright 2003, 2004, 2005  Dirk Eddelbuettel <edd@debian.org>
 
-  $Id: digest.c,v 1.6 2006/07/29 01:50:49 edd Exp $
+  $Id: digest.c,v 1.8 2007/03/09 03:53:12 edd Exp $
 
   This file is part of the digest packages for GNU R.
   It is made available under the terms of the GNU General Public
@@ -38,14 +36,29 @@ unsigned long ZEXPORT digest_crc32(unsigned long crc,
 				   const unsigned char FAR *buf,
 				   unsigned len);
 
-SEXP digest(SEXP Txt, SEXP Algo, SEXP Length) {
+SEXP digest(SEXP Txt, SEXP Algo, SEXP Length, SEXP Skip) {
   FILE *fp=0;
-  char *txt = STRING_VALUE(Txt);
+  char *txt;
   int algo = INTEGER_VALUE(Algo);
   int  length = INTEGER_VALUE(Length);
+  int skip = INTEGER_VALUE(Skip);
   SEXP result = NULL;
   char output[41];		/* 33 for md5, 41 for sha1 */
-  int nChar = strlen(txt);
+  int nChar;
+  if (IS_RAW(Txt)) { /* Txt is either RAW */
+    txt = (char*) RAW(Txt);
+    nChar = LENGTH(Txt);
+  } else { /* or a string */
+    txt = STRING_VALUE(Txt);
+    nChar = strlen(txt);
+  }
+  if (skip>0) {
+    if (skip>=nChar) nChar=0;
+    else {
+      nChar -= skip;
+      txt += skip;
+    }
+  }
   if (length>=0 && length<nChar) nChar = length;
   
   switch (algo) {
@@ -98,6 +111,7 @@ SEXP digest(SEXP Txt, SEXP Algo, SEXP Length) {
         error(strcat("Can not open input file: ", txt));    
         return(NULL);
       }
+      if (skip > 0) fseek(fp, skip, SEEK_SET);
       md5_starts( &ctx );
       if (length>=0) {  
         while( ( nChar = fread( buf, 1, sizeof( buf ), fp ) ) > 0 
@@ -125,6 +139,7 @@ SEXP digest(SEXP Txt, SEXP Algo, SEXP Length) {
         error(strcat("Can not open input file: ", txt));    
         return(NULL);
       }
+      if (skip > 0) fseek(fp, skip, SEEK_SET);
       sha1_starts ( &ctx );
       if (length>=0) {  
         while( ( nChar = fread( buf, 1, sizeof( buf ), fp ) ) > 0 
@@ -150,6 +165,7 @@ SEXP digest(SEXP Txt, SEXP Algo, SEXP Length) {
         error(strcat("Can not open input file: ", txt));    
         return(NULL);
       }
+      if (skip > 0) fseek(fp, skip, SEEK_SET);
       val  = digest_crc32(0L, 0, 0);
       if (length>=0) {  
         while( ( nChar = fread( buf, 1, sizeof( buf ), fp ) ) > 0 
@@ -172,10 +188,10 @@ SEXP digest(SEXP Txt, SEXP Algo, SEXP Length) {
       return(NULL);
     }  
   }
-    
+
   PROTECT(result=allocVector(STRSXP, 1));
   SET_STRING_ELT(result, 0, mkChar(output));
-  UNPROTECT(1);			
+  UNPROTECT(1);
 
   return result;
 }

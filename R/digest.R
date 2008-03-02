@@ -1,8 +1,8 @@
 
-# $Id: digest.R,v 1.6 2006/12/12 03:53:38 edd Exp $
+# $Id: digest.R,v 1.9 2007/03/09 03:53:56 edd Exp $
 
  digest <- function(object, algo=c("md5", "sha1", "crc32"), 
-                    serialize=TRUE, file=FALSE, length=Inf) {
+                    serialize=TRUE, file=FALSE, length=Inf, skip=0) {
   algo <- match.arg(algo)
   if (is.infinite(length)) {
     length <- -1               # internally we use -1 for infinite len
@@ -22,11 +22,33 @@
     ## which doesn't fly with R-devel pre-2.4.0
     ##
     object <- serialize(object, connection=NULL, ascii=TRUE)
-    object <- paste(object, collapse="")
-  } else if (!is.character(object)) {
-    stop("Argument object must be of type character if serialize is FALSE")
+    ## object <- paste(object, collapse="")
+
+    ## Message-ID: <59d7961d0701060152k2027d19bi7ab07747f5eed6bf@mail.gmail.com>
+    ## From: "Henrik Bengtsson" <hb@stat.berkeley.edu>
+    ## To: "Dirk Eddelbuettel" <edd@debian.org>
+    ## Subject: digest: rawToChar() instead of paste()
+    ## Date: Sat, 6 Jan 2007 20:52:25 +1100
+    ##
+    ## Hi Dirk,
+    ## 
+    ## while trying to generate md5:s for large R objects I noticed that:
+    ## 
+    ##     object <- serialize(object, connection=NULL, ascii=TRUE);
+    ##     object <- rawToChar(object);
+    ## 
+    ## is faster than and half the size of:
+    ## 
+    ##     object <- serialize(object, connection=NULL, ascii=TRUE);
+    ##     object <- paste(object, collapse="");
+    ## 
+    object <- rawToChar(object)
+  } else if (!is.character(object) && !inherits(object,"raw")) {
+    stop("Argument object must be of type character or raw vector if serialize is FALSE")
   }
-  object <- as.character(object)
+  if (inherits(object,"raw") && file)
+    stop("file=TRUE cannot be used with a raw object")
+  if (!inherits(object,"raw")) object <- as.character(object)
   algoint <- switch(algo,
                     md5=1,
                     sha1=2,
@@ -39,9 +61,10 @@
     }
   }
   val <- .Call("digest",
-               as.character(object),
+               object,
                as.integer(algoint),
                as.integer(length),
+               as.integer(skip),
                PACKAGE="digest")
   return(val)
 }

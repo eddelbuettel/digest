@@ -1,3 +1,27 @@
+2007-03-08  Dirk Eddelbuettel  <edd@debian.org>
+
+	* Release 0.2.4-to-be
+	- R/digest.R, man/digest.Rd, src/digest.C: Applied two 
+	  patches by Simon Urbanek to help improve consistence 
+	  of digest output across different R versions by allowing
+	  digest to 'skip' a certain number of bytes; and by adding
+	  support for 'raw' serialization input
+
+2007-01-08  Dirk Eddelbuettel  <edd@debian.org>
+
+	- R/digest.R: Added improvement suggested by Henrik
+
+2006-12-30  Dirk Eddelbuettel  <edd@debian.org>
+
+	* Release 0.2.3
+	- R/digest.R: Added file.expand() around filename
+
+2006-07-28  Dirk Eddelbuettel  <edd@debian.org>
+
+	* Release 0.2.2
+	- R/digest.R: Added patch for R 2.4.0 by Henrik Bengtsson
+	- tests/: Added simple unit tests
+
 2005-11-02  Dirk Eddelbuettel  <deddelbu@lx-chprd97.wfg.com>
 
 	* Release 0.2.1

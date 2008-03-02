@@ -1,4 +1,4 @@
-% $Id: digest.Rd,v 1.7 2005/11/04 04:49:32 edd Exp $
+% $Id: digest.Rd,v 1.9 2007/03/09 03:53:21 edd Exp $
 \name{digest}
 \alias{digest}
 \title{Create hash function digests for arbitrary R objects}
@@ -15,7 +15,7 @@
 }
 \usage{
 digest(object, algo=c("md5", "sha1", "crc32"), 
-       serialize=TRUE, file=FALSE, length=Inf)
+       serialize=TRUE, file=FALSE, length=Inf, skip=0)
 }
 \arguments{
   \item{object}{An arbitrary R object which will then be passed to the
@@ -24,13 +24,18 @@ digest(object, algo=c("md5", "sha1", "crc32"),
   \item{algo}{The algorithms to be used; currently available choices are
     \code{md5}, which is also the default, \code{sha1} and \code{crc32}}
   \item{serialize}{A logical variable indicating whether the object
-    should be serialized using \code{serialize}. Setting this to
-    \code{FALSE} allows to compare the digest output of given character
-    strings to known control output.}
+    should be serialized using \code{serialize} (in ASCII
+    form). Setting this to \code{FALSE} allows to compare the digest
+    output of given character strings to known control output. It also
+    allows the use of raw vectors such as the output of non-ASCII
+    serialization.
+ }
   \item{file}{A logical variable indicating whether the object is a file name.}
   \item{length}{Number of characters to process. By default, when
     \code{length} is set to \code{Inf}, the whole string or file is
     processed.}
+  \item{skip}{Number of input bytes to skip before calculating the
+    digest. Negative values are invalid and currently treated as zero.}
 }
 \value{
   The \code{digest} function returns a character string of a fixed
@@ -70,7 +75,8 @@ digest(object, algo=c("md5", "sha1", "crc32"),
 }
 \author{Dirk Eddelbuettel \email{edd@debian.org} for the \R interface;
   Antoine Lucas for the integration of crc32; Jarek Tuszynski for the
-  file-based operationss; Christophe Devine for the hash function
+  file-based operationss; Henrik Bengtsson and Simon Urbanek for improved
+  serialization patches; Christophe Devine for the hash function
   implementations for sha-1 and md5; Jean-loup Gailly and Mark Adler
   for crc32.} 
 \seealso{\code{\link{serialize}}, \code{\link{md5sum}}}
