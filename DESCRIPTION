@@ -1,6 +1,6 @@
 Package: digest
-Version: 0.1.1
-Date: $Date: 2003/12/21 03:32:14 $
+Version: 0.1.2
+Date: $Date: 2004/05/27 01:35:24 $
 Author: Dirk Eddelbuettel <edd@debian.org>
 Maintainer: Dirk Eddelbuettel <edd@debian.org>
 Title: Create cryptographic hash digests of R objects
@@ -17,4 +17,4 @@ Description: The digest package provides two functions for the creation of
 Depends: R (>= 1.8.1)
 License: GPL Version 2 
 URL: http://www.cr0.net:8040/code/crypto/ for the md5 and sha-1 implementations
-
+Packaged: Wed May 26 20:49:31 2004; edd

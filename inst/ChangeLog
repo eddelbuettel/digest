@@ -1,6 +1,11 @@
+2004-05-26  Dirk Eddelbuettel  <edd@debian.org>
+
+	* Release 0.1.2
+	- R/zzz.R: remove test for R < 1.8.0 and load of serialize package
+	  (as serialize has been removed from CRAN with serialize() in R)
+
 2003-11-29  Dirk Eddelbuettel  <edd@debian.org>
 
-	[ UNRELEASED ]
 	* Release 0.1.1
 	- DESCRIPTION: added to RCS, $Date$ is now filled
 	- DESCRIPTION: small rewording in Description field
