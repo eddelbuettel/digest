@@ -1,5 +1,5 @@
 
-# $Id$
+# $Id: digest.R,v 1.3 2005/03/15 04:27:29 edd Exp $
 
 digest <- function(object, algo="md5", serialize=TRUE) {
   if (serialize)
@@ -10,14 +10,15 @@ digest <- function(object, algo="md5", serialize=TRUE) {
   if (is.character(algo)) {
     algoint <- switch(algo,
                       md5=1,
-                      sha1=2)
+                      sha1=2,
+                      crc32=3)
     val <- .Call("digest",
                  as.character(object),
                  as.integer(algoint),
                  PACKAGE="digest")
     return(val)
   } else {
-    error("The algo argument must be of type character")
+    warning("The second argument must be of type character")
   }
 }
 

@@ -1,4 +1,4 @@
-% $Id: digest.Rd,v 1.1 2003/11/29 01:47:55 edd Exp $
+% $Id: digest.Rd,v 1.4 2005/03/23 03:49:06 edd Exp $
 \name{digest}
 \alias{digest}
 \title{Create hash function digests for arbitrary R objects}
@@ -21,7 +21,7 @@ digest(object, algo="md5", serialize=TRUE)
     \code{\link{serialize}} function, unless the \code{serialize}
     argument is set to \code{FALSE}}
   \item{algo}{The algorithms to be used; currently available choices are
-    \code{md5}, which is also the default, and \code{sha-1}}
+    \code{md5}, which is also the default, \code{sha1} and \code{crc32}}
   \item{serialize}{A logical variable indicating whether the object
     should be serialized using \code{serialize}. Setting this to
     \code{FALSE} allows to compares the digest output of given character
@@ -31,30 +31,44 @@ digest(object, algo="md5", serialize=TRUE)
   The \code{digest} function returns a character string of a fixed
   length containing the requested digest of the supplied R object. For
   MD5, a string of length 32 is returned; for SHA-1, a string of length
-  40 is returned.
+  40 is returned; for CRC32 a string of length 8.
 
   NULL is returned if an bad argument for \code{algo} had been supplied.
 }
 \details{
   Cryptographic hash functions are well researched and documented. The
   MD5 algorithm by Ron Rivest is specified in RFC 1321. The SHA-1
-  algorithm is specified in FIPS-180-1.
+  algorithm is specified in FIPS-180-1. Crc32 is described in
+  \url{ftp://ftp.rocksoft.com/cliens/rocksoft/papers/crc_v3.txt}.
 
-  This R implementation relies on two standalone implementations in C
-  by Christophe Devine.}
+  For md5 and sha-1, this R implementation relies on two standalone
+  implementations in C by Christophe Devine. For crc32, code from the
+  zlib library by Jean-loup Gailly and Mark Adler is used.
+
+  Please note that this package is not meant to be used for
+  cryptographic purposes for which more comprehensive (and widely
+  tested) libraries such as OpenSSL should be used. Also, it is known
+  that crc32 is not collision-proof. For sha-1, recent results indicate
+  certain cryptographic weaknesses as well. For more details, see for example 
+  \url{http://www.schneier.com/blog/archives/2005/02/cryptanalysis_o.html}.
 }
 \references{
-  MD5 is described in \cite{MD5 Message-Digest Algorithm}
-  at \url{http://www.ietf.org/rfc/rfc1321.txt}.
+  MD5: \url{http://www.ietf.org/rfc/rfc1321.txt}. 
 
-  SHA-1 is described in \cite{Secure Hash Standard} at
-  \url{http://www.itl.nist.gov/fipspubs/fip180-1.htm}.
+  SHA-1: \url{http://www.itl.nist.gov/fipspubs/fip180-1.htm}.
+
+  CRC32:  \url{ftp://ftp.rocksoft.com/cliens/rocksoft/papers/crc_v3.txt}. 
 
   \url{http://www.cr0.net:8040/code/crypto} for the underlying
-  C functions used here, and further references.
+  C functions used here for sha-1 and md5, and further references.
+
+  \url{http://zlib.net} for documentation on the zlib library which
+  supplied the code for crc32.
 }
 \author{Dirk Eddelbuettel \email{edd@debian.org} for the \R interface;
-  Christophe Devine for the hash function implementations.}
+  Antoine Lucas for the integration of crc32; Christophe Devine for the
+  hash function implementations for sha-1 and md5; Jean-loup Gailly and
+  Mark Adler for crc32.} 
 \seealso{\code{\link{serialize}}, \code{\link{md5sum}}}
 
 \examples{
@@ -96,6 +110,22 @@ for (i in seq(along=sha1Input)) {
   sha1 <- digest(sha1Input[i], algo="sha1", serialize=FALSE)
   stopifnot(identical(sha1, sha1Output[i]))
 }
+
+crc32Input <-
+  c("abc",
+    "abcdbcdecdefdefgefghfghighijhijkijkljklmklmnlmnomnopnopq",
+    NULL)
+crc32Output <- 
+  c("352441c2",
+    "171a3f5f",
+    "2ef80172")
+
+for (i in seq(along=crc32Input)) {
+  crc32 <- digest(crc32Input[i], algo="crc32", serialize=FALSE)
+  stopifnot(identical(crc32, crc32Output[i]))
+}
+
+
 
 # one of the FIPS-
 sha1 <- digest("abc", algo="sha1", serialize=FALSE)

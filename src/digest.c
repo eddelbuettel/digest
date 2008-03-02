@@ -3,9 +3,9 @@
 
   digest -- hash digest functions for R
 
-  Copyright 2003 Dirk Eddelbuettel <edd@debian.org>
+  Copyright 2003, 2004, 2005  Dirk Eddelbuettel <edd@debian.org>
 
-  $Id: digest.c,v 1.2 2003/12/21 03:33:47 edd Exp $
+  $Id: digest.c,v 1.4 2005/03/23 03:55:15 edd Exp $
 
   This file is part of the digest packages for GNU R.
   It is made available under the terms of the GNU General Public
@@ -23,6 +23,7 @@
   Software Foundation, Inc., 59 Temple Place - Suite 330, Boston,
   MA 02111-1307, USA
 */
+
 #include <stdio.h>
 #include <string.h>
 #include <stdlib.h>
@@ -31,6 +32,10 @@
 #include <Rinternals.h>
 #include "sha1.h"		
 #include "md5.h"
+#include "zlib.h"
+unsigned long ZEXPORT digest_crc32(unsigned long crc,
+				   const unsigned char FAR *buf,
+				   unsigned len);
 
 SEXP digest(SEXP Txt, SEXP Algo) {
 
@@ -38,6 +43,7 @@ SEXP digest(SEXP Txt, SEXP Algo) {
   int algo = INTEGER_VALUE(Algo);
   SEXP result = NULL;
   char output[41];		/* 33 for md5, 41 for sha1 */
+
 
   switch (algo) {
     case 1: {			/* md5 case */
@@ -55,7 +61,7 @@ SEXP digest(SEXP Txt, SEXP Algo) {
       break;
     }
     case 2: {			/* sha1 case */
-      int i, j;
+      int j;
       sha1_context ctx;
       unsigned char sha1sum[20];
 
@@ -68,6 +74,18 @@ SEXP digest(SEXP Txt, SEXP Algo) {
       }
       break;
     }
+    case 3: {			/* crc32 case */
+      unsigned long val, l;
+      l = strlen(txt);
+
+      val  = digest_crc32(0L, 0, 0);
+      val  =  digest_crc32(val , txt,(unsigned) l);
+      
+      sprintf(output, "%2.2x", (unsigned int) val);
+
+      break;
+    }
+    
     default: {
       error("Unsupported algorithm code");
       return(NULL);

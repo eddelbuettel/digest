@@ -1,20 +1,23 @@
 Package: digest
-Version: 0.1.2
-Date: $Date: 2004/05/27 01:35:24 $
+Version: 0.1.3
+Date: $Date: 2005/03/23 03:50:23 $
 Author: Dirk Eddelbuettel <edd@debian.org>
 Maintainer: Dirk Eddelbuettel <edd@debian.org>
 Title: Create cryptographic hash digests of R objects
-Description: The digest package provides two functions for the creation of
-	`hash' digests of arbitrary R objects using the md5 and sha-1 
-        algorithms permitting easy comparison of R language objects. 
-	The md5 algorithm by Ron Rivest is specified in RFC 1321. The SHA-1 
-        algorithm is specified in FIPS-180-1. This packages uses two small 
-	standalone C implementations (that were provided by by Christophe
-        Devine) of the md5 and sha-1 algorithms.  
+Description: The digest package provides functions for the creation of
+	`hash' digests of arbitrary R objects using the md5, sha-1 and
+        crc32 algorithms permitting easy comparison of R language objects. 
+	The md5 algorithm by Ron Rivest is specified in RFC 1321, the SHA-1 
+        algorithm is specified in FIPS-180-1 and the crc32 algorithm is
+        described in ftp://ftp.rocksoft.com/cliens/rocksoft/papers/crc_v3.txt.
+        For md5 and sha-1, this packages uses two small standalone C
+	implementations that were provided by by Christophe Devine. For
+	crc32, code from the zlib library is used.
+        .
 	Please note that this package is not meant to be used for 
 	cryptographic purposes for which more comprehensive (and widely 
         tested) libraries such as OpenSSL should be used.
-Depends: R (>= 1.8.1)
+Depends: R (>= 2.0.0)
 License: GPL Version 2 
-URL: http://www.cr0.net:8040/code/crypto/ for the md5 and sha-1 implementations
-Packaged: Wed May 26 20:49:31 2004; edd
+URL: http://www.cr0.net:8040/code/crypto/, ftp://ftp.rocksoft.com/cliens/rocksoft/papers/crc_v3.txt
+Packaged: Tue Mar 22 21:57:37 2005; edd

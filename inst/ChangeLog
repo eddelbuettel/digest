@@ -1,3 +1,10 @@
+2005-03-14  Dirk Eddelbuettel  <edd@debian.org>
+
+	* Release 0.1.3
+	- R/digest.R, src/digest.c, man/digest.Rd: add support for crc32
+	  digests based on a complete set of patches by Antoine Lucas
+	- src/{crc32.c,crc32.h,zlib.h,zutil.h,zconf.h}: From zlib
+
 2004-05-26  Dirk Eddelbuettel  <edd@debian.org>
 
 	* Release 0.1.2
