@@ -1,3 +1,11 @@
+2003-11-29  Dirk Eddelbuettel  <edd@debian.org>
+
+	[ UNRELEASED ]
+	* Release 0.1.1
+	- DESCRIPTION: added to RCS, $Date$ is now filled
+	- DESCRIPTION: small rewording in Description field
+	- corrected minor packaging error by removing spurious tarball
+
 2003-11-28  Dirk Eddelbuettel  <edd@debian.org>
 
 	* Release 0.1.0

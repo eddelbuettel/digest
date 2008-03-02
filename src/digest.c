@@ -1,27 +1,28 @@
-// hey emacs this is -*- c++ -*-
+/*
+  hey emacs this is -*- c++ -*-
 
-// digest -- hash digest functions for R
-//
-// Copyright 2003 Dirk Eddelbuettel <edd@debian.org>
-//
-// $Id: digest.c,v 1.1 2003/11/29 01:51:22 edd Exp $
-//
-// This file is part of the digest packages for GNU R.
-// It is made available under the terms of the GNU General Public
-// License, version 2, or at your option, any later version,
-// incorporated herein by reference.
-//
-// This program is distributed in the hope that it will be
-// useful, but WITHOUT ANY WARRANTY; without even the implied
-// warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR
-// PURPOSE.  See the GNU General Public License for more
-// details.
-//
-// You should have received a copy of the GNU General Public
-// License along with this program; if not, write to the Free
-// Software Foundation, Inc., 59 Temple Place - Suite 330, Boston,
-// MA 02111-1307, USA
+  digest -- hash digest functions for R
 
+  Copyright 2003 Dirk Eddelbuettel <edd@debian.org>
+
+  $Id: digest.c,v 1.2 2003/12/21 03:33:47 edd Exp $
+
+  This file is part of the digest packages for GNU R.
+  It is made available under the terms of the GNU General Public
+  License, version 2, or at your option, any later version,
+  incorporated herein by reference.
+
+  This program is distributed in the hope that it will be
+  useful, but WITHOUT ANY WARRANTY; without even the implied
+  warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR
+  PURPOSE.  See the GNU General Public License for more
+  details.
+
+  You should have received a copy of the GNU General Public
+  License along with this program; if not, write to the Free
+  Software Foundation, Inc., 59 Temple Place - Suite 330, Boston,
+  MA 02111-1307, USA
+*/
 #include <stdio.h>
 #include <string.h>
 #include <stdlib.h>
@@ -44,7 +45,6 @@ SEXP digest(SEXP Txt, SEXP Algo) {
       unsigned char md5sum[16];
       int j;
 
-      //printf("In digest() txt is %s\n", txt);
       md5_starts( &ctx );
       md5_update( &ctx, (uint8 *) txt, strlen(txt));
       md5_finish( &ctx, md5sum );
@@ -52,7 +52,6 @@ SEXP digest(SEXP Txt, SEXP Algo) {
       for(j = 0; j < 16; j++) {
 	sprintf(output + j * 2, "%02x", md5sum[j]);
       }
-      //printf("In digest, output is %s\n", output);
       break;
     }
     case 2: {			/* sha1 case */

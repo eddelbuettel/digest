@@ -1,4 +1,4 @@
 #!/bin/sh
 
 rm -f config.* src/Makedeps src/Makevars \
-    src/*.o src/*.d src/*.a src/*.dll src/*.rc src/*~ *~
+    src/*.o src/*.d src/*.a src/*.dll src/*.rc */*~ *~

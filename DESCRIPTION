@@ -1,6 +1,6 @@
 Package: digest
-Version: 0.1.0
-Date: $Date$
+Version: 0.1.1
+Date: $Date: 2003/12/21 03:32:14 $
 Author: Dirk Eddelbuettel <edd@debian.org>
 Maintainer: Dirk Eddelbuettel <edd@debian.org>
 Title: Create cryptographic hash digests of R objects
@@ -9,7 +9,8 @@ Description: The digest package provides two functions for the creation of
         algorithms permitting easy comparison of R language objects. 
 	The md5 algorithm by Ron Rivest is specified in RFC 1321. The SHA-1 
         algorithm is specified in FIPS-180-1. This packages uses two small 
-	standalone implementations by Christophe Devine. 
+	standalone C implementations (that were provided by by Christophe
+        Devine) of the md5 and sha-1 algorithms.  
 	Please note that this package is not meant to be used for 
 	cryptographic purposes for which more comprehensive (and widely 
         tested) libraries such as OpenSSL should be used.
