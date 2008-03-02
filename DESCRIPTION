@@ -1,6 +1,6 @@
 Package: digest
-Version: 0.3.0
-Date: $Date: 2007/01/08 22:06:04 $
+Version: 0.3.1
+Date: $Date: 2007/09/28 17:54:44 $
 Author: Dirk Eddelbuettel <edd@debian.org> with contributions 
         by Antoine Lucas, Jarek Tuszynski, Henrik Bengtsson and Simon Urbanek
 Maintainer: Dirk Eddelbuettel <edd@debian.org>
@@ -19,6 +19,6 @@ Description: The digest package provides functions for the creation of
 	cryptographic purposes for which more comprehensive (and widely 
         tested) libraries such as OpenSSL should be used.
 Depends: R (>= 2.4.1)
-License: GPL Version 2 
+License: GPL-2
 URL: http://www.cr0.net:8040/code/crypto/, ftp://ftp.rocksoft.com/cliens/rocksoft/papers/crc_v3.txt
-Packaged: Wed Apr 25 20:47:41 2007; edd
+Packaged: Fri Sep 28 12:57:58 2007; edd

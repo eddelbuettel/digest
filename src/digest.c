@@ -3,7 +3,7 @@
 
   Copyright 2003, 2004, 2005  Dirk Eddelbuettel <edd@debian.org>
 
-  $Id: digest.c,v 1.8 2007/03/09 03:53:12 edd Exp $
+  $Id: digest.c,v 1.9 2007/09/28 17:56:41 edd Exp $
 
   This file is part of the digest packages for GNU R.
   It is made available under the terms of the GNU General Public
@@ -49,7 +49,7 @@ SEXP digest(SEXP Txt, SEXP Algo, SEXP Length, SEXP Skip) {
     txt = (char*) RAW(Txt);
     nChar = LENGTH(Txt);
   } else { /* or a string */
-    txt = STRING_VALUE(Txt);
+    txt = (char*) STRING_VALUE(Txt);
     nChar = strlen(txt);
   }
   if (skip>0) {
