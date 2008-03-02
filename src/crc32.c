@@ -21,7 +21,7 @@
 
 
 #include "zutil.h"      /* for STDC and FAR definitions */
-//#include "zlib.h"      /* for STDC and FAR definitions */
+/* #include "zlib.h" */     /* for STDC and FAR definitions */
 #define local static
 
 /* Find a four-byte integer type for crc32_little() and crc32_big(). */

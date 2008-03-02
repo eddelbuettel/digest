@@ -1,6 +1,6 @@
 Package: digest
-Version: 0.1.3
-Date: $Date: 2005/03/23 03:50:23 $
+Version: 0.2.0
+Date: $Date: 2005/04/07 02:09:19 $
 Author: Dirk Eddelbuettel <edd@debian.org>
 Maintainer: Dirk Eddelbuettel <edd@debian.org>
 Title: Create cryptographic hash digests of R objects
@@ -20,4 +20,4 @@ Description: The digest package provides functions for the creation of
 Depends: R (>= 2.0.0)
 License: GPL Version 2 
 URL: http://www.cr0.net:8040/code/crypto/, ftp://ftp.rocksoft.com/cliens/rocksoft/papers/crc_v3.txt
-Packaged: Tue Mar 22 21:57:37 2005; edd
+Packaged: Wed Apr  6 21:12:21 2005; edd
