@@ -1,0 +1,23 @@
+
+# Makefile.win for digest
+# derived from RQuantLib's version
+#
+# Dirk Eddelbuettel, 22 Sep 2008
+
+OBJ     = digest.o crc32.o md5.o sha1.o
+LINKOBJ = $(OBJ) $(RES)
+DLLLIBS = -s -L"$(RHOME)/bin" -lR --no-export-all-symbols --add-stdcall-alias
+BIN     = digest.dll
+CFLAGS  = -I"$(RHOME)/include" -Wall -O2 -DBUILDING_DLL=1
+RM      = rm -f
+
+.PHONY: all clean
+
+all: $(BIN)
+
+clean:
+	${RM} $(LINKOBJ) $(BIN)
+
+$(BIN): $(LINKOBJ)
+	$(CXX) -shared $(LINKOBJ) $(DLLLIBS) -o $(BIN)
+
