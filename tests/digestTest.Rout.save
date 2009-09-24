@@ -1,6 +1,6 @@
 
-R version 2.4.1 (2006-12-18)
-Copyright (C) 2006 The R Foundation for Statistical Computing
+R version 2.9.2 (2009-08-24)
+Copyright (C) 2009 The R Foundation for Statistical Computing
 ISBN 3-900051-07-0
 
 R is free software and comes with ABSOLUTELY NO WARRANTY.
@@ -95,7 +95,7 @@ a9993e364706816aba3e25717850c26c9cd0d89d
 > cat(digest(list(LETTERS, data.frame(a=letters[1:5],
 +                            b=matrix(1:10,
 +                              ncol=2)))), "\n")
-dd3de4e230276e1322489f9f0eadc36a
+fdc7d768228d7b3614ccbc3dda6b69e8 
 > 
 > # test 'length' parameter and file input
 > fname = file.path(R.home(),"COPYING")
