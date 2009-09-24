@@ -34,8 +34,8 @@
 #include "zlib.h"
 
 unsigned long ZEXPORT digest_crc32(unsigned long crc,
-								   const unsigned char FAR *buf,
-								   unsigned len);
+				   const unsigned char FAR *buf,
+				   unsigned len);
 
 SEXP digest(SEXP Txt, SEXP Algo, SEXP Length, SEXP Skip) {
   FILE *fp=0;
