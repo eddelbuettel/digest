@@ -1,4 +1,4 @@
-% $Id: digest.Rd,v 1.11 2007/03/13 02:53:22 edd Exp $
+% $Id$
 \name{digest}
 \alias{digest}
 \title{Create hash function digests for arbitrary R objects}

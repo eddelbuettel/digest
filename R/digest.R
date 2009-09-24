@@ -1,5 +1,5 @@
 
-# $Id: digest.R,v 1.11 2007/03/13 02:49:36 edd Exp edd $
+# $Id$
 
  digest <- function(object, algo=c("md5", "sha1", "crc32", "sha256"),
                     serialize=TRUE, file=FALSE, length=Inf,
