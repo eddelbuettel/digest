@@ -134,7 +134,7 @@ for (i in seq(along=sha1Input)) {
 
 crc32Input <-
   c("abc",
-h1    "abcdbcdecdefdefgefghfghighijhijkijkljklmklmnlmnomnopnopq")
+    "abcdbcdecdefdefgefghfghighijhijkijkljklmklmnlmnomnopnopq")
 crc32Output <- 
   c("352441c2",
     "171a3f5f")
