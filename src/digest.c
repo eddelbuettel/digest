@@ -29,12 +29,13 @@
 #include <Rdefines.h>
 #include <Rinternals.h>
 #include "sha1.h"		
+#include "sha256.h"		
 #include "md5.h"
 #include "zlib.h"
 
 unsigned long ZEXPORT digest_crc32(unsigned long crc,
-				   const unsigned char FAR *buf,
-				   unsigned len);
+								   const unsigned char FAR *buf,
+								   unsigned len);
 
 SEXP digest(SEXP Txt, SEXP Algo, SEXP Length, SEXP Skip) {
   FILE *fp=0;
@@ -43,7 +44,7 @@ SEXP digest(SEXP Txt, SEXP Algo, SEXP Length, SEXP Skip) {
   int  length = INTEGER_VALUE(Length);
   int skip = INTEGER_VALUE(Skip);
   SEXP result = NULL;
-  char output[41];		/* 33 for md5, 41 for sha1 */
+  char output[65];		/* 33 for md5, 41 for sha1, 65 for sha256 */
   int nChar;
   if (IS_RAW(Txt)) { /* Txt is either RAW */
     txt = (char*) RAW(Txt);
@@ -72,7 +73,7 @@ SEXP digest(SEXP Txt, SEXP Algo, SEXP Length, SEXP Skip) {
       md5_finish( &ctx, md5sum );
 
       for(j = 0; j < 16; j++) {
-	sprintf(output + j * 2, "%02x", md5sum[j]);
+		sprintf(output + j * 2, "%02x", md5sum[j]);
       }
       break;
     }
@@ -86,7 +87,7 @@ SEXP digest(SEXP Txt, SEXP Algo, SEXP Length, SEXP Skip) {
       sha1_finish( &ctx, sha1sum );
 
       for( j = 0; j < 20; j++ ) {
-	sprintf( output + j * 2, "%02x", sha1sum[j] );
+		sprintf( output + j * 2, "%02x", sha1sum[j] );
       }
       break;
     }
@@ -101,6 +102,20 @@ SEXP digest(SEXP Txt, SEXP Algo, SEXP Length, SEXP Skip) {
 
       break;
     }
+    case 4: {			/* sha256 case */
+      int j;
+      sha256_context ctx;
+      unsigned char sha256sum[32];
+
+      sha256_starts( &ctx );
+      sha256_update( &ctx, (uint8 *) txt, nChar);
+      sha256_finish( &ctx, sha256sum );
+
+      for( j = 0; j < 32; j++ ) {
+		sprintf( output + j * 2, "%02x", sha256sum[j] );
+      }
+      break;
+    }
     case 101: {			/* md5 file case */
       int j;
       md5_context ctx;
@@ -108,7 +123,7 @@ SEXP digest(SEXP Txt, SEXP Algo, SEXP Length, SEXP Skip) {
       unsigned char md5sum[16];
 
       if (!(fp = fopen(txt,"rb"))) {
-        error(strcat("Can not open input file: ", txt));    
+        error(strcat("Cannot open input file: ", txt));    
         return(NULL);
       }
       if (skip > 0) fseek(fp, skip, SEEK_SET);
@@ -136,7 +151,7 @@ SEXP digest(SEXP Txt, SEXP Algo, SEXP Length, SEXP Skip) {
       unsigned char sha1sum[20];
       
       if (!(fp = fopen(txt,"rb"))) {
-        error(strcat("Can not open input file: ", txt));    
+        error(strcat("Cannot open input file: ", txt));    
         return(NULL);
       }
       if (skip > 0) fseek(fp, skip, SEEK_SET);
@@ -162,7 +177,7 @@ SEXP digest(SEXP Txt, SEXP Algo, SEXP Length, SEXP Skip) {
       unsigned long val;
       
       if (!(fp = fopen(txt,"rb"))) {
-        error(strcat("Can not open input file: ", txt));    
+        error(strcat("Cannot open input file: ", txt));    
         return(NULL);
       }
       if (skip > 0) fseek(fp, skip, SEEK_SET);
@@ -180,6 +195,35 @@ SEXP digest(SEXP Txt, SEXP Algo, SEXP Length, SEXP Skip) {
       }
       fclose(fp);      
       sprintf(output, "%2.2x", (unsigned int) val);
+      break;
+    }
+    case 104: {			/* sha256 file case */
+      int j;
+      sha256_context ctx;
+      unsigned char buf[1024];
+      unsigned char sha256sum[32];
+      
+      if (!(fp = fopen(txt,"rb"))) {
+        error(strcat("Cannot open input file: ", txt));    
+        return(NULL);
+      }
+      if (skip > 0) fseek(fp, skip, SEEK_SET);
+      sha256_starts ( &ctx );
+      if (length>=0) {  
+        while( ( nChar = fread( buf, 1, sizeof( buf ), fp ) ) > 0 
+	       && length>0) {
+          if (nChar>length) nChar=length;
+          sha256_update( &ctx, buf, nChar );
+          length -= nChar;
+        }
+      } else {
+        while( ( nChar = fread( buf, 1, sizeof( buf ), fp ) ) > 0) 
+          sha256_update( &ctx, buf, nChar );
+      }
+      fclose(fp);
+      sha256_finish ( &ctx, sha256sum );
+      for( j = 0; j < 32; j++ ) 
+		  sprintf( output + j * 2, "%02x", sha256sum[j] );
       break;
     }
 

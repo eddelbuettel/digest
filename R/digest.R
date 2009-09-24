@@ -1,19 +1,19 @@
 
 # $Id: digest.R,v 1.11 2007/03/13 02:49:36 edd Exp edd $
 
- digest <- function(object, algo=c("md5", "sha1", "crc32"), 
+ digest <- function(object, algo=c("md5", "sha1", "crc32", "sha256"),
                     serialize=TRUE, file=FALSE, length=Inf,
                     skip="auto", ascii=FALSE) {
    algo <- match.arg(algo)
    if (is.infinite(length)) {
      length <- -1               # internally we use -1 for infinite len
    }
-   
+
    if (is.character(file) && missing(object)) {
      object <- file
      file <- TRUE
    }
-   
+
    if (serialize && !file) {
      object <- serialize(object, connection=NULL, ascii=ascii)
      ## we support raw vectors, so no mangling of 'object' is necessary
@@ -31,7 +31,7 @@
          skip <- 14
        }
        ## Was: skip <- if (ascii) 18 else 14
-     } 
+     }
    } else if (!is.character(object) && !inherits(object,"raw")) {
      stop("Argument object must be of type character or raw vector if serialize is FALSE")
    }
@@ -39,11 +39,12 @@
      stop("file=TRUE can only be used with a character object")
    ## HB 14 Mar 2007:  null op, only turned to char if alreadt char
    ##if (!inherits(object,"raw"))
-   ##  object <- as.character(object)   
+   ##  object <- as.character(object)
    algoint <- switch(algo,
                      md5=1,
                      sha1=2,
-                     crc32=3)
+                     crc32=3,
+                     sha256=4)
    if (file) {
      algoint <- algoint+100
      object <- path.expand(object)
@@ -51,7 +52,7 @@
        stop(c("Can't open input file:", object))
      }
    }
-   ## if skip is auto (or any other text for that matter), we just turn it 
+   ## if skip is auto (or any other text for that matter), we just turn it
    ## into 0 because auto should have been converted into a number earlier
    ## if it was valid [SU]
    if (is.character(skip)) skip <- 0
