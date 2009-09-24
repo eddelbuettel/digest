@@ -1,5 +1,5 @@
 Package: digest
-Version: 0.4.0
+Version: 0.4.1
 Date: $Date: 2007/09/28 17:54:44 $
 Author: Dirk Eddelbuettel <edd@debian.org> with contributions 
         by Antoine Lucas, Jarek Tuszynski, Henrik Bengtsson and Simon Urbanek

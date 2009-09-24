@@ -1,3 +1,14 @@
+2009-09-24  Dirk Eddelbuettel  <edd@debian.org>
+
+	* Release 0.4.1
+
+	* src/Makefile.win: Removed as package builds on Windows without it
+	  but not with it being present
+
+	* src/digest.c: Updated Copyright years, set SVN properties Date and Id
+	* R/digest.R: Idem
+	* man/digest.Rd: Idem
+
 2009-09-23  Dirk Eddelbuettel  <edd@debian.org>
 
 	* Release 0.4.0
