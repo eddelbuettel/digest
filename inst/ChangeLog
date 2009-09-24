@@ -1,6 +1,29 @@
-2007-03-15  Dirk Eddelbuettel  <edd@debian.org>
+2009-09-23  Dirk Eddelbuettel  <edd@debian.org>
 
-	* Release 0.3.0-to-be
+	* Release 0.4.0
+
+	* src/sha256.c: Added sha-256 implementation by Christophe Devine
+	  as found (via Google Code Search) in a number of Open Source
+	  projects such as mushclient, aescrypt2, scrypt, and ipanon
+	* src/sha256.h: Idem
+
+	* src/digest.c: Modified to support SHA-256
+	* R/digest.R: Idem
+	* man/digest.Rd: Idem, also added more references
+
+	* src/Makefile.win: Updated for SHA-256, and generally spruced up
+
+2007-09-28  Dirk Eddelbuettel  <edd@debian.org>
+
+	* Release 0.3.1
+
+	* DESCRIPTION: Switched to standardised form 'GPL-2' for License:
+
+	* src/digest.c: Added one explicit (char *) cast
+
+2007-04-27  Dirk Eddelbuettel  <edd@debian.org>
+
+	* Release 0.3.0
 	* R/digest.R: Adopted two more changes suggested by Henrik
 
 2007-03-12  Dirk Eddelbuettel  <edd@debian.org>
@@ -19,8 +42,8 @@
 
 2007-03-08  Dirk Eddelbuettel  <edd@debian.org>
 
-	- R/digest.R, man/digest.Rd, src/digest.C: Applied two 
-	  patches by Simon Urbanek to help improve consistence 
+	- R/digest.R, man/digest.Rd, src/digest.C: Applied two
+	  patches by Simon Urbanek to help improve consistence
 	  of digest output across different R versions by allowing
 	  digest to 'skip' a certain number of bytes; and by adding
 	  support for 'raw' serialization input
