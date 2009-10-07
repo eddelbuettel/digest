@@ -1,3 +1,7 @@
+2009-10-06  Dirk Eddelbuettel  <edd@debian.org>
+
+	* DESCRIPTION: set SVN properties Date and Id, fix indentation
+
 2009-09-24  Dirk Eddelbuettel  <edd@debian.org>
 
 	* Release 0.4.1
