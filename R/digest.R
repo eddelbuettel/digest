@@ -48,8 +48,11 @@
    if (file) {
      algoint <- algoint+100
      object <- path.expand(object)
-     if (file.access(object)<0) {
-       stop(c("Can't open input file:", object))
+     if (!file.exists(object)) {
+       stop("The file does not exist: ", object)
+     }
+     if (!isTRUE(!file.info(object)$isdir)) {
+       stop("The specified pathname is not a file: ", object)
      }
    }
    ## if skip is auto (or any other text for that matter), we just turn it
