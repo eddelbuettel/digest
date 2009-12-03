@@ -1,3 +1,8 @@
+2009-11-02  Henrik Bengtsson  <henrikb@braju.com>
+
+	* R/digest.R: Bug fix - digest(object, file=TRUE) where object
+	  is a directory would cause R to crash.  Now it gives an error.
+
 2009-10-06  Dirk Eddelbuettel  <edd@debian.org>
 
 	* DESCRIPTION: set SVN properties Date and Id, fix indentation

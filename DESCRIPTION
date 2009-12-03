@@ -1,5 +1,5 @@
 Package: digest
-Version: 0.4.1
+Version: 0.4.2
 Date: $Date$
 Author: Dirk Eddelbuettel <edd@debian.org> with contributions 
  by Antoine Lucas, Jarek Tuszynski, Henrik Bengtsson and Simon Urbanek
@@ -22,4 +22,3 @@ Description: The digest package provides functions for the creation of
 Depends: R (>= 2.4.1)
 License: GPL-2
 URL: http://dirk.eddelbuettel.com/code/digest.html
-Packaged: Fri Sep 28 12:57:58 2007; edd
