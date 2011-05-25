@@ -95,7 +95,7 @@ a9993e364706816aba3e25717850c26c9cd0d89d
 > cat(digest(list(LETTERS, data.frame(a=letters[1:5],
 +                            b=matrix(1:10,
 +                              ncol=2)))), "\n")
-fdc7d768228d7b3614ccbc3dda6b69e8 
+ccaa682649d37628e6ace54ef56ac8de
 > 
 > # test 'length' parameter and file input
 > fname = file.path(R.home(),"COPYING")
