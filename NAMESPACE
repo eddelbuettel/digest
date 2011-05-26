@@ -1,5 +1,6 @@
-## package has dynamic library
+## package has a dynamic library
 useDynLib(digest)
 
-## and one and only one core function
-export(digest)
+## and two exported functions
+export(digest,
+       hmac)
