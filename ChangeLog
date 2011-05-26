@@ -1,4 +1,21 @@
-2009-11-02  Henrik Bengtsson  <henrikb@braju.com>
+2011-05-25  Dirk Eddelbuettel  <edd@debian.org>
+
+	* R/hmac.R: New hmac() function contributed by Mario Frasca
+	* man/hmac.Rd: Documentation contributed by Mario Frasca
+
+	* tests/hmacTest.R: Added a new regression test file for hmac()
+	* tests/hmacTest.Rout.save: Added new reference output
+
+	* tests/digestTest.Rout.save: Updated reference digest output
+	  for simple R structure to match what R 2.13.0 yields
+
+	* inst/ChangeLog: moved to ChangeLog (in top-level directory)
+
+	* INDEX: removed, as no longer needed
+
+2009-12-03  Henrik Bengtsson  <henrikb@braju.com>
+
+	* Release 0.4.2
 
 	* R/digest.R: Bug fix - digest(object, file=TRUE) where object
 	  is a directory would cause R to crash.  Now it gives an error.
