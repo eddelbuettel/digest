@@ -9,6 +9,9 @@ Title: Create cryptographic hash digests of R objects
 Description: The digest package provides functions for the creation of
  `hash' digests of arbitrary R objects using the md5, sha-1, sha-256 
  and crc32 algorithms permitting easy comparison of R language objects. 
+ Also provided is a function hmac() to create hash-based message
+ authentication code.
+ .
  The md5 algorithm by Ron Rivest is specified in RFC 1321, the SHA-1 
  and SHA-256 algorithms are specified in FIPS-180-1 and FIPS-180-2, 
  and the crc32 algorithm is described in 
