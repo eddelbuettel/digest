@@ -1,3 +1,7 @@
+2011-05-29  Dirk Eddelbuettel  <edd@debian.org>
+
+	* Release 0.5.0
+
 2011-05-26  Dirk Eddelbuettel  <edd@debian.org>
 
 	* R/hmac.R: Switched to camelCase identifiers after discussion with
