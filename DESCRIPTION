@@ -6,10 +6,10 @@ Author: Dirk Eddelbuettel <edd@debian.org> with contributions
  and Mario Frasca.
 Maintainer: Dirk Eddelbuettel <edd@debian.org>
 Title: Create cryptographic hash digests of R objects
-Description: The digest package provides a function 'digest' for the 
+Description: The digest package provides a function 'digest()' for the 
  creation of hash digests of arbitrary R objects (using the md5, sha-1, 
  sha-256 and crc32 algorithms) permitting easy comparison of R language 
- objects, as well as a function hmac() to create hash-based message
+ objects, as well as a function 'hmac()' to create hash-based message
  authentication code.
  .
  The md5 algorithm by Ron Rivest is specified in RFC 1321, the SHA-1 
