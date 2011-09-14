@@ -2,9 +2,9 @@
 
 	* src/digest.c: Applied patch contributed by Bryan Lewis which
 	supports output of unmodified raw binary output if a new function
-	parameter 'leaveRaw' (which defaults to FALSE) is set to TRUE
-	* R/digest.R: Support new parameter 'leaveRaw'
-	* man/digest.Rd: Document new parameter 'leaveRaw'
+	parameter 'raw' (which defaults to FALSE) is set to TRUE
+	* R/digest.R: Support new parameter 'raw'
+	* man/digest.Rd: Document new parameter 'raw'
 
 2011-05-29  Dirk Eddelbuettel  <edd@debian.org>
 

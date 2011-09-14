@@ -3,7 +3,7 @@
 
  digest <- function(object, algo=c("md5", "sha1", "crc32", "sha256"),
                     serialize=TRUE, file=FALSE, length=Inf,
-                    skip="auto", ascii=FALSE, leaveRaw=FALSE) {
+                    skip="auto", ascii=FALSE, raw=FALSE) {
    algo <- match.arg(algo)
    if (is.infinite(length)) {
      length <- -1               # internally we use -1 for infinite len
@@ -64,7 +64,7 @@
                 as.integer(algoint),
                 as.integer(length),
                 as.integer(skip),
-                as.integer(leaveRaw),
+                as.integer(raw),
                 PACKAGE="digest")
    return(val)
 }
