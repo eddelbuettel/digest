@@ -1,7 +1,8 @@
 
-R version 2.9.2 (2009-08-24)
-Copyright (C) 2009 The R Foundation for Statistical Computing
+R version 2.13.1 (2011-07-08)
+Copyright (C) 2011 The R Foundation for Statistical Computing
 ISBN 3-900051-07-0
+Platform: x86_64-pc-linux-gnu (64-bit)
 
 R is free software and comes with ABSOLUTELY NO WARRANTY.
 You are welcome to redistribute it under certain conditions.
@@ -53,6 +54,21 @@ c3fcd3d76192e4007dfb496cca67e13b
 d174ab98d277d9f5a5611c2c9f419d9f 
 57edf4a22be3c955ac49da2e2107b67a 
 > 
+> # md5 raw output test
+> for (i in seq(along=md5Input)) {
++   md5 <- digest(md5Input[i], serialize=FALSE, raw=TRUE)
++   md5 <- gsub(" ","",capture.output(cat(md5)))
++   stopifnot(identical(md5, md5Output[i]))
++   cat(md5, "\n")
++ }
+d41d8cd98f00b204e9800998ecf8427e 
+0cc175b9c0f1b6a831c399e269772661 
+900150983cd24fb0d6963f7d28e17f72 
+f96b697d7cb7938d525a2f31aaf161d0 
+c3fcd3d76192e4007dfb496cca67e13b 
+d174ab98d277d9f5a5611c2c9f419d9f 
+57edf4a22be3c955ac49da2e2107b67a 
+> 
 > sha1Input <-
 +   c("abc",
 +     "abcdbcdecdefdefgefghfghighijhijkijkljklmklmnlmnomnopnopq",
@@ -64,6 +80,16 @@ d174ab98d277d9f5a5611c2c9f419d9f
 > 
 > for (i in seq(along=sha1Input)) {
 +   sha1 <- digest(sha1Input[i], algo="sha1", serialize=FALSE)
++   stopifnot(identical(sha1, sha1Output[i]))
++   cat(sha1, "\n")
++ }
+a9993e364706816aba3e25717850c26c9cd0d89d 
+84983e441c3bd26ebaae4aa1f95129e5e54670f1 
+> 
+> # sha1 raw output test
+> for (i in seq(along=sha1Input)) {
++   sha1 <- digest(sha1Input[i], algo="sha1", serialize=FALSE, raw=TRUE)
++   sha1 <- gsub(" ","",capture.output(cat(sha1)))
 +   stopifnot(identical(sha1, sha1Output[i]))
 +   cat(sha1, "\n")
 + }
@@ -95,7 +121,7 @@ a9993e364706816aba3e25717850c26c9cd0d89d
 > cat(digest(list(LETTERS, data.frame(a=letters[1:5],
 +                            b=matrix(1:10,
 +                              ncol=2)))), "\n")
-ccaa682649d37628e6ace54ef56ac8de
+ccaa682649d37628e6ace54ef56ac8de 
 > 
 > # test 'length' parameter and file input
 > fname = file.path(R.home(),"COPYING")

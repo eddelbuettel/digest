@@ -1,3 +1,13 @@
+2011-09-20  Dirk Eddelbuettel  <edd@debian.org>
+
+	* Release 0.5.1
+
+	* tests/digestTest.Rout.save: Updated reference output too
+
+2011-09-18  Bryan Lewis  <blewis@illposed.net>
+
+	* tests/digestTest.R: Added basic raw output md5 and sha1 tests
+
 2011-09-14  Dirk Eddelbuettel  <edd@debian.org>
 
 	* src/digest.c: Applied patch contributed by Bryan Lewis which
