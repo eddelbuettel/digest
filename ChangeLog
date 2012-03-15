@@ -13,7 +13,7 @@
 
 	* tests/digest.Rout.save: Updated to current output; version 0.5.1
 	created the same difference so it is presumably once again somthing
-	that changed in R's serialization
+	that changed in R's serialization. Oh, and R-devel changes it again.
 	
 2011-09-20  Dirk Eddelbuettel  <edd@debian.org>
 

@@ -107,8 +107,8 @@ h2 = digest(fname, algo="md5", file=TRUE)
 stopifnot( identical(h1,h2) )
 
 # Make sure we don't core dump with unreadable files.
-fname <- "__digest__temp__file__"
+fname <- tempfile()
 cat("Hello World, you won't have access to read me", file=fname)
 on.exit(unlink(fname))
 Sys.chmod(fname, mode="0000")
-try(digest(fname, file=TRUE))
+try(digest(fname, file=TRUE), silent=TRUE)

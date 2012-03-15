@@ -156,11 +156,9 @@ f1233fcd
 > stopifnot( identical(h1,h2) )
 > 
 > # Make sure we don't core dump with unreadable files.
-> fname <- "__digest__temp__file__"
+> fname <- tempfile()
 > cat("Hello World, you won't have access to read me", file=fname)
 > on.exit(unlink(fname))
 > Sys.chmod(fname, mode="0000")
-> try(digest(fname, file=TRUE))
-Error in digest(fname, file = TRUE) : 
-  The specified file is not readable: __digest__temp__file__
+> try(digest(fname, file=TRUE), silent=TRUE)
 > 
