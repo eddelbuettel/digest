@@ -1,3 +1,20 @@
+2012-03-14  Dirk Eddelbuettel  <edd@debian.org>
+
+	* Release 0.5.2
+
+	* Applied patch by Murray Stokely:
+	  - R/digest.R: Additional test for file accessibility; segfault can
+	    happen if inaccesible file passed down
+	  - tests/digestTest.R: New test which leads to segfault in unpatched
+   	    package, and passes with these changes
+	  - src/digest.c: Simpler use of error() via format string
+
+	* DESCRIPTION: Fixed one typo in extended description
+
+	* tests/digest.Rout.save: Updated to current output; version 0.5.1
+	created the same difference so it is presumably once again somthing
+	that changed in R's serialization
+	
 2011-09-20  Dirk Eddelbuettel  <edd@debian.org>
 
 	* Release 0.5.1

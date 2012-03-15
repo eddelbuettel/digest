@@ -54,6 +54,9 @@
      if (!isTRUE(!file.info(object)$isdir)) {
        stop("The specified pathname is not a file: ", object)
      }
+     if (file.access(object, 4)) {
+       stop("The specified file is not readable: ", object)
+     }
    }
    ## if skip is auto (or any other text for that matter), we just turn it
    ## into 0 because auto should have been converted into a number earlier
@@ -68,6 +71,3 @@
                 PACKAGE="digest")
    return(val)
 }
-
-
-

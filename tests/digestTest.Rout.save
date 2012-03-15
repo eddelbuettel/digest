@@ -1,6 +1,6 @@
 
-R version 2.13.1 (2011-07-08)
-Copyright (C) 2011 The R Foundation for Statistical Computing
+R version 2.14.2 (2012-02-29)
+Copyright (C) 2012 The R Foundation for Statistical Computing
 ISBN 3-900051-07-0
 Platform: x86_64-pc-linux-gnu (64-bit)
 
@@ -18,7 +18,7 @@ Type 'q()' to quit R.
 
 > 
 > ## tests for digest, taken from the examples in the manual page
->  
+> 
 > stopifnot(require(digest))
 Loading required package: digest
 > 
@@ -73,7 +73,7 @@ d174ab98d277d9f5a5611c2c9f419d9f
 +   c("abc",
 +     "abcdbcdecdefdefgefghfghighijhijkijkljklmklmnlmnomnopnopq",
 +     NULL)
-> sha1Output <- 
+> sha1Output <-
 +   c("a9993e364706816aba3e25717850c26c9cd0d89d",
 +     "84983e441c3bd26ebaae4aa1f95129e5e54670f1",
 +     "34aa973cd4c4daa4f61eeb2bdbad27316534016f")
@@ -100,7 +100,7 @@ a9993e364706816aba3e25717850c26c9cd0d89d
 +   c("abc",
 +     "abcdbcdecdefdefgefghfghighijhijkijkljklmklmnlmnomnopnopq",
 +     NULL)
-> crc32Output <- 
+> crc32Output <-
 +   c("352441c2",
 +     "171a3f5f",
 +     "2ef80172")
@@ -138,15 +138,15 @@ ccaa682649d37628e6ace54ef56ac8de
 +   h2 = digest(fname, algo=alg, serialize=FALSE, file=TRUE)
 +   stopifnot( identical(h1,h2) )
 + }
-06877624ea5c77efe3b7e39b0f909eda6e25a4ec 
- 06877624ea5c77efe3b7e39b0f909eda6e25a4ec 
- 06877624ea5c77efe3b7e39b0f909eda6e25a4ec 
-751419260aa954499f7abaabaa882bbe 
- 751419260aa954499f7abaabaa882bbe 
- 751419260aa954499f7abaabaa882bbe 
-1765105c 
- 1765105c 
- 1765105c 
+6a165a2bc0ebf484edaf11c05c60560e5f3674f0 
+ 6a165a2bc0ebf484edaf11c05c60560e5f3674f0 
+ 6a165a2bc0ebf484edaf11c05c60560e5f3674f0 
+9871178703e0ff013ad372755f298f6b 
+ 9871178703e0ff013ad372755f298f6b 
+ 9871178703e0ff013ad372755f298f6b 
+f1233fcd 
+ f1233fcd 
+ f1233fcd 
 > 
 > # compare md5 algorithm to other tools
 > library(tools)
@@ -154,4 +154,13 @@ ccaa682649d37628e6ace54ef56ac8de
 > h1 = as.character(md5sum(fname))
 > h2 = digest(fname, algo="md5", file=TRUE)
 > stopifnot( identical(h1,h2) )
+> 
+> # Make sure we don't core dump with unreadable files.
+> fname <- "__digest__temp__file__"
+> cat("Hello World, you won't have access to read me", file=fname)
+> on.exit(unlink(fname))
+> Sys.chmod(fname, mode="0000")
+> try(digest(fname, file=TRUE))
+Error in digest(fname, file = TRUE) : 
+  The specified file is not readable: __digest__temp__file__
 > 

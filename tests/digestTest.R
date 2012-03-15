@@ -1,6 +1,6 @@
 
 ## tests for digest, taken from the examples in the manual page
- 
+
 stopifnot(require(digest))
 
 ## Standard RFC 1321 test vectors
@@ -40,7 +40,7 @@ sha1Input <-
   c("abc",
     "abcdbcdecdefdefgefghfghighijhijkijkljklmklmnlmnomnopnopq",
     NULL)
-sha1Output <- 
+sha1Output <-
   c("a9993e364706816aba3e25717850c26c9cd0d89d",
     "84983e441c3bd26ebaae4aa1f95129e5e54670f1",
     "34aa973cd4c4daa4f61eeb2bdbad27316534016f")
@@ -63,7 +63,7 @@ crc32Input <-
   c("abc",
     "abcdbcdecdefdefgefghfghighijhijkijkljklmklmnlmnomnopnopq",
     NULL)
-crc32Output <- 
+crc32Output <-
   c("352441c2",
     "171a3f5f",
     "2ef80172")
@@ -105,3 +105,10 @@ fname = file.path(R.home(),"COPYING")
 h1 = as.character(md5sum(fname))
 h2 = digest(fname, algo="md5", file=TRUE)
 stopifnot( identical(h1,h2) )
+
+# Make sure we don't core dump with unreadable files.
+fname <- "__digest__temp__file__"
+cat("Hello World, you won't have access to read me", file=fname)
+on.exit(unlink(fname))
+Sys.chmod(fname, mode="0000")
+try(digest(fname, file=TRUE))

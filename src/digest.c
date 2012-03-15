@@ -135,7 +135,7 @@ SEXP digest(SEXP Txt, SEXP Algo, SEXP Length, SEXP Skip, SEXP Leave_raw) {
       unsigned char md5sum[16];
 
       if (!(fp = fopen(txt,"rb"))) {
-        error(strcat("Cannot open input file: ", txt));    
+        error("Cannot open input file: %s", txt);
         return(NULL);
       }
       if (skip > 0) fseek(fp, skip, SEEK_SET);
@@ -167,7 +167,7 @@ SEXP digest(SEXP Txt, SEXP Algo, SEXP Length, SEXP Skip, SEXP Leave_raw) {
       unsigned char sha1sum[20];
       
       if (!(fp = fopen(txt,"rb"))) {
-        error(strcat("Cannot open input file: ", txt));    
+        error("Cannot open input file: %s", txt);
         return(NULL);
       }
       if (skip > 0) fseek(fp, skip, SEEK_SET);
@@ -196,7 +196,7 @@ SEXP digest(SEXP Txt, SEXP Algo, SEXP Length, SEXP Skip, SEXP Leave_raw) {
       unsigned long val;
       
       if (!(fp = fopen(txt,"rb"))) {
-        error(strcat("Cannot open input file: ", txt));    
+        error("Cannot open input file: %s", txt);
         return(NULL);
       }
       if (skip > 0) fseek(fp, skip, SEEK_SET);
@@ -224,7 +224,7 @@ SEXP digest(SEXP Txt, SEXP Algo, SEXP Length, SEXP Skip, SEXP Leave_raw) {
       unsigned char sha256sum[32];
       
       if (!(fp = fopen(txt,"rb"))) {
-        error(strcat("Cannot open input file: ", txt));    
+        error("Cannot open input file: %s", txt);
         return(NULL);
       }
       if (skip > 0) fseek(fp, skip, SEEK_SET);
