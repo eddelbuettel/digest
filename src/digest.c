@@ -2,7 +2,7 @@
 
   digest -- hash digest functions for R
 
-  Copyright (C) 2003 - 2011  Dirk Eddelbuettel <edd@debian.org>
+  Copyright (C) 2003 - 2012  Dirk Eddelbuettel <edd@debian.org>
 
   $Id$
 
@@ -50,7 +50,7 @@ SEXP digest(SEXP Txt, SEXP Algo, SEXP Length, SEXP Skip, SEXP Leave_raw) {
   int skip = INTEGER_VALUE(Skip);
   int leaveRaw = INTEGER_VALUE(Leave_raw);
   SEXP result = NULL;
-  char output[128], *outputp = output;    /* 33 for md5, 41 for sha1, 65 for sha256, 128 for sha512 */
+  char output[128+1], *outputp = output;    /* 33 for md5, 41 for sha1, 65 for sha256, 128 for sha512; plus trailing NULL */
   int nChar;
   int output_length = -1;
   if (IS_RAW(Txt)) { /* Txt is either RAW */

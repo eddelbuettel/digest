@@ -1,4 +1,8 @@
-2011-09-18  Hannes Mühleisen  <hannes@cwi.nl>
+2012-11-24  Dirk Eddelbuettel  <edd@debian.org>
+
+	* src/digest.c: Allow for extra null character in output[] vector
+
+2012-12-24  Hannes Mühleisen  <hannes@cwi.nl>
 
 	* src/digest.c: sha-512 integration
 	* src/sha2.h: Header file for Aaron Gifford's SHA2 implementation
