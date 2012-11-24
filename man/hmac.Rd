@@ -8,7 +8,7 @@
   combination with a given secret key.
 }
 \usage{
-hmac(key, object, algo = c("md5", "sha1", "crc32", "sha256", "sha-512"), serialize = FALSE, raw = FALSE, ...)
+hmac(key, object, algo = c("md5", "sha1", "crc32", "sha256", "sha512"), serialize = FALSE, raw = FALSE, ...)
 }
 \arguments{
   \item{key}{An arbitrary character or numeric vector, to use as

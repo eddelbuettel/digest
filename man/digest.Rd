@@ -101,7 +101,7 @@ digest(object, algo=c("md5", "sha1", "crc32", "sha256", "sha512"),
   file-based operationss; Henrik Bengtsson and Simon Urbanek for improved
   serialization patches; Christophe Devine for the hash function
   implementations for sha-1, sha-256 and md5; Jean-loup Gailly and Mark Adler
-  for crc32; Hannes MŸhleisen for the integration of sha-512.} 
+  for crc32; Hannes Muehleisen for the integration of sha-512.} 
 \seealso{\code{\link{serialize}}, \code{\link{md5sum}}}
 
 \examples{

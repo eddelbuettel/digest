@@ -151,6 +151,7 @@ SEXP digest(SEXP Txt, SEXP Algo, SEXP Length, SEXP Skip, SEXP Leave_raw) {
         *outputp++ = sha2_hex_digits[*d & 0x0f];
         d++;
       }
+      *outputp = (char)0;
     }
     break;
   }
@@ -314,6 +315,8 @@ SEXP digest(SEXP Txt, SEXP Algo, SEXP Length, SEXP Skip, SEXP Leave_raw) {
         *outputp++ = sha2_hex_digits[*d & 0x0f];
         d++;
 		  }
+            *outputp = (char)0;
+
 		}
     break;
   }
