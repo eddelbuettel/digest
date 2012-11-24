@@ -14,7 +14,7 @@
   must be a character string for which its digest is returned.
 }
 \usage{
-digest(object, algo=c("md5", "sha1", "crc32", "sha256"), 
+digest(object, algo=c("md5", "sha1", "crc32", "sha256", "sha512"), 
        serialize=TRUE, file=FALSE, length=Inf, skip="auto", ascii=FALSE,
        raw=FALSE)
 }
@@ -67,6 +67,8 @@ digest(object, algo=c("md5", "sha1", "crc32", "sha256"),
   For md5, sha-1 and sha-256, this R implementation relies on standalone
   implementations in C by Christophe Devine. For crc32, code from the
   zlib library by Jean-loup Gailly and Mark Adler is used.
+  
+  For sha-512, a standalone implementation from Aaron Gifford is used.
 
   Please note that this package is not meant to be used for
   cryptographic purposes for which more comprehensive (and widely
@@ -81,6 +83,9 @@ digest(object, algo=c("md5", "sha1", "crc32", "sha256"),
   SHA-1: \url{http://www.itl.nist.gov/fipspubs/fip180-1.htm}.
   SHA-256: \url{http://csrc.nist.gov/publications/fips/fips180-2/fips180-2withchangenotice.pdf}.
   CRC32:  \url{ftp://ftp.rocksoft.com/cliens/rocksoft/papers/crc_v3.txt}. 
+  
+  \url{http://www.aarongifford.com/computers/sha.html} for the 
+  integrated C implementation of sha-512.
 
   \url{http://www.cr0.net:8040/code/crypto} for the underlying
   C functions used here for sha-1 and md5, and further references.
@@ -96,7 +101,7 @@ digest(object, algo=c("md5", "sha1", "crc32", "sha256"),
   file-based operationss; Henrik Bengtsson and Simon Urbanek for improved
   serialization patches; Christophe Devine for the hash function
   implementations for sha-1, sha-256 and md5; Jean-loup Gailly and Mark Adler
-  for crc32.} 
+  for crc32; Hannes MŸhleisen for the integration of sha-512.} 
 \seealso{\code{\link{serialize}}, \code{\link{md5sum}}}
 
 \examples{
@@ -161,6 +166,18 @@ for (i in seq(along=sha256Input)) {
   stopifnot(identical(sha256, sha256Output[i]))
 }
 
+# SHA 512 example
+sha512Input <-
+  c("abc",
+    "abcdbcdecdefdefgefghfghighijhijkijkljklmklmnlmnomnopnopq")
+sha512Output <- 
+  c("ddaf35a193617abacc417349ae20413112e6fa4e89a97ea20a9eeee64b55d39a2192992a274fc1a836ba3c23a3feebbd454d4423643ce80e2a9ac94fa54ca49f",
+    "204a8fc6dda82f0a0ced7beb8e08a41657c16ef468b228a8279be331a703c33596fd15c13b1b07f9aa1d3bea57789ca031ad85c7a71dd70354ec631238ca3445")
+
+for (i in seq(along=sha512Input)) {
+  sha512 <- digest(sha512Input[i], algo="sha512", serialize=FALSE)
+  stopifnot(identical(sha512, sha512Output[i]))
+}
 
 # example of a digest of a standard R list structure
 digest(list(LETTERS, data.frame(a=letters[1:5], b=matrix(1:10,ncol=2))))

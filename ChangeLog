@@ -1,3 +1,14 @@
+2011-09-18  Hannes Mühleisen  <hannes@cwi.nl>
+
+	* src/digest.c: sha-512 integration
+	* src/sha2.h: Header file for Aaron Gifford's SHA2 implementation
+	* src/sha2.c: Aaron Gifford's sha2 implementation
+	* R/digest.R: enabled new sha-512 algorithm parameter
+	* R/hmac.R: enabled new sha-512 algorithm parameter
+	* man/digest.Rd: documented new sha-512 algorithm parameter
+	* man/hmac.Rd: documented new sha-512 algorithm parameter
+	* tests/digestTest.R: Added sha-512 test cases
+
 2012-03-14  Dirk Eddelbuettel  <edd@debian.org>
 
 	* Release 0.5.2

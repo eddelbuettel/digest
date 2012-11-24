@@ -54,10 +54,43 @@ for (i in seq(along=sha1Input)) {
 # sha1 raw output test
 for (i in seq(along=sha1Input)) {
   sha1 <- digest(sha1Input[i], algo="sha1", serialize=FALSE, raw=TRUE)
+  print(sha1)
   sha1 <- gsub(" ","",capture.output(cat(sha1)))
+  print(sha1)
+  print(sha1Output[i])
   stopifnot(identical(sha1, sha1Output[i]))
   cat(sha1, "\n")
 }
+
+
+# sha512 test
+sha512Input <-c(
+		"", 
+		"The quick brown fox jumps over the lazy dog."
+				)
+sha512Output <- c(
+		"cf83e1357eefb8bdf1542850d66d8007d620e4050b5715dc83f4a921d36ce9ce47d0d13c5d85f2b0ff8318d2877eec2f63b931bd47417a81a538327af927da3e",
+		"91ea1245f20d46ae9a037a989f54f1f790f0a47607eeb8a14d12890cea77a1bbc6c7ed9cf205e67b7f2b8fd4c7dfd3a7a8617e45f3c463d481c7e586c39ac1ed")
+
+for (i in seq(along=sha512Input)) {
+	sha512 <- digest(sha512Input[i], algo="sha512", serialize=FALSE)
+	stopifnot(identical(sha512, sha512Output[i]))
+	cat(sha512, "\n")
+}
+
+# sha512 raw output test
+for (i in seq(along=sha512Input)) {
+	sha512 <- digest(sha512Input[i], algo="sha512", serialize=FALSE, raw=TRUE)
+	print(sha512)
+	
+	sha512 <- gsub(" ","",capture.output(cat(sha512)))
+	print(sha512)
+	print(sha512Output[i])
+	stopifnot(identical(sha512, sha512Output[i]))
+	cat(sha512, "\n")
+}
+
+
 
 crc32Input <-
   c("abc",
@@ -86,7 +119,7 @@ cat(digest(list(LETTERS, data.frame(a=letters[1:5],
 # test 'length' parameter and file input
 fname = file.path(R.home(),"COPYING")
 x = readChar(fname, file.info(fname)$size) # read file
-for (alg in c("sha1", "md5", "crc32")) {
+for (alg in c("sha1", "md5", "crc32","sha512")) {
   # partial file
   h1 = digest(x    , length=18000, algo=alg, serialize=FALSE)
   h2 = digest(fname, length=18000, algo=alg, serialize=FALSE, file=TRUE)

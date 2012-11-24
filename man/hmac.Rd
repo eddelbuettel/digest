@@ -8,7 +8,7 @@
   combination with a given secret key.
 }
 \usage{
-hmac(key, object, algo = c("md5", "sha1", "crc32", "sha256"), serialize = FALSE, raw = FALSE, ...)
+hmac(key, object, algo = c("md5", "sha1", "crc32", "sha256", "sha-512"), serialize = FALSE, raw = FALSE, ...)
 }
 \arguments{
   \item{key}{An arbitrary character or numeric vector, to use as
@@ -36,6 +36,9 @@ hmac(key, object, algo = c("md5", "sha1", "crc32", "sha256"), serialize = FALSE,
   SHA-1: \url{http://www.itl.nist.gov/fipspubs/fip180-1.htm}.
   SHA-256: \url{http://csrc.nist.gov/publications/fips/fips180-2/fips180-2withchangenotice.pdf}.
   CRC32:  \url{ftp://ftp.rocksoft.com/cliens/rocksoft/papers/crc_v3.txt}. 
+
+  \url{http://www.aarongifford.com/computers/sha.html} for the 
+  integrated C implementation of sha-512.
 
   \url{http://www.cr0.net:8040/code/crypto} for the underlying
   C functions used here for sha-1 and md5, and further references.

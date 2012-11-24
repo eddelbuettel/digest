@@ -24,7 +24,7 @@ padWithZeros <- function(k) {
   makeRaw(c(k, rep(0, 64 - length(k))))
 }
 
-hmac <- function(key, object, algo=c("md5", "sha1", "crc32", "sha256"), serialize=FALSE, raw=FALSE, ...) {
+hmac <- function(key, object, algo=c("md5", "sha1", "crc32", "sha256", "sha512"), serialize=FALSE, raw=FALSE, ...) {
   padded.key <- padWithZeros(key)
   i.xored.key <- xor(padded.key, makeRaw(0x36))
   character.digest <- digest(c(i.xored.key, makeRaw(object)), algo=algo, serialize=serialize, ...)
