@@ -135,7 +135,7 @@ SEXP digest(SEXP Txt, SEXP Algo, SEXP Length, SEXP Skip, SEXP Leave_raw) {
     int j;
     SHA512_CTX ctx;
     output_length = SHA512_DIGEST_LENGTH;
-    u_int8_t sha512sum[output_length], *d = sha512sum;
+    uint8_t sha512sum[output_length], *d = sha512sum;
 
     SHA512_Init(&ctx);
     SHA512_Update(&ctx, (uint8 *) txt, nChar);
@@ -280,7 +280,7 @@ SEXP digest(SEXP Txt, SEXP Algo, SEXP Length, SEXP Skip, SEXP Leave_raw) {
     int j;
     SHA512_CTX ctx;
     output_length = SHA512_DIGEST_LENGTH;
-    u_int8_t sha512sum[output_length], *d = sha512sum;
+    uint8_t sha512sum[output_length], *d = sha512sum;
 
     unsigned char buf[1024];
 

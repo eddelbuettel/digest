@@ -71,6 +71,18 @@ extern "C" {
  * uintXX_t (from inttypes.h), you may need to define things by hand
  * for your system:
  */
+
+// edd 24 Nov 2012 -- gcc on Windows does not know u_int_{8,32,64}_t
+#define SHA2_USE_INTTYPES_H 1
+#include <stdint.h>
+#ifdef WIN32
+  #ifndef BYTE_ORDER
+    #define LITTLE_ENDIAN 1234
+    #define BIG_ENDIAN    4321
+    #define BYTE_ORDER LITTLE_ENDIAN 
+  #endif
+#endif
+
 #if 0
 typedef unsigned char u_int8_t;		/* 1-byte  (8-bits)  */
 typedef unsigned int u_int32_t;		/* 4-bytes (32-bits) */

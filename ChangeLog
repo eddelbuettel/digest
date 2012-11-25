@@ -1,8 +1,23 @@
+2012-11-25  Dirk Eddelbuettel  <edd@debian.org>
+
+	* Release 0.6.0
+
+	* src/sha2.h: In order to build on Windows:
+	  - Include the newer header file stdint.h
+	  - Enforce standard integer types by defining SHA2_USE_INTTYPES_H
+	  - Define BYTE_ORDER and default to LITTLE_ENDIAN
+
+	* src/digest.c: Use uint8_t from stdint.h for sha256
+
 2012-11-24  Dirk Eddelbuettel  <edd@debian.org>
 
 	* src/digest.c: Allow for extra null character in output[] vector
 
-2012-12-24  Hannes Mühleisen  <hannes@cwi.nl>
+	* tests/digestTest.Rout.save: Update/Revert a change by Hannes;
+	Naturally we do not get a single set that works for R-release and
+	R-devel. Sigh.
+
+2012-11-24  Hannes Mühleisen  <hannes@cwi.nl>
 
 	* src/digest.c: sha-512 integration
 	* src/sha2.h: Header file for Aaron Gifford's SHA2 implementation
@@ -27,9 +42,9 @@
 	* DESCRIPTION: Fixed one typo in extended description
 
 	* tests/digest.Rout.save: Updated to current output; version 0.5.1
-	created the same difference so it is presumably once again somthing
+	created the same difference so it is presumably once again something
 	that changed in R's serialization. Oh, and R-devel changes it again.
-	
+
 2011-09-20  Dirk Eddelbuettel  <edd@debian.org>
 
 	* Release 0.5.1
@@ -190,7 +205,7 @@
 	* Release 0.1.0
 	- DESCRIPTION: added extended Description
 	- inst/ChangeLog: added
-	- man/digest.Rd: added complete test vectors for md5 and sha-1 
+	- man/digest.Rd: added complete test vectors for md5 and sha-1
 	  in example code, values taken from the examples of the C code
 
 2003-10-23  Dirk Eddelbuettel  <edd@debian.org>

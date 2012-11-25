@@ -1,9 +1,9 @@
 Package: digest
-Version: 0.5.2.1
+Version: 0.6.0
 Date: $Date$
 Author: Dirk Eddelbuettel <edd@debian.org> with contributions 
  by Antoine Lucas, Jarek Tuszynski, Henrik Bengtsson, Simon Urbanek,
- Mario Frasca, Bryan Lewis and Murray Stokely.
+ Mario Frasca, Bryan Lewis, Murray Stokely and Hannes Muehleisen.
 Maintainer: Dirk Eddelbuettel <edd@debian.org>
 Title: Create cryptographic hash digests of R objects
 Description: The digest package provides a function 'digest()' for the 
@@ -16,9 +16,11 @@ Description: The digest package provides a function 'digest()' for the
  and SHA-256 algorithms are specified in FIPS-180-1 and FIPS-180-2, 
  and the crc32 algorithm is described in 
  ftp://ftp.rocksoft.com/cliens/rocksoft/papers/crc_v3.txt.
- For md5, sha-1 and sha-256, this package uses a small standalone 
- implementations that were provided by Christophe Devine. For
- crc32, code from the zlib library is used.
+ .
+ For md5, sha-1 and sha-256, this package uses a small standalone
+ implementations that were provided by Christophe Devine. For crc32, code
+ from the zlib library is used. For sha-512, an implementation by Aaron
+ D. Gifford is used.
  .
  Please note that this package is not meant to be deployed for 
  cryptographic purposes for which more comprehensive (and widely 
