@@ -1,8 +1,8 @@
 
-R version 2.15.1 (2012-06-22) -- "Roasted Marshmallows"
+R version 2.15.2 (2012-10-26) -- "Trick or Treat"
 Copyright (C) 2012 The R Foundation for Statistical Computing
 ISBN 3-900051-07-0
-Platform: x86_64-apple-darwin12.2.1/x86_64 (64-bit)
+Platform: x86_64-pc-linux-gnu (64-bit)
 
 R is free software and comes with ABSOLUTELY NO WARRANTY.
 You are welcome to redistribute it under certain conditions.
@@ -20,6 +20,7 @@ Type 'q()' to quit R.
 > ## tests for digest, taken from the examples in the manual page
 > 
 > stopifnot(require(digest))
+Loading required package: digest
 > 
 > ## Standard RFC 1321 test vectors
 > md5Input <-
@@ -190,18 +191,18 @@ cf83e1357eefb8bdf1542850d66d8007d620e4050b5715dc83f4a921d36ce9ce47d0d13c5d85f2b0
 +   h2 = digest(fname, algo=alg, serialize=FALSE, file=TRUE)
 +   stopifnot( identical(h1,h2) )
 + }
-f1f043081ac88465d94e5635a19653007a5e49c1 
- f1f043081ac88465d94e5635a19653007a5e49c1 
- f1f043081ac88465d94e5635a19653007a5e49c1 
-90906509bb204c4047b007d0f8029a3b 
- 90906509bb204c4047b007d0f8029a3b 
- 90906509bb204c4047b007d0f8029a3b 
-ce0fbd20 
- ce0fbd20 
- ce0fbd20 
-d1b8fd2486a0e8d8c0bffd9641810526c4956089cae71976acaf16fd241f9485c8ad39883e78c1f6398221bbc23a1fdaa6d685ea6f9bbd2abf0db5041e67c7da 
- d1b8fd2486a0e8d8c0bffd9641810526c4956089cae71976acaf16fd241f9485c8ad39883e78c1f6398221bbc23a1fdaa6d685ea6f9bbd2abf0db5041e67c7da 
- d1b8fd2486a0e8d8c0bffd9641810526c4956089cae71976acaf16fd241f9485c8ad39883e78c1f6398221bbc23a1fdaa6d685ea6f9bbd2abf0db5041e67c7da 
+6a165a2bc0ebf484edaf11c05c60560e5f3674f0 
+ 6a165a2bc0ebf484edaf11c05c60560e5f3674f0 
+ 6a165a2bc0ebf484edaf11c05c60560e5f3674f0 
+9871178703e0ff013ad372755f298f6b 
+ 9871178703e0ff013ad372755f298f6b 
+ 9871178703e0ff013ad372755f298f6b 
+f1233fcd 
+ f1233fcd 
+ f1233fcd 
+691e7eda9e1c1a197a7e6628533c6cdfb9c022a5cf2ad6c0561f9007d8d5637996f04e7d24829bc0820380270bf1ca5a352f64d0001ef198355bedf355d01152 
+ 691e7eda9e1c1a197a7e6628533c6cdfb9c022a5cf2ad6c0561f9007d8d5637996f04e7d24829bc0820380270bf1ca5a352f64d0001ef198355bedf355d01152 
+ 691e7eda9e1c1a197a7e6628533c6cdfb9c022a5cf2ad6c0561f9007d8d5637996f04e7d24829bc0820380270bf1ca5a352f64d0001ef198355bedf355d01152 
 > 
 > # compare md5 algorithm to other tools
 > library(tools)
@@ -217,3 +218,6 @@ d1b8fd2486a0e8d8c0bffd9641810526c4956089cae71976acaf16fd241f9485c8ad39883e78c1f6
 > Sys.chmod(fname, mode="0000")
 > try(digest(fname, file=TRUE), silent=TRUE)
 > 
+> proc.time()
+   user  system elapsed 
+  0.336   0.044   0.213 
