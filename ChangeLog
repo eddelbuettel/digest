@@ -1,3 +1,9 @@
+2013-01-19  Dirk Eddelbuettel  <edd@debian.org>
+
+	* DESCRIPTION (Version): Version 0.6.0.1 to separate Duncan's
+	contribution
+	* DESCRIPTION (Authors): Added Duncan Murdoch
+
 2013-01-19  Duncan Murdoch <murdoch.duncan@gmail.com>
 
 	* src/aes.c: Devine's AES implementation added
