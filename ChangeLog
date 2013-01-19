@@ -1,3 +1,13 @@
+2013-01-19  Duncan Murdoch <murdoch.duncan@gmail.com>
+
+	* src/aes.c: Devine's AES implementation added
+	* src/aes.h: header for AES implementation
+	* src/raes.c: interface to it
+	* R/AES.R: Add AES object to do AES encryption
+	* tests/AESTest.R: tests from the standards documents
+	* man/AES.Rd: document AES object
+	* NAMESPACE: export AES constructor and print method
+
 2012-11-25  Dirk Eddelbuettel  <edd@debian.org>
 
 	* Release 0.6.0
