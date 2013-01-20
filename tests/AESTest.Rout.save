@@ -95,7 +95,21 @@ Loading required package: digest
 > aes <- AES(key, mode="CBC", IV=iv)
 > stopifnot(identical(plaintext, aes$decrypt(cbc128, raw=TRUE)))
 >                                  
+> ctr128output <- hextextToRaw(paste0("874d6191b620e3261bef6864990db6ce",
++                                     "9806f66b7970fdff8617187bb9fffdff",
++                                     "5ae4df3edbd5d35e5b4f09020db03eab",
++                                     "1e031dda2fbe03d1792170a0f3009cee"))
+> iv <- hextextToRaw("f0f1f2f3f4f5f6f7f8f9fafbfcfdfeff")
+> aes <- AES(key, mode="CTR", IV=iv)
+> ctr128 <- aes$encrypt(plaintext)
+> ctr128
+ [1] 87 4d 61 91 b6 20 e3 26 1b ef 68 64 99 0d b6 ce 98 06 f6 6b 79 70 fd ff 86
+[26] 17 18 7b b9 ff fd ff 5a e4 df 3e db d5 d3 5e 5b 4f 09 02 0d b0 3e ab 1e 03
+[51] 1d da 2f be 03 d1 79 21 70 a0 f3 00 9c ee
+> stopifnot(identical(ctr128, ctr128output))
+> aes <- AES(key, mode="CTR", IV=iv)
+> stopifnot(identical(plaintext, aes$decrypt(ctr128, raw=TRUE)))
 > 
 > proc.time()
    user  system elapsed 
-   0.78    1.06    1.82 
+   0.75    1.07    1.81 

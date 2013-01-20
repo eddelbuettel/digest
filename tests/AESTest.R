@@ -67,3 +67,14 @@ stopifnot(identical(cbc128, cbc128output))
 aes <- AES(key, mode="CBC", IV=iv)
 stopifnot(identical(plaintext, aes$decrypt(cbc128, raw=TRUE)))
                                  
+ctr128output <- hextextToRaw(paste0("874d6191b620e3261bef6864990db6ce",
+                                    "9806f66b7970fdff8617187bb9fffdff",
+                                    "5ae4df3edbd5d35e5b4f09020db03eab",
+                                    "1e031dda2fbe03d1792170a0f3009cee"))
+iv <- hextextToRaw("f0f1f2f3f4f5f6f7f8f9fafbfcfdfeff")
+aes <- AES(key, mode="CTR", IV=iv)
+ctr128 <- aes$encrypt(plaintext)
+ctr128
+stopifnot(identical(ctr128, ctr128output))
+aes <- AES(key, mode="CTR", IV=iv)
+stopifnot(identical(plaintext, aes$decrypt(ctr128, raw=TRUE)))

@@ -4,10 +4,10 @@
 
 modes <- c("ECB", "CBC", "CFB", "PGP", "OFB", "CTR", "OPENPGP")
 
-AES <- function(key, mode=c("ECB", "CBC"), IV=NULL) {
+AES <- function(key, mode=c("ECB", "CBC", "CTR"), IV=NULL) {
   mode <- match(match.arg(mode), modes)
-  if (!(mode %in% 1:2))
-    stop("Only ECB and CBC mode encryption are supported.")
+  if (!(mode %in% c(1:2, 6)))
+    stop("Only ECB, CBC and CTR mode encryption are supported.")
 
   key <- as.raw(key)
   IV <- as.raw(IV)
@@ -33,7 +33,24 @@ AES <- function(key, mode=c("ECB", "CBC"), IV=NULL) {
         result[ind] <- IV
       }
       result
-    }  
+    } else if (mode == 6) {
+      len <- length(text)
+      blocks <- (len + 15) %/% 16
+      result <- raw(16*blocks)
+      zero <- as.raw(0)
+      for (i in 1:blocks) {
+      	 result[16*(i-1)+1:16] <- IV
+      	 byte <- 16
+      	 repeat {
+      	   IV[byte] <<- as.raw((as.integer(IV[byte]) + 1) %% 256)
+      	   if (IV[byte] != zero || byte == 1) break
+      	   byte <- byte - 1
+      	 }
+      }
+      result <- .Call("AESencryptECB", context, result)
+      length(result) <- len
+      xor(text, result) 
+    }
   }
   
   decrypt <- function(ciphertext, raw = FALSE) {
@@ -50,7 +67,9 @@ AES <- function(key, mode=c("ECB", "CBC"), IV=NULL) {
         result[ind] <- xor(res, IV)
         IV <<- ciphertext[ind]
       }
-    }
+    } else if (mode == 6) 
+      result <- encrypt(ciphertext)
+      
     if (!raw)
       result <- rawToChar(result)
     result

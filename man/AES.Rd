@@ -9,7 +9,7 @@ This creates an object that can perform the Advanced Encryption
 Standard (AES) block cipher.
 }
 \usage{
-AES(key, mode=c("ECB", "CBC"), IV=NULL)
+AES(key, mode=c("ECB", "CBC", "CTR"), IV=NULL)
 }
 \arguments{
   \item{key}{  
@@ -18,11 +18,11 @@ AES-256 respectively.
 }
   \item{mode}{   
 The encryption mode to use.  Currently only \dQuote{electronic
-codebook} (ECB) and \dQuote{cipher-block chaining} (CBC) are
-supported.
+codebook} (ECB), \dQuote{cipher-block chaining} (CBC) and
+\dQuote{counter} (CTR) modes are supported.
 }
   \item{IV}{
-The initial vector for CBC mode.
+The initial vector for CBC mode or initial counter for CTR mode.
 }
 }
 \value{
@@ -36,17 +36,23 @@ the ciphertext as a raw vector.}
 \item{decrypt(ciphertext, raw = FALSE)}{A function to decrypt the
 ciphertext. In ECB mode, the same AES
 object can be used for both encryption and decryption, but in
-CBC mode a new object needs to be
+CBC and CTR modes a new object needs to be
 created, using the same initial \code{key} and \code{IV} values.}
 
 \item{IV()}{Report on the current state of the initialization vector.
-As blocks are encrypted or decrypted in CBC mode, the initialization
+As blocks are encrypted or decrypted in CBC or CTR mode, the initialization
 vector is updated, so both operations can be performed sequentially on
 subsets of the text or ciphertext.}
 
 \item{block_size(), key_size(), mode()}{Report on these aspects of
 the AES object.}
 
+}
+\details{
+The standard NIST definition of CTR mode doesn't define how the counter
+is updated, it just requires that it be updated with each block 
+and not repeat itself for a long time.  This implementation treats it as a 
+128 bit integer and adds 1 with each successive block.  
 }
 \author{
 The R interface was written by Duncan Murdoch. The design is loosely
@@ -140,5 +146,16 @@ cbc128 <- aes$encrypt(plaintext)
 stopifnot(identical(cbc128, cbc128output))
 aes <- AES(key, mode="CBC", IV=iv)
 stopifnot(identical(plaintext, aes$decrypt(cbc128, raw=TRUE)))
-                                 
+ 
+ctr128output <- hextextToRaw(paste0("874d6191b620e3261bef6864990db6ce",
+                                    "9806f66b7970fdff8617187bb9fffdff",
+                                    "5ae4df3edbd5d35e5b4f09020db03eab",
+                                    "1e031dda2fbe03d1792170a0f3009cee"))
+iv <- hextextToRaw("f0f1f2f3f4f5f6f7f8f9fafbfcfdfeff")
+aes <- AES(key, mode="CTR", IV=iv)
+ctr128 <- aes$encrypt(plaintext)
+stopifnot(identical(ctr128, ctr128output))
+aes <- AES(key, mode="CTR", IV=iv)
+stopifnot(identical(plaintext, aes$decrypt(ctr128, raw=TRUE)))
+
 }
