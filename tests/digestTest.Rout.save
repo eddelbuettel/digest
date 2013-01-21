@@ -218,8 +218,8 @@ f1233fcd
 > cat("Hello World, you won't have access to read me", file=fname)
 > on.exit(unlink(fname))
 > Sys.chmod(fname, mode="0000")
-> try(digest(fname, file=TRUE), silent=TRUE)
+> try(res <- digest(fname, file=TRUE), silent=TRUE)
 > 
 > proc.time()
    user  system elapsed 
-  0.348   0.028   0.218 
+  0.344   0.032   0.216 

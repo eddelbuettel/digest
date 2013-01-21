@@ -1,11 +1,13 @@
 2013-01-21  Dirk Eddelbuettel  <edd@debian.org>
 
+	* DESCRIPTION (Version): Version 0.6.1
+
 	* inst/GPL-2: Added as a fixed reference input for regression tests
 	via the scripts in tests/ as the versions installed by R differ
 	across OS and installations
 
 	* tests/digestTest.R: No longer rely on file.path(R.home(),"COPYING")
-	but rather use our own copy of GPL-2
+	but rather use our own copy of GPL-2; ensure final test does not print
 	* tests/digestTest.Rout.save: Updated accordingly
 
 2013-01-19  Dirk Eddelbuettel  <edd@debian.org>
