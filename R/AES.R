@@ -1,6 +1,6 @@
-# This is loosely modelled on the AES code from the Python Crypto package. 
+# This is loosely modelled on the AES code from the Python Crypto package.
 
-# Currently only ECB and CBC modes are supported...
+# Currently only ECB, CBC and CTR modes are supported...
 
 modes <- c("ECB", "CBC", "CFB", "PGP", "OFB", "CTR", "OPENPGP")
 
@@ -11,12 +11,12 @@ AES <- function(key, mode=c("ECB", "CBC", "CTR"), IV=NULL) {
 
   key <- as.raw(key)
   IV <- as.raw(IV)
-  
+
   context <- .Call("AESinit", key)
   block_size <- 16
   key_size <- length(key)
   rm(key)
-  
+
   encrypt <- function(text) {
     if (typeof(text) == "character")
       text <- charToRaw(text)
@@ -49,12 +49,12 @@ AES <- function(key, mode=c("ECB", "CBC", "CTR"), IV=NULL) {
       }
       result <- .Call("AESencryptECB", context, result)
       length(result) <- len
-      xor(text, result) 
+      xor(text, result)
     }
   }
-  
+
   decrypt <- function(ciphertext, raw = FALSE) {
-    if (mode == 1) 
+    if (mode == 1)
       result <- .Call("AESdecryptECB", context, ciphertext)
     else if (mode == 2) {
       len <- length(ciphertext)
@@ -67,23 +67,23 @@ AES <- function(key, mode=c("ECB", "CBC", "CTR"), IV=NULL) {
         result[ind] <- xor(res, IV)
         IV <<- ciphertext[ind]
       }
-    } else if (mode == 6) 
+    } else if (mode == 6)
       result <- encrypt(ciphertext)
-      
+
     if (!raw)
       result <- rawToChar(result)
     result
   }
-  
-  structure(list(encrypt=encrypt, 
-   	decrypt=decrypt, 
+
+  structure(list(encrypt=encrypt,
+   	decrypt=decrypt,
    	block_size=function() block_size,
-        IV=function() IV, 
-        key_size=function() key_size, 
+        IV=function() IV,
+        key_size=function() key_size,
         mode=function() modes[mode]),
     class = "AES")
 }
-  
-print.AES <- function(x, ...) 
+
+print.AES <- function(x, ...)
   cat("AES cipher object; mode", x$mode(), "key size", x$key_size(), "\n")
-  
+
