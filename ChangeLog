@@ -1,3 +1,11 @@
+2013-01-25  Dirk Eddelbuettel  <edd@debian.org>
+
+	* DESCRIPTION (Version): Version 0.6.2
+
+	* tests/AESTest.R: Switch from paste0() to paste() to permit use on
+	R-oldrelease as per email by Uwe Ligges
+	* tests/AESTest.Rout.save: Updated accordingly
+
 2013-01-21  Dirk Eddelbuettel  <edd@debian.org>
 
 	* DESCRIPTION (Version): Version 0.6.1
