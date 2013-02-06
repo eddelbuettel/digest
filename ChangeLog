@@ -1,3 +1,10 @@
+2013-02-06  Hannes Mühleisen  <hannes@cwi.nl>
+
+	* R/hmac.R: Fixed hmac for sha512 hashes
+	* tests/hmacTest.R: Added test cases for hmac with sha512
+	* tests/hmacTest.Rout.save: Updated Accordingly
+	
+
 2013-01-25  Dirk Eddelbuettel  <edd@debian.org>
 
 	* DESCRIPTION (Version): Version 0.6.2
