@@ -39,6 +39,7 @@
 extern "C" {
 #endif
 
+#include <Rconfig.h>   /* configuration settings learned when R was compiled */
 
 /*
  * Import u_intXX_t size_t type definitions from system headers.  You
@@ -81,6 +82,18 @@ extern "C" {
     #define BIG_ENDIAN    4321
     #define BYTE_ORDER LITTLE_ENDIAN 
   #endif
+#endif
+
+// edd 02 Dec 2013  use Rconfig.h to define BYTE_ORDER, unless already defined
+#ifndef BYTE_ORDER
+    // see sha2.c comments, and on the internet at large
+    #define LITTLE_ENDIAN 1234
+    #define BIG_ENDIAN    4321
+#ifdef WORDS_BIGENDIAN
+    #define BYTE_ORDER  BIG_ENDIAN
+#else
+    #define BYTE_ORDER  LITTLE_ENDIAN
+#endif
 #endif
 
 #if 0

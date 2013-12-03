@@ -1,3 +1,10 @@
+2013-12-02  Dirk Eddelbuettel  <edd@debian.org>
+
+	* DESCRIPTION (Version): Version 0.6.4
+
+	* src/sha2.h (BYTE_ORDER): Define BYTE_ORDER unless already defined,
+	rely on Rconfig.h which itself goes back to an R compile-time test
+
 2013-02-16  Dirk Eddelbuettel  <edd@debian.org>
 
 	* DESCRIPTION (Version): Version 0.6.3
