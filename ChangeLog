@@ -1,3 +1,8 @@
+2014-08-15  Dirk Eddelbuettel  <edd@debian.org>
+
+	* R/hmac.R: Applied (slightly edited) patch for crc32 computation of
+	hmac kindly supplied by Suchen Jin
+
 2013-12-02  Dirk Eddelbuettel  <edd@debian.org>
 
 	* DESCRIPTION (Version): Version 0.6.4

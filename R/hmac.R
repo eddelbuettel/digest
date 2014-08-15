@@ -22,16 +22,22 @@ makeRaw.default <- function(object) as.raw(object)
 #
 # md5		64
 # sha1		64
-# crc32	 	??
+# crc32	 	4
 # sha256 	64
 # sha512	128 (doh!)
 
 padWithZeros <- function(k,algo) {
   blocksize <- 64 
+  if (algo == "crc32") blocksize <- 4
   if (algo == "sha512") blocksize <- 128
   k <- makeRaw(k)
-  if(length(k) > blocksize) # not while() 
+  if(length(k) > blocksize) {# not while() 
     k <-digest(k, algo=algo, serialize=FALSE,raw=TRUE)
+    if (algo == "crc32") {
+      k <- substring(k, seq(1,7,2), seq(2,8,2))
+      k <- makeRaw(strtoi(k,16))
+    }
+  }
   makeRaw(c(k, rep(0, blocksize - length(k))))
 }
 
