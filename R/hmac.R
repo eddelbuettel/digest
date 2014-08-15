@@ -17,7 +17,6 @@ makeRaw.digest <- function(x) {
 
 makeRaw.default <- function(object) as.raw(object)
 
-makeRaw.double <- function(object) as.raw(object)
 # key shall be padded if its length is smaller than the block size of the 
 # respective algorithm, hashed if longer. block sizes are as follows:
 #
