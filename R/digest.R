@@ -1,7 +1,7 @@
 
 # $Id$
 
- digest <- function(object, algo=c("md5", "sha1", "crc32", "sha256", "sha512"),
+ digest <- function(object, algo=c("md5", "sha1", "crc32", "sha256", "sha512", "xxHash"),
                     serialize=TRUE, file=FALSE, length=Inf,
                     skip="auto", ascii=FALSE, raw=FALSE) {
    algo <- match.arg(algo)
@@ -45,7 +45,8 @@
                      sha1=2,
                      crc32=3,
                      sha256=4,
-					 sha512=5)
+                     sha512=5,
+                     xxHash=6)
    if (file) {
      algoint <- algoint+100
      object <- path.expand(object)
