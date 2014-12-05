@@ -116,11 +116,27 @@ cat(digest(list(LETTERS, data.frame(a=letters[1:5],
                                     b=matrix(1:10,
                                     ncol=2)))), "\n")
 
+## these outputs were calculated using xxh64sum
+xxhashInput <-
+    c("abc",
+      "abcdbcdecdefdefgefghfghighijhijkijkljklmklmnlmnomnopnopq",
+      "")
+xxhashOutput <-
+    c("44bc2cf5ad770999",
+      "f06103773e8585df",
+      "ef46db3751d8e999")
+
+for (i in seq(along=xxhashInput)) {
+    xxhash <- digest(xxhashInput[i], algo="xxhash", serialize=FALSE)
+    stopifnot(identical(xxhash, xxhashOutput[i]))
+    cat(xxhash, "\n")
+}
+
 ## test 'length' parameter and file input
 ##fname <- file.path(R.home(),"COPYING")  ## not invariant across OSs
 fname <- system.file("GPL-2", package="digest")
 x <- readChar(fname, file.info(fname)$size) # read file
-for (alg in c("sha1", "md5", "crc32","sha512")) {
+for (alg in c("sha1", "md5", "crc32","sha512", "xxhash")) {
                                         # partial file
     h1 <- digest(x    , length=18000, algo=alg, serialize=FALSE)
     h2 <- digest(fname, length=18000, algo=alg, serialize=FALSE, file=TRUE)
