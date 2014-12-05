@@ -2,9 +2,7 @@
 
   digest -- hash digest functions for R
 
-  Copyright (C) 2003 - 2012  Dirk Eddelbuettel <edd@debian.org>
-
-  $Id$
+  Copyright (C) 2003 - 2014  Dirk Eddelbuettel <edd@debian.org>
 
   This file is part of the digest packages for GNU R.
   It is made available under the terms of the GNU General Public
