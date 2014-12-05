@@ -1,4 +1,4 @@
-/* -*- mode: c; tab-width: 2; indent-tabs-mode: nil; c-basic-offset: 2 -*- 
+/* -*- mode: c; tab-width: 2; indent-tabs-mode: nil; c-basic-offset: 2 -*-
 
   digest -- hash digest functions for R
 
@@ -31,9 +31,10 @@
 #include <Rinternals.h>
 #include "sha1.h"
 #include "sha2.h"
-#include "sha256.h"   
+#include "sha256.h"
 #include "md5.h"
 #include "zlib.h"
+#include "xxhash.h"
 
 unsigned long ZEXPORT digest_crc32(unsigned long crc,
                                    const unsigned char FAR *buf,
@@ -68,7 +69,7 @@ SEXP digest(SEXP Txt, SEXP Algo, SEXP Length, SEXP Skip, SEXP Leave_raw) {
     }
   }
   if (length>=0 && length<nChar) nChar = length;
-  
+
   switch (algo) {
   case 1: {     /* md5 case */
     md5_context ctx;
@@ -81,9 +82,9 @@ SEXP digest(SEXP Txt, SEXP Algo, SEXP Length, SEXP Skip, SEXP Leave_raw) {
     memcpy(output, md5sum, 16);
 
     if (!leaveRaw)
-      for(j = 0; j < 16; j++) 
+      for(j = 0; j < 16; j++)
         sprintf(output + j * 2, "%02x", md5sum[j]);
-        
+
     break;
   }
   case 2: {     /* sha1 case */
@@ -98,7 +99,7 @@ SEXP digest(SEXP Txt, SEXP Algo, SEXP Length, SEXP Skip, SEXP Leave_raw) {
     memcpy(output, sha1sum, 20);
 
     if (!leaveRaw)
-      for( j = 0; j < 20; j++ ) 
+      for( j = 0; j < 20; j++ )
         sprintf( output + j * 2, "%02x", sha1sum[j] );
 
     break;
@@ -109,7 +110,7 @@ SEXP digest(SEXP Txt, SEXP Algo, SEXP Length, SEXP Skip, SEXP Leave_raw) {
 
     val  = digest_crc32(0L, 0, 0);
     val  = digest_crc32(val, (unsigned char*) txt, (unsigned) l);
-      
+
     sprintf(output, "%2.2x", (unsigned int) val);
 
     break;
@@ -126,7 +127,7 @@ SEXP digest(SEXP Txt, SEXP Algo, SEXP Length, SEXP Skip, SEXP Leave_raw) {
     memcpy(output, sha256sum, 32);
 
     if(!leaveRaw)
-      for( j = 0; j < 32; j++ ) 
+      for( j = 0; j < 32; j++ )
         sprintf( output + j * 2, "%02x", sha256sum[j] );
 
     break;
@@ -155,6 +156,14 @@ SEXP digest(SEXP Txt, SEXP Algo, SEXP Length, SEXP Skip, SEXP Leave_raw) {
     }
     break;
   }
+  case 6: {     /* xxHash case */
+    XXH64_state_t state;
+    XXH64_reset(&state, 0);
+    XXH64_update(&state, (uint8 *) txt, nChar);
+    unsigned long long val =  XXH64_digest(&state);
+    sprintf(output, "%llx", val);
+    break;
+  }
   case 101: {     /* md5 file case */
     int j;
     md5_context ctx;
@@ -168,22 +177,22 @@ SEXP digest(SEXP Txt, SEXP Algo, SEXP Length, SEXP Skip, SEXP Leave_raw) {
     }
     if (skip > 0) fseek(fp, skip, SEEK_SET);
     md5_starts( &ctx );
-    if (length>=0) {  
-      while( ( nChar = fread( buf, 1, sizeof( buf ), fp ) ) > 0 
+    if (length>=0) {
+      while( ( nChar = fread( buf, 1, sizeof( buf ), fp ) ) > 0
              && length>0) {
         if (nChar>length) nChar=length;
         md5_update( &ctx, buf, nChar );
         length -= nChar;
       }
     } else {
-      while( ( nChar = fread( buf, 1, sizeof( buf ), fp ) ) > 0) 
+      while( ( nChar = fread( buf, 1, sizeof( buf ), fp ) ) > 0)
         md5_update( &ctx, buf, nChar );
     }
     fclose(fp);
     md5_finish( &ctx, md5sum );
     memcpy(output, md5sum, 16);
     if (!leaveRaw)
-      for(j = 0; j < 16; j++) 
+      for(j = 0; j < 16; j++)
         sprintf(output + j * 2, "%02x", md5sum[j]);
     break;
   }
@@ -193,54 +202,54 @@ SEXP digest(SEXP Txt, SEXP Algo, SEXP Length, SEXP Skip, SEXP Leave_raw) {
     output_length = 20;
     unsigned char buf[1024];
     unsigned char sha1sum[20];
-      
+
     if (!(fp = fopen(txt,"rb"))) {
       error("Cannot open input file: %s", txt);
       return(NULL);
     }
     if (skip > 0) fseek(fp, skip, SEEK_SET);
     sha1_starts ( &ctx );
-    if (length>=0) {  
-      while( ( nChar = fread( buf, 1, sizeof( buf ), fp ) ) > 0 
+    if (length>=0) {
+      while( ( nChar = fread( buf, 1, sizeof( buf ), fp ) ) > 0
              && length>0) {
         if (nChar>length) nChar=length;
         sha1_update( &ctx, buf, nChar );
         length -= nChar;
       }
     } else {
-      while( ( nChar = fread( buf, 1, sizeof( buf ), fp ) ) > 0) 
+      while( ( nChar = fread( buf, 1, sizeof( buf ), fp ) ) > 0)
         sha1_update( &ctx, buf, nChar );
     }
     fclose(fp);
     sha1_finish ( &ctx, sha1sum );
     memcpy(output, sha1sum, 20);
     if(!leaveRaw)
-      for( j = 0; j < 20; j++ ) 
+      for( j = 0; j < 20; j++ )
         sprintf( output + j * 2, "%02x", sha1sum[j] );
     break;
   }
   case 103: {     /* crc32 file case */
     unsigned char buf[1024];
     unsigned long val;
-      
+
     if (!(fp = fopen(txt,"rb"))) {
       error("Cannot open input file: %s", txt);
       return(NULL);
     }
     if (skip > 0) fseek(fp, skip, SEEK_SET);
     val  = digest_crc32(0L, 0, 0);
-    if (length>=0) {  
-      while( ( nChar = fread( buf, 1, sizeof( buf ), fp ) ) > 0 
+    if (length>=0) {
+      while( ( nChar = fread( buf, 1, sizeof( buf ), fp ) ) > 0
              && length>0) {
         if (nChar>length) nChar=length;
         val  = digest_crc32(val , buf, (unsigned) nChar);
         length -= nChar;
       }
     } else {
-      while( ( nChar = fread( buf, 1, sizeof( buf ), fp ) ) > 0) 
+      while( ( nChar = fread( buf, 1, sizeof( buf ), fp ) ) > 0)
         val  = digest_crc32(val , buf, (unsigned) nChar);
     }
-    fclose(fp);      
+    fclose(fp);
     sprintf(output, "%2.2x", (unsigned int) val);
     break;
   }
@@ -250,29 +259,29 @@ SEXP digest(SEXP Txt, SEXP Algo, SEXP Length, SEXP Skip, SEXP Leave_raw) {
     output_length = 32;
     unsigned char buf[1024];
     unsigned char sha256sum[32];
-      
+
     if (!(fp = fopen(txt,"rb"))) {
       error("Cannot open input file: %s", txt);
       return(NULL);
     }
     if (skip > 0) fseek(fp, skip, SEEK_SET);
     sha256_starts ( &ctx );
-    if (length>=0) {  
-      while( ( nChar = fread( buf, 1, sizeof( buf ), fp ) ) > 0 
+    if (length>=0) {
+      while( ( nChar = fread( buf, 1, sizeof( buf ), fp ) ) > 0
              && length>0) {
         if (nChar>length) nChar=length;
         sha256_update( &ctx, buf, nChar );
         length -= nChar;
       }
     } else {
-      while( ( nChar = fread( buf, 1, sizeof( buf ), fp ) ) > 0) 
+      while( ( nChar = fread( buf, 1, sizeof( buf ), fp ) ) > 0)
         sha256_update( &ctx, buf, nChar );
     }
     fclose(fp);
     sha256_finish ( &ctx, sha256sum );
     memcpy(output, sha256sum, 32);
     if(!leaveRaw)
-      for( j = 0; j < 32; j++ ) 
+      for( j = 0; j < 32; j++ )
         sprintf( output + j * 2, "%02x", sha256sum[j] );
     break;
   }
@@ -320,11 +329,37 @@ SEXP digest(SEXP Txt, SEXP Algo, SEXP Length, SEXP Skip, SEXP Leave_raw) {
 		}
     break;
   }
+  case 106: {     /* xxHash */
+    unsigned char buf[1024];
+    XXH64_state_t state;
 
+    if (!(fp = fopen(txt,"rb"))) {
+      error("Cannot open input file: %s", txt);
+      return(NULL);
+    }
+    if (skip > 0) fseek(fp, skip, SEEK_SET);
+    XXH64_reset(&state, 0);
+    if (length>=0) {
+      while( ( nChar = fread( buf, 1, sizeof( buf ), fp ) ) > 0
+             && length>0) {
+        if (nChar>length) nChar=length;
+        XXH64_update(&state, buf, nChar);
+        length -= nChar;
+      }
+    } else {
+      while( ( nChar = fread( buf, 1, sizeof( buf ), fp ) ) > 0)
+        XXH64_update(&state, buf, nChar);
+    }
+    fclose(fp);
+    unsigned long long val =  XXH64_digest(&state);
+
+    sprintf(output, "%llx", val);
+    break;
+  }
   default: {
     error("Unsupported algorithm code");
     return(NULL);
-  }  
+  }
   }
 
   if (leaveRaw && output_length > 0) {
