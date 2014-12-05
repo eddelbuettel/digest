@@ -1,9 +1,8 @@
 
-# $Id$
 
- digest <- function(object, algo=c("md5", "sha1", "crc32", "sha256", "sha512", "xxHash"),
-                    serialize=TRUE, file=FALSE, length=Inf,
-                    skip="auto", ascii=FALSE, raw=FALSE) {
+digest <- function(object, algo=c("md5", "sha1", "crc32", "sha256", "sha512", "xxhash"),
+                   serialize=TRUE, file=FALSE, length=Inf,
+                   skip="auto", ascii=FALSE, raw=FALSE) {
    algo <- match.arg(algo)
    if (is.infinite(length)) {
      length <- -1               # internally we use -1 for infinite len
@@ -46,7 +45,7 @@
                      crc32=3,
                      sha256=4,
                      sha512=5,
-                     xxHash=6)
+                     xxhash=6)
    if (file) {
      algoint <- algoint+100
      object <- path.expand(object)

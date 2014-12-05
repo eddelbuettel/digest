@@ -5,8 +5,6 @@
 	* src/xxhash.c: xxHash implementation supplied as part of #3
 	* src/xxhash.h: xxHash implementation supplied as part of #3
 
-	* R/digest.R: Minor edit to use xxhash as lower-case id for xxHash
-
 2014-08-15  Dirk Eddelbuettel  <edd@debian.org>
 
 	* R/hmac.R: Applied (slightly edited) patch for crc32 computation of
