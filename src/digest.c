@@ -41,12 +41,13 @@ unsigned long ZEXPORT digest_crc32(unsigned long crc,
 static const char *sha2_hex_digits = "0123456789abcdef";
 
 
-SEXP digest(SEXP Txt, SEXP Algo, SEXP Length, SEXP Skip, SEXP Leave_raw) {
+SEXP digest(SEXP Txt, SEXP Algo, SEXP Length, SEXP Skip, SEXP Leave_raw, SEXP Seed) {
   FILE *fp=0;
   char *txt;
   int algo = INTEGER_VALUE(Algo);
   int  length = INTEGER_VALUE(Length);
   int skip = INTEGER_VALUE(Skip);
+  int seed = INTEGER_VALUE(Seed);
   int leaveRaw = INTEGER_VALUE(Leave_raw);
   SEXP result = NULL;
   char output[128+1], *outputp = output;    /* 33 for md5, 41 for sha1, 65 for sha256, 128 for sha512; plus trailing NULL */
@@ -154,12 +155,20 @@ SEXP digest(SEXP Txt, SEXP Algo, SEXP Length, SEXP Skip, SEXP Leave_raw) {
     }
     break;
   }
-  case 6: {     /* xxHash case */
+  case 6: {     /* xxhash32 case */
+    XXH32_state_t state;
+    XXH32_reset(&state, seed);
+    XXH32_update(&state, (uint8 *) txt, nChar);
+    unsigned int val =  XXH32_digest(&state);
+    sprintf(output, "%08x", val);
+    break;
+  }
+  case 7: {     /* xxhash64 case */
     XXH64_state_t state;
-    XXH64_reset(&state, 0);
+    XXH64_reset(&state, seed);
     XXH64_update(&state, (uint8 *) txt, nChar);
     unsigned long long val =  XXH64_digest(&state);
-    sprintf(output, "%llx", val);
+    sprintf(output, "%016llx", val);
     break;
   }
   case 101: {     /* md5 file case */
@@ -327,7 +336,34 @@ SEXP digest(SEXP Txt, SEXP Algo, SEXP Length, SEXP Skip, SEXP Leave_raw) {
 		}
     break;
   }
-  case 106: {     /* xxHash */
+  case 106: {     /* xxhash32 */
+    unsigned char buf[1024];
+    XXH32_state_t state;
+
+    if (!(fp = fopen(txt,"rb"))) {
+      error("Cannot open input file: %s", txt);
+      return(NULL);
+    }
+    if (skip > 0) fseek(fp, skip, SEEK_SET);
+    XXH32_reset(&state, seed);
+    if (length>=0) {
+      while( ( nChar = fread( buf, 1, sizeof( buf ), fp ) ) > 0
+             && length>0) {
+        if (nChar>length) nChar=length;
+        XXH32_update(&state, buf, nChar);
+        length -= nChar;
+      }
+    } else {
+      while( ( nChar = fread( buf, 1, sizeof( buf ), fp ) ) > 0)
+        XXH32_update(&state, buf, nChar);
+    }
+    fclose(fp);
+    unsigned int val =  XXH32_digest(&state);
+
+    sprintf(output, "%08x", val);
+    break;
+  }
+  case 107: {     /* xxhash64 */
     unsigned char buf[1024];
     XXH64_state_t state;
 
@@ -336,7 +372,7 @@ SEXP digest(SEXP Txt, SEXP Algo, SEXP Length, SEXP Skip, SEXP Leave_raw) {
       return(NULL);
     }
     if (skip > 0) fseek(fp, skip, SEEK_SET);
-    XXH64_reset(&state, 0);
+    XXH64_reset(&state, seed);
     if (length>=0) {
       while( ( nChar = fread( buf, 1, sizeof( buf ), fp ) ) > 0
              && length>0) {
@@ -351,7 +387,7 @@ SEXP digest(SEXP Txt, SEXP Algo, SEXP Length, SEXP Skip, SEXP Leave_raw) {
     fclose(fp);
     unsigned long long val =  XXH64_digest(&state);
 
-    sprintf(output, "%llx", val);
+    sprintf(output, "%016llx", val);
     break;
   }
   default: {

@@ -14,7 +14,7 @@
   must be a character string for which its digest is returned.
 }
 \usage{
-digest(object, algo=c("md5", "sha1", "crc32", "sha256", "sha512"), 
+digest(object, algo=c("md5", "sha1", "crc32", "sha256", "sha512", "xxhash32", "xxhash64"),
        serialize=TRUE, file=FALSE, length=Inf, skip="auto", ascii=FALSE,
        raw=FALSE)
 }
@@ -23,8 +23,8 @@ digest(object, algo=c("md5", "sha1", "crc32", "sha256", "sha512"),
     \code{\link{serialize}} function, unless the \code{serialize}
     argument is set to \code{FALSE}.}
   \item{algo}{The algorithms to be used; currently available choices are
-    \code{md5}, which is also the default, \code{sha1}, \code{crc32} and
-    \code{sha256}.}
+    \code{md5}, which is also the default, \code{sha1}, \code{crc32},
+    \code{sha256}, \code{sha512}, \code{xxhash32} and \code{xxhash64}.}
   \item{serialize}{A logical variable indicating whether the object
     should be serialized using \code{serialize} (in ASCII
     form). Setting this to \code{FALSE} allows to compare the digest
@@ -42,20 +42,24 @@ digest(object, algo=c("md5", "sha1", "crc32", "sha256", "sha512"),
     Special value \code{"auto"} will cause serialization header to be
     skipped if \code{serialize} is set to \code{TRUE} (the serialization
     header contains the R version number thus skipping it allows the
-    comparison of hashes across platoforms and some R versions).
+    comparison of hashes across platforms and some R versions).
   }
   \item{ascii}{This flag is passed to the \code{serialize} function if
     \code{serialize} is set to \code{TRUE}, determining whether the hash
-    is computed on the ASCII or binary represenataion.}
+    is computed on the ASCII or binary representation.}
   \item{raw}{A logical variable with a default value of FALSE, implying
     \code{digest} returns digest output as ASCII hex values. Set to TRUE
     to return \code{digest} output in raw (binary) form. }
+  \item{seed}{an integer to seed the random number generator.  This is only
+    used in the \code{xxhash32} and \code{xxhash64} functions and can be used
+    to generate additional hashes for the same input if desired.}
 }
 \value{
   The \code{digest} function returns a character string of a fixed
   length containing the requested digest of the supplied R object. For
   MD5, a string of length 32 is returned; for SHA-1, a string of length
-  40 is returned; for CRC32 a string of length 8.
+  40 is returned; for CRC32 a string of length 8; for xxhash32 a string of
+  length 8; for xxhash64 a string of length 16.
 }
 \details{
   Cryptographic hash functions are well researched and documented. The
@@ -69,6 +73,8 @@ digest(object, algo=c("md5", "sha1", "crc32", "sha256", "sha512"),
   zlib library by Jean-loup Gailly and Mark Adler is used.
   
   For sha-512, a standalone implementation from Aaron Gifford is used.
+
+  For xxhash32 and xxhash64, the reference implementation by Yann Collet is used.
 
   Please note that this package is not meant to be used for
   cryptographic purposes for which more comprehensive (and widely
@@ -95,13 +101,18 @@ digest(object, algo=c("md5", "sha1", "crc32", "sha256", "sha512"),
 
   \url{http://en.wikipedia.org/wiki/SHA_hash_functions} for
   documentation on the sha functions.
+
+  \url{https://code.google.com/p/xxhash/} for documentation on the xxHash
+  functions.
+
 }
 \author{Dirk Eddelbuettel \email{edd@debian.org} for the \R interface;
   Antoine Lucas for the integration of crc32; Jarek Tuszynski for the
-  file-based operationss; Henrik Bengtsson and Simon Urbanek for improved
+  file-based operations; Henrik Bengtsson and Simon Urbanek for improved
   serialization patches; Christophe Devine for the hash function
   implementations for sha-1, sha-256 and md5; Jean-loup Gailly and Mark Adler
-  for crc32; Hannes Muehleisen for the integration of sha-512.} 
+  for crc32; Hannes Muehleisen for the integration of sha-512; Jim Hester for
+  the integration of xxhash32 and xxhash64.}
 \seealso{\code{\link{serialize}}, \code{\link{md5sum}}}
 
 \examples{
@@ -181,6 +192,38 @@ sha512Output <-
 for (i in seq(along=sha512Input)) {
   sha512 <- digest(sha512Input[i], algo="sha512", serialize=FALSE)
   stopifnot(identical(sha512, sha512Output[i]))
+}
+
+## xxhash32 example
+xxhash32Input <-
+    c("abc",
+      "abcdbcdecdefdefgefghfghighijhijkijkljklmklmnlmnomnopnopq",
+      "")
+xxhash32Output <-
+    c("32d153ff",
+      "89ea60c3",
+      "02cc5d05")
+
+for (i in seq(along=xxhash32Input)) {
+    xxhash32 <- digest(xxhash32Input[i], algo="xxhash32", serialize=FALSE)
+    cat(xxhash32, "\n")
+    stopifnot(identical(xxhash32, xxhash32Output[i]))
+}
+
+## xxhash64 example
+xxhash64Input <-
+    c("abc",
+      "abcdbcdecdefdefgefghfghighijhijkijkljklmklmnlmnomnopnopq",
+      "")
+xxhash64Output <-
+    c("44bc2cf5ad770999",
+      "f06103773e8585df",
+      "ef46db3751d8e999")
+
+for (i in seq(along=xxhash64Input)) {
+    xxhash64 <- digest(xxhash64Input[i], algo="xxhash64", serialize=FALSE)
+    cat(xxhash64, "\n")
+    stopifnot(identical(xxhash64, xxhash64Output[i]))
 }
 
 # example of a digest of a standard R list structure
