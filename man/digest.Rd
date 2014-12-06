@@ -1,4 +1,3 @@
-% $Id$
 \name{digest}
 \alias{digest}
 \title{Create hash function digests for arbitrary R objects}
@@ -14,9 +13,9 @@
   must be a character string for which its digest is returned.
 }
 \usage{
-digest(object, algo=c("md5", "sha1", "crc32", "sha256", "sha512", "xxhash32", "xxhash64"),
-       serialize=TRUE, file=FALSE, length=Inf, skip="auto", ascii=FALSE,
-       raw=FALSE)
+digest(object, algo=c("md5", "sha1", "crc32", "sha256", "sha512",
+       "xxhash32", "xxhash64"), serialize=TRUE, file=FALSE, length=Inf,
+       skip="auto", ascii=FALSE, raw=FALSE, seed=0)
 }
 \arguments{
   \item{object}{An arbitrary R object which will then be passed to the
@@ -56,10 +55,10 @@ digest(object, algo=c("md5", "sha1", "crc32", "sha256", "sha512", "xxhash32", "x
 }
 \value{
   The \code{digest} function returns a character string of a fixed
-  length containing the requested digest of the supplied R object. For
-  MD5, a string of length 32 is returned; for SHA-1, a string of length
-  40 is returned; for CRC32 a string of length 8; for xxhash32 a string of
-  length 8; for xxhash64 a string of length 16.
+  length containing the requested digest of the supplied R object. This
+  string is of length 32 for MD5; of length 40 for SHA-1; of length 8
+  for CRC32 a string; of length 8 for for xxhash32; and of length 16 for
+  xxhash64.
 }
 \details{
   Cryptographic hash functions are well researched and documented. The

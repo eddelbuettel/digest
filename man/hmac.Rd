@@ -1,4 +1,3 @@
-% $Id$
 \name{hmac}
 \alias{hmac}
 \title{compute a hash-based message authentication code}
