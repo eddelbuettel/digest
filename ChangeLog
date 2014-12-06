@@ -1,9 +1,28 @@
+2014-12-06  Dirk Eddelbuettel  <edd@debian.org>
+
+	* src/digest.c: Updated GPL copyright header
+
+	* src/xxhash.c:	Removed two spurious ';'
+
+	* man/digest.Rd: Document 'seed' argument in \usage
+
+	* tests/digest.Rout.save: Updated for expanded tests
+
+	* DESCRIPTION: Add Jim Hester to list of Authors
+
 2014-12-05  Dirk Eddelbuettel  <edd@debian.org>
 
 	* R/digest.R: Applied pull request #3 by Jim Hester with support for
 	xxHash (https://code.google.com/p/xxhash/)
 	* src/xxhash.c: xxHash implementation supplied as part of #3
+
 	* src/xxhash.h: xxHash implementation supplied as part of #3
+
+	* R/digest.R: Applied pull request #4 by Jim Hester with expanded
+	support for xxHash providing xxhash32 and xxhash64
+	* man/digest.Rd: Added documentation for xxHash, corrected typos
+	* src/digest.R: New support for a seed parameter used by xxHash
+	* tests/digestTest.R: Added tests for xxHash
 
 2014-08-15  Dirk Eddelbuettel  <edd@debian.org>
 
