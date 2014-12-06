@@ -1,8 +1,7 @@
 
-R version 2.15.2 (2012-10-26) -- "Trick or Treat"
-Copyright (C) 2012 The R Foundation for Statistical Computing
-ISBN 3-900051-07-0
-Platform: x86_64-pc-linux-gnu (64-bit)
+R version 3.1.2 (2014-10-31) -- "Pumpkin Helmet"
+Copyright (C) 2014 The R Foundation for Statistical Computing
+Platform: i686-pc-linux-gnu (32-bit)
 
 R is free software and comes with ABSOLUTELY NO WARRANTY.
 You are welcome to redistribute it under certain conditions.
@@ -176,11 +175,49 @@ cf83e1357eefb8bdf1542850d66d8007d620e4050b5715dc83f4a921d36ce9ce47d0d13c5d85f2b0
 +                                     ncol=2)))), "\n")
 8b23d6c96da88f525c0a4a4909cce01f 
 > 
+> ## these outputs were calculated using xxh32sum
+> xxhash32Input <-
++     c("abc",
++       "abcdbcdecdefdefgefghfghighijhijkijkljklmklmnlmnomnopnopq",
++       "")
+> xxhash32Output <-
++     c("32d153ff",
++       "89ea60c3",
++       "02cc5d05")
+> 
+> for (i in seq(along=xxhash32Input)) {
++     xxhash32 <- digest(xxhash32Input[i], algo="xxhash32", serialize=FALSE)
++     cat(xxhash32, "\n")
++     stopifnot(identical(xxhash32, xxhash32Output[i]))
++ }
+32d153ff 
+89ea60c3 
+02cc5d05 
+> 
+> ## these outputs were calculated using xxh64sum
+> xxhash64Input <-
++     c("abc",
++       "abcdbcdecdefdefgefghfghighijhijkijkljklmklmnlmnomnopnopq",
++       "")
+> xxhash64Output <-
++     c("44bc2cf5ad770999",
++       "f06103773e8585df",
++       "ef46db3751d8e999")
+> 
+> for (i in seq(along=xxhash64Input)) {
++     xxhash64 <- digest(xxhash64Input[i], algo="xxhash64", serialize=FALSE)
++     cat(xxhash64, "\n")
++     stopifnot(identical(xxhash64, xxhash64Output[i]))
++ }
+44bc2cf5ad770999 
+f06103773e8585df 
+ef46db3751d8e999 
+> 
 > ## test 'length' parameter and file input
 > ##fname <- file.path(R.home(),"COPYING")  ## not invariant across OSs
 > fname <- system.file("GPL-2", package="digest")
 > x <- readChar(fname, file.info(fname)$size) # read file
-> for (alg in c("sha1", "md5", "crc32","sha512")) {
+> for (alg in c("sha1", "md5", "crc32","sha512", "xxhash32", "xxhash64")) {
 +                                         # partial file
 +     h1 <- digest(x    , length=18000, algo=alg, serialize=FALSE)
 +     h2 <- digest(fname, length=18000, algo=alg, serialize=FALSE, file=TRUE)
@@ -204,6 +241,12 @@ f1233fcd
 691e7eda9e1c1a197a7e6628533c6cdfb9c022a5cf2ad6c0561f9007d8d5637996f04e7d24829bc0820380270bf1ca5a352f64d0001ef198355bedf355d01152 
  691e7eda9e1c1a197a7e6628533c6cdfb9c022a5cf2ad6c0561f9007d8d5637996f04e7d24829bc0820380270bf1ca5a352f64d0001ef198355bedf355d01152 
  691e7eda9e1c1a197a7e6628533c6cdfb9c022a5cf2ad6c0561f9007d8d5637996f04e7d24829bc0820380270bf1ca5a352f64d0001ef198355bedf355d01152 
+7e4d0e19 
+ 7e4d0e19 
+ 7e4d0e19 
+0158bab92b6e7084 
+ 0158bab92b6e7084 
+ 0158bab92b6e7084 
 > 
 > ## compare md5 algorithm to other tools
 > library(tools)
@@ -222,4 +265,4 @@ f1233fcd
 > 
 > proc.time()
    user  system elapsed 
-  0.344   0.032   0.216 
+  0.356   0.428   0.334 
