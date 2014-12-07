@@ -1,6 +1,13 @@
 2014-12-07  Dirk Eddelbuettel  <edd@debian.org>
 
-	* src/digest.c (digest): Reindented to four spaces
+	* DESCRIPTION: Bumped Version and Date, edited Title and Description
+
+	* R/digest.R: Added GPL copyright header, reindented to four spaces
+
+	* src/digest.c: Reindented to four spaces
+
+	* R/AES.R: Reindented to four spaces
+	* R/hmac.R: Reindented to four spaces
 
 2014-12-06  Dirk Eddelbuettel  <edd@debian.org>
 
