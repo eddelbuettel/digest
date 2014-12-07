@@ -1,3 +1,7 @@
+2014-12-07  Dirk Eddelbuettel  <edd@debian.org>
+
+	* src/digest.c (digest): Reindented to four spaces
+
 2014-12-06  Dirk Eddelbuettel  <edd@debian.org>
 
 	* src/digest.c: Updated GPL copyright header
