@@ -148,6 +148,21 @@ for (i in seq(along=xxhash64Input)) {
     stopifnot(identical(xxhash64, xxhash64Output[i]))
 }
 
+## these outputs were calculated using mmh3 python package
+murmur32Input <-
+    c("abc",
+      "abcdbcdecdefdefgefghfghighijhijkijkljklmklmnlmnomnopnopq",
+      "")
+murmur32Output <-
+    c("b3dd93fa",
+      "ee925b90",
+      "00000000")
+
+for (i in seq(along=xxhash32Input)) {
+    xxhash32 <- digest(xxhash32Input[i], algo="xxhash32", serialize=FALSE)
+    cat(xxhash32, "\n")
+    stopifnot(identical(xxhash32, xxhash32Output[i]))
+}
 ## test 'length' parameter and file input
 ##fname <- file.path(R.home(),"COPYING")  ## not invariant across OSs
 fname <- system.file("GPL-2", package="digest")
