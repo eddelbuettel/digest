@@ -83,13 +83,12 @@ digest <- function(object, algo=c("md5", "sha1", "crc32", "sha256", "sha512",
     ## into 0 because auto should have been converted into a number earlier
     ## if it was valid [SU]
     if (is.character(skip)) skip <- 0
-    val <- .Call("digest",
+    val <- .Call(digest_impl,
                  object,
                  as.integer(algoint),
                  as.integer(length),
                  as.integer(skip),
                  as.integer(raw),
-                 as.integer(seed),
-                 PACKAGE="digest")
+                 as.integer(seed))
     return(val)
 }

@@ -12,7 +12,7 @@ AES <- function(key, mode=c("ECB", "CBC", "CTR"), IV=NULL) {
     key <- as.raw(key)
     IV <- as.raw(IV)
 
-    context <- .Call("AESinit", key)
+    context <- .Call(AESinit, key)
     block_size <- 16
     key_size <- length(key)
     rm(key)
@@ -21,7 +21,7 @@ AES <- function(key, mode=c("ECB", "CBC", "CTR"), IV=NULL) {
         if (typeof(text) == "character")
             text <- charToRaw(text)
         if (mode == 1)
-            .Call("AESencryptECB", context, text)
+            .Call(AESencryptECB, context, text)
         else if (mode == 2) {
             len <- length(text)
             if (len %% 16 != 0)
@@ -29,7 +29,7 @@ AES <- function(key, mode=c("ECB", "CBC", "CTR"), IV=NULL) {
             result <- raw(length(text))
             for (i in seq_len(len/16)) {
                 ind <- (i-1)*16 + 1:16
-                IV <<- .Call("AESencryptECB", context, xor(text[ind], IV))
+                IV <<- .Call(AESencryptECB, context, xor(text[ind], IV))
                 result[ind] <- IV
             }
             result
@@ -47,7 +47,7 @@ AES <- function(key, mode=c("ECB", "CBC", "CTR"), IV=NULL) {
                     byte <- byte - 1
                 }
             }
-            result <- .Call("AESencryptECB", context, result)
+            result <- .Call(AESencryptECB, context, result)
             length(result) <- len
             xor(text, result)
         }
@@ -55,7 +55,7 @@ AES <- function(key, mode=c("ECB", "CBC", "CTR"), IV=NULL) {
 
     decrypt <- function(ciphertext, raw = FALSE) {
         if (mode == 1)
-            result <- .Call("AESdecryptECB", context, ciphertext)
+            result <- .Call(AESdecryptECB, context, ciphertext)
         else if (mode == 2) {
             len <- length(ciphertext)
             if (len %% 16 != 0)
@@ -63,7 +63,7 @@ AES <- function(key, mode=c("ECB", "CBC", "CTR"), IV=NULL) {
             result <- raw(length(ciphertext))
             for (i in seq_len(len/16)) {
                 ind <- (i-1)*16 + 1:16
-                res <- .Call("AESdecryptECB", context, ciphertext[ind])
+                res <- .Call(AESdecryptECB, context, ciphertext[ind])
                 result[ind] <- xor(res, IV)
                 IV <<- ciphertext[ind]
             }
