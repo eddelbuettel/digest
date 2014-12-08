@@ -34,6 +34,7 @@
 #include "md5.h"
 #include "zlib.h"
 #include "xxhash.h"
+#include "PMurHash.h"
 
 unsigned long ZEXPORT digest_crc32(unsigned long crc,
                                    const unsigned char FAR *buf,
@@ -196,126 +197,6 @@ SEXP digest(SEXP Txt, SEXP Algo, SEXP Length, SEXP Skip, SEXP Leave_raw, SEXP Se
         } else {
             while ( ( nChar = fread( buf, 1, sizeof( buf ), fp ) ) > 0)
                 md5_update( &ctx, buf, nChar );
-        }
-        fclose(fp);
-        md5_finish( &ctx, md5sum );
-        memcpy(output, md5sum, 16);
-        if (!leaveRaw)
-            for (j = 0; j < 16; j++)
-                sprintf(output + j * 2, "%02x", md5sum[j]);
-        break;
-    }
-    case 102: {     /* sha1 file case */
-        int j;
-        sha1_context ctx;
-        output_length = 20;
-        unsigned char buf[1024];
-        unsigned char sha1sum[20];
-
-        if (!(fp = fopen(txt,"rb"))) {
-            error("Cannot open input file: %s", txt);
-            return(NULL);
-        }
-        if (skip > 0) fseek(fp, skip, SEEK_SET);
-        sha1_starts ( &ctx );
-        if (length>=0) {
-            while ( ( nChar = fread( buf, 1, sizeof( buf ), fp ) ) > 0 && length>0) {
-                if (nChar>length) nChar=length;
-                sha1_update( &ctx, buf, nChar );
-                length -= nChar;
-            }
-        } else {
-            while ( ( nChar = fread( buf, 1, sizeof( buf ), fp ) ) > 0)
-                sha1_update( &ctx, buf, nChar );
-        }
-        fclose(fp);
-        sha1_finish ( &ctx, sha1sum );
-        memcpy(output, sha1sum, 20);
-        if (!leaveRaw)
-            for ( j = 0; j < 20; j++ )
-                sprintf( output + j * 2, "%02x", sha1sum[j] );
-        break;
-    }
-    case 103: {     /* crc32 file case */
-        unsigned char buf[1024];
-        unsigned long val;
-
-        if (!(fp = fopen(txt,"rb"))) {
-            error("Cannot open input file: %s", txt);
-            return(NULL);
-        }
-        if (skip > 0) fseek(fp, skip, SEEK_SET);
-        val  = digest_crc32(0L, 0, 0);
-        if (length>=0) {
-            while ( ( nChar = fread( buf, 1, sizeof( buf ), fp ) ) > 0 && length>0) {
-                if (nChar>length) nChar=length;
-                val  = digest_crc32(val , buf, (unsigned) nChar);
-                length -= nChar;
-            }
-        } else {
-            while ( ( nChar = fread( buf, 1, sizeof( buf ), fp ) ) > 0)
-                val  = digest_crc32(val , buf, (unsigned) nChar);
-        }
-        fclose(fp);
-        sprintf(output, "%2.2x", (unsigned int) val);
-        break;
-    }
-    case 104: {     /* sha256 file case */
-        int j;
-        sha256_context ctx;
-        output_length = 32;
-        unsigned char buf[1024];
-        unsigned char sha256sum[32];
-
-        if (!(fp = fopen(txt,"rb"))) {
-            error("Cannot open input file: %s", txt);
-            return(NULL);
-        }
-        if (skip > 0) fseek(fp, skip, SEEK_SET);
-        sha256_starts ( &ctx );
-        if (length>=0) {
-            while ( ( nChar = fread( buf, 1, sizeof( buf ), fp ) ) > 0 && length>0) {
-                if (nChar>length) nChar=length;
-                sha256_update( &ctx, buf, nChar );
-                length -= nChar;
-            }
-        } else {
-            while ( ( nChar = fread( buf, 1, sizeof( buf ), fp ) ) > 0)
-                sha256_update( &ctx, buf, nChar );
-        }
-        fclose(fp);
-        sha256_finish ( &ctx, sha256sum );
-        memcpy(output, sha256sum, 32);
-        if (!leaveRaw)
-            for ( j = 0; j < 32; j++ )
-                sprintf( output + j * 2, "%02x", sha256sum[j] );
-        break;
-    }
-    case 105: {     /* sha2-512 file case */
-        int j;
-        SHA512_CTX ctx;
-        output_length = SHA512_DIGEST_LENGTH;
-        uint8_t sha512sum[output_length], *d = sha512sum;
-
-        unsigned char buf[1024];
-
-        if (!(fp = fopen(txt,"rb"))) {
-            error("Cannot open input file: %s", txt);
-            return(NULL);
-        }
-        if (skip > 0) fseek(fp, skip, SEEK_SET);
-        SHA512_Init(&ctx);
-        if (length>=0) {
-            while ( ( nChar = fread( buf, 1, sizeof( buf ), fp ) ) > 0 && length>0) {
-                if (nChar>length) nChar=length;
-                SHA512_Update( &ctx, buf, nChar );
-                length -= nChar;
-            }
-        } else {
-            while ( ( nChar = fread( buf, 1, sizeof( buf ), fp ) ) > 0)
-                SHA512_Update( &ctx, buf, nChar );
-        }
-        fclose(fp);
 
 		/* Calling SHA512_Final, because SHA512_End will already
 		   convert the hash to a string, and we also want RAW */
@@ -401,5 +282,6 @@ SEXP digest(SEXP Txt, SEXP Algo, SEXP Length, SEXP Skip, SEXP Leave_raw, SEXP Se
     }
     UNPROTECT(1);
 
-    return result;
+  return result;
+}
 }
