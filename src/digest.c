@@ -27,6 +27,7 @@
 #include <R.h>
 #include <Rdefines.h>
 #include <Rinternals.h>
+#include <inttypes.h>
 #include "sha1.h"
 #include "sha2.h"
 #include "sha256.h"
@@ -140,7 +141,7 @@ SEXP digest(SEXP Txt, SEXP Algo, SEXP Length, SEXP Skip, SEXP Leave_raw, SEXP Se
 
         SHA512_Init(&ctx);
         SHA512_Update(&ctx, (uint8 *) txt, nChar);
-        /* Calling SHA512_Final, because SHA512_End will already 
+        /* Calling SHA512_Final, because SHA512_End will already
            convert the hash to a string, and we also want RAW */
         SHA512_Final(sha512sum, &ctx);
         memcpy(output, sha512sum, output_length);
@@ -169,7 +170,7 @@ SEXP digest(SEXP Txt, SEXP Algo, SEXP Length, SEXP Skip, SEXP Leave_raw, SEXP Se
         XXH64_reset(&state, seed);
         XXH64_update(&state, (uint8 *) txt, nChar);
         unsigned long long val =  XXH64_digest(&state);
-        sprintf(output, "%016f", (double) val);
+        sprintf(output, "%016" PRIx64, val);
         break;
     }
     case 101: {     /* md5 file case */
@@ -382,7 +383,7 @@ SEXP digest(SEXP Txt, SEXP Algo, SEXP Length, SEXP Skip, SEXP Leave_raw, SEXP Se
         fclose(fp);
         unsigned long long val =  XXH64_digest(&state);
 
-        sprintf(output, "%016f", (double) val);
+        sprintf(output, "%016" PRIx64, val);
         break;
     }
     default: {
@@ -399,6 +400,6 @@ SEXP digest(SEXP Txt, SEXP Algo, SEXP Length, SEXP Skip, SEXP Leave_raw, SEXP Se
         SET_STRING_ELT(result, 0, mkChar(output));
     }
     UNPROTECT(1);
-    
+
     return result;
 }
