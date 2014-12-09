@@ -1,6 +1,18 @@
+2014-12-08  Dirk Eddelbuettel  <edd@debian.org>
+
+	* DESCRIPTION (Version): Version 0.6.5
+
+	* DESCRIPTION (Date): Bumped Date: to current date
+
+	* NAMESPACE: Expanded useDynLib() declaring C level symbols, in
+	particular using digest_impl to for the C-level digest
+
+	* R/AES.R: Use R symbols from NAMESPACE declaration in .Call()
+	* R/digest.R: Use R symbol digest_impl to load C level digest
+
 2014-12-07  Dirk Eddelbuettel  <edd@debian.org>
 
-	* DESCRIPTION: Bumped Version and Date, edited Title and Description
+	* DESCRIPTION: Edited Title and Description
 
 	* R/digest.R: Added GPL copyright header, reindented to four spaces
 
