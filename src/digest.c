@@ -371,13 +371,13 @@ SEXP digest(SEXP Txt, SEXP Algo, SEXP Length, SEXP Skip, SEXP Leave_raw, SEXP Se
         if (skip > 0) fseek(fp, skip, SEEK_SET);
         XXH64_reset(&state, seed);
         if (length>=0) {
-            while( ( nChar = fread( buf, 1, sizeof( buf ), fp ) ) > 0 && length>0) {
+            while ( ( nChar = fread( buf, 1, sizeof( buf ), fp ) ) > 0 && length>0) {
                 if (nChar>length) nChar=length;
                 XXH64_update(&state, buf, nChar);
                 length -= nChar;
             }
         } else {
-            while( ( nChar = fread( buf, 1, sizeof( buf ), fp ) ) > 0)
+            while ( ( nChar = fread( buf, 1, sizeof( buf ), fp ) ) > 0)
                 XXH64_update(&state, buf, nChar);
         }
         fclose(fp);
