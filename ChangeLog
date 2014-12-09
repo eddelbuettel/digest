@@ -1,7 +1,11 @@
 2014-12-09  Dirk Eddelbuettel  <edd@debian.org>
 
-	* src/digest.c (digest): Suppress a warning on windows by not using
-	'llx' as a printf formatter but rather cast to double first
+	* DESCRIPTION (Version): Version 0.6.6
+
+	* DESCRIPTION (Date): Bumped Date: to current date
+	
+	* src/digest.c: Applied pull request #5 by Jim Hester providing
+	portable integer printing inttypes.h header
 
 2014-12-08  Dirk Eddelbuettel  <edd@debian.org>
 
@@ -42,12 +46,14 @@
 
 	* R/digest.R: Applied pull request #3 by Jim Hester with support for
 	xxHash (https://code.google.com/p/xxhash/)
+	* src/digest.c: Ditto
+	
 	* src/xxhash.c: xxHash implementation supplied as part of #3
-
 	* src/xxhash.h: xxHash implementation supplied as part of #3
 
 	* R/digest.R: Applied pull request #4 by Jim Hester with expanded
 	support for xxHash providing xxhash32 and xxhash64
+	* src/digest.c: Ditto
 	* man/digest.Rd: Added documentation for xxHash, corrected typos
 	* src/digest.R: New support for a seed parameter used by xxHash
 	* tests/digestTest.R: Added tests for xxHash
