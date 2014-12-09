@@ -169,7 +169,7 @@ SEXP digest(SEXP Txt, SEXP Algo, SEXP Length, SEXP Skip, SEXP Leave_raw, SEXP Se
         XXH64_reset(&state, seed);
         XXH64_update(&state, (uint8 *) txt, nChar);
         unsigned long long val =  XXH64_digest(&state);
-        sprintf(output, "%016llx", val);
+        sprintf(output, "%016f", (double) val);
         break;
     }
     case 101: {     /* md5 file case */
@@ -382,7 +382,7 @@ SEXP digest(SEXP Txt, SEXP Algo, SEXP Length, SEXP Skip, SEXP Leave_raw, SEXP Se
         fclose(fp);
         unsigned long long val =  XXH64_digest(&state);
 
-        sprintf(output, "%016llx", val);
+        sprintf(output, "%016f", (double) val);
         break;
     }
     default: {

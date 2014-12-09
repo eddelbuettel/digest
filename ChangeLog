@@ -1,3 +1,8 @@
+2014-12-09  Dirk Eddelbuettel  <edd@debian.org>
+
+	* src/digest.c (digest): Suppress a warning on windows by not using
+	'llx' as a printf formatter but rather cast to double first
+
 2014-12-08  Dirk Eddelbuettel  <edd@debian.org>
 
 	* DESCRIPTION (Version): Version 0.6.5
