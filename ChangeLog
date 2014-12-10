@@ -1,3 +1,8 @@
+2014-12-10  Dirk Eddelbuettel  <edd@debian.org>
+
+	* src/xxhash.c: Applied pull request #6 by Jim Hester with updated
+	upstream code and already corrected UBSAN issue identified by CRAN
+
 2014-12-09  Dirk Eddelbuettel  <edd@debian.org>
 
 	* DESCRIPTION (Version): Version 0.6.6
