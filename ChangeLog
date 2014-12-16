@@ -1,3 +1,12 @@
+2014-12-16  Jim Hester <james.f.hester@gmail.com>
+
+	* src/digest.c: murmurHash implementation
+	* tests/digestTest.R: murmurHash implementation
+	* R/digest.R: murmurHash implementation
+	* src/PMurHash.c: murmurHash implementation
+	* src/PMurHash.h: murmurHash implementation
+	* src/digest.c: murmurHash implementation
+
 2014-12-10  Dirk Eddelbuettel  <edd@debian.org>
 
 	* src/xxhash.c: Applied pull request #6 by Jim Hester with updated

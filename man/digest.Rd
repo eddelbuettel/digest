@@ -14,8 +14,8 @@
 }
 \usage{
 digest(object, algo=c("md5", "sha1", "crc32", "sha256", "sha512",
-       "xxhash32", "xxhash64"), serialize=TRUE, file=FALSE, length=Inf,
-       skip="auto", ascii=FALSE, raw=FALSE, seed=0)
+       "xxhash32", "xxhash64", "murmur32"), serialize=TRUE, file=FALSE,
+       length=Inf, skip="auto", ascii=FALSE, raw=FALSE, seed=0)
 }
 \arguments{
   \item{object}{An arbitrary R object which will then be passed to the
@@ -23,7 +23,8 @@ digest(object, algo=c("md5", "sha1", "crc32", "sha256", "sha512",
     argument is set to \code{FALSE}.}
   \item{algo}{The algorithms to be used; currently available choices are
     \code{md5}, which is also the default, \code{sha1}, \code{crc32},
-    \code{sha256}, \code{sha512}, \code{xxhash32} and \code{xxhash64}.}
+    \code{sha256}, \code{sha512}, \code{xxhash32}, \code{xxhash64} and
+    \code{murmur32}.}
   \item{serialize}{A logical variable indicating whether the object
     should be serialized using \code{serialize} (in ASCII
     form). Setting this to \code{FALSE} allows to compare the digest
@@ -50,15 +51,16 @@ digest(object, algo=c("md5", "sha1", "crc32", "sha256", "sha512",
     \code{digest} returns digest output as ASCII hex values. Set to TRUE
     to return \code{digest} output in raw (binary) form. }
   \item{seed}{an integer to seed the random number generator.  This is only
-    used in the \code{xxhash32} and \code{xxhash64} functions and can be used
-    to generate additional hashes for the same input if desired.}
+    used in the \code{xxhash32}, \code{xxhash64} and \code{murmur32} functions
+    and can be used to generate additional hashes for the same input if
+    desired.}
 }
 \value{
   The \code{digest} function returns a character string of a fixed
   length containing the requested digest of the supplied R object. This
   string is of length 32 for MD5; of length 40 for SHA-1; of length 8
-  for CRC32 a string; of length 8 for for xxhash32; and of length 16 for
-  xxhash64.
+  for CRC32 a string; of length 8 for for xxhash32; of length 16 for
+  xxhash64; and of length 8 for murmur32.
 }
 \details{
   Cryptographic hash functions are well researched and documented. The
@@ -74,6 +76,8 @@ digest(object, algo=c("md5", "sha1", "crc32", "sha256", "sha512",
   For sha-512, a standalone implementation from Aaron Gifford is used.
 
   For xxhash32 and xxhash64, the reference implementation by Yann Collet is used.
+
+  For murmur32, the progressive implementation by Shane Day is used.
 
   Please note that this package is not meant to be used for
   cryptographic purposes for which more comprehensive (and widely
@@ -104,6 +108,8 @@ digest(object, algo=c("md5", "sha1", "crc32", "sha256", "sha512",
   \url{https://code.google.com/p/xxhash/} for documentation on the xxHash
   functions.
 
+  \url{https://code.google.com/p/smhasher/} for documentation on MurmurHash.
+
 }
 \author{Dirk Eddelbuettel \email{edd@debian.org} for the \R interface;
   Antoine Lucas for the integration of crc32; Jarek Tuszynski for the
@@ -111,7 +117,7 @@ digest(object, algo=c("md5", "sha1", "crc32", "sha256", "sha512",
   serialization patches; Christophe Devine for the hash function
   implementations for sha-1, sha-256 and md5; Jean-loup Gailly and Mark Adler
   for crc32; Hannes Muehleisen for the integration of sha-512; Jim Hester for
-  the integration of xxhash32 and xxhash64.}
+  the integration of xxhash32, xxhash64 and murmur32.}
 \seealso{\code{\link{serialize}}, \code{\link{md5sum}}}
 
 \examples{
@@ -223,6 +229,22 @@ for (i in seq(along=xxhash64Input)) {
     xxhash64 <- digest(xxhash64Input[i], algo="xxhash64", serialize=FALSE)
     cat(xxhash64, "\n")
     stopifnot(identical(xxhash64, xxhash64Output[i]))
+}
+
+## these outputs were calculated using mmh3 python package
+murmur32Input <-
+    c("abc",
+      "abcdbcdecdefdefgefghfghighijhijkijkljklmklmnlmnomnopnopq",
+      "")
+murmur32Output <-
+    c("b3dd93fa",
+      "ee925b90",
+      "00000000")
+
+for (i in seq(along=murmur32Input)) {
+    murmur32 <- digest(murmur32Input[i], algo="murmur32", serialize=FALSE)
+    cat(murmur32, "\n")
+    stopifnot(identical(murmur32, murmur32Output[i]))
 }
 
 # example of a digest of a standard R list structure

@@ -19,7 +19,7 @@
 ##  along with digest.  If not, see <http://www.gnu.org/licenses/>.
 
 digest <- function(object, algo=c("md5", "sha1", "crc32", "sha256", "sha512",
-                           "xxhash32", "xxhash64"),
+                           "xxhash32", "xxhash64", "murmur32"),
                    serialize=TRUE, file=FALSE, length=Inf,
                    skip="auto", ascii=FALSE, raw=FALSE, seed=0) {
     algo <- match.arg(algo)
@@ -65,7 +65,8 @@ digest <- function(object, algo=c("md5", "sha1", "crc32", "sha256", "sha512",
                       sha256=4,
                       sha512=5,
                       xxhash32=6,
-                      xxhash64=7)
+                      xxhash64=7,
+                      murmur32=8)
     if (file) {
         algoint <- algoint+100
         object <- path.expand(object)

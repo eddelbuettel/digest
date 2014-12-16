@@ -34,6 +34,7 @@
 #include "md5.h"
 #include "zlib.h"
 #include "xxhash.h"
+#include "PMurHash.h"
 
 unsigned long ZEXPORT digest_crc32(unsigned long crc,
                                    const unsigned char FAR *buf,
@@ -43,6 +44,7 @@ static const char *sha2_hex_digits = "0123456789abcdef";
 
 
 SEXP digest(SEXP Txt, SEXP Algo, SEXP Length, SEXP Skip, SEXP Leave_raw, SEXP Seed) {
+    size_t BUF_SIZE = 1024;
     FILE *fp=0;
     char *txt;
     int algo = INTEGER_VALUE(Algo);
@@ -173,11 +175,16 @@ SEXP digest(SEXP Txt, SEXP Algo, SEXP Length, SEXP Skip, SEXP Leave_raw, SEXP Se
         sprintf(output, "%016" PRIx64, val);
         break;
     }
+    case 8: {     /* MurmurHash3 32 */
+        unsigned int val = PMurHash32(seed, txt, nChar);
+        sprintf(output, "%08x", val);
+        break;
+    }
     case 101: {     /* md5 file case */
         int j;
         md5_context ctx;
         output_length = 16;
-        unsigned char buf[1024];
+        unsigned char buf[BUF_SIZE];
         unsigned char md5sum[16];
 
         if (!(fp = fopen(txt,"rb"))) {
@@ -209,7 +216,7 @@ SEXP digest(SEXP Txt, SEXP Algo, SEXP Length, SEXP Skip, SEXP Leave_raw, SEXP Se
         int j;
         sha1_context ctx;
         output_length = 20;
-        unsigned char buf[1024];
+        unsigned char buf[BUF_SIZE];
         unsigned char sha1sum[20];
 
         if (!(fp = fopen(txt,"rb"))) {
@@ -237,7 +244,7 @@ SEXP digest(SEXP Txt, SEXP Algo, SEXP Length, SEXP Skip, SEXP Leave_raw, SEXP Se
         break;
     }
     case 103: {     /* crc32 file case */
-        unsigned char buf[1024];
+        unsigned char buf[BUF_SIZE];
         unsigned long val;
 
         if (!(fp = fopen(txt,"rb"))) {
@@ -264,7 +271,7 @@ SEXP digest(SEXP Txt, SEXP Algo, SEXP Length, SEXP Skip, SEXP Leave_raw, SEXP Se
         int j;
         sha256_context ctx;
         output_length = 32;
-        unsigned char buf[1024];
+        unsigned char buf[BUF_SIZE];
         unsigned char sha256sum[32];
 
         if (!(fp = fopen(txt,"rb"))) {
@@ -297,7 +304,7 @@ SEXP digest(SEXP Txt, SEXP Algo, SEXP Length, SEXP Skip, SEXP Leave_raw, SEXP Se
         output_length = SHA512_DIGEST_LENGTH;
         uint8_t sha512sum[output_length], *d = sha512sum;
 
-        unsigned char buf[1024];
+        unsigned char buf[BUF_SIZE];
 
         if (!(fp = fopen(txt,"rb"))) {
             error("Cannot open input file: %s", txt);
@@ -335,7 +342,7 @@ SEXP digest(SEXP Txt, SEXP Algo, SEXP Length, SEXP Skip, SEXP Leave_raw, SEXP Se
         break;
     }
     case 106: {     /* xxhash32 */
-        unsigned char buf[1024];
+        unsigned char buf[BUF_SIZE];
         XXH32_state_t state;
 
         if (!(fp = fopen(txt,"rb"))) {
@@ -361,7 +368,7 @@ SEXP digest(SEXP Txt, SEXP Algo, SEXP Length, SEXP Skip, SEXP Leave_raw, SEXP Se
         break;
     }
     case 107: {     /* xxhash64 */
-        unsigned char buf[1024];
+        unsigned char buf[BUF_SIZE];
         XXH64_state_t state;
 
         if (!(fp = fopen(txt,"rb"))) {
@@ -386,6 +393,38 @@ SEXP digest(SEXP Txt, SEXP Algo, SEXP Length, SEXP Skip, SEXP Leave_raw, SEXP Se
         sprintf(output, "%016" PRIx64, val);
         break;
     }
+    case 108: {     /* murmur32 */
+        unsigned int h1=seed, carry=0;
+        unsigned char buf[BUF_SIZE];
+        XXH64_state_t state;
+        size_t total_length = 0;
+
+        if (!(fp = fopen(txt,"rb"))) {
+          error("Cannot open input file: %s", txt);
+          return(NULL);
+        }
+        if (skip > 0) fseek(fp, skip, SEEK_SET);
+        XXH64_reset(&state, seed);
+        if (length>=0) {
+          while( ( nChar = fread( buf, 1, sizeof( buf ), fp ) ) > 0
+                 && length>0) {
+            if (nChar>length) nChar=length;
+            PMurHash32_Process(&h1, &carry, buf, nChar);
+            length -= nChar;
+            total_length += nChar;
+          }
+        } else {
+          while( ( nChar = fread( buf, 1, sizeof( buf ), fp ) ) > 0) {
+            PMurHash32_Process(&h1, &carry, buf, nChar);
+            total_length += nChar;
+          }
+        }
+        fclose(fp);
+        unsigned int val = PMurHash32_Result(h1, carry, total_length);
+
+        sprintf(output, "%08x", val);
+        break;
+    }
     default: {
         error("Unsupported algorithm code");
         return(NULL);
@@ -401,5 +440,5 @@ SEXP digest(SEXP Txt, SEXP Algo, SEXP Length, SEXP Skip, SEXP Leave_raw, SEXP Se
     }
     UNPROTECT(1);
 
-    return result;
+  return result;
 }
