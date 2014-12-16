@@ -158,10 +158,10 @@ murmur32Output <-
       "ee925b90",
       "00000000")
 
-for (i in seq(along=xxhash32Input)) {
-    xxhash32 <- digest(xxhash32Input[i], algo="xxhash32", serialize=FALSE)
-    cat(xxhash32, "\n")
-    stopifnot(identical(xxhash32, xxhash32Output[i]))
+for (i in seq(along=murmur32Input)) {
+    murmur32 <- digest(murmur32Input[i], algo="murmur32", serialize=FALSE)
+    cat(murmur32, "\n")
+    stopifnot(identical(murmur32, murmur32Output[i]))
 }
 ## test 'length' parameter and file input
 ##fname <- file.path(R.home(),"COPYING")  ## not invariant across OSs

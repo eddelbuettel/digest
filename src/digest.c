@@ -44,6 +44,7 @@ static const char *sha2_hex_digits = "0123456789abcdef";
 
 
 SEXP digest(SEXP Txt, SEXP Algo, SEXP Length, SEXP Skip, SEXP Leave_raw, SEXP Seed) {
+    size_t BUF_SIZE = 1024;
     FILE *fp=0;
     char *txt;
     int algo = INTEGER_VALUE(Algo);
@@ -183,7 +184,7 @@ SEXP digest(SEXP Txt, SEXP Algo, SEXP Length, SEXP Skip, SEXP Leave_raw, SEXP Se
         int j;
         md5_context ctx;
         output_length = 16;
-        unsigned char buf[1024];
+        unsigned char buf[BUF_SIZE];
         unsigned char md5sum[16];
 
         if (!(fp = fopen(txt,"rb"))) {
@@ -215,7 +216,7 @@ SEXP digest(SEXP Txt, SEXP Algo, SEXP Length, SEXP Skip, SEXP Leave_raw, SEXP Se
         int j;
         sha1_context ctx;
         output_length = 20;
-        unsigned char buf[1024];
+        unsigned char buf[BUF_SIZE];
         unsigned char sha1sum[20];
 
         if (!(fp = fopen(txt,"rb"))) {
@@ -243,7 +244,7 @@ SEXP digest(SEXP Txt, SEXP Algo, SEXP Length, SEXP Skip, SEXP Leave_raw, SEXP Se
         break;
     }
     case 103: {     /* crc32 file case */
-        unsigned char buf[1024];
+        unsigned char buf[BUF_SIZE];
         unsigned long val;
 
         if (!(fp = fopen(txt,"rb"))) {
@@ -270,7 +271,7 @@ SEXP digest(SEXP Txt, SEXP Algo, SEXP Length, SEXP Skip, SEXP Leave_raw, SEXP Se
         int j;
         sha256_context ctx;
         output_length = 32;
-        unsigned char buf[1024];
+        unsigned char buf[BUF_SIZE];
         unsigned char sha256sum[32];
 
         if (!(fp = fopen(txt,"rb"))) {
@@ -303,7 +304,7 @@ SEXP digest(SEXP Txt, SEXP Algo, SEXP Length, SEXP Skip, SEXP Leave_raw, SEXP Se
         output_length = SHA512_DIGEST_LENGTH;
         uint8_t sha512sum[output_length], *d = sha512sum;
 
-        unsigned char buf[1024];
+        unsigned char buf[BUF_SIZE];
 
         if (!(fp = fopen(txt,"rb"))) {
             error("Cannot open input file: %s", txt);
@@ -341,7 +342,7 @@ SEXP digest(SEXP Txt, SEXP Algo, SEXP Length, SEXP Skip, SEXP Leave_raw, SEXP Se
         break;
     }
     case 106: {     /* xxhash32 */
-        unsigned char buf[1024];
+        unsigned char buf[BUF_SIZE];
         XXH32_state_t state;
 
         if (!(fp = fopen(txt,"rb"))) {
@@ -367,7 +368,7 @@ SEXP digest(SEXP Txt, SEXP Algo, SEXP Length, SEXP Skip, SEXP Leave_raw, SEXP Se
         break;
     }
     case 107: {     /* xxhash64 */
-        unsigned char buf[1024];
+        unsigned char buf[BUF_SIZE];
         XXH64_state_t state;
 
         if (!(fp = fopen(txt,"rb"))) {
