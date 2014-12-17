@@ -1,3 +1,10 @@
+2014-12-16  Dirk Eddelbuettel  <edd@debian.org>
+
+	* src/xxhash.c: Remove two semicolons to make gcc -pedantic happy
+	* tests/digestTest.Rout.save: Updated reflecting murmurHash test
+	* src/pmurhash.c: Renamed from PMurHash.c for naming consistency
+	* src/pmurhash.h: Renamed from PMurHash.h for naming consistency
+
 2014-12-16  Jim Hester <james.f.hester@gmail.com>
 
 	* src/digest.c: murmurHash implementation
@@ -5,7 +12,6 @@
 	* R/digest.R: murmurHash implementation
 	* src/PMurHash.c: murmurHash implementation
 	* src/PMurHash.h: murmurHash implementation
-	* src/digest.c: murmurHash implementation
 
 2014-12-10  Dirk Eddelbuettel  <edd@debian.org>
 

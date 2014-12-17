@@ -48,7 +48,7 @@ on big endian machines, or a byte-by-byte read if the endianess is unknown.
 -----------------------------------------------------------------------------*/
 
 
-#include "PMurHash.h"
+#include "pmurhash.h"           /* renamed for consistency in digest's src/ */
 
 /* I used ugly type names in the header to avoid potential conflicts with
  * application or system typedefs & defines. Since I'm not including any more

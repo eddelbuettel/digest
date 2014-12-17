@@ -34,7 +34,7 @@
 #include "md5.h"
 #include "zlib.h"
 #include "xxhash.h"
-#include "PMurHash.h"
+#include "pmurhash.h"
 
 unsigned long ZEXPORT digest_crc32(unsigned long crc,
                                    const unsigned char FAR *buf,
