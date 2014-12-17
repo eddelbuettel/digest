@@ -535,7 +535,7 @@ XXH_errorcode XXH32_freeState(XXH32_state_t* statePtr)
 {
     XXH_free(statePtr);
     return XXH_OK;
-};
+}
 
 XXH64_state_t* XXH64_createState(void)
 {
@@ -546,7 +546,7 @@ XXH_errorcode XXH64_freeState(XXH64_state_t* statePtr)
 {
     XXH_free(statePtr);
     return XXH_OK;
-};
+}
 
 
 /*** Hash feed ***/
