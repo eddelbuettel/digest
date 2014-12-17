@@ -213,6 +213,24 @@ cf83e1357eefb8bdf1542850d66d8007d620e4050b5715dc83f4a921d36ce9ce47d0d13c5d85f2b0
 f06103773e8585df 
 ef46db3751d8e999 
 > 
+> ## these outputs were calculated using mmh3 python package
+> murmur32Input <-
++     c("abc",
++       "abcdbcdecdefdefgefghfghighijhijkijkljklmklmnlmnomnopnopq",
++       "")
+> murmur32Output <-
++     c("b3dd93fa",
++       "ee925b90",
++       "00000000")
+> 
+> for (i in seq(along=murmur32Input)) {
++     murmur32 <- digest(murmur32Input[i], algo="murmur32", serialize=FALSE)
++     cat(murmur32, "\n")
++     stopifnot(identical(murmur32, murmur32Output[i]))
++ }
+b3dd93fa 
+ee925b90 
+00000000 
 > ## test 'length' parameter and file input
 > ##fname <- file.path(R.home(),"COPYING")  ## not invariant across OSs
 > fname <- system.file("GPL-2", package="digest")
@@ -265,4 +283,4 @@ f1233fcd
 > 
 > proc.time()
    user  system elapsed 
-  0.356   0.428   0.334 
+  0.420   0.288   0.420 
