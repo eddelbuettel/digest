@@ -1,3 +1,12 @@
+2014-12-19  Dirk Eddelbuettel  <edd@debian.org>
+
+	* src/digest.c: Store the result of XXH64_digest() in an unsigned
+	long which corresponds to what we are printing 
+
+	* src/sha2.c: Apply (slightly edited) patch from 
+	https://www.nlnetlabs.nl/bugs-script/attachment.cgi?id=220&action=diff
+	to overcome the strict-aliasing warning
+
 2014-12-16  Dirk Eddelbuettel  <edd@debian.org>
 
 	* src/xxhash.c: Remove two semicolons to make gcc -pedantic happy
