@@ -171,7 +171,7 @@ SEXP digest(SEXP Txt, SEXP Algo, SEXP Length, SEXP Skip, SEXP Leave_raw, SEXP Se
         XXH64_state_t state;
         XXH64_reset(&state, seed);
         XXH64_update(&state, (uint8 *) txt, nChar);
-        unsigned long long val =  XXH64_digest(&state);
+        unsigned long val =  XXH64_digest(&state);
         sprintf(output, "%016" PRIx64, val);
         break;
     }
@@ -388,7 +388,7 @@ SEXP digest(SEXP Txt, SEXP Algo, SEXP Length, SEXP Skip, SEXP Leave_raw, SEXP Se
                 XXH64_update(&state, buf, nChar);
         }
         fclose(fp);
-        unsigned long long val =  XXH64_digest(&state);
+        unsigned long val =  XXH64_digest(&state);
 
         sprintf(output, "%016" PRIx64, val);
         break;
