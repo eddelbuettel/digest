@@ -1,4 +1,4 @@
 #!/bin/sh
 
-rm -f config.* src/Makedeps src/Makevars \
+rm -f config.* src/Makedeps src/Makevars src/symbols.rds \
     src/*.o src/*.d src/*.a src/*.dll src/*.so src/*.rc */*~ *~

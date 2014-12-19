@@ -1,7 +1,6 @@
 2014-12-19  Dirk Eddelbuettel  <edd@debian.org>
 
-	* src/digest.c: Store the result of XXH64_digest() in an unsigned
-	long which corresponds to what we are printing 
+	* cleanup: Also remove src/symbols.rds
 
 	* src/sha2.c: Apply (slightly edited) patch from 
 	https://www.nlnetlabs.nl/bugs-script/attachment.cgi?id=220&action=diff
