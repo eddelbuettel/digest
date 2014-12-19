@@ -6,6 +6,8 @@
 	https://www.nlnetlabs.nl/bugs-script/attachment.cgi?id=220&action=diff
 	to overcome the strict-aliasing warning
 
+	* src/digest.c: Use inttypes.h macro PRIx64 only on Windows
+	
 2014-12-16  Dirk Eddelbuettel  <edd@debian.org>
 
 	* src/xxhash.c: Remove two semicolons to make gcc -pedantic happy

@@ -172,7 +172,11 @@ SEXP digest(SEXP Txt, SEXP Algo, SEXP Length, SEXP Skip, SEXP Leave_raw, SEXP Se
         XXH64_reset(&state, seed);
         XXH64_update(&state, (uint8 *) txt, nChar);
         unsigned long long val =  XXH64_digest(&state);
+#ifdef WIN32
         sprintf(output, "%016" PRIx64, val);
+#else 
+        sprintf(output, "%016llx", val);
+#endif
         break;
     }
     case 8: {     /* MurmurHash3 32 */
@@ -390,7 +394,11 @@ SEXP digest(SEXP Txt, SEXP Algo, SEXP Length, SEXP Skip, SEXP Leave_raw, SEXP Se
         fclose(fp);
         unsigned long long val =  XXH64_digest(&state);
 
+#ifdef WIN32
         sprintf(output, "%016" PRIx64, val);
+#else
+        sprintf(output, "%016llx", val);
+#endif
         break;
     }
     case 108: {     /* murmur32 */
