@@ -18,7 +18,7 @@ Description: Implementation of a function 'digest()' for the creation
  and the crc32 algorithm is described in 
  ftp://ftp.rocksoft.com/cliens/rocksoft/papers/crc_v3.txt.
  .
- For md5, sha-1, sha-256 and aes, this package uses a small standalone
+ For md5, sha-1, sha-256 and aes, this package uses small standalone
  implementations that were provided by Christophe Devine. For crc32, code
  from the zlib library is used. For sha-512, an implementation by Aaron
  D. Gifford is used. For xxHash, the implementation by Yann Collet is used.
