@@ -1,13 +1,19 @@
+2014-12-20  Dirk Eddelbuettel  <edd@debian.org>
+
+	* DESCRIPTION (Version): Version 0.6.6
+
+	* DESCRIPTION (Date): Bumped Date: to current date
+
 2014-12-19  Dirk Eddelbuettel  <edd@debian.org>
 
 	* cleanup: Also remove src/symbols.rds
 
-	* src/sha2.c: Apply (slightly edited) patch from 
+	* src/sha2.c: Apply (slightly edited) patch from
 	https://www.nlnetlabs.nl/bugs-script/attachment.cgi?id=220&action=diff
 	to overcome the strict-aliasing warning
 
 	* src/digest.c: Use inttypes.h macro PRIx64 only on Windows
-	
+
 2014-12-16  Dirk Eddelbuettel  <edd@debian.org>
 
 	* src/xxhash.c: Remove two semicolons to make gcc -pedantic happy
@@ -33,7 +39,7 @@
 	* DESCRIPTION (Version): Version 0.6.6
 
 	* DESCRIPTION (Date): Bumped Date: to current date
-	
+
 	* src/digest.c: Applied pull request #5 by Jim Hester providing
 	portable integer printing inttypes.h header
 
