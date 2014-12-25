@@ -2,7 +2,8 @@
 
   init -- registering the c hash digest functions
 
-  Copyright (C) 2014  Wush Wu <wush978@gmail.com>
+  Copyright (C) 2014 Wush Wu <wush978@gmail.com> and
+                     Dirk Eddelbuettel <edd@debian.org>
 
   This file is part of digest.
 
@@ -35,49 +36,11 @@ unsigned long ZEXPORT digest_crc32(unsigned long crc,
                                    unsigned len);
 
 static const R_CallMethodDef callMethods [] = {
-    { "md5_starts", (DL_FUNC) &md5_starts, 1 },
-    { "md5_update", (DL_FUNC) &md5_update, 3 },
-    { "md5_finish", (DL_FUNC) &md5_finish, 2 },
-    { "sha1_starts", (DL_FUNC) &sha1_starts, 1 },
-    { "sha1_update", (DL_FUNC) &sha1_update, 3 },
-    { "sha1_finish", (DL_FUNC) &sha1_finish, 2 },
-    { "digest_crc32", (DL_FUNC) &digest_crc32, 3 },
-    { "sha256_starts", (DL_FUNC) &sha256_starts, 1 },
-    { "sha256_update", (DL_FUNC) &sha256_update, 3 },
-    { "sha256_finish", (DL_FUNC) &sha256_finish, 2 },
-    { "SHA512_Init", (DL_FUNC) &SHA512_Init, 1 },
-    { "SHA512_Update", (DL_FUNC) &SHA512_Update, 3 },
-    { "SHA512_Final", (DL_FUNC) &SHA512_Final, 2 },
-    { "XXH32_reset", (DL_FUNC) &XXH32_reset, 2 },
-    { "XXH32_update", (DL_FUNC) &XXH32_update, 3 },
-    { "XXH32_digest", (DL_FUNC) &XXH32_digest, 1 },
-    { "XXH64_reset", (DL_FUNC) &XXH64_reset, 2 },
-    { "XXH64_update", (DL_FUNC) &XXH64_update, 3 },
-    { "XXH64_digest", (DL_FUNC) &XXH64_digest, 1 },
     { "PMurHash32", (DL_FUNC) &PMurHash32, 3 },
     { NULL, NULL, 0 }
 };
 
 void R_init_digest(DllInfo *info) {
-    R_RegisterCCallable("digest", "md5_starts", (DL_FUNC) &md5_starts);
-    R_RegisterCCallable("digest", "md5_update", (DL_FUNC) &md5_update);
-    R_RegisterCCallable("digest", "md5_finish", (DL_FUNC) &md5_finish);
-    R_RegisterCCallable("digest", "sha1_starts", (DL_FUNC) &sha1_starts);
-    R_RegisterCCallable("digest", "sha1_update", (DL_FUNC) &sha1_update);
-    R_RegisterCCallable("digest", "sha1_finish", (DL_FUNC) &sha1_finish);
-    R_RegisterCCallable("digest", "digest_crc32", (DL_FUNC) &digest_crc32);
-    R_RegisterCCallable("digest", "sha256_starts", (DL_FUNC) &sha256_starts);
-    R_RegisterCCallable("digest", "sha256_update", (DL_FUNC) &sha256_update);
-    R_RegisterCCallable("digest", "sha256_finish", (DL_FUNC) &sha256_finish);
-    R_RegisterCCallable("digest", "SHA512_Init", (DL_FUNC) &SHA512_Init);
-    R_RegisterCCallable("digest", "SHA512_Update", (DL_FUNC) &SHA512_Update);
-    R_RegisterCCallable("digest", "SHA512_Final", (DL_FUNC) &SHA512_Final);
-    R_RegisterCCallable("digest", "XXH32_reset", (DL_FUNC) &XXH32_reset);
-    R_RegisterCCallable("digest", "XXH32_update", (DL_FUNC) &XXH32_update);
-    R_RegisterCCallable("digest", "XXH32_digest", (DL_FUNC) &XXH32_digest);
-    R_RegisterCCallable("digest", "XXH64_reset", (DL_FUNC) &XXH64_reset);
-    R_RegisterCCallable("digest", "XXH64_update", (DL_FUNC) &XXH64_update);
-    R_RegisterCCallable("digest", "XXH64_digest", (DL_FUNC) &XXH64_digest);
     R_RegisterCCallable("digest", "PMurHash32", (DL_FUNC) &PMurHash32);
 
     R_registerRoutines(info,
