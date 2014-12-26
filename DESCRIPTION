@@ -1,10 +1,10 @@
 Package: digest
-Version: 0.6.7
-Date: 2013-12-20
+Version: 0.6.7.1
+Date: 2013-12-25
 Author: Dirk Eddelbuettel <edd@debian.org> with contributions 
  by Antoine Lucas, Jarek Tuszynski, Henrik Bengtsson, Simon Urbanek,
  Mario Frasca, Bryan Lewis, Murray Stokely, Hannes Muehleisen,
- Duncan Murdoch and Jim Hester.
+ Duncan Murdoch, Jim Hester and Wush Wu.
 Maintainer: Dirk Eddelbuettel <edd@debian.org>
 Title: Create Cryptographic Hash Digests of R Objects
 Description: Implementation of a function 'digest()' for the creation 
