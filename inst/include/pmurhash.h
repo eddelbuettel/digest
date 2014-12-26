@@ -2,8 +2,7 @@
 
   init -- registering the c hash digest functions
 
-  Copyright (C) 2014 Wush Wu <wush978@gmail.com> and
-                     Dirk Eddelbuettel <edd@debian.org>
+  Copyright (C) 2014 Wush Wu and Dirk Eddelbuettel 
 
   This file is part of digest.
 
@@ -39,45 +38,45 @@ extern "C" {
 
 /* First look for special cases */
 #if defined(_MSC_VER)
-  #define MH_UINT32 unsigned long
+   #define MH_UINT32 unsigned long
 #endif
 
 /* If the compiler says it's C99 then take its word for it */
 #if !defined(MH_UINT32) && ( \
      defined(__STDC_VERSION__) && __STDC_VERSION__ >= 199901L )
-  #include <stdint.h>
-  #define MH_UINT32 uint32_t
+    #include <stdint.h>
+    #define MH_UINT32 uint32_t
 #endif
 
 /* Otherwise try testing against max value macros from limit.h */
 #if !defined(MH_UINT32)
-  #include  <limits.h>
-  #if   (USHRT_MAX == 0xffffffffUL)
-    #define MH_UINT32 unsigned short
-  #elif (UINT_MAX == 0xffffffffUL)
-    #define MH_UINT32 unsigned int
-  #elif (ULONG_MAX == 0xffffffffUL)
-    #define MH_UINT32 unsigned long
-  #endif
+    #include  <limits.h>
+    #if   (USHRT_MAX == 0xffffffffUL)
+        #define MH_UINT32 unsigned short
+    #elif (UINT_MAX == 0xffffffffUL)
+        #define MH_UINT32 unsigned int
+    #elif (ULONG_MAX == 0xffffffffUL)
+        #define MH_UINT32 unsigned long
+    #endif
 #endif
 
 #if !defined(MH_UINT32)
-  #error Unable to determine type name for unsigned 32-bit int
+    #error Unable to determine type name for unsigned 32-bit int
 #endif
 
 /* I'm yet to work on a platform where 'unsigned char' is not 8 bits */
 #define MH_UINT8  unsigned char
 
 MH_UINT32 attribute_hidden PMurHash32(MH_UINT32 seed, const void *key, int len) {
-  static MH_UINT32(*fun)(MH_UINT32, const void*, int) = NULL;
-  if (!fun) {
-    fun = (MH_UINT32(*)(MH_UINT32, const void*, int)) R_GetCCallable("digest", "PMurHash32");
-  }
-  return fun(seed, key, len);
+    static MH_UINT32(*fun)(MH_UINT32, const void*, int) = NULL;
+    if (!fun) {
+        fun = (MH_UINT32(*)(MH_UINT32, const void*, int)) R_GetCCallable("digest", "PMurHash32");
+    }
+    return fun(seed, key, len);
 }
 
 #ifdef __cplusplus
 }
 #endif
 
-#endif // __PMURHASH_H__
+#endif /* __PMURHASH_H__ */
