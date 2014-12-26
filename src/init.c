@@ -2,8 +2,7 @@
 
   init -- registering the c hash digest functions
 
-  Copyright (C) 2014 Wush Wu <wush978@gmail.com> and
-                     Dirk Eddelbuettel <edd@debian.org>
+  Copyright (C) 2014  Wush Wu and Dirk Eddelbuettel
 
   This file is part of digest.
 
@@ -23,17 +22,8 @@
 */
 
 #include <R_ext/Rdynload.h>
-#include "sha1.h"
-#include "sha2.h"
-#include "sha256.h"
-#include "md5.h"
-#include "zlib.h"
 #include "xxhash.h"
 #include "pmurhash.h"
-
-unsigned long ZEXPORT digest_crc32(unsigned long crc,
-                                   const unsigned char FAR *buf,
-                                   unsigned len);
 
 static const R_CallMethodDef callMethods [] = {
     { "PMurHash32", (DL_FUNC) &PMurHash32, 3 },
@@ -44,10 +34,10 @@ void R_init_digest(DllInfo *info) {
     R_RegisterCCallable("digest", "PMurHash32", (DL_FUNC) &PMurHash32);
 
     R_registerRoutines(info,
-                       NULL,    /* slot for .C */
-                       callMethods,   /* slot for .Call */
+                       NULL,            /* slot for .C */
+                       callMethods,     /* slot for .Call */
                        NULL,            /* slot for .Fortran */
-                       NULL);     /* slot for .External */
+                       NULL);           /* slot for .External */
 
     R_useDynamicSymbols(info, TRUE);    /* controls visibility */
 }

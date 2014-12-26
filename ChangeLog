@@ -1,3 +1,12 @@
+2014-12-25  Dirk Eddelbuettel  <edd@debian.org>
+
+	* src/init.c: Minor edit and removal of unused headers
+
+2014-12-25  Wush Wu  <wush978@gmail.com>
+
+	* inst/include/pmurhash.h: Export function
+	* src/init.c: Register function for use by other packages
+
 2014-12-20  Dirk Eddelbuettel  <edd@debian.org>
 
 	* DESCRIPTION (Version): Version 0.6.7
