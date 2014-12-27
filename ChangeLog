@@ -1,10 +1,12 @@
 2014-12-26  Dirk Eddelbuettel  <edd@debian.org>
 
+	* src/pmurhash.c: Protect against _BIG_ENDIAN defined but empty
+
 	* inst/include/pmurhash.h: Consistent four space indentation
 
 2014-12-25  Dirk Eddelbuettel  <edd@debian.org>
 
-	* DESCRIPTION: Bump Date: and Version: 
+	* DESCRIPTION: Bump Date: and Version:
 
 	* src/init.c: Minor edit and removal of unused headers
 
