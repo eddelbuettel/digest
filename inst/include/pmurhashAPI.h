@@ -20,6 +20,33 @@
   along with digest.  If not, see <http://www.gnu.org/licenses/>.
 */
 
+/*
+   Purpose:  
+
+      Provide MurmurHash3A for use by C / C++ code of other R packages
+
+   Usage:
+
+      1) In your package, add 'LinkingTo: digest' to the DESCRIPTION file.
+         This ensure that R will know the path to this file.
+
+      2) In your source code, add '#include <pmurhashAPI.h>'
+         This ensures the compiler knows the declaration of the function 
+         interface.
+
+      3) In your package's source code, call 'res = PMurHash32(seed,
+         key, len);' where res and seed are of type MH_UINT32 (which
+         is defined appropriately below).
+
+      4) The local function here sets a static pointer to the actual
+         MurmurHash32 implementation in this package. R takes care of
+         the function registration, export and import --- meaning that
+         no build-time linking of your package is needed resulting in
+         simpler and more robust build steps.
+    
+*/
+
+
 #ifndef __PMURHASH_H__
 #define __PMURHASH_H__
 
@@ -68,11 +95,11 @@ extern "C" {
 #define MH_UINT8  unsigned char
 
 MH_UINT32 attribute_hidden PMurHash32(MH_UINT32 seed, const void *key, int len) {
-    static MH_UINT32(*fun)(MH_UINT32, const void*, int) = NULL;
-    if (!fun) {
-        fun = (MH_UINT32(*)(MH_UINT32, const void*, int)) R_GetCCallable("digest", "PMurHash32");
+    static MH_UINT32(*f)(MH_UINT32, const void*, int) = NULL;
+    if (!f) {
+        f = (MH_UINT32(*)(MH_UINT32, const void*, int)) R_GetCCallable("digest", "PMurHash32");
     }
-    return fun(seed, key, len);
+    return f(seed, key, len);
 }
 
 #ifdef __cplusplus

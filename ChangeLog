@@ -1,3 +1,7 @@
+2014-12-29  Dirk Eddelbuettel  <edd@debian.org>
+
+	* inst/include/pmurhashAPI.h: Added HOWTO comment to top of file
+
 2014-12-26  Dirk Eddelbuettel  <edd@debian.org>
 
 	* src/pmurhash.c: Protect against _BIG_ENDIAN defined but empty
