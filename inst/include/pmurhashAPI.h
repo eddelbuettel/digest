@@ -91,9 +91,6 @@ extern "C" {
     #error Unable to determine type name for unsigned 32-bit int
 #endif
 
-/* I'm yet to work on a platform where 'unsigned char' is not 8 bits */
-#define MH_UINT8  unsigned char
-
 MH_UINT32 attribute_hidden PMurHash32(MH_UINT32 seed, const void *key, int len) {
     static MH_UINT32(*f)(MH_UINT32, const void*, int) = NULL;
     if (!f) {
