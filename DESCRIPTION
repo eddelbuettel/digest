@@ -1,6 +1,6 @@
 Package: digest
-Version: 0.6.7.1
-Date: 2013-12-25
+Version: 0.6.8
+Date: 2013-12-30
 Author: Dirk Eddelbuettel <edd@debian.org> with contributions 
  by Antoine Lucas, Jarek Tuszynski, Henrik Bengtsson, Simon Urbanek,
  Mario Frasca, Bryan Lewis, Murray Stokely, Hannes Muehleisen,

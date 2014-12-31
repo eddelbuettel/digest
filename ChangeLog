@@ -1,3 +1,9 @@
+2014-12-30  Dirk Eddelbuettel  <edd@debian.org>
+
+	* DESCRIPTION (Version): Version 0.6.8
+
+	* DESCRIPTION (Date): Bumped Date: to current date
+
 2014-12-29  Dirk Eddelbuettel  <edd@debian.org>
 
 	* inst/include/pmurhashAPI.h: Added HOWTO comment to top of file
