@@ -1,5 +1,5 @@
 ## digest [![Build Status](https://travis-ci.org/eddelbuettel/digest.png)](https://travis-ci.org/eddelbuettel/digest)
-[![Coverage Status](https://img.shields.io/coveralls/jimhester/digest.svg)](https://coveralls.io/r/jimhester/digest?branch=master)
+[![Coverage Status](https://img.shields.io/coveralls/eddelbuettel/digest.svg)](https://coveralls.io/r/eddelbuettel/digest?branch=master)
 
 ## What
 
