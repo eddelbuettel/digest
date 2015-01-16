@@ -13,7 +13,10 @@ before_install:
   - chmod 755 ./travis-tool.sh
   - ./travis-tool.sh bootstrap
 
-#install:
+after_success:
+  - Rscript -e 'library(covr);coveralls()'
+install:
+  - ./travis-tool.sh github_package jimhester/covr
 #  - ./travis-tool.sh install_r rbenchmark microbenchmark
 
 script: ./travis-tool.sh run_tests
