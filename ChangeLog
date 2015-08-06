@@ -1,3 +1,7 @@
+2015-08-06  Dirk Eddelbuettel  <edd@debian.org>
+
+	* DESCRIPTION (Title): Updated now stressing 'compact' over 'crypto'
+
 2014-12-30  Dirk Eddelbuettel  <edd@debian.org>
 
 	* DESCRIPTION (Version): Version 0.6.8

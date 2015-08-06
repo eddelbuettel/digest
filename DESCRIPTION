@@ -6,7 +6,7 @@ Author: Dirk Eddelbuettel <edd@debian.org> with contributions
  Mario Frasca, Bryan Lewis, Murray Stokely, Hannes Muehleisen,
  Duncan Murdoch, Jim Hester and Wush Wu.
 Maintainer: Dirk Eddelbuettel <edd@debian.org>
-Title: Create Cryptographic Hash Digests of R Objects
+Title: Create Compact Hash Digests of R Objects
 Description: Implementation of a function 'digest()' for the creation 
  of hash digests of arbitrary R objects (using the md5, sha-1, sha-256, 
  crc32, xxhash and murmurhash algorithms) permitting easy comparison of R
