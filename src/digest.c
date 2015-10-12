@@ -54,7 +54,7 @@ SEXP digest(SEXP Txt, SEXP Algo, SEXP Length, SEXP Skip, SEXP Leave_raw, SEXP Se
     int leaveRaw = INTEGER_VALUE(Leave_raw);
     SEXP result = NULL;
     char output[128+1], *outputp = output;    /* 33 for md5, 41 for sha1, 65 for sha256, 128 for sha512; plus trailing NULL */
-    int nChar;
+    uint32_t nChar;
     int output_length = -1;
     if (IS_RAW(Txt)) { /* Txt is either RAW */
         txt = (char*) RAW(Txt);
