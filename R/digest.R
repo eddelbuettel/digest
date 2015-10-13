@@ -1,7 +1,7 @@
 
 ##  digest -- hash digest functions for R
 ##
-##  Copyright (C) 2003 - 2014  Dirk Eddelbuettel <edd@debian.org>
+##  Copyright (C) 2003 - 2015  Dirk Eddelbuettel <edd@debian.org>
 ##
 ##  This file is part of digest.
 ##
@@ -18,11 +18,27 @@
 ##  You should have received a copy of the GNU General Public License
 ##  along with digest.  If not, see <http://www.gnu.org/licenses/>.
 
+
 digest <- function(object, algo=c("md5", "sha1", "crc32", "sha256", "sha512",
                            "xxhash32", "xxhash64", "murmur32"),
                    serialize=TRUE, file=FALSE, length=Inf,
-                   skip="auto", ascii=FALSE, raw=FALSE, seed=0) {
+                   skip="auto", ascii=FALSE, raw=FALSE, seed=0,
+                   errormode=c("stop","warn","silent")) {
+    
     algo <- match.arg(algo)
+    errormode <- match.arg(errormode)
+
+    .errorhandler <- function(txt, obj="", mode="stop") {
+        if (mode == "stop") {
+            stop(txt, obj, call.=FALSE)
+        } else if (mode == "warn") {
+            warning(txt, obj, call.=FALSE)
+            return(invisible(NA))
+        } else {
+            return(invisible(NULL))
+        }
+    }
+    
     if (is.infinite(length)) {
         length <- -1               # internally we use -1 for infinite len
     }
@@ -51,10 +67,12 @@ digest <- function(object, algo=c("md5", "sha1", "crc32", "sha256", "sha512",
             ## Was: skip <- if (ascii) 18 else 14
         }
     } else if (!is.character(object) && !inherits(object,"raw")) {
-        stop("Argument object must be of type character or raw vector if serialize is FALSE")
+        return(.errorhandler(paste("Argument object must be of type character",
+                                      "or raw vector if serialize is FALSE"), mode=errormode))
     }
     if (file && !is.character(object))
-        stop("file=TRUE can only be used with a character object")
+        return(.errorhandler("file=TRUE can only be used with a character object",
+                             mode=errormode))
     ## HB 14 Mar 2007:  null op, only turned to char if alreadt char
     ##if (!inherits(object,"raw"))
     ##  object <- as.character(object)
@@ -71,13 +89,15 @@ digest <- function(object, algo=c("md5", "sha1", "crc32", "sha256", "sha512",
         algoint <- algoint+100
         object <- path.expand(object)
         if (!file.exists(object)) {
-            stop("The file does not exist: ", object)
+            return(.errorhandler("The file does not exist: ", object, mode=errormode))
         }
         if (!isTRUE(!file.info(object)$isdir)) {
-            stop("The specified pathname is not a file: ", object)
+            return(.errorhandler("The specified pathname is not a file: ",
+                                 object, mode=errormode))
         }
         if (file.access(object, 4)) {
-            stop("The specified file is not readable: ", object)
+            return(.errorhandler("The specified file is not readable: ",
+                                 object, mode=errormode))
         }
     }
     ## if skip is auto (or any other text for that matter), we just turn it
