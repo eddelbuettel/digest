@@ -2,7 +2,7 @@
 
   digest -- hash digest functions for R
 
-  Copyright (C) 2003 - 2014  Dirk Eddelbuettel <edd@debian.org>
+  Copyright (C) 2003 - 2015  Dirk Eddelbuettel <edd@debian.org>
 
   This file is part of digest.
 
@@ -52,7 +52,7 @@ SEXP digest(SEXP Txt, SEXP Algo, SEXP Length, SEXP Skip, SEXP Leave_raw, SEXP Se
     int skip = INTEGER_VALUE(Skip);
     int seed = INTEGER_VALUE(Seed);
     int leaveRaw = INTEGER_VALUE(Leave_raw);
-    SEXP result = NULL;
+    SEXP result = R_NilValue;
     char output[128+1], *outputp = output;    /* 33 for md5, 41 for sha1, 65 for sha256, 128 for sha512; plus trailing NULL */
     uint32_t nChar;
     int output_length = -1;
@@ -192,8 +192,7 @@ SEXP digest(SEXP Txt, SEXP Algo, SEXP Length, SEXP Skip, SEXP Leave_raw, SEXP Se
         unsigned char md5sum[16];
 
         if (!(fp = fopen(txt,"rb"))) {
-            error("Cannot open input file: %s", txt);
-            return(NULL);
+            error("Cannot open input file: %s", txt); /* already covered at R level too */
         }
         if (skip > 0) fseek(fp, skip, SEEK_SET);
         md5_starts( &ctx );
@@ -224,8 +223,7 @@ SEXP digest(SEXP Txt, SEXP Algo, SEXP Length, SEXP Skip, SEXP Leave_raw, SEXP Se
         unsigned char sha1sum[20];
 
         if (!(fp = fopen(txt,"rb"))) {
-            error("Cannot open input file: %s", txt);
-            return(NULL);
+            error("Cannot open input file: %s", txt); /* already covered at R level too */
         }
         if (skip > 0) fseek(fp, skip, SEEK_SET);
         sha1_starts ( &ctx );
@@ -252,8 +250,7 @@ SEXP digest(SEXP Txt, SEXP Algo, SEXP Length, SEXP Skip, SEXP Leave_raw, SEXP Se
         unsigned long val;
 
         if (!(fp = fopen(txt,"rb"))) {
-            error("Cannot open input file: %s", txt);
-            return(NULL);
+            error("Cannot open input file: %s", txt); /* already covered at R level too */
         }
         if (skip > 0) fseek(fp, skip, SEEK_SET);
         val  = digest_crc32(0L, 0, 0);
@@ -279,8 +276,7 @@ SEXP digest(SEXP Txt, SEXP Algo, SEXP Length, SEXP Skip, SEXP Leave_raw, SEXP Se
         unsigned char sha256sum[32];
 
         if (!(fp = fopen(txt,"rb"))) {
-            error("Cannot open input file: %s", txt);
-            return(NULL);
+            error("Cannot open input file: %s", txt); /* already covered at R level too */
         }
         if (skip > 0) fseek(fp, skip, SEEK_SET);
         sha256_starts ( &ctx );
@@ -311,8 +307,7 @@ SEXP digest(SEXP Txt, SEXP Algo, SEXP Length, SEXP Skip, SEXP Leave_raw, SEXP Se
         unsigned char buf[BUF_SIZE];
 
         if (!(fp = fopen(txt,"rb"))) {
-            error("Cannot open input file: %s", txt);
-            return(NULL);
+            error("Cannot open input file: %s", txt); /* already covered at R level too */
         }
         if (skip > 0) fseek(fp, skip, SEEK_SET);
         SHA512_Init(&ctx);
@@ -350,8 +345,7 @@ SEXP digest(SEXP Txt, SEXP Algo, SEXP Length, SEXP Skip, SEXP Leave_raw, SEXP Se
         XXH32_state_t state;
 
         if (!(fp = fopen(txt,"rb"))) {
-            error("Cannot open input file: %s", txt);
-            return(NULL);
+            error("Cannot open input file: %s", txt); /* already covered at R level too */
         }
         if (skip > 0) fseek(fp, skip, SEEK_SET);
         XXH32_reset(&state, seed);
@@ -376,8 +370,7 @@ SEXP digest(SEXP Txt, SEXP Algo, SEXP Length, SEXP Skip, SEXP Leave_raw, SEXP Se
         XXH64_state_t state;
 
         if (!(fp = fopen(txt,"rb"))) {
-            error("Cannot open input file: %s", txt);
-            return(NULL);
+            error("Cannot open input file: %s", txt); /* already covered at R level too */
         }
         if (skip > 0) fseek(fp, skip, SEEK_SET);
         XXH64_reset(&state, seed);
@@ -408,24 +401,23 @@ SEXP digest(SEXP Txt, SEXP Algo, SEXP Length, SEXP Skip, SEXP Leave_raw, SEXP Se
         size_t total_length = 0;
 
         if (!(fp = fopen(txt,"rb"))) {
-          error("Cannot open input file: %s", txt);
-          return(NULL);
+            error("Cannot open input file: %s", txt); /* already covered at R level too */
         }
         if (skip > 0) fseek(fp, skip, SEEK_SET);
         XXH64_reset(&state, seed);
         if (length>=0) {
-          while( ( nChar = fread( buf, 1, sizeof( buf ), fp ) ) > 0
-                 && length>0) {
-            if (nChar>length) nChar=length;
-            PMurHash32_Process(&h1, &carry, buf, nChar);
-            length -= nChar;
-            total_length += nChar;
-          }
+            while( ( nChar = fread( buf, 1, sizeof( buf ), fp ) ) > 0
+                   && length>0) {
+                if (nChar>length) nChar=length;
+                PMurHash32_Process(&h1, &carry, buf, nChar);
+                length -= nChar;
+                total_length += nChar;
+            }
         } else {
-          while( ( nChar = fread( buf, 1, sizeof( buf ), fp ) ) > 0) {
-            PMurHash32_Process(&h1, &carry, buf, nChar);
-            total_length += nChar;
-          }
+            while( ( nChar = fread( buf, 1, sizeof( buf ), fp ) ) > 0) {
+                PMurHash32_Process(&h1, &carry, buf, nChar);
+                total_length += nChar;
+            }
         }
         fclose(fp);
         unsigned int val = PMurHash32_Result(h1, carry, total_length);
@@ -434,8 +426,7 @@ SEXP digest(SEXP Txt, SEXP Algo, SEXP Length, SEXP Skip, SEXP Leave_raw, SEXP Se
         break;
     }
     default: {
-        error("Unsupported algorithm code");
-        return(NULL);
+        error("Unsupported algorithm code"); /* should not be reached due to test in R */
     }
     } /* end switch */
 
