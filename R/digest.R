@@ -35,7 +35,7 @@ digest <- function(object, algo=c("md5", "sha1", "crc32", "sha256", "sha512",
             warning(txt, obj, call.=FALSE)
             return(invisible(NA))
         } else {
-            return(invisible(""))
+            return(invisible(NULL))
         }
     }
     
