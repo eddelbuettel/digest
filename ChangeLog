@@ -1,3 +1,8 @@
+2015-10-14  Dirk Eddelbuettel  <edd@debian.org>
+
+	* man/digest.Rd: Remove references to inaccessible web pages
+	* man/hmac.Rd: Ditto
+
 2015-10-13  Dirk Eddelbuettel  <edd@debian.org>
 
 	* src/digest.c: Use uint32_t instead of int for nchar

@@ -36,13 +36,18 @@ hmac(key, object,
 
   SHA-1: \url{http://www.itl.nist.gov/fipspubs/fip180-1.htm}.
   SHA-256: \url{http://csrc.nist.gov/publications/fips/fips180-2/fips180-2withchangenotice.pdf}.
-  CRC32:  \url{ftp://ftp.rocksoft.com/cliens/rocksoft/papers/crc_v3.txt}. 
+  CRC32:  The original reference webpage at \code{rocksoft.com} has
+  vanished from the web; see
+  \url{https://en.wikipedia.org/wiki/Cyclic_redundancy_check} for
+  general information on CRC algorithms.
 
   \url{http://www.aarongifford.com/computers/sha.html} for the 
   integrated C implementation of sha-512.
 
-  \url{http://www.cr0.net:8040/code/crypto} for the underlying
-  C functions used here for sha-1 and md5, and further references.
+  The page for the code underlying the C functions used here for sha-1
+  and md5, and further references, is no longer accessible.  Please see
+  \url{https://en.wikipedia.org/wiki/SHA-1} and
+  \url{https://en.wikipedia.org/wiki/MD5}.  
 
   \url{http://zlib.net} for documentation on the zlib library which
   supplied the code for crc32.
