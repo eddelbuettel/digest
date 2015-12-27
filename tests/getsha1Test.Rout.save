@@ -15,12 +15,12 @@ Type 'demo()' for some demos, 'help()' for on-line help, or
 'help.start()' for an HTML browser interface to help.
 Type 'q()' to quit R.
 
-> 
+>
 > ## tests for digest, taken from the examples in the manual page
-> 
+>
 > stopifnot(require(digest))
 Loading required package: digest
-> 
+>
 > # calculate sha1 fingerprints
 > x.numeric <- 1.2345678901234567890123456789
 > x.list <- list(letters, x.numeric)
@@ -35,7 +35,7 @@ Loading required package: digest
 > x.dataframe.round <- x.dataframe
 > x.dataframe.round$Y <- signif(x.dataframe.round$Y, sha1_digits())
 > x.factor <- factor(letters)
-> 
+>
 > # tests using detailed numbers
 > identical(x.numeric, signif(x.numeric, sha1_digits()))
 [1] FALSE
@@ -52,56 +52,56 @@ Loading required package: digest
 > mantissa <- gsub("0$", "", mantissa)
 > negative <- ifelse(grepl("^-", x.hex), "-", "")
 > identical(
-+   get_sha1(x.numeric),
-+   get_sha1(paste0(negative, mantissa, " ", exponent))
++   sha1(x.numeric),
++   sha1(paste0(negative, mantissa, " ", exponent))
 + )
 [1] TRUE
 > identical(
-+   get_sha1(letters),
++   sha1(letters),
 +   digest(letters, algo = "sha1")
 + )
 [1] TRUE
 > identical(
-+     get_sha1(x.list),
++     sha1(x.list),
 +     digest(
-+           sapply(x.list, get_sha1),
++           sapply(x.list, sha1),
 +           algo = "sha1"
 +     )
 + )
 [1] TRUE
 > identical(
-+   get_sha1(x.dataframe),
-+   digest(sapply(x.dataframe, get_sha1), algo = "sha1")
++   sha1(x.dataframe),
++   digest(sapply(x.dataframe, sha1), algo = "sha1")
 + )
 [1] TRUE
 >     identical(
-+       get_sha1(x.matrix.num),
-+       get_sha1(as.vector(x.matrix.num))
++       sha1(x.matrix.num),
++       sha1(as.vector(x.matrix.num))
 +     )
 [1] TRUE
 >     identical(
-+       get_sha1(x.matrix.letter),
++       sha1(x.matrix.letter),
 +       digest(x.matrix.letter, algo = "sha1")
 +     )
 [1] TRUE
 >     identical(
-+       get_sha1(x.factor),
++       sha1(x.factor),
 +       digest(x.factor, algo = "sha1")
 +     )
 [1] TRUE
-> 
-> 
+>
+>
 >   lm.model.0 <- lm(weight ~ Time, data = ChickWeight)
 >   lm.model.1 <- lm(weight ~ 1, data = ChickWeight)
 >   glm.model.0 <- glm(weight ~ Time, data = ChickWeight, family = poisson)
 >   glm.model.1 <- glm(weight ~ 1, data = ChickWeight, family = poisson)
-> 
+>
 >   anova.list <- list(
 +     lm = anova(lm.model.0, lm.model.1),
 +     glm = anova(glm.model.0, glm.model.1),
 +     glm.test = anova(glm.model.0, glm.model.1, test = "Chisq")
 +   )
-> 
+>
 > # works with lm anova"
 >     z <- apply(
 +       anova.list[["lm"]],
@@ -111,8 +111,8 @@ Loading required package: digest
 +       zapsmall = sha1_digits("zapsmall")
 +     )
 >     identical(
-+       get_sha1(anova.list[["lm"]]),
-+       get_sha1(z)
++       sha1(anova.list[["lm"]]),
++       sha1(z)
 +     )
 [1] TRUE
 >   # works with glm anova"
@@ -124,8 +124,8 @@ Loading required package: digest
 +       zapsmall = sha1_digits("zapsmall")
 +     )
 >     identical(
-+       get_sha1(anova.list[["glm"]]),
-+       get_sha1(z)
++       sha1(anova.list[["glm"]]),
++       sha1(z)
 +     )
 [1] TRUE
 >     z <- apply(
@@ -136,11 +136,11 @@ Loading required package: digest
 +       zapsmall = sha1_digits("zapsmall")
 +     )
 >     identical(
-+       get_sha1(anova.list[["glm.test"]]),
-+       get_sha1(z)
++       sha1(anova.list[["glm.test"]]),
++       sha1(z)
 +     )
 [1] TRUE
-> 
+>
 >   test.element <- list(
 +     # NULL
 +     NULL,
@@ -168,12 +168,12 @@ Loading required package: digest
 +     matrix(letters),
 +     anova.list
 +   )
-> 
+>
 >   cat("\ncorrect <- c(\n")
 
 correct <- c(
 >   cat(
-+     sprintf("  \"%s\"", sapply(test.element, get_sha1)),
++     sprintf("  \"%s\"", sapply(test.element, sha1)),
 +     sep = ",\n"
 +   )
   "8d9c05ec7ae28b219c4c56edbce6a721bd68af82",
@@ -324,29 +324,29 @@ correct <- c(
 +     "c7174dc1ad72405e92c04bf35f3c4c602630ae8a",
 +     "d26ac1f5fedad77ca54e4692a7ddc0d387bd3130"
 +   )
-> 
+>
 > # returns the same SHA1 on both 32-bit and 64-bit OS"
 >     for (i in seq_along(test.element)) {
 +       identical(
-+         get_sha1(test.element[[i]]),
++         sha1(test.element[[i]]),
 +         correct[i]
 +       )
 +     }
-> 
+>
 > # calculates the SHA1 of a list as the SHA1 of a vector of SHA1 of each element
 >     this.list <- list("a", "b")
 >     identical(
-+       get_sha1(this.list),
-+       get_sha1(sapply(this.list, get_sha1))
++       sha1(this.list),
++       sha1(sapply(this.list, sha1))
 +     )
 [1] TRUE
 >     this.list <- list(letters, this.list)
 >     identical(
-+       get_sha1(this.list),
-+       get_sha1(sapply(this.list, get_sha1))
++       sha1(this.list),
++       sha1(sapply(this.list, sha1))
 +     )
 [1] TRUE
-> 
+>
 > proc.time()
-   user  system elapsed 
-   0.20    0.06    0.26 
+   user  system elapsed
+   0.20    0.06    0.26

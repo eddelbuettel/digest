@@ -8,99 +8,64 @@ sha1_digits <- function(which = c("base", "zapsmall", "coef")){
   )
 }
 
-setGeneric(
-  name = "get_sha1",
-  def = function(x){
-    standard.generic("get_sha1")
-  }
-)
+sha1 <- function(x){
+    UseMethod("sha1")
+}
 
-setMethod(
-  f = "get_sha1",
-  signature = "ANY",
-  definition = function(x){
+sha1.default <- function(x) {
     digest(x, algo = "sha1")
-  }
-)
+}
 
-setMethod(
-  f = "get_sha1",
-  signature = "integer",
-  definition = function(x){
+sha1.integer <- function(x){
     digest(x, algo = "sha1")
-  }
-)
+}
 
-setMethod(
-  f = "get_sha1",
-  signature = "anova",
-  definition = function(x){
-    get_sha1(
-      apply(
-        x,
-        1,
-        num_32_64,
-        digits = sha1_digits("coef"),
-        zapsmall = sha1_digits("zapsmall")
-      )
+sha1.anova <- function(x){
+    sha1(
+        apply(
+            x,
+            1,
+            num_32_64,
+            digits = sha1_digits("coef"),
+            zapsmall = sha1_digits("zapsmall")
+        )
     )
-  }
-)
+}
 
-setMethod(
-  f = "get_sha1",
-  signature = "factor",
-  definition = function(x){
+sha1.factor <- function(x){
     digest(x, algo = "sha1")
-  }
-)
+}
 
-setMethod(
-  f = "get_sha1",
-  signature = "list",
-  definition = function(x){
+sha1.list <- function(x){
     digest(
-      sapply(x, get_sha1),
-      algo = "sha1"
+          sapply(x, sha1),
+          algo = "sha1"
     )
-  }
-)
+}
 
-setMethod(
-  f = "get_sha1",
-  signature = "numeric",
-  definition = function(x){
-    get_sha1(
-      num_32_64(
-        x,
-        digits = sha1_digits("base"),
-        zapsmall = sha1_digits("zapsmall")
-      )
+sha1.numeric <- function(x){
+    sha1(
+        num_32_64(
+            x,
+            digits = sha1_digits("base"),
+            zapsmall = sha1_digits("zapsmall")
+        )
     )
-  }
-)
+}
 
-setMethod(
-  f = "get_sha1",
-  signature = "matrix",
-  definition = function(x){
+sha1.matrix <- function(x){
     # needed to make results comparable between 32-bit and 64-bit
     if (class(x[1, 1]) == "numeric") {
-      get_sha1(as.vector(x))
+        sha1(as.vector(x))
     } else {
-      digest(x, algo = "sha1")
+        digest(x, algo = "sha1")
     }
-  }
-)
+}
 
-setMethod(
-  f = "get_sha1",
-  signature = "data.frame",
-  definition = function(x){
+sha1.data.frame <- function(x){
     # needed to make results comparable between 32-bit and 64-bit
-    digest(sapply(x, get_sha1), algo = "sha1")
-  }
-)
+    digest(sapply(x, sha1), algo = "sha1")
+}
 
 num_32_64 <- function(x, digits = 6, zapsmall = 7){
   if (!is.numeric(x)) {

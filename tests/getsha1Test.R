@@ -7,10 +7,10 @@ stopifnot(require(digest))
 x.numeric <- 1.2345678901234567890123456789
 x.list <- list(letters, x.numeric)
 x.dataframe <- data.frame(
-  X = letters,
-  Y = x.numeric,
-  Z = factor(letters),
-  stringsAsFactors = FALSE
+    X = letters,
+    Y = x.numeric,
+    Z = factor(letters),
+    stringsAsFactors = FALSE
 )
 x.matrix.num <- as.matrix(x.numeric)
 x.matrix.letter <- as.matrix(letters)
@@ -19,8 +19,8 @@ x.dataframe.round$Y <- signif(x.dataframe.round$Y, sha1_digits())
 x.factor <- factor(letters)
 
 # tests using detailed numbers
-identical(x.numeric, signif(x.numeric, sha1_digits()))
-identical(x.matrix.num, signif(x.matrix.num, sha1_digits()))
+identical(x.numeric, signif(x.numeric, sha1_digits())) == FALSE
+identical(x.matrix.num, signif(x.matrix.num, sha1_digits())) == FALSE
 # returns the correct SHA1
 x.hex <- sprintf("%a", x.numeric)
 exponent <- as.integer(gsub("^.*p", "", x.hex))
@@ -32,86 +32,86 @@ mantissa <- substring(mantissa, 1, digits.hex)
 mantissa <- gsub("0$", "", mantissa)
 negative <- ifelse(grepl("^-", x.hex), "-", "")
 identical(
-  get_sha1(x.numeric),
-  get_sha1(paste0(negative, mantissa, " ", exponent))
+    sha1(x.numeric),
+    sha1(paste0(negative, mantissa, " ", exponent))
 )
 identical(
-  get_sha1(letters),
-  digest(letters, algo = "sha1")
+    sha1(letters),
+    digest(letters, algo = "sha1")
 )
 identical(
-    get_sha1(x.list),
+    sha1(x.list),
     digest(
-          sapply(x.list, get_sha1),
-          algo = "sha1"
+        sapply(x.list, sha1),
+        algo = "sha1"
     )
 )
 identical(
-  get_sha1(x.dataframe),
-  digest(sapply(x.dataframe, get_sha1), algo = "sha1")
+    sha1(x.dataframe),
+    digest(sapply(x.dataframe, sha1), algo = "sha1")
 )
-    identical(
-      get_sha1(x.matrix.num),
-      get_sha1(as.vector(x.matrix.num))
-    )
-    identical(
-      get_sha1(x.matrix.letter),
-      digest(x.matrix.letter, algo = "sha1")
-    )
-    identical(
-      get_sha1(x.factor),
-      digest(x.factor, algo = "sha1")
-    )
+identical(
+    sha1(x.matrix.num),
+    sha1(as.vector(x.matrix.num))
+)
+identical(
+    sha1(x.matrix.letter),
+    digest(x.matrix.letter, algo = "sha1")
+)
+identical(
+    sha1(x.factor),
+    digest(x.factor, algo = "sha1")
+)
 
 
-  lm.model.0 <- lm(weight ~ Time, data = ChickWeight)
-  lm.model.1 <- lm(weight ~ 1, data = ChickWeight)
-  glm.model.0 <- glm(weight ~ Time, data = ChickWeight, family = poisson)
-  glm.model.1 <- glm(weight ~ 1, data = ChickWeight, family = poisson)
+lm.model.0 <- lm(weight ~ Time, data = ChickWeight)
+lm.model.1 <- lm(weight ~ 1, data = ChickWeight)
+glm.model.0 <- glm(weight ~ Time, data = ChickWeight, family = poisson)
+glm.model.1 <- glm(weight ~ 1, data = ChickWeight, family = poisson)
 
-  anova.list <- list(
+anova.list <- list(
     lm = anova(lm.model.0, lm.model.1),
     glm = anova(glm.model.0, glm.model.1),
     glm.test = anova(glm.model.0, glm.model.1, test = "Chisq")
-  )
+)
 
 # works with lm anova"
-    z <- apply(
-      anova.list[["lm"]],
-      1,
-      num_32_64,
-      digits = sha1_digits("coef"),
-      zapsmall = sha1_digits("zapsmall")
-    )
-    identical(
-      get_sha1(anova.list[["lm"]]),
-      get_sha1(z)
-    )
-  # works with glm anova"
-    z <- apply(
-      anova.list[["glm"]],
-      1,
-      num_32_64,
-      digits = sha1_digits("coef"),
-      zapsmall = sha1_digits("zapsmall")
-    )
-    identical(
-      get_sha1(anova.list[["glm"]]),
-      get_sha1(z)
-    )
-    z <- apply(
-      anova.list[["glm.test"]],
-      1,
-      num_32_64,
-      digits = sha1_digits("coef"),
-      zapsmall = sha1_digits("zapsmall")
-    )
-    identical(
-      get_sha1(anova.list[["glm.test"]]),
-      get_sha1(z)
-    )
+z <- apply(
+    anova.list[["lm"]],
+    1,
+    num_32_64,
+    digits = sha1_digits("coef"),
+    zapsmall = sha1_digits("zapsmall")
+)
+identical(
+    sha1(anova.list[["lm"]]),
+    sha1(z)
+)
+# works with glm anova"
+z <- apply(
+    anova.list[["glm"]],
+    1,
+    num_32_64,
+    digits = sha1_digits("coef"),
+    zapsmall = sha1_digits("zapsmall")
+)
+identical(
+    sha1(anova.list[["glm"]]),
+    sha1(z)
+)
+z <- apply(
+    anova.list[["glm.test"]],
+    1,
+    num_32_64,
+    digits = sha1_digits("coef"),
+    zapsmall = sha1_digits("zapsmall")
+)
+identical(
+    sha1(anova.list[["glm.test"]]),
+    sha1(z)
+)
 
-  test.element <- list(
+test.element <- list(
     # NULL
     NULL,
     # empty vector
@@ -124,9 +124,9 @@ identical(
     c(TRUE, FALSE), 1:3, seq(0, 10, length = 4), letters[1:3],
     factor(letters[4:6]),
     as.POSIXct(c("2015-01-02 03:04:06.07", "1960-12-31 23:59:59"), tz = "UTC")
-  )
-  select.vector <- which(sapply(test.element, length) > 1)
-  test.element <- c(
+)
+select.vector <- which(sapply(test.element, length) > 1)
+test.element <- c(
     test.element,
     # add a data.frame
     expand.grid(test.element[select.vector]),
@@ -137,15 +137,15 @@ identical(
     matrix(seq(0, 10, length = 4)),
     matrix(letters),
     anova.list
-  )
+)
 
-  cat("\ncorrect <- c(\n")
-  cat(
-    sprintf("  \"%s\"", sapply(test.element, get_sha1)),
+cat("\ncorrect <- c(\n")
+cat(
+    sprintf("  \"%s\"", sapply(test.element, sha1)),
     sep = ",\n"
-  )
-  cat(")\n")
-  correct <- c(
+)
+cat(")\n")
+correct <- c(
     "8d9c05ec7ae28b219c4c56edbce6a721bd68af82",
     "0df9019fab513592066cc292d412b9054575d844",
     "f374b4a83af21bb028483fd33dfa811aca7abb96",
@@ -218,24 +218,24 @@ identical(
     "d7ce66852e854bbc6f030156217a93b0e72e83fb",
     "c7174dc1ad72405e92c04bf35f3c4c602630ae8a",
     "d26ac1f5fedad77ca54e4692a7ddc0d387bd3130"
-  )
+)
 
 # returns the same SHA1 on both 32-bit and 64-bit OS"
-    for (i in seq_along(test.element)) {
-      identical(
-        get_sha1(test.element[[i]]),
+for (i in seq_along(test.element)) {
+    identical(
+        sha1(test.element[[i]]),
         correct[i]
-      )
-    }
+    )
+}
 
 # calculates the SHA1 of a list as the SHA1 of a vector of SHA1 of each element
-    this.list <- list("a", "b")
-    identical(
-      get_sha1(this.list),
-      get_sha1(sapply(this.list, get_sha1))
-    )
-    this.list <- list(letters, this.list)
-    identical(
-      get_sha1(this.list),
-      get_sha1(sapply(this.list, get_sha1))
-    )
+this.list <- list("a", "b")
+identical(
+    sha1(this.list),
+    sha1(sapply(this.list, sha1))
+)
+this.list <- list(letters, this.list)
+identical(
+    sha1(this.list),
+    sha1(sapply(this.list, sha1))
+)
