@@ -4,6 +4,7 @@ useDynLib(digest, digest_impl=digest, AESinit, AESencryptECB, AESdecryptECB)
 ## and exported functions
 export(AES,
        digest,
+       get_sha1, sha1_digits, num_32_64,
        hmac)
 
 S3method(print, AES)
