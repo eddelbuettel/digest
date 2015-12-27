@@ -10,6 +10,7 @@
 \alias{get_sha1,matrix-method}
 \alias{get_sha1,numeric-method}
 \title{Calculate a SHA1 hash of an object}
+\author{Thierry Onkelinx}
 \usage{
 get_sha1(x)
 

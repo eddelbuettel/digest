@@ -1,3 +1,4 @@
+# functions written by Thierry Onkelinx
 sha1_digits <- function(which = c("base", "zapsmall", "coef")){
   which <- match.arg(which)
   switch(which,

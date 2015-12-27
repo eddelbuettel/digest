@@ -1,4 +1,5 @@
 \name{num_32_64}
+\author{Thierry Onkelinx}
 \alias{num_32_64}
 \title{Convert a numeric to a character string}
 \usage{

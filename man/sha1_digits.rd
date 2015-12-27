@@ -1,4 +1,5 @@
 \name{sha1_digits}
+\author{Thierry Onkelinx}
 \alias{sha1_digits}
 \title{Define the number of digits to use when rounding numeric values}
 \usage{
