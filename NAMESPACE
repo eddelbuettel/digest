@@ -8,3 +8,5 @@ export(AES,
        hmac)
 
 S3method(print, AES)
+importFrom(methods,setGeneric)
+importFrom(methods,setMethod)
