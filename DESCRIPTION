@@ -28,6 +28,5 @@ Description: Implementation of a function 'digest()' for the creation
  cryptographic purposes for which more comprehensive (and widely 
  tested) libraries such as OpenSSL should be used.
 Depends: R (>= 2.4.1)
-Imports: methods
 License: GPL-2
 URL: http://dirk.eddelbuettel.com/code/digest.html
