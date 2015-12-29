@@ -1,13 +1,4 @@
 # functions written by Thierry Onkelinx
-sha1_digits <- function(which = c("base", "zapsmall", "coef")){
-  which <- match.arg(which)
-  switch(which,
-    base = 14L,
-    zapsmall = 7L,
-    coef = 4L # coef = 5L yields differences for some lmer models
-  )
-}
-
 sha1 <- function(x, digits = 14, zapsmall = 7){
     UseMethod("sha1")
 }
