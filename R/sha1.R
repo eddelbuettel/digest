@@ -16,10 +16,6 @@ sha1.default <- function(x) {
     digest(x, algo = "sha1")
 }
 
-sha1.integer <- function(x){
-    digest(x, algo = "sha1")
-}
-
 sha1.anova <- function(x){
     sha1(
         apply(
@@ -30,10 +26,6 @@ sha1.anova <- function(x){
             zapsmall = sha1_digits("zapsmall")
         )
     )
-}
-
-sha1.factor <- function(x){
-    digest(x, algo = "sha1")
 }
 
 sha1.list <- function(x){

@@ -3,8 +3,6 @@
 \alias{sha1}
 \alias{sha1.anova}
 \alias{sha1.data.frame}
-\alias{sha1.factor}
-\alias{sha1.integer}
 \alias{sha1.list}
 \alias{sha1.matrix}
 \alias{sha1.numeric}
@@ -12,9 +10,7 @@
 \author{Thierry Onkelinx}
 \usage{
 sha1(x)
-\method{sha1}{integer}(x)
 \method{sha1}{anova}(x)
-\method{sha1}{factor}(x)
 \method{sha1}{list}(x)
 \method{sha1}{numeric}(x)
 \method{sha1}{matrix}(x)
