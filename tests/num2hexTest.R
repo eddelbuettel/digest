@@ -5,36 +5,85 @@ stopifnot(require(digest))
 # zap small numbers to zero
 zapsmall <- 1:10
 border <- 2 ^ floor(log2(10 ^ -zapsmall))
-sapply(
-  seq_along(zapsmall),
-  function(i) {
-    num2hex(border[i] * -1:1, digits = 6, zapsmall = zapsmall[i])
-  }
+stopifnot(
+    identical(
+        sapply(
+            seq_along(zapsmall),
+            function(i) {
+                num2hex(border[i] * -1:1, digits = 6, zapsmall = zapsmall[i])
+            }
+        ),
+        matrix(
+            "0",
+            ncol = length(zapsmall),
+            nrow = 3
+        )
+    )
 )
+
 # handle 0 correct
-num2hex(0)
+stopifnot(
+    identical(
+        num2hex(0),
+        "0"
+    )
+)
 
 # digits are consistent
 x <- pi
 x.hex <- sapply(1:16, num2hex, x = x)
 x.hex <- x.hex[c(TRUE, diff(nchar(x.hex)) > 0)]
 exponent <-  unique(gsub("^[0-9a-f]* ", "", x.hex))
-length(exponent) == 1
+stopifnot(
+    identical(
+        length(exponent),
+        1L
+    )
+)
 mantissa <- gsub(" [0-9]*$", "", x.hex)
-sapply(
-  head(seq_along(mantissa), -1),
-  function(i){
-    all(grepl(paste0("^", mantissa[i], ".*"), tail(mantissa, -i)))
-  }
+do.call(
+    stopifnot,
+    lapply(
+        head(seq_along(mantissa), -1),
+        function(i){
+            all(
+                grepl(
+                    paste0("^", mantissa[i], ".*"),
+                    tail(mantissa, -i)
+                )
+            )
+        }
+    )
 )
 
 #it keeps NA values
 x <- c(pi, NA, 0)
-is.na(num2hex(x))
+stopifnot(
+    identical(
+        is.na(num2hex(x)),
+        is.na(x)
+    )
+)
 x <- c(pi, NA, pi)
-is.na(num2hex(x))
+stopifnot(
+    identical(
+        is.na(num2hex(x)),
+        is.na(x)
+    )
+)
 x <- as.numeric(c(NA, NA, NA))
-is.na(num2hex(x))
+stopifnot(
+    identical(
+        is.na(num2hex(x)),
+        is.na(x)
+    )
+)
 
 # handles empty vectors
-num2hex(numeric(0))
+stopifnot(
+    identical(
+        num2hex(numeric(0)),
+        character(0)
+    )
+)
+

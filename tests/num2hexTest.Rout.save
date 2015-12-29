@@ -16,58 +16,96 @@ Type 'demo()' for some demos, 'help()' for on-line help, or
 Type 'q()' to quit R.
 
 > ## tests for digest, taken from the examples in the manual page
->
+> 
 > stopifnot(require(digest))
 Loading required package: digest
->
+> 
 > # zap small numbers to zero
 > zapsmall <- 1:10
 > border <- 2 ^ floor(log2(10 ^ -zapsmall))
-> sapply(
-+   seq_along(zapsmall),
-+   function(i) {
-+     num2hex(border[i] * -1:1, digits = 6, zapsmall = zapsmall[i])
-+   }
+> stopifnot(
++     identical(
++         sapply(
++             seq_along(zapsmall),
++             function(i) {
++                 num2hex(border[i] * -1:1, digits = 6, zapsmall = zapsmall[i])
++             }
++         ),
++         matrix(
++             "0",
++             ncol = length(zapsmall),
++             nrow = 3
++         )
++     )
 + )
-     [,1] [,2] [,3] [,4] [,5] [,6] [,7] [,8] [,9] [,10]
-[1,] "0"  "0"  "0"  "0"  "0"  "0"  "0"  "0"  "0"  "0"
-[2,] "0"  "0"  "0"  "0"  "0"  "0"  "0"  "0"  "0"  "0"
-[3,] "0"  "0"  "0"  "0"  "0"  "0"  "0"  "0"  "0"  "0"
+> 
 > # handle 0 correct
-> num2hex(0)
-[1] "0"
->
+> stopifnot(
++     identical(
++         num2hex(0),
++         "0"
++     )
++ )
+> 
 > # digits are consistent
 > x <- pi
 > x.hex <- sapply(1:16, num2hex, x = x)
 > x.hex <- x.hex[c(TRUE, diff(nchar(x.hex)) > 0)]
 > exponent <-  unique(gsub("^[0-9a-f]* ", "", x.hex))
-> length(exponent) == 1
-[1] TRUE
-> mantissa <- gsub(" [0-9]*$", "", x.hex)
-> sapply(
-+   head(seq_along(mantissa), -1),
-+   function(i){
-+     all(grepl(paste0("^", mantissa[i], ".*"), tail(mantissa, -i)))
-+   }
+> stopifnot(
++     identical(
++         length(exponent),
++         1L
++     )
 + )
- [1] TRUE TRUE TRUE TRUE TRUE TRUE TRUE TRUE TRUE TRUE TRUE TRUE
->
+> mantissa <- gsub(" [0-9]*$", "", x.hex)
+> do.call(
++     stopifnot,
++     lapply(
++         head(seq_along(mantissa), -1),
++         function(i){
++             all(
++                 grepl(
++                     paste0("^", mantissa[i], ".*"),
++                     tail(mantissa, -i)
++                 )
++             )
++         }
++     )
++ )
+> 
 > #it keeps NA values
 > x <- c(pi, NA, 0)
-> is.na(num2hex(x))
-[1] FALSE  TRUE FALSE
+> stopifnot(
++     identical(
++         is.na(num2hex(x)),
++         is.na(x)
++     )
++ )
 > x <- c(pi, NA, pi)
-> is.na(num2hex(x))
-[1] FALSE  TRUE FALSE
+> stopifnot(
++     identical(
++         is.na(num2hex(x)),
++         is.na(x)
++     )
++ )
 > x <- as.numeric(c(NA, NA, NA))
-> is.na(num2hex(x))
-[1] TRUE TRUE TRUE
->
+> stopifnot(
++     identical(
++         is.na(num2hex(x)),
++         is.na(x)
++     )
++ )
+> 
 > # handles empty vectors
-> num2hex(numeric(0))
-character(0)
->
+> stopifnot(
++     identical(
++         num2hex(numeric(0)),
++         character(0)
++     )
++ )
+> 
+> 
 > proc.time()
-   user  system elapsed
-   0.12    0.07    0.18
+   user  system elapsed 
+   0.14    0.06    0.18 
