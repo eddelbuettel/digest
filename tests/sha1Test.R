@@ -79,7 +79,7 @@ anova.list <- list(
 z <- apply(
     anova.list[["lm"]],
     1,
-    num_32_64,
+    num2hex,
     digits = sha1_digits("coef"),
     zapsmall = sha1_digits("zapsmall")
 )
@@ -91,7 +91,7 @@ identical(
 z <- apply(
     anova.list[["glm"]],
     1,
-    num_32_64,
+    num2hex,
     digits = sha1_digits("coef"),
     zapsmall = sha1_digits("zapsmall")
 )
@@ -102,7 +102,7 @@ identical(
 z <- apply(
     anova.list[["glm.test"]],
     1,
-    num_32_64,
+    num2hex,
     digits = sha1_digits("coef"),
     zapsmall = sha1_digits("zapsmall")
 )

@@ -1,9 +1,9 @@
-\name{num_32_64}
+\name{num2hex}
 \author{Thierry Onkelinx}
-\alias{num_32_64}
+\alias{num2hex}
 \title{Convert a numeric to a character string}
 \usage{
-num_32_64(x, digits = 6, zapsmall = 7)
+num2hex(x, digits = 6, zapsmall = 7)
 }
 \arguments{
 \item{x}{the numeric to convert}

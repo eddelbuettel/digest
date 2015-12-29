@@ -26,7 +26,7 @@ Loading required package: digest
 > sapply(
 +   seq_along(zapsmall),
 +   function(i) {
-+     num_32_64(border[i] * -1:1, digits = 6, zapsmall = zapsmall[i])
++     num2hex(border[i] * -1:1, digits = 6, zapsmall = zapsmall[i])
 +   }
 + )
      [,1] [,2] [,3] [,4] [,5] [,6] [,7] [,8] [,9] [,10]
@@ -34,12 +34,12 @@ Loading required package: digest
 [2,] "0"  "0"  "0"  "0"  "0"  "0"  "0"  "0"  "0"  "0"
 [3,] "0"  "0"  "0"  "0"  "0"  "0"  "0"  "0"  "0"  "0"
 > # handle 0 correct
-> num_32_64(0)
+> num2hex(0)
 [1] "0"
 >
 > # digits are consistent
 > x <- pi
-> x.hex <- sapply(1:16, num_32_64, x = x)
+> x.hex <- sapply(1:16, num2hex, x = x)
 > x.hex <- x.hex[c(TRUE, diff(nchar(x.hex)) > 0)]
 > exponent <-  unique(gsub("^[0-9a-f]* ", "", x.hex))
 > length(exponent) == 1
@@ -55,17 +55,17 @@ Loading required package: digest
 >
 > #it keeps NA values
 > x <- c(pi, NA, 0)
-> is.na(num_32_64(x))
+> is.na(num2hex(x))
 [1] FALSE  TRUE FALSE
 > x <- c(pi, NA, pi)
-> is.na(num_32_64(x))
+> is.na(num2hex(x))
 [1] FALSE  TRUE FALSE
 > x <- as.numeric(c(NA, NA, NA))
-> is.na(num_32_64(x))
+> is.na(num2hex(x))
 [1] TRUE TRUE TRUE
 >
 > # handles empty vectors
-> num_32_64(numeric(0))
+> num2hex(numeric(0))
 character(0)
 >
 > proc.time()

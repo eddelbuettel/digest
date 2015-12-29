@@ -6,7 +6,7 @@ export(AES,
        digest,
        sha1,
        sha1_digits,
-       num_32_64,
+       num2hex,
        hmac)
 
 S3method(print, AES)

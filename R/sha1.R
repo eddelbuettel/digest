@@ -25,7 +25,7 @@ sha1.anova <- function(x){
         apply(
             x,
             1,
-            num_32_64,
+            num2hex,
             digits = sha1_digits("coef"),
             zapsmall = sha1_digits("zapsmall")
         )
@@ -45,7 +45,7 @@ sha1.list <- function(x){
 
 sha1.numeric <- function(x){
     sha1(
-        num_32_64(
+        num2hex(
             x,
             digits = sha1_digits("base"),
             zapsmall = sha1_digits("zapsmall")
@@ -67,7 +67,7 @@ sha1.data.frame <- function(x){
     digest(sapply(x, sha1), algo = "sha1")
 }
 
-num_32_64 <- function(x, digits = 6, zapsmall = 7){
+num2hex <- function(x, digits = 6, zapsmall = 7){
   if (!is.numeric(x)) {
     stop("x is not numeric")
   }
