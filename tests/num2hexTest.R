@@ -10,7 +10,7 @@ stopifnot(
         sapply(
             seq_along(zapsmall),
             function(i) {
-                num2hex(border[i] * -1:1, digits = 6, zapsmall = zapsmall[i])
+                digest:::num2hex(border[i] * -1:1, digits = 6, zapsmall = zapsmall[i])
             }
         ),
         matrix(
@@ -24,14 +24,14 @@ stopifnot(
 # handle 0 correct
 stopifnot(
     identical(
-        num2hex(0),
+        digest:::num2hex(0),
         "0"
     )
 )
 
 # digits are consistent
 x <- pi
-x.hex <- sapply(1:16, num2hex, x = x)
+x.hex <- sapply(1:16, digest:::num2hex, x = x)
 x.hex <- x.hex[c(TRUE, diff(nchar(x.hex)) > 0)]
 exponent <-  unique(gsub("^[0-9a-f]* ", "", x.hex))
 stopifnot(
@@ -60,21 +60,21 @@ do.call(
 x <- c(pi, NA, 0)
 stopifnot(
     identical(
-        is.na(num2hex(x)),
+        is.na(digest:::num2hex(x)),
         is.na(x)
     )
 )
 x <- c(pi, NA, pi)
 stopifnot(
     identical(
-        is.na(num2hex(x)),
+        is.na(digest:::num2hex(x)),
         is.na(x)
     )
 )
 x <- as.numeric(c(NA, NA, NA))
 stopifnot(
     identical(
-        is.na(num2hex(x)),
+        is.na(digest:::num2hex(x)),
         is.na(x)
     )
 )
@@ -82,7 +82,7 @@ stopifnot(
 # handles empty vectors
 stopifnot(
     identical(
-        num2hex(numeric(0)),
+        digest:::num2hex(numeric(0)),
         character(0)
     )
 )

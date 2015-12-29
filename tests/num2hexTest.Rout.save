@@ -16,10 +16,10 @@ Type 'demo()' for some demos, 'help()' for on-line help, or
 Type 'q()' to quit R.
 
 > ## tests for digest, taken from the examples in the manual page
-> 
+>
 > stopifnot(require(digest))
 Loading required package: digest
-> 
+>
 > # zap small numbers to zero
 > zapsmall <- 1:10
 > border <- 2 ^ floor(log2(10 ^ -zapsmall))
@@ -28,7 +28,7 @@ Loading required package: digest
 +         sapply(
 +             seq_along(zapsmall),
 +             function(i) {
-+                 num2hex(border[i] * -1:1, digits = 6, zapsmall = zapsmall[i])
++                 digest:::num2hex(border[i] * -1:1, digits = 6, zapsmall = zapsmall[i])
 +             }
 +         ),
 +         matrix(
@@ -38,18 +38,18 @@ Loading required package: digest
 +         )
 +     )
 + )
-> 
+>
 > # handle 0 correct
 > stopifnot(
 +     identical(
-+         num2hex(0),
++         digest:::num2hex(0),
 +         "0"
 +     )
 + )
-> 
+>
 > # digits are consistent
 > x <- pi
-> x.hex <- sapply(1:16, num2hex, x = x)
+> x.hex <- sapply(1:16, digest:::num2hex, x = x)
 > x.hex <- x.hex[c(TRUE, diff(nchar(x.hex)) > 0)]
 > exponent <-  unique(gsub("^[0-9a-f]* ", "", x.hex))
 > stopifnot(
@@ -73,39 +73,39 @@ Loading required package: digest
 +         }
 +     )
 + )
-> 
+>
 > #it keeps NA values
 > x <- c(pi, NA, 0)
 > stopifnot(
 +     identical(
-+         is.na(num2hex(x)),
++         is.na(digest:::num2hex(x)),
 +         is.na(x)
 +     )
 + )
 > x <- c(pi, NA, pi)
 > stopifnot(
 +     identical(
-+         is.na(num2hex(x)),
++         is.na(digest:::num2hex(x)),
 +         is.na(x)
 +     )
 + )
 > x <- as.numeric(c(NA, NA, NA))
 > stopifnot(
 +     identical(
-+         is.na(num2hex(x)),
++         is.na(digest:::num2hex(x)),
 +         is.na(x)
 +     )
 + )
-> 
+>
 > # handles empty vectors
 > stopifnot(
 +     identical(
-+         num2hex(numeric(0)),
++         digest:::num2hex(numeric(0)),
 +         character(0)
 +     )
 + )
-> 
-> 
+>
+>
 > proc.time()
-   user  system elapsed 
-   0.14    0.06    0.18 
+   user  system elapsed
+   0.14    0.06    0.18
