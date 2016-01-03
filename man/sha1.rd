@@ -1,20 +1,32 @@
 \docType{methods}
 \name{sha1}
 \alias{sha1}
-\alias{sha1.anova}
+\alias{sha1.integer}
+\alias{sha1.numeric}
+\alias{sha1.character}
+\alias{sha1.factor}
+\alias{sha1.NULL}
+\alias{sha1.logical}
+\alias{sha1.POSIXct}
+\alias{sha1.matrix}
 \alias{sha1.data.frame}
 \alias{sha1.list}
-\alias{sha1.matrix}
-\alias{sha1.numeric}
+\alias{sha1.anova}
 \title{Calculate a SHA1 hash of an object}
 \author{Thierry Onkelinx}
 \usage{
 sha1(x, digits = 14, zapsmall = 7)
-\method{sha1}{anova}(x, digits = 4, zapsmall = 7)
-\method{sha1}{list}(x, digits = 14, zapsmall = 7)
+\method{sha1}{integer}(x, digits = 14, zapsmall = 7)
 \method{sha1}{numeric}(x, digits = 14, zapsmall = 7)
+\method{sha1}{character}(x, digits = 14, zapsmall = 7)
+\method{sha1}{factor}(x, digits = 14, zapsmall = 7)
+\method{sha1}{NULL}(x, digits = 14, zapsmall = 7)
+\method{sha1}{logical}(x, digits = 14, zapsmall = 7)
+\method{sha1}{POSIXct}(x, digits = 14, zapsmall = 7)
 \method{sha1}{matrix}(x, digits = 14, zapsmall = 7)
 \method{sha1}{data.frame}(x, digits = 14, zapsmall = 7)
+\method{sha1}{list}(x, digits = 14, zapsmall = 7)
+\method{sha1}{anova}(x, digits = 4, zapsmall = 7)
 }
 \arguments{
 \item{x}{the object to calculate the SHA1}

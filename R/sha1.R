@@ -4,30 +4,31 @@ sha1 <- function(x, digits = 14, zapsmall = 7){
 }
 
 sha1.default <- function(x, digits = 14, zapsmall = 7) {
+    stop("sha1() has not method for the '", class(x), "' class")
+}
+
+sha1.integer <- function(x, digits = 14, zapsmall = 7) {
     digest(x, algo = "sha1")
 }
 
-sha1.anova <- function(x, digits = 4, zapsmall = 7){
-    if (digits > 4) {
-        warning(
-"Hash on 32 bit might be different from hash on 64 bit with digits > 4"
-        )
-    }
-    sha1(
-        apply(
-            x,
-            1,
-            sha1,
-            digits = digits,
-            zapsmall = zapsmall
-        )
-    )
+sha1.character <- function(x, digits = 14, zapsmall = 7) {
+    digest(x, algo = "sha1")
 }
 
-sha1.list <- function(x, digits = 14, zapsmall = 7){
-    sha1(
-        sapply(x, sha1, digits = digits, zapsmall = zapsmall)
-    )
+sha1.factor <- function(x, digits = 14, zapsmall = 7) {
+    digest(x, algo = "sha1")
+}
+
+sha1.NULL <- function(x, digits = 14, zapsmall = 7) {
+    digest(x, algo = "sha1")
+}
+
+sha1.logical <- function(x, digits = 14, zapsmall = 7) {
+    digest(x, algo = "sha1")
+}
+
+sha1.POSIXct <- function(x, digits = 14, zapsmall = 7) {
+    sha1(as.numeric(x), digits = digits, zapsmall = zapsmall)
 }
 
 sha1.numeric <- function(x, digits = 14, zapsmall = 7){
@@ -53,6 +54,29 @@ sha1.data.frame <- function(x, digits = 14, zapsmall = 7){
     # needed to make results comparable between 32-bit and 64-bit
     sha1(
         sapply(x, sha1, digits = digits, zapsmall = zapsmall)
+    )
+}
+
+sha1.list <- function(x, digits = 14, zapsmall = 7){
+    sha1(
+        sapply(x, sha1, digits = digits, zapsmall = zapsmall)
+    )
+}
+
+sha1.anova <- function(x, digits = 4, zapsmall = 7){
+    if (digits > 4) {
+        warning(
+            "Hash on 32 bit might be different from hash on 64 bit with digits > 4"
+        )
+    }
+    sha1(
+        apply(
+            x,
+            1,
+            sha1,
+            digits = digits,
+            zapsmall = zapsmall
+        )
     )
 }
 
