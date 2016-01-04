@@ -27,10 +27,6 @@ sha1.logical <- function(x, digits = 14, zapsmall = 7) {
     digest(x, algo = "sha1")
 }
 
-sha1.POSIXct <- function(x, digits = 14, zapsmall = 7) {
-    sha1(as.numeric(x), digits = digits, zapsmall = zapsmall)
-}
-
 sha1.numeric <- function(x, digits = 14, zapsmall = 7){
     digest(
         num2hex(
@@ -74,6 +70,21 @@ sha1.list <- function(x, digits = 14, zapsmall = 7){
     sha1(
         sapply(x, sha1, digits = digits, zapsmall = zapsmall)
     )
+}
+
+sha1.POSIXlt <- function(x, digits = 14, zapsmall = 7) {
+    sha1(
+        do.call(
+            data.frame,
+            lapply(as.POSIXlt(x), unlist)
+        ),
+        digits = digits,
+        zapsmall = zapsmall
+    )
+}
+
+sha1.POSIXct <- function(x, digits = 14, zapsmall = 7) {
+    sha1(as.POSIXlt(x), digits = digits, zapsmall = zapsmall)
 }
 
 sha1.anova <- function(x, digits = 4, zapsmall = 7){
