@@ -45,7 +45,19 @@ sha1.numeric <- function(x, digits = 14, zapsmall = 7){
 sha1.matrix <- function(x, digits = 14, zapsmall = 7){
     # needed to make results comparable between 32-bit and 64-bit
     if (class(x[1, 1]) == "numeric") {
-        sha1(as.vector(x), digits = digits, zapsmall = zapsmall)
+        digest(
+            matrix( #return a matrix with the same dimensions as x
+                apply(
+                    x,
+                    2,
+                    num2hex,
+                    digits = digits,
+                    zapsmall = zapsmall
+                ),
+                ncol = ncol(x)
+            ),
+            algo = "sha1"
+        )
     } else {
         digest(x, algo = "sha1")
     }

@@ -4,11 +4,11 @@
 stopifnot(require(digest))
 
 # calculate sha1 fingerprints
-x.numeric <- 1.2345678901234567890123456789
+x.numeric <- seq(0, 1, length = 4 ^ 3)
 x.list <- list(letters, x.numeric)
 x.dataframe <- data.frame(
     X = letters,
-    Y = x.numeric,
+    Y = x.numeric[2],
     Z = factor(letters),
     stringsAsFactors = FALSE
 )
@@ -17,6 +17,7 @@ x.matrix.letter <- as.matrix(letters)
 x.dataframe.round <- x.dataframe
 x.dataframe.round$Y <- signif(x.dataframe.round$Y, 14)
 x.factor <- factor(letters)
+x.array.num <- as.array(x.numeric)
 
 # tests using detailed numbers
 stopifnot(
@@ -26,19 +27,10 @@ stopifnot(
     !identical(x.matrix.num, signif(x.matrix.num, 14))
 )
 # returns the correct SHA1
-x.hex <- sprintf("%a", x.numeric)
-exponent <- as.integer(gsub("^.*p", "", x.hex))
-zapsmall.hex <- floor(log2(10 ^ -7))
-digits.hex <- ceiling(log(10 ^ 14, base = 16))
-mantissa <- gsub(".*x1\\.{0,1}", "",x.hex)
-mantissa <- gsub("p.*$", "", mantissa)
-mantissa <- substring(mantissa, 1, digits.hex)
-mantissa <- gsub("0$", "", mantissa)
-negative <- ifelse(grepl("^-", x.hex), "-", "")
 stopifnot(
     identical(
         sha1(x.numeric),
-        sha1(paste0(negative, mantissa, " ", exponent))
+        sha1(digest:::num2hex(x.numeric))
     )
 )
 stopifnot(
@@ -65,7 +57,13 @@ stopifnot(
 stopifnot(
     identical(
         sha1(x.matrix.num),
-        sha1(as.vector(x.matrix.num))
+        digest(
+            matrix(
+                apply(x.matrix.num, 2, digest:::num2hex),
+                ncol = ncol(x.matrix.num)
+            ),
+            algo = "sha1"
+        )
     )
 )
 stopifnot(
@@ -80,6 +78,32 @@ stopifnot(
         digest(x.factor, algo = "sha1")
     )
 )
+# a matrix and a vector should have a different hash
+stopifnot(
+    !identical(
+        sha1(x.numeric),
+        sha1(matrix(x.numeric, nrow = 1))
+    )
+)
+stopifnot(
+    !identical(
+        sha1(x.numeric),
+        sha1(matrix(x.numeric, ncol = 1))
+    )
+)
+stopifnot(
+    !identical(
+        sha1(letters),
+        sha1(matrix(letters, nrow = 1))
+    )
+)
+stopifnot(
+    !identical(
+        sha1(letters),
+        sha1(matrix(letters, ncol = 1))
+    )
+)
+
 
 lm.model.0 <- lm(weight ~ Time, data = ChickWeight)
 lm.model.1 <- lm(weight ~ 1, data = ChickWeight)
