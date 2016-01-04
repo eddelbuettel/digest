@@ -4,9 +4,19 @@ useDynLib(digest, digest_impl=digest, AESinit, AESencryptECB, AESdecryptECB)
 ## and exported functions
 export(AES,
        digest,
-       get_sha1, sha1_digits, num_32_64,
+       sha1,
        hmac)
 
 S3method(print, AES)
-importFrom(methods,setGeneric)
-importFrom(methods,setMethod)
+S3method(sha1, default)
+S3method(sha1, character)
+S3method(sha1, integer)
+S3method(sha1, numeric)
+S3method(sha1, factor)
+S3method(sha1, NULL)
+S3method(sha1, logical)
+S3method(sha1, POSIXct)
+S3method(sha1, anova)
+S3method(sha1, list)
+S3method(sha1, matrix)
+S3method(sha1, data.frame)

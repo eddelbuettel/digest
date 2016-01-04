@@ -1,108 +1,99 @@
 # functions written by Thierry Onkelinx
-sha1_digits <- function(which = c("base", "zapsmall", "coef")){
-  which <- match.arg(which)
-  switch(which,
-    base = 14L,
-    zapsmall = 7L,
-    coef = 4L # coef = 5L yields differences for some lmer models
-  )
+sha1 <- function(x, digits = 14, zapsmall = 7){
+    UseMethod("sha1")
 }
 
-setGeneric(
-  name = "get_sha1",
-  def = function(x){
-    standard.generic("get_sha1")
-  }
-)
+sha1.default <- function(x, digits = 14, zapsmall = 7) {
+    stop("sha1() has not method for the '", class(x), "' class")
+}
 
-setMethod(
-  f = "get_sha1",
-  signature = "ANY",
-  definition = function(x){
+sha1.integer <- function(x, digits = 14, zapsmall = 7) {
     digest(x, algo = "sha1")
-  }
-)
+}
 
-setMethod(
-  f = "get_sha1",
-  signature = "integer",
-  definition = function(x){
+sha1.character <- function(x, digits = 14, zapsmall = 7) {
     digest(x, algo = "sha1")
-  }
-)
+}
 
-setMethod(
-  f = "get_sha1",
-  signature = "anova",
-  definition = function(x){
-    get_sha1(
-      apply(
-        x,
-        1,
-        num_32_64,
-        digits = sha1_digits("coef"),
-        zapsmall = sha1_digits("zapsmall")
-      )
-    )
-  }
-)
-
-setMethod(
-  f = "get_sha1",
-  signature = "factor",
-  definition = function(x){
+sha1.factor <- function(x, digits = 14, zapsmall = 7) {
     digest(x, algo = "sha1")
-  }
-)
+}
 
-setMethod(
-  f = "get_sha1",
-  signature = "list",
-  definition = function(x){
+sha1.NULL <- function(x, digits = 14, zapsmall = 7) {
+    digest(x, algo = "sha1")
+}
+
+sha1.logical <- function(x, digits = 14, zapsmall = 7) {
+    digest(x, algo = "sha1")
+}
+
+sha1.POSIXct <- function(x, digits = 14, zapsmall = 7) {
+    sha1(as.numeric(x), digits = digits, zapsmall = zapsmall)
+}
+
+sha1.numeric <- function(x, digits = 14, zapsmall = 7){
     digest(
-      sapply(x, get_sha1),
-      algo = "sha1"
+        num2hex(
+            x,
+            digits = digits,
+            zapsmall = zapsmall
+        ),
+        algo = "sha1"
     )
-  }
-)
+}
 
-setMethod(
-  f = "get_sha1",
-  signature = "numeric",
-  definition = function(x){
-    get_sha1(
-      num_32_64(
-        x,
-        digits = sha1_digits("base"),
-        zapsmall = sha1_digits("zapsmall")
-      )
-    )
-  }
-)
-
-setMethod(
-  f = "get_sha1",
-  signature = "matrix",
-  definition = function(x){
+sha1.matrix <- function(x, digits = 14, zapsmall = 7){
     # needed to make results comparable between 32-bit and 64-bit
     if (class(x[1, 1]) == "numeric") {
-      get_sha1(as.vector(x))
+        digest(
+            matrix( #return a matrix with the same dimensions as x
+                apply(
+                    x,
+                    2,
+                    num2hex,
+                    digits = digits,
+                    zapsmall = zapsmall
+                ),
+                ncol = ncol(x)
+            ),
+            algo = "sha1"
+        )
     } else {
-      digest(x, algo = "sha1")
+        digest(x, algo = "sha1")
     }
-  }
-)
+}
 
-setMethod(
-  f = "get_sha1",
-  signature = "data.frame",
-  definition = function(x){
+sha1.data.frame <- function(x, digits = 14, zapsmall = 7){
     # needed to make results comparable between 32-bit and 64-bit
-    digest(sapply(x, get_sha1), algo = "sha1")
-  }
-)
+    sha1(
+        sapply(x, sha1, digits = digits, zapsmall = zapsmall)
+    )
+}
 
-num_32_64 <- function(x, digits = 6, zapsmall = 7){
+sha1.list <- function(x, digits = 14, zapsmall = 7){
+    sha1(
+        sapply(x, sha1, digits = digits, zapsmall = zapsmall)
+    )
+}
+
+sha1.anova <- function(x, digits = 4, zapsmall = 7){
+    if (digits > 4) {
+        warning(
+            "Hash on 32 bit might be different from hash on 64 bit with digits > 4"
+        )
+    }
+    sha1(
+        apply(
+            x,
+            1,
+            sha1,
+            digits = digits,
+            zapsmall = zapsmall
+        )
+    )
+}
+
+num2hex <- function(x, digits = 14, zapsmall = 7){
   if (!is.numeric(x)) {
     stop("x is not numeric")
   }

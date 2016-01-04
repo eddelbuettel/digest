@@ -4,114 +4,161 @@
 stopifnot(require(digest))
 
 # calculate sha1 fingerprints
-x.numeric <- 1.2345678901234567890123456789
+x.numeric <- seq(0, 1, length = 4 ^ 3)
 x.list <- list(letters, x.numeric)
 x.dataframe <- data.frame(
-  X = letters,
-  Y = x.numeric,
-  Z = factor(letters),
-  stringsAsFactors = FALSE
+    X = letters,
+    Y = x.numeric[2],
+    Z = factor(letters),
+    stringsAsFactors = FALSE
 )
 x.matrix.num <- as.matrix(x.numeric)
 x.matrix.letter <- as.matrix(letters)
 x.dataframe.round <- x.dataframe
-x.dataframe.round$Y <- signif(x.dataframe.round$Y, sha1_digits())
+x.dataframe.round$Y <- signif(x.dataframe.round$Y, 14)
 x.factor <- factor(letters)
+x.array.num <- as.array(x.numeric)
 
 # tests using detailed numbers
-identical(x.numeric, signif(x.numeric, sha1_digits()))
-identical(x.matrix.num, signif(x.matrix.num, sha1_digits()))
+stopifnot(
+    !identical(x.numeric, signif(x.numeric, 14))
+)
+stopifnot(
+    !identical(x.matrix.num, signif(x.matrix.num, 14))
+)
 # returns the correct SHA1
-x.hex <- sprintf("%a", x.numeric)
-exponent <- as.integer(gsub("^.*p", "", x.hex))
-zapsmall.hex <- floor(log2(10 ^ -sha1_digits("zapsmall")))
-digits.hex <- ceiling(log(10 ^ sha1_digits("base"), base = 16))
-mantissa <- gsub(".*x1\\.{0,1}", "",x.hex)
-mantissa <- gsub("p.*$", "", mantissa)
-mantissa <- substring(mantissa, 1, digits.hex)
-mantissa <- gsub("0$", "", mantissa)
-negative <- ifelse(grepl("^-", x.hex), "-", "")
-identical(
-  get_sha1(x.numeric),
-  get_sha1(paste0(negative, mantissa, " ", exponent))
-)
-identical(
-  get_sha1(letters),
-  digest(letters, algo = "sha1")
-)
-identical(
-    get_sha1(x.list),
-    digest(
-          sapply(x.list, get_sha1),
-          algo = "sha1"
-    )
-)
-identical(
-  get_sha1(x.dataframe),
-  digest(sapply(x.dataframe, get_sha1), algo = "sha1")
-)
+stopifnot(
     identical(
-      get_sha1(x.matrix.num),
-      get_sha1(as.vector(x.matrix.num))
+        sha1(x.numeric),
+        sha1(digest:::num2hex(x.numeric))
     )
+)
+stopifnot(
     identical(
-      get_sha1(x.matrix.letter),
-      digest(x.matrix.letter, algo = "sha1")
+        sha1(letters),
+        digest(letters, algo = "sha1")
     )
+)
+stopifnot(
     identical(
-      get_sha1(x.factor),
-      digest(x.factor, algo = "sha1")
+        sha1(x.list),
+        digest(
+            sapply(x.list, sha1),
+            algo = "sha1"
+        )
     )
+)
+stopifnot(
+    identical(
+        sha1(x.dataframe),
+        digest(sapply(x.dataframe, sha1), algo = "sha1")
+    )
+)
+stopifnot(
+    identical(
+        sha1(x.matrix.num),
+        digest(
+            matrix(
+                apply(x.matrix.num, 2, digest:::num2hex),
+                ncol = ncol(x.matrix.num)
+            ),
+            algo = "sha1"
+        )
+    )
+)
+stopifnot(
+    identical(
+        sha1(x.matrix.letter),
+        digest(x.matrix.letter, algo = "sha1")
+    )
+)
+stopifnot(
+    identical(
+        sha1(x.factor),
+        digest(x.factor, algo = "sha1")
+    )
+)
+# a matrix and a vector should have a different hash
+stopifnot(
+    !identical(
+        sha1(x.numeric),
+        sha1(matrix(x.numeric, nrow = 1))
+    )
+)
+stopifnot(
+    !identical(
+        sha1(x.numeric),
+        sha1(matrix(x.numeric, ncol = 1))
+    )
+)
+stopifnot(
+    !identical(
+        sha1(letters),
+        sha1(matrix(letters, nrow = 1))
+    )
+)
+stopifnot(
+    !identical(
+        sha1(letters),
+        sha1(matrix(letters, ncol = 1))
+    )
+)
 
 
-  lm.model.0 <- lm(weight ~ Time, data = ChickWeight)
-  lm.model.1 <- lm(weight ~ 1, data = ChickWeight)
-  glm.model.0 <- glm(weight ~ Time, data = ChickWeight, family = poisson)
-  glm.model.1 <- glm(weight ~ 1, data = ChickWeight, family = poisson)
+lm.model.0 <- lm(weight ~ Time, data = ChickWeight)
+lm.model.1 <- lm(weight ~ 1, data = ChickWeight)
+glm.model.0 <- glm(weight ~ Time, data = ChickWeight, family = poisson)
+glm.model.1 <- glm(weight ~ 1, data = ChickWeight, family = poisson)
 
-  anova.list <- list(
+anova.list <- list(
     lm = anova(lm.model.0, lm.model.1),
     glm = anova(glm.model.0, glm.model.1),
     glm.test = anova(glm.model.0, glm.model.1, test = "Chisq")
-  )
+)
 
 # works with lm anova"
-    z <- apply(
-      anova.list[["lm"]],
-      1,
-      num_32_64,
-      digits = sha1_digits("coef"),
-      zapsmall = sha1_digits("zapsmall")
-    )
+z <- apply(
+    anova.list[["lm"]],
+    1,
+    sha1,
+    digits = 4,
+    zapsmall = 7
+)
+stopifnot(
     identical(
-      get_sha1(anova.list[["lm"]]),
-      get_sha1(z)
+        sha1(anova.list[["lm"]]),
+        sha1(z)
     )
-  # works with glm anova"
-    z <- apply(
-      anova.list[["glm"]],
-      1,
-      num_32_64,
-      digits = sha1_digits("coef"),
-      zapsmall = sha1_digits("zapsmall")
-    )
+)
+# works with glm anova"
+z <- apply(
+    anova.list[["glm"]],
+    1,
+    sha1,
+    digits = 4,
+    zapsmall = 7
+)
+stopifnot(
     identical(
-      get_sha1(anova.list[["glm"]]),
-      get_sha1(z)
+        sha1(anova.list[["glm"]]),
+        sha1(z)
     )
-    z <- apply(
-      anova.list[["glm.test"]],
-      1,
-      num_32_64,
-      digits = sha1_digits("coef"),
-      zapsmall = sha1_digits("zapsmall")
-    )
+)
+z <- apply(
+    anova.list[["glm.test"]],
+    1,
+    sha1,
+    digits = 4,
+    zapsmall = 7
+)
+stopifnot(
     identical(
-      get_sha1(anova.list[["glm.test"]]),
-      get_sha1(z)
+        sha1(anova.list[["glm.test"]]),
+        sha1(z)
     )
+)
 
-  test.element <- list(
+test.element <- list(
     # NULL
     NULL,
     # empty vector
@@ -124,9 +171,9 @@ identical(
     c(TRUE, FALSE), 1:3, seq(0, 10, length = 4), letters[1:3],
     factor(letters[4:6]),
     as.POSIXct(c("2015-01-02 03:04:06.07", "1960-12-31 23:59:59"), tz = "UTC")
-  )
-  select.vector <- which(sapply(test.element, length) > 1)
-  test.element <- c(
+)
+select.vector <- which(sapply(test.element, length) > 1)
+test.element <- c(
     test.element,
     # add a data.frame
     expand.grid(test.element[select.vector]),
@@ -137,15 +184,15 @@ identical(
     matrix(seq(0, 10, length = 4)),
     matrix(letters),
     anova.list
-  )
+)
 
-  cat("\ncorrect <- c(\n")
-  cat(
-    sprintf("  \"%s\"", sapply(test.element, get_sha1)),
+cat("\ncorrect <- c(\n")
+cat(
+    sprintf("    \"%s\"", sapply(test.element, sha1)),
     sep = ",\n"
-  )
-  cat(")\n")
-  correct <- c(
+)
+cat(")\n")
+correct <- c(
     "8d9c05ec7ae28b219c4c56edbce6a721bd68af82",
     "0df9019fab513592066cc292d412b9054575d844",
     "f374b4a83af21bb028483fd33dfa811aca7abb96",
@@ -156,25 +203,25 @@ identical(
     "49731da30df853ee8959035e3e309df129ad5348",
     "5db33863310fda479e9367aa8b69e339565fb312",
     "1f9928593251410322823fefea8c3ef79b4d0254",
-    "c799247ef7cc5eb0a3544aa1aef1039e270579a4",
+    "0c1b1241543ab7fd15fe43cc24745c6db808eef2",
     "692ff1b9390cfc01625d8dbb850d04426e193889",
     "f4403adc0f5e5e270450150646a7ad0652783047",
     "051deeb6fb87e61a7a5a35c80e3b8351f1531ec3",
     "3bc1c85261b958307340b7a8a9fcff3e2586516b",
     "3c23872b9b4e17b16c1d640fe3c29f251202b012",
-    "0fc188b4fd874e5ea411a241feb0e247faada054",
+    "63d817b833816d51baf962ca4cdfd07d331b0e0e",
     "188710fe63fedb3f4637db5eeb2ecdbc824aa179",
     "f3863e2ce42f3507b0d65b013b70c84804e246ef",
     "78d23c7b572a943f697584705cc9514d32269bfd",
     "25228aa01875f7c88b51c299a332c6bd82257d06",
     "51fe9849f2b30d02c73cd7870d5d9b3a19e83654",
-    "c165458381d503502e811a153f262fe6a1dfa55e",
+    "1957ef691a02b52f07c7ea824eb6baa5f1e2ed25",
     "692ff1b9390cfc01625d8dbb850d04426e193889",
     "f4403adc0f5e5e270450150646a7ad0652783047",
     "051deeb6fb87e61a7a5a35c80e3b8351f1531ec3",
     "3bc1c85261b958307340b7a8a9fcff3e2586516b",
     "3c23872b9b4e17b16c1d640fe3c29f251202b012",
-    "0fc188b4fd874e5ea411a241feb0e247faada054",
+    "63d817b833816d51baf962ca4cdfd07d331b0e0e",
     "49731da30df853ee8959035e3e309df129ad5348",
     "d1fafdecb299e9f16ba224ecb4a0601fd31859f5",
     "cac51e723748aae54d21b79b40b48f9000f5e90e",
@@ -215,27 +262,33 @@ identical(
     "ef60fa66262167e7a31398b16fa762151c6d1b28",
     "a235e3cc7109def777a99e660b9829cea48ce9a4",
     "d19d82f849bad81a39da932d3087a60c78de82c1",
-    "d7ce66852e854bbc6f030156217a93b0e72e83fb",
-    "c7174dc1ad72405e92c04bf35f3c4c602630ae8a",
-    "d26ac1f5fedad77ca54e4692a7ddc0d387bd3130"
-  )
+    "44b53cab69e59d93951b81e66bb0f00a87881580",
+    "6094e12d3db414c197b78ed449e78f8ab65e5fb6",
+    "c2d0cf902c070f0b6d33f2b6079155461d56a2e3"
+)
 
 # returns the same SHA1 on both 32-bit and 64-bit OS"
-    for (i in seq_along(test.element)) {
-      identical(
-        get_sha1(test.element[[i]]),
-        correct[i]
-      )
-    }
+for (i in seq_along(test.element)) {
+    stopifnot(
+        identical(
+            sha1(test.element[[i]]),
+            correct[i]
+        )
+    )
+}
 
 # calculates the SHA1 of a list as the SHA1 of a vector of SHA1 of each element
-    this.list <- list("a", "b")
+this.list <- list("a", "b")
+stopifnot(
     identical(
-      get_sha1(this.list),
-      get_sha1(sapply(this.list, get_sha1))
+        sha1(this.list),
+        sha1(sapply(this.list, sha1))
     )
-    this.list <- list(letters, this.list)
+)
+this.list <- list(letters, this.list)
+stopifnot(
     identical(
-      get_sha1(this.list),
-      get_sha1(sapply(this.list, get_sha1))
+        sha1(this.list),
+        sha1(sapply(this.list, sha1))
     )
+)

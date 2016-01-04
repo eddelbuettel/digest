@@ -1,6 +1,6 @@
 Package: digest
 Author: Dirk Eddelbuettel <edd@debian.org> with contributions 
-Version: 0.6.9.0
+Version: 0.6.8.4
 Date: 2015-12-27
  by Antoine Lucas, Jarek Tuszynski, Henrik Bengtsson, Simon Urbanek,
  Mario Frasca, Bryan Lewis, Murray Stokely, Hannes Muehleisen,
@@ -28,6 +28,5 @@ Description: Implementation of a function 'digest()' for the creation
  cryptographic purposes for which more comprehensive (and widely 
  tested) libraries such as OpenSSL should be used.
 Depends: R (>= 2.4.1)
-Imports: methods
 License: GPL-2
 URL: http://dirk.eddelbuettel.com/code/digest.html
