@@ -84,7 +84,14 @@ sha1.POSIXlt <- function(x, digits = 14, zapsmall = 7) {
 }
 
 sha1.POSIXct <- function(x, digits = 14, zapsmall = 7) {
-    sha1(as.POSIXlt(x), digits = digits, zapsmall = zapsmall)
+    sha1(
+        list(
+            x = as.POSIXlt(x),
+            class = "POSIXct"
+        ),
+        digits = digits,
+        zapsmall = zapsmall
+    )
 }
 
 sha1.anova <- function(x, digits = 4, zapsmall = 7){

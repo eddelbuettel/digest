@@ -103,7 +103,14 @@ stopifnot(
         sha1(matrix(letters, ncol = 1))
     )
 )
-
+# a POSIXct and a POSIXlt should give a different hash
+z <- as.POSIXct("2015-01-02 03:04:06.07", tz = "UTC")
+stopifnot(
+    !identical(
+        sha1(z),
+        sha1(as.POSIXlt(z))
+    )
+)
 
 lm.model.0 <- lm(weight ~ Time, data = ChickWeight)
 lm.model.1 <- lm(weight ~ 1, data = ChickWeight)
@@ -203,25 +210,25 @@ correct <- c(
     "49731da30df853ee8959035e3e309df129ad5348",
     "5db33863310fda479e9367aa8b69e339565fb312",
     "1f9928593251410322823fefea8c3ef79b4d0254",
-    "16df6f33f7fdf6b3650f66dea16ef7b8b615638b",
+    "b7027be930046a3370618cc1831b8bee5d4dee3d",
     "692ff1b9390cfc01625d8dbb850d04426e193889",
     "f4403adc0f5e5e270450150646a7ad0652783047",
     "051deeb6fb87e61a7a5a35c80e3b8351f1531ec3",
     "3bc1c85261b958307340b7a8a9fcff3e2586516b",
     "3c23872b9b4e17b16c1d640fe3c29f251202b012",
-    "97adcacc2afe345030b24b996b0911ed0aa8e8ac",
+    "80892505008c6292320fb5730b016cac43e68706",
     "188710fe63fedb3f4637db5eeb2ecdbc824aa179",
     "f3863e2ce42f3507b0d65b013b70c84804e246ef",
     "78d23c7b572a943f697584705cc9514d32269bfd",
     "25228aa01875f7c88b51c299a332c6bd82257d06",
     "51fe9849f2b30d02c73cd7870d5d9b3a19e83654",
-    "bacba58aeedfc0f4e205e207fd3e56920067ab28",
+    "9c69202a90d46a0025fae37de91de7c4a1ceb530",
     "692ff1b9390cfc01625d8dbb850d04426e193889",
     "f4403adc0f5e5e270450150646a7ad0652783047",
     "051deeb6fb87e61a7a5a35c80e3b8351f1531ec3",
     "3bc1c85261b958307340b7a8a9fcff3e2586516b",
     "3c23872b9b4e17b16c1d640fe3c29f251202b012",
-    "97adcacc2afe345030b24b996b0911ed0aa8e8ac",
+    "80892505008c6292320fb5730b016cac43e68706",
     "49731da30df853ee8959035e3e309df129ad5348",
     "d1fafdecb299e9f16ba224ecb4a0601fd31859f5",
     "cac51e723748aae54d21b79b40b48f9000f5e90e",
