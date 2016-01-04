@@ -80,7 +80,7 @@ sha1.anova <- function(x, digits = 4, zapsmall = 7){
     )
 }
 
-num2hex <- function(x, digits = 6, zapsmall = 7){
+num2hex <- function(x, digits = 14, zapsmall = 7){
   if (!is.numeric(x)) {
     stop("x is not numeric")
   }
