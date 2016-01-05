@@ -87,3 +87,17 @@ stopifnot(
     )
 )
 
+# example from FAQ 7.31
+# tests if all trailing zero's are removed
+stopifnot(
+    identical(
+        digest:::num2hex(2, digits = 14),
+        digest:::num2hex(sqrt(2) ^ 2, digits = 14)
+    )
+)
+stopifnot(
+    !identical(
+        digest:::num2hex(2, digits = 15),
+        digest:::num2hex(sqrt(2) ^ 2, digits = 15)
+    )
+)
