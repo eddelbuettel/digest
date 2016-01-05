@@ -1,58 +1,60 @@
 ---
-title: "Vignette Title"
-author: "Vignette Author"
+title: "Calculating SHA1 hashes with digest() and sha1()"
+author: "Thierry Onkelinx, Dirk Eddelbuettel"
 date: "`r Sys.Date()`"
 output: rmarkdown::html_vignette
 vignette: >
-  %\VignetteIndexEntry{Vignette Title}
+  %\VignetteIndexEntry{sha1() versus digest()}
   %\VignetteEngine{knitr::rmarkdown}
   %\VignetteEncoding{UTF-8}
 ---
 
-Vignettes are long form documentation commonly included in packages. Because they are part of the distribution of the package, they need to be as compact as possible. The `html_vignette` output type provides a custom style sheet (and tweaks some options) to ensure that the resulting html is as small as possible. The `html_vignette` format:
+- short intro on hashes
 
-- Never uses retina figures
-- Has a smaller default figure size
-- Uses a custom CSS stylesheet instead of the default Twitter Bootstrap style
+## Difference between `digest()` and `sha1()`
 
-## Vignette Info
+- FAQ 7.31
+- `digest()` uses the data as is
+    - numeric values are stored differently on 32-bit and 64-bit systems.
+- `sha1()` truncates numeric values after a certain number of digits
+    - the number of digits needs to be small enough to get the same hash on 32-bit and 64-bit
+    - the number of digits needs to be high enough to get a different hash when the difference between values is relevant
 
-Note the various macros within the `vignette` section of the metadata block above. These are required in order to instruct R how to build the vignette. Note that you should change the `title` field and the `\VignetteIndexEntry` to match the title of your vignette.
+## Choosing `digest()` or `sha1()`
 
-## Styles
+## Creating a sha1 method for other classes
 
-The `html_vignette` template includes a basic CSS theme. To override this theme you can specify your own CSS in the document metadata as follows:
+- lm
+- glm
 
-    output: 
-      rmarkdown::html_vignette:
-        css: mystyles.css
+## Using hashes to track changes in analysis
 
-## Figures
+use case
 
-The figure sizes have been customised so that you can easily put two images side-by-side. 
+- automated analysis
+- update frequency of the data might be lower than the frequency of automated analysis
+- similar analyses on many datasets (e.g. many species in ecology)
+- analyses that require a lot of computing time
+    - not rerunning an analysis because nothing has changed saves enough resources to compensate the overhead of tracking changes
 
-```{r, fig.show='hold'}
-plot(1:10)
-plot(10:1)
-```
+- Bundle all relevant information on an analysis in a class
+    - data
+    - method
+    - formula
+    - other metadata
+    - resulting model
+- calculate `sha1()`
 
-You can enable figure captions by `fig_caption: yes` in YAML:
+    file fingerprint
+      ~ `sha1()` on the stable parts
+    
+    status fingerprint
+      ~ `sha1()` on the parts that result for the model
 
-    output:
-      rmarkdown::html_vignette:
-        fig_caption: yes
-
-Then you can use the chunk option `fig.cap = "Your figure caption."` in **knitr**.
-
-## More Examples
-
-You can write math expressions, e.g. $Y = X\beta + \epsilon$, footnotes^[A footnote here.], and tables, e.g. using `knitr::kable()`.
-
-```{r, echo=FALSE, results='asis'}
-knitr::kable(head(mtcars, 10))
-```
-
-Also a quote using `>`:
-
-> "He who gives up [code] safety for [code] speed deserves neither."
-([via](https://twitter.com/hadleywickham/status/504368538874703872))
+1. Prepare analysis objects
+1. Store each analysis object in a rda file which uses the file fingerprint as filename
+    - File will already exist when no change in analysis
+    - Don't overwrite existing files
+1. Loop over all rda files
+    - Do nothing if the analysis was run
+    - Otherwise run the analysis and update the status and status fingerprint
