@@ -76,6 +76,12 @@ sha1.summary.lm <- function(x, digits = 4, zapsmall = 7){
 }
 sha1(lm_sum)
 
+# try an altered dataset
+LCS2 <- LifeCycleSavings[rownames(LifeCycleSavings) != "Zambia", ]
+lm_SR2 <- lm(sr ~ pop15 + pop75 + dpi + ddpi, data = LCS2)
+sha1(summary(lm_SR2))
+```
+
 ###  lm
 
 Let's illustrate this using the summary of a simple linear regression. Suppose that we want a hash that takes into account the coefficients, their standard error and sigma.
@@ -104,6 +110,7 @@ sha1.lm <- function(x, digits = 14, zapsmall = 7){
     sha1(combined, digits = digits, zapsmall = zapsmall)
 }
 sha1(lm_SR)
+sha1(lm_SR2)
 ```
 
 ## Using hashes to track changes in analysis
