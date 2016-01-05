@@ -170,7 +170,7 @@ num2hex <- function(x, digits = 14, zapsmall = 7){
   mantissa <- gsub(mantissa, pattern = "p.*$", replacement = "")
   mantissa <- substring(mantissa, 1, digits.hex) # select required precision
   # remove potential trailing zero's
-  mantissa <- gsub(mantissa, pattern = "0$", replacement = "")
+  mantissa <- gsub(mantissa, pattern = "0*$", replacement = "")
   negative <- ifelse(grepl(x.hex[!zero], pattern = "^-"), "-", "")
   output[!x.na][!zero] <- paste0(negative, mantissa, " ", exponent[!zero])
   return(output)
