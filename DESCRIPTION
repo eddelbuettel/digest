@@ -30,3 +30,6 @@ Description: Implementation of a function 'digest()' for the creation
 Depends: R (>= 2.4.1)
 License: GPL-2
 URL: http://dirk.eddelbuettel.com/code/digest.html
+Suggests: knitr,
+    rmarkdown
+VignetteBuilder: knitr
