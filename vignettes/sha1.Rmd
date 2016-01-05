@@ -24,8 +24,58 @@ vignette: >
 
 ## Creating a sha1 method for other classes
 
-- lm
-- glm
+### How to
+
+1. Identify the relevant components for the hash.
+1. Determine the class of each relevant component and check if they are handled by `sha1()`.
+    - Write a method for each component class not yet handled by `sha1`.
+1. Extract the relevant components.
+1. Combine the relevant components into a list. Not required in case of a single component.
+1. Apply `sha1()` on the (list of) relevant component(s).
+1. Turn this into a function with name sha1._classname_.
+1. sha1._classname_ needs exactly the same arguments as `sha1()`
+1. Choose sensible defaults for the arguments
+    - `zapsmall = 7` is recommended.
+    - `digits = 14` is recommended in case all numerics are data.
+    - `digits = 4` is recommended in case some numerics stem from floating point arithmetic.
+
+###  summary.lm
+
+Let's illustrate this using the summary of a simple linear regression. Suppose that we want a hash that takes into account the coefficients, their standard error and sigma.
+
+```{r sha1_lm_sum}
+# taken from the help file of lm.influence
+lm_SR <- lm(sr ~ pop15 + pop75 + dpi + ddpi, data = LifeCycleSavings)
+lm_sum <- summary(lm_SR)
+class(lm_sum)
+# str() gives the structure of the lm object
+str(lm_sum)
+# extract the coefficients and their standard error
+coef_sum <- coef(lm_sum)[, c("Estimate", "Std. Error")]
+# extract sigma
+sigma <- lm_sum$sigma
+# check the class of each component
+class(coef_sum)
+class(sigma)
+# sha1() has methods for both matrix and numeric
+library(digest)
+# because the values originate from floating point arithmetic it is better to use a low number of digits
+sha1(coef_sum, digits = 4)
+sha1(sigma, digits = 4)
+# we want a single hash
+# combining the components in a list is a solution that works
+sha1(list(coef_sum, sigma), digits = 4)
+# now turn everything into an S3 method
+#   - a function with name "sha1.classname"
+#   - must have the same arguments as sha1()
+sha1.summary.lm <- function(x, digits = 4, zapsmall = 7){
+    coef_sum <- coef(x)[, c("Estimate", "Std. Error")]
+    sigma <- x$sigma
+    combined <- list(coef_sum, sigma)
+    sha1(combined, digits = digits, zapsmall = zapsmall)
+}
+sha1(lm_sum)
+```
 
 ## Using hashes to track changes in analysis
 
