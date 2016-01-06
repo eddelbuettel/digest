@@ -14,7 +14,8 @@ before_install:
   - chmod 755 ./travis-tool.sh
   - ./travis-tool.sh bootstrap
 
-#install:
+install:
+  - ./travis-tool.sh install_aptget r-cran-knitr r-cran-rmarkdown
 #  - ./travis-tool.sh install_r rbenchmark microbenchmark
 
 script: ./travis-tool.sh run_tests
