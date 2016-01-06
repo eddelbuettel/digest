@@ -13,12 +13,49 @@ vignette: >
 
 ## Difference between `digest()` and `sha1()`
 
-- FAQ 7.31
-- `digest()` uses the data as is
-    - numeric values are stored differently on 32-bit and 64-bit systems.
-- `sha1()` truncates numeric values after a certain number of digits
-    - the number of digits needs to be small enough to get the same hash on 32-bit and 64-bit
-    - the number of digits needs to be high enough to get a different hash when the difference between values is relevant
+R [FAQ 7.31](https://cran.r-project.org/doc/FAQ/R-FAQ.html#Why-doesn_0027t-R-think-these-numbers-are-equal_003f) illustrates potential problems with floating point arithmetic. Mathematical $x = \sqrt{x}^2$. The precision of floating points numbers however is finite. Hence some rounding is done, leading to numbers which are no longer identical.
+
+```{r faq7_31}
+# FAQ 7.31
+a0 <- 2
+b <- sqrt(a0)
+a1 <- b ^ 2
+identical(a0, a1)
+a0 - a1
+a <- c(a0, a1)
+# hexadecimal representation
+sprintf("%a", a)
+```
+
+Although the difference is small, any difference will result in different hash when using `digest()`. `sha1()` tackles this problem by using the hexadecimal representation of the numbers and truncate that to a certain number of digits prior to calculate the hash. 
+
+```{r faq7_31digest}
+library(digest)
+# different hashes with digest
+sapply(a, digest, algo = "sha1")
+# same hash with sha1 with default digits (14)
+sapply(a, sha1)
+# larger digits can lead to different hashes
+sapply(a, sha1, digits = 15)
+# decreasing the number of digits gives a stronger truncation
+# the hash will change when then truncation gives a different result
+# case where truncating gives same hexadecimal value
+sapply(a, sha1, digits = 13)
+sapply(a, sha1, digits = 10)
+# case where truncating gives different hexadecimal value
+c(sha1(pi), sha1(pi, digits = 13), sha1(pi, digits = 10))
+```
+
+The result of floating point arthemics on 32-bit and 64-bit can be slightly different. E.g. `print(pi ^ 11, 22)` returns `294204.01797389047` on 32-bit and `294204.01797389053` on 64-bit. Note that only the last 2 digits are different.  
+
+| command | 32-bit | 64-bit|
+| - | - | - |
+| `print(pi ^ 11, 22)` | `294204.01797389047` | `294204.01797389053` |
+| `sprintf("%a", pi ^ 11)`| `"0x1.1f4f01267bf5fp+18"` | `"0x1.1f4f01267bf6p+18"` |
+| `digest(pi ^ 11, algo = "sha1")` | `"c5efc7f167df1bb402b27cf9b405d7cebfba339a"` | `"b61f6fea5e2a7952692cefe8bba86a00af3de713"`|
+| `sha1(pi ^ 11, digits = 14)` | `"f3e7b9335497d791e1b5f4135e07b06f826e0f12"` | `"493fac65ffef084a142ee1598a844cc752e43e8c"` |
+| `sha1(pi ^ 11, digits = 13)` | `"d174131fb15f8e389f3843c10444f8cae594c5f2"` | `"d174131fb15f8e389f3843c10444f8cae594c5f2"` |
+| `sha1(pi ^ 11, digits = 10)` | `"6b9ef159b3218b0d5de6ba5b949415a53c49d726"` | `"6b9ef159b3218b0d5de6ba5b949415a53c49d726"` |
 
 ## Choosing `digest()` or `sha1()`
 
@@ -58,7 +95,6 @@ sigma <- lm_sum$sigma
 class(coef_sum)
 class(sigma)
 # sha1() has methods for both matrix and numeric
-library(digest)
 # because the values originate from floating point arithmetic it is better to use a low number of digits
 sha1(coef_sum, digits = 4)
 sha1(sigma, digits = 4)
