@@ -1,7 +1,7 @@
 Package: digest
+Version: 0.6.8.5
+Date: 2016-01-06
 Author: Dirk Eddelbuettel <edd@debian.org> with contributions 
-Version: 0.6.8.4
-Date: 2015-12-27
  by Antoine Lucas, Jarek Tuszynski, Henrik Bengtsson, Simon Urbanek,
  Mario Frasca, Bryan Lewis, Murray Stokely, Hannes Muehleisen,
  Duncan Murdoch, Jim Hester, Wush Wu and Thierry Onkelinx.
@@ -21,7 +21,7 @@ Description: Implementation of a function 'digest()' for the creation
  For md5, sha-1, sha-256 and aes, this package uses small standalone
  implementations that were provided by Christophe Devine. For crc32, code
  from the zlib library is used. For sha-512, an implementation by Aaron
- D. Gifford is used. For xxHash, the implementation by Yann Collet is used.
+ D. Gifford is used. For xxhash, the implementation by Yann Collet is used.
  For murmurhash, an implementation by Shane Day is used.
  .
  Please note that this package is not meant to be deployed for 
@@ -30,6 +30,5 @@ Description: Implementation of a function 'digest()' for the creation
 Depends: R (>= 2.4.1)
 License: GPL-2
 URL: http://dirk.eddelbuettel.com/code/digest.html
-Suggests: knitr,
-    rmarkdown
+Suggests: knitr, rmarkdown
 VignetteBuilder: knitr

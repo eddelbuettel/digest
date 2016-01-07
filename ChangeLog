@@ -1,13 +1,23 @@
+2016-01-06  Dirk Eddelbuettel  <edd@debian.org>
+
+	* vignettes/sha1.Rmd: Small edits
+
 2016-01-06  Thierry Onkelinx <thierry.onkelinx@inbo.be>
 
-	* .travis.yml: require sudo
-	* DESCRIPTION: add Thierry Onkelinx as contributor, bump version and date
-	* README: add Thierry Onkelinx as contributor
-	* NAMESPACE: export sha1 and its methods
-	* R/sha1.R: add functions to calculate stable SHA1 with floating points
-	* man/sha1.Rd: add helpfile for sha1()
+	* R/sha1.R: Add functions to calculate stable SHA1 with floating points
+	* man/sha1.Rd: Add helpfile for sha1()
+
 	* tests/num2hexTest.R: unit tests for num2hex() (non exported function)
 	* tests/sha1Test.R: unit tests for sha1()
+
+	* NAMESPACE: Export sha1 and its methods
+
+	* DESCRIPTION: Add Thierry Onkelinx as contributor, bump Version and Date
+	* README.md: Add Thierry Onkelinx as contributor
+
+	* vignette/sha1.Rmd: Added
+
+	* .travis.yml: Added 'sudo: required' per recent Travis changes
 
 2015-10-14  Dirk Eddelbuettel  <edd@debian.org>
 
