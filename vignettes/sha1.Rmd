@@ -1,6 +1,6 @@
 ---
 title: "Calculating SHA1 hashes with digest() and sha1()"
-author: "Thierry Onkelinx, Dirk Eddelbuettel"
+author: "Thierry Onkelinx and Dirk Eddelbuettel"
 date: "`r Sys.Date()`"
 output: rmarkdown::html_vignette
 vignette: >
@@ -8,6 +8,8 @@ vignette: >
   %\VignetteEngine{knitr::rmarkdown}
   %\VignetteEncoding{UTF-8}
 ---
+
+NB: This vignette is work-in-progress and not yet complete.
 
 ## Short intro on hashes
 
