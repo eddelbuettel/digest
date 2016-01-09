@@ -18,7 +18,7 @@ As R can serialize any object, we can run `digest()` on any object:
 R> library(digest)
 R> digest(trees)
 [1] "12412cbfa6629c5c80029209b2717f08"
-R> digest(lm(log(Height) ~ log(Girth), data=trees))                                                                                                                                                                 
+R> digest(lm(log(Height) ~ log(Girth), data=trees))
 [1] "e25b62de327d079b3ccb98f3e96987b1"
 R> digest(summary(lm(log(Height) ~ log(Girth), data=trees)))
 [1] "86c8c979ee41a09006949e2ad95feb41"
