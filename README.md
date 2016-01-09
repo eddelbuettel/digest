@@ -4,13 +4,12 @@ Compact hash representations of arbitrary R objects
 
 ### Overview
 
-The digest package provides a function `digest()` for the 
+The digest package provides a principal function `digest()` for the 
 creation of hash digests of arbitrary R objects (using the md5, sha-1, 
 sha-256, crc32, xxhash and murmurhash algorithms) permitting easy comparison
-of R language objects, as well as a function 'hmac()' to create hash-based
-message authentication code.
+of R language objects.
 
-### Examples
+#### Examples
 
 As R can serialize any object, we can run `digest()` on any object:
 
@@ -25,7 +24,13 @@ R> digest(summary(lm(log(Height) ~ log(Girth), data=trees)))
 R> 
 ```
 
-Other available functions are
+By using the hash sum, which is very likely to be unique, to identify an
+underlying object or calculation, one can easily caching strategies for which
+the digest package is somewhat widely used.
+
+#### Other Functions
+
+A small number of additional functions is available:
 
 - `sha1()` for numerally stable hashsums,
 - `hmac()` for hashed message authentication codes based on a key,
