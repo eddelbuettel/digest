@@ -34,10 +34,13 @@ sha1.logical <- function(x, digits = 14, zapsmall = 7) {
 
 sha1.numeric <- function(x, digits = 14, zapsmall = 7){
     digest(
-        num2hex(
-            x,
-            digits = digits,
-            zapsmall = zapsmall
+        c(
+            class = "numeric",
+            num2hex(
+                x,
+                digits = digits,
+                zapsmall = zapsmall
+            )
         ),
         algo = "sha1"
     )
