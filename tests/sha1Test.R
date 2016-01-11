@@ -178,44 +178,65 @@ anova.list <- list(
 )
 
 # works with lm anova"
-z <- apply(
-    anova.list[["lm"]],
-    1,
-    sha1,
-    digits = 4,
-    zapsmall = 7
-)
 stopifnot(
     identical(
         sha1(anova.list[["lm"]]),
-        sha1(z)
+        {
+            y <- apply(
+                anova.list[["lm"]],
+                1,
+                digest:::num2hex,
+                digits = 4,
+                zapsmall = 7
+            )
+            attr(y, "digest::sha1") <- list(
+                class = c("anova", "data.frame"),
+                digits = 4L,
+                zapsmall = 7L
+            )
+            digest(y, algo = "sha1")
+        }
     )
 )
 # works with glm anova"
-z <- apply(
-    anova.list[["glm"]],
-    1,
-    sha1,
-    digits = 4,
-    zapsmall = 7
-)
 stopifnot(
     identical(
         sha1(anova.list[["glm"]]),
-        sha1(z)
+        {
+            y <- apply(
+                anova.list[["glm"]],
+                1,
+                digest:::num2hex,
+                digits = 4,
+                zapsmall = 7
+            )
+            attr(y, "digest::sha1") <- list(
+                class = c("anova", "data.frame"),
+                digits = 4L,
+                zapsmall = 7L
+            )
+            digest(y, algo = "sha1")
+        }
     )
-)
-z <- apply(
-    anova.list[["glm.test"]],
-    1,
-    sha1,
-    digits = 4,
-    zapsmall = 7
 )
 stopifnot(
     identical(
         sha1(anova.list[["glm.test"]]),
-        sha1(z)
+        {
+            y <- apply(
+                anova.list[["glm.test"]],
+                1,
+                digest:::num2hex,
+                digits = 4,
+                zapsmall = 7
+            )
+            attr(y, "digest::sha1") <- list(
+                class = c("anova", "data.frame"),
+                digits = 4L,
+                zapsmall = 7L
+            )
+            digest(y, algo = "sha1")
+        }
     )
 )
 
@@ -295,21 +316,21 @@ correct <- c(
     "b48c17a2ac82601ff38df374f87d76005fb61cbd",
     "35280c99aa6a48bfc2810b72b763ccac0f632207",
     "f757cc017308d217f35ed8f0c001a57b97308fb7",
-    "101774c69c2ff2655fca0dc8bc555cc93071309f",
+    "cfcf101b8449af67d34cdc1bcb0432fe9e4de08e",
     "a14384d1997440bad13b97b3ccfb3b8c0392e79a",
     "555f6bea49e58a2c2541060a21c2d4f9078c3086",
     "631d18dec342e2cb87614864ba525ebb9ad6a124",
     "b6c04f16b6fdacc794ea75c8c8dd210f99fafa65",
     "25485ba7e315956267b3fdc521b421bbb046325d",
-    "26a5ddc22a464f9faa1338b0f390b81e98cf54d2",
-    "f15b33fbf3a590428d6da63dc219c439c99296d7",
-    "50b645b6c5c8b459e97672ed7c7c41036bfb09ef",
+    "6def3ca353dfc1a904bddd00e6a410d41ac7ab01",
+    "cf220bcf84c3d0ab1b01f8f764396941d15ff20f",
+    "2af8021b838f613aee7670bed19d0ddf1d6bc0c1",
     "270ed85d46524a59e3274d89a1bbf693521cb6af",
     "60e09482f12fda20f7d4a70e379c969c5a73f512",
     "10380001af2a541b5feefc7aab9f719b67330a42",
-    "e5e4b2938c08223c825458ccc8552b7d28725189",
-    "f1f15993d7d67bd2d5de97bd5c3e1de79b999fa3",
-    "a01a454daabc389bbf08215581f4ecf787562010"
+    "4580ff07f27eb8321421efac1676a80d9239572a",
+    "d3022c5a223caaf77e9c564e024199e5d6f51bd5",
+    "f54742ac61edd8c3980354620816c762b524dfc7"
 )
 # each object should yield a different hash
 stopifnot(!any(duplicated(correct)))

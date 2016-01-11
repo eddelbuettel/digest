@@ -138,42 +138,48 @@ sha1.list <- function(x, digits = 14, zapsmall = 7){
 }
 
 sha1.POSIXlt <- function(x, digits = 14, zapsmall = 7) {
-    sha1(
-        do.call(
-            data.frame,
-            lapply(as.POSIXlt(x), unlist)
-        ),
-        digits = digits,
-        zapsmall = zapsmall
+    y <- do.call(
+        data.frame,
+        lapply(as.POSIXlt(x), unlist)
     )
+    y$sec <- num2hex(y$sec, digits = digits, zapsmall = zapsmall)
+    attr(y, "digest::sha1") <- list(
+        class = class(x),
+        digits = as.integer(digits),
+        zapsmall = as.integer(zapsmall)
+    )
+    digest(y, algo = "sha1")
 }
 
 sha1.POSIXct <- function(x, digits = 14, zapsmall = 7) {
-    sha1(
-        list(
-            x = as.POSIXlt(x),
-            class = "POSIXct"
-        ),
-        digits = digits,
-        zapsmall = zapsmall
+    y <- sha1(as.POSIXlt(x), digits = digits, zapsmall = zapsmall)
+    attr(y, "digest::sha1") <- list(
+        class = class(x),
+        digits = as.integer(digits),
+        zapsmall = as.integer(zapsmall)
     )
+    digest(y, algo = "sha1")
 }
 
 sha1.anova <- function(x, digits = 4, zapsmall = 7){
     if (digits > 4) {
         warning(
-            "Hash on 32 bit might be different from hash on 64 bit with digits > 4"
+"Hash on 32 bit might be different from hash on 64 bit with digits > 4"
         )
     }
-    sha1(
-        apply(
-            x,
-            1,
-            sha1,
-            digits = digits,
-            zapsmall = zapsmall
-        )
+    y <- apply(
+        x,
+        1,
+        num2hex,
+        digits = digits,
+        zapsmall = zapsmall
     )
+    attr(y, "digest::sha1") <- list(
+        class = class(x),
+        digits = as.integer(digits),
+        zapsmall = as.integer(zapsmall)
+    )
+    digest(y, algo = "sha1")
 }
 
 num2hex <- function(x, digits = 14, zapsmall = 7){
