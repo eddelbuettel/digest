@@ -298,3 +298,8 @@ stopifnot(
         sha1(sapply(this.list, sha1))
     )
 )
+
+# does work with empty lists and data.frames
+stopifnot(is.character(sha1(list())))
+stopifnot(is.character(sha1(data.frame())))
+stopifnot(is.character(sha1(list(a = 1, b = list(), c = data.frame()))))
