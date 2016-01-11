@@ -185,7 +185,7 @@ test.element <- c(
     # add a data.frame
     expand.grid(test.element[select.vector]),
     # add a list
-    test.element[select.vector],
+    list(test.element[select.vector]),
     # add matrices
     matrix(1:10),
     matrix(seq(0, 10, length = 4)),
@@ -226,12 +226,7 @@ correct <- c(
     "25228aa01875f7c88b51c299a332c6bd82257d06",
     "51fe9849f2b30d02c73cd7870d5d9b3a19e83654",
     "abe4f955c61ad38a026b4541ca34690bc6c10109",
-    "692ff1b9390cfc01625d8dbb850d04426e193889",
-    "f4403adc0f5e5e270450150646a7ad0652783047",
-    "57a31c611a21e5ea549979c179889bc656c22d38",
-    "3bc1c85261b958307340b7a8a9fcff3e2586516b",
-    "3c23872b9b4e17b16c1d640fe3c29f251202b012",
-    "4e0c523ee2f077c6ef4b98962efa75913558b226",
+    "a64f86d4b8bce9b054fbf23c79c0fa2ad8afff8c",
     "49731da30df853ee8959035e3e309df129ad5348",
     "d1fafdecb299e9f16ba224ecb4a0601fd31859f5",
     "cac51e723748aae54d21b79b40b48f9000f5e90e",
