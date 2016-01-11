@@ -298,3 +298,10 @@ stopifnot(
         sha1(sapply(this.list, sha1))
     )
 )
+
+junk <- pi
+class(junk) <- c("A", "B")
+error.message <- try(sha1(junk))
+stopifnot(
+    grepl("sha1\\(\\) has not method for the 'A', 'B' class", error.message)
+)

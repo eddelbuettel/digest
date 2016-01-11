@@ -4,7 +4,12 @@ sha1 <- function(x, digits = 14, zapsmall = 7){
 }
 
 sha1.default <- function(x, digits = 14, zapsmall = 7) {
-    stop("sha1() has not method for the '", class(x), "' class")
+    stop(
+        "sha1() has not method for the '",
+        paste(class(x), collapse = "', '"),
+        "' class",
+        call. = FALSE
+    )
 }
 
 sha1.integer <- function(x, digits = 14, zapsmall = 7) {
