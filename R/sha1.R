@@ -33,17 +33,17 @@ sha1.logical <- function(x, digits = 14, zapsmall = 7) {
 }
 
 sha1.numeric <- function(x, digits = 14, zapsmall = 7){
-    digest(
-        c(
-            class = "numeric",
-            num2hex(
-                x,
-                digits = digits,
-                zapsmall = zapsmall
-            )
-        ),
-        algo = "sha1"
+    y <- digest:::num2hex(
+        x,
+        digits = digits,
+        zapsmall = zapsmall
     )
+    attr(y, "digest::sha1") <- list(
+        class = class(x),
+        digits = as.integer(digits),
+        zapsmall = as.integer(zapsmall)
+    )
+    digest(y, algo = "sha1")
 }
 
 sha1.matrix <- function(x, digits = 14, zapsmall = 7){
