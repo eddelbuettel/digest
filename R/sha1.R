@@ -99,7 +99,13 @@ sha1.data.frame <- function(x, digits = 14, zapsmall = 7){
     # needed to make results comparable between 32-bit and 64-bit
     if (length(x)) {
         sha1(
-            vapply(x, sha1, digits = digits, zapsmall = zapsmall, FUN.VALUE = NA_character_)
+            vapply(
+                x,
+                sha1,
+                digits = digits,
+                zapsmall = zapsmall,
+                FUN.VALUE = NA_character_
+            )
         )
     } else {
         digest(x, algo = "sha1")
@@ -109,7 +115,13 @@ sha1.data.frame <- function(x, digits = 14, zapsmall = 7){
 sha1.list <- function(x, digits = 14, zapsmall = 7){
     if (length(x)) {
         sha1(
-            vapply(x, sha1, digits = digits, zapsmall = zapsmall, FUN.VALUE = NA_character_)
+            vapply(
+                x,
+                sha1,
+                digits = digits,
+                zapsmall = zapsmall,
+                FUN.VALUE = NA_character_
+            )
         )
     } else {
         digest(x, algo = "sha1")
