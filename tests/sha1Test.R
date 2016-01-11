@@ -168,8 +168,8 @@ stopifnot(
 test.element <- list(
     # NULL
     NULL,
-    # empty vector
-    logical(0), integer(0), numeric(0), character(0),
+    # empty classes
+    logical(0), integer(0), numeric(0), character(0), list(), data.frame(),
     # scalar
     TRUE, FALSE, 1L, 1, "a",
     # date. Make sure to add the time zone. Otherwise the test might fail
@@ -303,3 +303,11 @@ stopifnot(
 stopifnot(is.character(sha1(list())))
 stopifnot(is.character(sha1(data.frame())))
 stopifnot(is.character(sha1(list(a = 1, b = list(), c = data.frame()))))
+
+# test error message
+junk <- pi
+class(junk) <- c("A", "B")
+error.message <- try(sha1(junk))
+stopifnot(
+    grepl("sha1\\(\\) has not method for the 'A', 'B' class", error.message)
+)
