@@ -243,9 +243,37 @@ test.element <- c(
     # add matrices
     list(matrix(1:10)),
     list(matrix(seq(0, 10, length = 4))),
-    list(matrix(letters)),
-    anova.list
+    list(matrix(letters))
 )
+# different values for digits or zapsmall gives different hashes
+# expect for NULL
+stopifnot(
+    identical(
+        sha1(NULL, digits = 14),
+        sha1(NULL, digits = 13)
+    )
+)
+stopifnot(
+    identical(
+        sha1(NULL, zapsmall = 14),
+        sha1(NULL, zapsmall = 13)
+    )
+)
+for (i in tail(seq_along(test.element), -1)) {
+    stopifnot(
+        !identical(
+            sha1(test.element[[i]], digits = 14),
+            sha1(test.element[[i]], digits = 13)
+        )
+    )
+    stopifnot(
+        !identical(
+            sha1(test.element[[i]], zapsmall = 7),
+            sha1(test.element[[i]], zapsmall = 6)
+        )
+    )
+}
+test.element <- c(test.element, anova.list)
 
 cat("\ncorrect <- c(\n")
 cat(

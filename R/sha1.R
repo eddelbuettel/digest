@@ -103,7 +103,7 @@ sha1.data.frame <- function(x, digits = 14, zapsmall = 7){
             sha1,
             digits = digits,
             zapsmall = zapsmall,
-            FUN.VALUE = "character"
+            FUN.VALUE = NA_character_
         )
     } else {
         y <- x
@@ -124,7 +124,7 @@ sha1.list <- function(x, digits = 14, zapsmall = 7){
             sha1,
             digits = digits,
             zapsmall = zapsmall,
-            FUN.VALUE = "character"
+            FUN.VALUE = NA_character_
         )
     } else {
         y <- x
