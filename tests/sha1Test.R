@@ -58,13 +58,29 @@ stopifnot(
 stopifnot(
     identical(
         sha1(x.list),
-        sha1(sapply(x.list, sha1))
+        {
+            z <- sapply(x.list, sha1)
+            attr(z, "digest::sha1") <- list(
+                class = "list",
+                digits = 14L,
+                zapsmall = 7L
+            )
+            digest(z, algo = "sha1")
+        }
     )
 )
 stopifnot(
     identical(
         sha1(x.dataframe),
-        sha1(sapply(x.dataframe, sha1))
+        {
+            z <- sapply(x.dataframe, sha1)
+            attr(z, "digest::sha1") <- list(
+                class = "data.frame",
+                digits = 14L,
+                zapsmall = 7L
+            )
+            digest(z, algo = "sha1")
+        }
     )
 )
 stopifnot(
@@ -137,6 +153,7 @@ stopifnot(
         sha1(matrix(letters, ncol = 1))
     )
 )
+
 # character(0) and numeric(0) should have a different hash
 stopifnot(!identical(sha1(character(0)), sha1(numeric(0))))
 
@@ -243,22 +260,22 @@ correct <- c(
     "af23305d27f0409c91bdb86ba7c0cdb2e09a5dc6",
     "0c9ca70ce773deb0d9c0b0579c3b94856edf15cc",
     "095886422ad26e315c0960ef6b09842a1f9cc0ce",
-    "106782e8c6c23661bc1fa86ac9cd727b477048e9",
-    "d62218750fee5637dd59d08760866b83a7b01f69",
+    "6cc04c6c432bb91e210efe0b25c6ca809e6df2e3",
+    "c1113ba008a349de64da2a7a724e501c1eb3929b",
     "6e12370bdc6fc457cc154f0525e22c6aa6439f4d",
     "1c1b5393c68a643bc79c277c6d7374d0b30cd985",
     "b48c17a2ac82601ff38df374f87d76005fb61cbd",
     "35280c99aa6a48bfc2810b72b763ccac0f632207",
     "f757cc017308d217f35ed8f0c001a57b97308fb7",
-    "599afff6b1a527c0ed04d67c736c426eaa3a1621",
+    "101774c69c2ff2655fca0dc8bc555cc93071309f",
     "a14384d1997440bad13b97b3ccfb3b8c0392e79a",
     "555f6bea49e58a2c2541060a21c2d4f9078c3086",
     "631d18dec342e2cb87614864ba525ebb9ad6a124",
     "b6c04f16b6fdacc794ea75c8c8dd210f99fafa65",
     "25485ba7e315956267b3fdc521b421bbb046325d",
-    "2f239d17c9ca78234438cf35225efc6c26fad77a",
-    "9ba5d768a47768160ab12493fb4a963ed4cda747",
-    "c75905bca0580a76ca38298317f4d3ed5ba39b99",
+    "26a5ddc22a464f9faa1338b0f390b81e98cf54d2",
+    "f15b33fbf3a590428d6da63dc219c439c99296d7",
+    "50b645b6c5c8b459e97672ed7c7c41036bfb09ef",
     "270ed85d46524a59e3274d89a1bbf693521cb6af",
     "60e09482f12fda20f7d4a70e379c969c5a73f512",
     "10380001af2a541b5feefc7aab9f719b67330a42",
@@ -266,6 +283,8 @@ correct <- c(
     "f1f15993d7d67bd2d5de97bd5c3e1de79b999fa3",
     "a01a454daabc389bbf08215581f4ecf787562010"
 )
+# each object should yield a different hash
+stopifnot(!any(duplicated(correct)))
 # returns the same SHA1 on both 32-bit and 64-bit OS"
 for (i in seq_along(test.element)) {
     stopifnot(
@@ -275,22 +294,6 @@ for (i in seq_along(test.element)) {
         )
     )
 }
-
-# calculates the SHA1 of a list as the SHA1 of a vector of SHA1 of each element
-this.list <- list("a", "b")
-stopifnot(
-    identical(
-        sha1(this.list),
-        sha1(sapply(this.list, sha1))
-    )
-)
-this.list <- list(letters, this.list)
-stopifnot(
-    identical(
-        sha1(this.list),
-        sha1(sapply(this.list, sha1))
-    )
-)
 
 # does work with empty lists and data.frames
 stopifnot(is.character(sha1(list())))

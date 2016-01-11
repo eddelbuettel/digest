@@ -96,36 +96,45 @@ sha1.matrix <- function(x, digits = 14, zapsmall = 7){
 }
 
 sha1.data.frame <- function(x, digits = 14, zapsmall = 7){
-    # needed to make results comparable between 32-bit and 64-bit
     if (length(x)) {
-        sha1(
-            vapply(
-                x,
-                sha1,
-                digits = digits,
-                zapsmall = zapsmall,
-                FUN.VALUE = NA_character_
-            )
+        # needed to make results comparable between 32-bit and 64-bit
+        y <- vapply(
+            x,
+            sha1,
+            digits = digits,
+            zapsmall = zapsmall,
+            FUN.VALUE = "character"
         )
     } else {
-        digest(x, algo = "sha1")
+        y <- x
     }
+    attr(y, "digest::sha1") <- list(
+        class = class(x),
+        digits = as.integer(digits),
+        zapsmall = as.integer(zapsmall)
+    )
+    digest(y, algo = "sha1")
 }
 
 sha1.list <- function(x, digits = 14, zapsmall = 7){
     if (length(x)) {
-        sha1(
-            vapply(
-                x,
-                sha1,
-                digits = digits,
-                zapsmall = zapsmall,
-                FUN.VALUE = NA_character_
-            )
+        # needed to make results comparable between 32-bit and 64-bit
+        y <- vapply(
+            x,
+            sha1,
+            digits = digits,
+            zapsmall = zapsmall,
+            FUN.VALUE = "character"
         )
     } else {
-        digest(x, algo = "sha1")
+        y <- x
     }
+    attr(y, "digest::sha1") <- list(
+        class = class(x),
+        digits = as.integer(digits),
+        zapsmall = as.integer(zapsmall)
+    )
+    digest(y, algo = "sha1")
 }
 
 sha1.POSIXlt <- function(x, digits = 14, zapsmall = 7) {
