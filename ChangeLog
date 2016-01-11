@@ -1,3 +1,9 @@
+2016-01-11 Thierry Onkelinx  <thierry.onkelinx@inbo.be>
+
+	* R/sha1.R: handle empty list and empty dataframe (#issue 27)
+	* R/sha1.R: take the object class, digits and zapsmall into account (#PR 28)
+	* vignettes/sha1.Rmd: Small edits to reflect changes is sha1()
+
 2016-01-07  Dirk Eddelbuettel  <edd@debian.org>
 
 	* DESCRIPTION (Version): Version 0.6.9
