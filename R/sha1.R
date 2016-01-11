@@ -53,7 +53,7 @@ sha1.logical <- function(x, digits = 14, zapsmall = 7) {
 }
 
 sha1.numeric <- function(x, digits = 14, zapsmall = 7){
-    y <- digest:::num2hex(
+    y <- num2hex(
         x,
         digits = digits,
         zapsmall = zapsmall
