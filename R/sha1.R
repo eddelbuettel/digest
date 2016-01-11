@@ -125,66 +125,66 @@ sha1.anova <- function(x, digits = 4, zapsmall = 7){
 }
 
 num2hex <- function(x, digits = 14, zapsmall = 7){
-  if (!is.numeric(x)) {
-    stop("x is not numeric")
-  }
-  if (!is.integer(digits)) {
-    if (!all.equal(as.integer(digits), digits)) {
-      stop("digits is not integer")
+    if (!is.numeric(x)) {
+        stop("x is not numeric")
     }
-    digits <- as.integer(digits)
-  }
-  if (length(digits) != 1) {
-    stop("digits must contain exactly one integer")
-  }
-  if (digits < 1) {
-    stop("digits must be positive")
-  }
-  if (!is.integer(zapsmall)) {
-    if (!all.equal(as.integer(zapsmall), zapsmall)) {
-      stop("zapsmall is not integer")
+    if (!is.integer(digits)) {
+        if (!all.equal(as.integer(digits), digits)) {
+            stop("digits is not integer")
+        }
+        digits <- as.integer(digits)
     }
-    zapsmall <- as.integer(zapsmall)
-  }
-  if (length(zapsmall) != 1) {
-    stop("zapsmall must contain exactly one integer")
-  }
-  if (zapsmall < 1) {
-    stop("zapsmall must be positive")
-  }
-
-  if (length(x) == 0) {
-    return(character(0))
-  }
-  x.na <- is.na(x)
-  if (all(x.na)) {
-    return(x)
-  }
-  output <- rep(NA, length(x))
-
-  x.hex <- sprintf("%a", x[!x.na])
-  exponent <- as.integer(gsub("^.*p", "", x.hex))
-
-  # detect "small" numbers
-  zapsmall.hex <- floor(log2(10 ^ -zapsmall))
-  zero <- x.hex == sprintf("%a", 0) | exponent <= zapsmall.hex
-  if (any(zero)) {
-    output[!x.na][zero] <- "0"
-    if (all(zero)) {
-      return(output)
+    if (length(digits) != 1) {
+        stop("digits must contain exactly one integer")
     }
-  }
+    if (digits < 1) {
+        stop("digits must be positive")
+    }
+    if (!is.integer(zapsmall)) {
+        if (!all.equal(as.integer(zapsmall), zapsmall)) {
+            stop("zapsmall is not integer")
+        }
+        zapsmall <- as.integer(zapsmall)
+    }
+    if (length(zapsmall) != 1) {
+        stop("zapsmall must contain exactly one integer")
+    }
+    if (zapsmall < 1) {
+        stop("zapsmall must be positive")
+    }
 
-  digits.hex <- ceiling(log(10 ^ digits, base = 16))
-  mantissa <- x.hex[!zero] # select "large" numbers
-  # select mantissa
-  mantissa <- gsub(mantissa, pattern = ".*x1\\.{0,1}", replacement = "")
-  # select mantissa
-  mantissa <- gsub(mantissa, pattern = "p.*$", replacement = "")
-  mantissa <- substring(mantissa, 1, digits.hex) # select required precision
-  # remove potential trailing zero's
-  mantissa <- gsub(mantissa, pattern = "0*$", replacement = "")
-  negative <- ifelse(grepl(x.hex[!zero], pattern = "^-"), "-", "")
-  output[!x.na][!zero] <- paste0(negative, mantissa, " ", exponent[!zero])
-  return(output)
+    if (length(x) == 0) {
+        return(character(0))
+    }
+    x.na <- is.na(x)
+    if (all(x.na)) {
+        return(x)
+    }
+    output <- rep(NA, length(x))
+
+    x.hex <- sprintf("%a", x[!x.na])
+    exponent <- as.integer(gsub("^.*p", "", x.hex))
+
+    # detect "small" numbers
+    zapsmall.hex <- floor(log2(10 ^ -zapsmall))
+    zero <- x.hex == sprintf("%a", 0) | exponent <= zapsmall.hex
+    if (any(zero)) {
+        output[!x.na][zero] <- "0"
+        if (all(zero)) {
+            return(output)
+        }
+    }
+
+    digits.hex <- ceiling(log(10 ^ digits, base = 16))
+    mantissa <- x.hex[!zero] # select "large" numbers
+    # select mantissa
+    mantissa <- gsub(mantissa, pattern = ".*x1\\.{0,1}", replacement = "")
+    # select mantissa
+    mantissa <- gsub(mantissa, pattern = "p.*$", replacement = "")
+    mantissa <- substring(mantissa, 1, digits.hex) # select required precision
+    # remove potential trailing zero's
+    mantissa <- gsub(mantissa, pattern = "0*$", replacement = "")
+    negative <- ifelse(grepl(x.hex[!zero], pattern = "^-"), "-", "")
+    output[!x.na][!zero] <- paste0(negative, mantissa, " ", exponent[!zero])
+    return(output)
 }
