@@ -44,46 +44,72 @@ stopifnot(
 stopifnot(
     identical(
         sha1(letters),
-        digest(letters, algo = "sha1")
+        {
+            z <- letters
+            attr(z, "digest::sha1") <- list(
+                class = "character",
+                digits = 14L,
+                zapsmall = 7L
+            )
+            digest(z, algo = "sha1")
+        }
     )
 )
 stopifnot(
     identical(
         sha1(x.list),
-        digest(
-            sapply(x.list, sha1),
-            algo = "sha1"
-        )
+        sha1(sapply(x.list, sha1))
     )
 )
 stopifnot(
     identical(
         sha1(x.dataframe),
-        digest(sapply(x.dataframe, sha1), algo = "sha1")
+        sha1(sapply(x.dataframe, sha1))
     )
 )
 stopifnot(
     identical(
         sha1(x.matrix.num),
-        digest(
-            matrix(
+        {
+            z <- matrix(
                 apply(x.matrix.num, 2, digest:::num2hex),
                 ncol = ncol(x.matrix.num)
-            ),
-            algo = "sha1"
-        )
+            )
+            attr(z, "digest::sha1") <- list(
+                class = "matrix",
+                digits = 14L,
+                zapsmall = 7L
+            )
+            digest(z, algo = "sha1")
+        }
     )
 )
 stopifnot(
     identical(
         sha1(x.matrix.letter),
-        digest(x.matrix.letter, algo = "sha1")
+        {
+            z <- x.matrix.letter
+            attr(z, "digest::sha1") <- list(
+                class = "matrix",
+                digits = 14L,
+                zapsmall = 7L
+            )
+            digest(z, algo = "sha1")
+        }
     )
 )
 stopifnot(
     identical(
         sha1(x.factor),
-        digest(x.factor, algo = "sha1")
+        {
+            z <- x.factor
+            attr(z, "digest::sha1") <- list(
+                class = "factor",
+                digits = 14L,
+                zapsmall = 7L
+            )
+            digest(z, algo = "sha1")
+        }
     )
 )
 # a matrix and a vector should have a different hash
@@ -111,6 +137,9 @@ stopifnot(
         sha1(matrix(letters, ncol = 1))
     )
 )
+# character(0) and numeric(0) should have a different hash
+stopifnot(!identical(sha1(character(0)), sha1(numeric(0))))
+
 # a POSIXct and a POSIXlt should give a different hash
 z <- as.POSIXct("2015-01-02 03:04:06.07", tz = "UTC")
 stopifnot(
@@ -210,74 +239,74 @@ cat(")\n")
 
 correct <- c(
     "8d9c05ec7ae28b219c4c56edbce6a721bd68af82",
-    "0df9019fab513592066cc292d412b9054575d844",
-    "f374b4a83af21bb028483fd33dfa811aca7abb96",
+    "d61eeea290dd09c5a3eba41c2b3174b6e4e2366d",
+    "af23305d27f0409c91bdb86ba7c0cdb2e09a5dc6",
     "0c9ca70ce773deb0d9c0b0579c3b94856edf15cc",
-    "37dadeab8d8ce7611f230f9524c1e8ab751c4a6a",
+    "095886422ad26e315c0960ef6b09842a1f9cc0ce",
     "106782e8c6c23661bc1fa86ac9cd727b477048e9",
     "d62218750fee5637dd59d08760866b83a7b01f69",
-    "ad8d56a358f1c91717e506012ea43a9b700a8d51",
-    "0f0714f1142eed0701166aa2d6dcdd798c8420e6",
-    "49731da30df853ee8959035e3e309df129ad5348",
+    "6e12370bdc6fc457cc154f0525e22c6aa6439f4d",
+    "1c1b5393c68a643bc79c277c6d7374d0b30cd985",
+    "b48c17a2ac82601ff38df374f87d76005fb61cbd",
     "35280c99aa6a48bfc2810b72b763ccac0f632207",
-    "1f9928593251410322823fefea8c3ef79b4d0254",
-    "dd79b94daaba783d3a5d7e37aa59912f63899159",
-    "692ff1b9390cfc01625d8dbb850d04426e193889",
-    "f4403adc0f5e5e270450150646a7ad0652783047",
+    "f757cc017308d217f35ed8f0c001a57b97308fb7",
+    "599afff6b1a527c0ed04d67c736c426eaa3a1621",
+    "a14384d1997440bad13b97b3ccfb3b8c0392e79a",
+    "555f6bea49e58a2c2541060a21c2d4f9078c3086",
     "631d18dec342e2cb87614864ba525ebb9ad6a124",
-    "3bc1c85261b958307340b7a8a9fcff3e2586516b",
-    "3c23872b9b4e17b16c1d640fe3c29f251202b012",
-    "4cd4e35313e46a80478889ad51dcbcc34692cd47",
-    "188710fe63fedb3f4637db5eeb2ecdbc824aa179",
-    "f3863e2ce42f3507b0d65b013b70c84804e246ef",
+    "b6c04f16b6fdacc794ea75c8c8dd210f99fafa65",
+    "25485ba7e315956267b3fdc521b421bbb046325d",
+    "2f239d17c9ca78234438cf35225efc6c26fad77a",
+    "c789f0b3f2763f0800c2c796b010065431daabac",
+    "13329ad5f9b9eb888a459fcb647af13de2556264",
     "756adc804296e4958495bd2fd5f0041b42258baa",
-    "25228aa01875f7c88b51c299a332c6bd82257d06",
-    "51fe9849f2b30d02c73cd7870d5d9b3a19e83654",
-    "9d10be0ba4b492a6497c200516e1e8887c53e4e6",
-    "84baf4708457e96ed6e25d0ed9d3e33846ccf39c",
-    "49731da30df853ee8959035e3e309df129ad5348",
-    "d1fafdecb299e9f16ba224ecb4a0601fd31859f5",
-    "cac51e723748aae54d21b79b40b48f9000f5e90e",
-    "91619e26fbae8cd58c353ee18689728c0c87d002",
-    "53371b092b9b535e58350b4a8078417c9a2419a1",
-    "19a58a3f233de56000e1a1f66ef538904cf3bebe",
-    "20864973f3a271ea8b27e2c75face8663d1a900c",
-    "980927373c7acbe1cf33fa98f653927da59f70b6",
-    "f5c3d80ad7d3253be3309ec910508a6e56c2f178",
-    "8c420b12a14e1ed1f348fee29e864544147c8796",
+    "b866fbdd8897985ef296b23505c761b0e696dcb4",
+    "ea06b32e9e6be66ec41e9ced7feae40555f996f3",
+    "19bd9c8c9d8483c40856523875c4fb1f0712b7a6",
+    "c75905bca0580a76ca38298317f4d3ed5ba39b99",
+    "b48c17a2ac82601ff38df374f87d76005fb61cbd",
+    "ad120a31f018cd9c8bc346f74217c3607fe8d79e",
+    "24b4f80eedfbae5f0b618988f91468b4a13e45c9",
+    "80eb128686c6c7a105b76a869e3d1542bc9cb375",
+    "604a21e4a67bf4f4ad78389ad27c409c920347b4",
+    "9ffdf9ee8a3e2b06c1bd1287af3d99733ba86d4f",
+    "e8dc46f2034fc7cfa265acdce5680bff4ec8f511",
+    "e23b7044b78b27b754463994599f3cd4a3dc37d9",
+    "ced5b5edc6790416001ea737ff90adbd118decc6",
+    "2e36adef4c5c9770866c0682f5a315124025bd4a",
     "4dceb033392f1431e512309aea2d71dca45238de",
     "521d4357e85a96a2a362ab9c0266455ad5aae320",
     "fa8e7870a11993c9984e945954957ebb52aaccf3",
     "3336ce1683797d5962285c3e163cb1901551c09c",
-    "1f9928593251410322823fefea8c3ef79b4d0254",
-    "ee6e7fdb03a0d35b3a6f499d0f8f610686551d51",
-    "8e7f9fe32c49050c5ca146150fc58b93fbeea245",
-    "e59165f73b7dc7e0d6ae94ec9aac9e8e95fd8a2c",
-    "7f608bde8f0e308aa8866d737ddebbfae9674163",
-    "86e99e22d003547538a5f446165488f7861fa2c3",
-    "ce27dce0e84ad90d3e90e9b571a73720d0fb4890",
-    "221799200137b7d72dfc4a618465bec71333a58b",
-    "13b5c7533cccc95d2f7cd18df78ea78ed9111c02",
-    "88b7c7c5f6921ec9e914488067552829a17a42a4",
-    "6127e4cdbf02f18898554c037f0d4acb95c608ab",
-    "984ca0fd9ed47ac08a31aeb88f9c9a5f905aeaa2",
-    "954da0ea9a5d0aa42516beebc5542c638161934c",
-    "7d1e34387808d9f726efbb1c8eb0819a115afb52",
-    "2e21764867596d832896d9d28d6e6489a0b27249",
-    "666881f1f74c498e0292ccf3d9d26089ee79dae7",
-    "966dbbe6cf1c43ac784a8257b57896db9fd3f357",
-    "4ab40e0c23010553e9e4c058ef58f50088f9e87c",
-    "bfa0e51b33ebd3b9a823368b7e4c357b2b98790b",
-    "fc1ba0a4718421f0050cc5e159703838f733aa59",
-    "25cce9eca8abedab78a765b49e74fba77f4463d4",
-    "9d453f3128cb2fd55684b979a11d47c97f12dc87",
-    "d612108f47c8accbeffd2d9d54c1fa7f74fb432d",
-    "ef60fa66262167e7a31398b16fa762151c6d1b28",
-    "a235e3cc7109def777a99e660b9829cea48ce9a4",
-    "d19d82f849bad81a39da932d3087a60c78de82c1",
-    "06a374328121fcb16adc52cc94b44b7bee2b12cb",
-    "87fb6ce868ec618fbc64544a5aa04df9aaf85286",
-    "90ba8c4153fc45fac58efa3609783b68f18600f5"
+    "f757cc017308d217f35ed8f0c001a57b97308fb7",
+    "3e1494ebbe9e46e7a7a20f97ae75425d07d9666d",
+    "2c41f4729ccf7aa8e0d9df4c0aa72988a379b9c1",
+    "d868bc69bc7de3e014170df981d5501bf84698eb",
+    "9510a86a4aa4c4143b56a6e0209c4d9f35a01af5",
+    "5e4e36b2ba897df66ac7b66ff0248be7823f5e11",
+    "8585df8ab8324cf3c697887875fd140fe4624623",
+    "bd9a241464c18148ecb98994e70f9b824cb1d434",
+    "e4e8b5ab602cb4e43fbacf93f47f791b27466df7",
+    "8b85007cdc832b180c05dc78ce801b72dfd00624",
+    "1fb57235443e930b6df8e2f780ddc2d14f33fb65",
+    "bb105fa2e00e726713364cf3c989abb096cafa85",
+    "ac3000ea35cc3e2e57e9bd3fc8684719ff1f9f56",
+    "870298a5b8ec8e0edb0145a98924be0ee0ee26f6",
+    "32e8a5c1285347cca90f9dc9cc398a19546a6ae0",
+    "60b1a18fab0bb491ab770731a38ab591c60508f2",
+    "a7dbd237d071614101abb8eebc8277b6601cfc10",
+    "03b14425fadf4f87f4b9265186ad5f9d467af1a0",
+    "c1f066eedac34516b90193298df3a33634e8cef0",
+    "268502a865572a2d3d4aab7fe004edc4139f0ab8",
+    "1aaad777fb4f4028ea40371e5fdbf56dc2370c98",
+    "c778d06f3c07911c488d0b37bfca39a1d1b98098",
+    "c891bd7e66c34380d417ec9da622170e1bce61c6",
+    "1bb9ef6afbc59d2b9fdbd338ace9e069276e40bf",
+    "73d7cce35845fefad4cff4532927a8ac667d7331",
+    "cca83666279e0be4ab93aea03119e7014b926a3f",
+    "e5e4b2938c08223c825458ccc8552b7d28725189",
+    "f1f15993d7d67bd2d5de97bd5c3e1de79b999fa3",
+    "a01a454daabc389bbf08215581f4ecf787562010"
 )
 # returns the same SHA1 on both 32-bit and 64-bit OS"
 for (i in seq_along(test.element)) {
@@ -309,8 +338,6 @@ stopifnot(
 stopifnot(is.character(sha1(list())))
 stopifnot(is.character(sha1(data.frame())))
 stopifnot(is.character(sha1(list(a = 1, b = list(), c = data.frame()))))
-
-stopifnot(!identical(sha1(character(0)), sha1(numeric(0))))
 
 # test error message
 junk <- pi

@@ -13,14 +13,29 @@ sha1.default <- function(x, digits = 14, zapsmall = 7) {
 }
 
 sha1.integer <- function(x, digits = 14, zapsmall = 7) {
+    attr(x, "digest::sha1") <- list(
+        class = class(x),
+        digits = as.integer(digits),
+        zapsmall = as.integer(zapsmall)
+    )
     digest(x, algo = "sha1")
 }
 
 sha1.character <- function(x, digits = 14, zapsmall = 7) {
+    attr(x, "digest::sha1") <- list(
+        class = class(x),
+        digits = as.integer(digits),
+        zapsmall = as.integer(zapsmall)
+    )
     digest(x, algo = "sha1")
 }
 
 sha1.factor <- function(x, digits = 14, zapsmall = 7) {
+    attr(x, "digest::sha1") <- list(
+        class = class(x),
+        digits = as.integer(digits),
+        zapsmall = as.integer(zapsmall)
+    )
     digest(x, algo = "sha1")
 }
 
@@ -29,6 +44,11 @@ sha1.NULL <- function(x, digits = 14, zapsmall = 7) {
 }
 
 sha1.logical <- function(x, digits = 14, zapsmall = 7) {
+    attr(x, "digest::sha1") <- list(
+        class = class(x),
+        digits = as.integer(digits),
+        zapsmall = as.integer(zapsmall)
+    )
     digest(x, algo = "sha1")
 }
 
@@ -49,20 +69,28 @@ sha1.numeric <- function(x, digits = 14, zapsmall = 7){
 sha1.matrix <- function(x, digits = 14, zapsmall = 7){
     # needed to make results comparable between 32-bit and 64-bit
     if (class(x[1, 1]) == "numeric") {
-        digest(
-            matrix( #return a matrix with the same dimensions as x
-                apply(
-                    x,
-                    2,
-                    num2hex,
-                    digits = digits,
-                    zapsmall = zapsmall
-                ),
-                ncol = ncol(x)
+        y <- matrix( #return a matrix with the same dimensions as x
+            apply(
+                x,
+                2,
+                num2hex,
+                digits = digits,
+                zapsmall = zapsmall
             ),
-            algo = "sha1"
+            ncol = ncol(x)
         )
+        attr(y, "digest::sha1") <- list(
+            class = class(x),
+            digits = as.integer(digits),
+            zapsmall = as.integer(zapsmall)
+        )
+        digest(y, algo = "sha1")
     } else {
+        attr(x, "digest::sha1") <- list(
+            class = class(x),
+            digits = as.integer(digits),
+            zapsmall = as.integer(zapsmall)
+        )
         digest(x, algo = "sha1")
     }
 }
