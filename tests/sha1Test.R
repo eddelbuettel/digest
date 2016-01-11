@@ -168,8 +168,8 @@ stopifnot(
 test.element <- list(
     # NULL
     NULL,
-    # empty vector
-    logical(0), integer(0), numeric(0), character(0),
+    # empty classes
+    logical(0), integer(0), numeric(0), character(0), list(), data.frame(),
     # scalar
     TRUE, FALSE, 1L, 1, "a",
     # date. Make sure to add the time zone. Otherwise the test might fail
