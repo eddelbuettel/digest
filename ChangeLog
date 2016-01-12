@@ -1,8 +1,13 @@
 2016-01-11 Thierry Onkelinx  <thierry.onkelinx@inbo.be>
 
-	* R/sha1.R: handle empty list and empty dataframe (#issue 27)
-	* R/sha1.R: take the object class, digits and zapsmall into account (#PR 28)
+	* R/sha1.R: handle empty list and empty dataframe (#issue 27);
+	take the object class, digits and zapsmall into account (#PR 28)
+
 	* vignettes/sha1.Rmd: Small edits to reflect changes is sha1()
+
+2016-01-09 Michel Lang  <michellang@gmail.com>
+
+	* R/sha1.R: Add a length check to sha1(), use vapply()
 
 2016-01-07  Dirk Eddelbuettel  <edd@debian.org>
 

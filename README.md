@@ -46,7 +46,8 @@ tested) libraries such as OpenSSL should be used.
 
 Dirk Eddelbuettel, with contributions by Antoine Lucas, Jarek Tuszynski,
 Henrik Bengtsson, Simon Urbanek, Mario Frasca, Bryan Lewis, Murray Stokely,
-Hannes Muehleisen, Duncan Murdoch, Jim Hester, Wush Wu and Thierry Onkelinx.
+Hannes Muehleisen, Duncan Murdoch, Jim Hester, Wush Wu, Thierry Onkelinx and
+Michel Lang.
 
 ### License
 

@@ -1,10 +1,11 @@
 Package: digest
 Author: Dirk Eddelbuettel <edd@debian.org> with contributions 
-Version: 0.6.9.1
-Date: 2016-01-11
  by Antoine Lucas, Jarek Tuszynski, Henrik Bengtsson, Simon Urbanek,
  Mario Frasca, Bryan Lewis, Murray Stokely, Hannes Muehleisen,
- Duncan Murdoch, Jim Hester, Wush Wu and Thierry Onkelinx.
+ Duncan Murdoch, Jim Hester, Wush Wu, Thierry Onkelinx and
+ Michel Lang.
+Version: 0.6.9.1
+Date: 2016-01-11
 Maintainer: Dirk Eddelbuettel <edd@debian.org>
 Title: Create Compact Hash Digests of R Objects
 Description: Implementation of a function 'digest()' for the creation 
