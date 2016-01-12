@@ -61,11 +61,13 @@ The result of floating point arithematic on 32-bit and 64-bit can be slightly di
 | `print(pi ^ 11, 22)` | `294204.01797389047` | `294204.01797389053` |
 | `sprintf("%a", pi ^ 11)`| `"0x1.1f4f01267bf5fp+18"` | `"0x1.1f4f01267bf6p+18"` |
 | `digest(pi ^ 11, algo = "sha1")` | `"c5efc7f167df1bb402b27cf9b405d7cebfba339a"` | `"b61f6fea5e2a7952692cefe8bba86a00af3de713"`|
-| `sha1(pi ^ 11, digits = 14)` | `"f3e7b9335497d791e1b5f4135e07b06f826e0f12"` | `"493fac65ffef084a142ee1598a844cc752e43e8c"` |
-| `sha1(pi ^ 11, digits = 13)` | `"d174131fb15f8e389f3843c10444f8cae594c5f2"` | `"d174131fb15f8e389f3843c10444f8cae594c5f2"` |
-| `sha1(pi ^ 11, digits = 10)` | `"6b9ef159b3218b0d5de6ba5b949415a53c49d726"` | `"6b9ef159b3218b0d5de6ba5b949415a53c49d726"` |
+| `sha1(pi ^ 11, digits = 14)` | `"5c7740500b8f78ec2354ea6af58ea69634d9b7b1"` | `"4f3e296b9922a7ddece2183b1478d0685609a359"` |
+| `sha1(pi ^ 11, digits = 13)` | `"372289f87396b0877ccb4790cf40bcb5e658cad7"` | `"372289f87396b0877ccb4790cf40bcb5e658cad7"` |
+| `sha1(pi ^ 11, digits = 10)` | `"c05965af43f9566bfb5622f335817f674abfc9e4"` | `"c05965af43f9566bfb5622f335817f674abfc9e4"` |
 
 ## Choosing `digest()` or `sha1()`
+
+TBD
 
 ## Creating a sha1 method for other classes
 
