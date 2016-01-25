@@ -58,7 +58,11 @@ SEXP digest(SEXP Txt, SEXP Algo, SEXP Length, SEXP Skip, SEXP Leave_raw, SEXP Se
     int output_length = -1;
     if (IS_RAW(Txt)) { /* Txt is either RAW */
         txt = (char*) RAW(Txt);
+#if R_VERSION >= R_Version(3,0,0)
         nChar = XLENGTH(Txt);
+#else        
+        nChar = LENGTH(Txt);
+#fi        
     } else { /* or a string */
         txt = (char*) STRING_VALUE(Txt);
         nChar = strlen(txt);

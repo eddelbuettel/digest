@@ -1,3 +1,7 @@
+2016-01-25  Dirk Eddelbuettel  <edd@debian.org>
+
+	* src/digest.c (digest): Use XLENGTH if R >= 3.0.0 (issue #29)
+
 2016-01-11 Thierry Onkelinx  <thierry.onkelinx@inbo.be>
 
 	* R/sha1.R: handle empty list and empty dataframe (#issue 27);
