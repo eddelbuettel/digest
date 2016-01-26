@@ -2,7 +2,7 @@
 
   digest -- hash digest functions for R
 
-  Copyright (C) 2003 - 2015  Dirk Eddelbuettel <edd@debian.org>
+  Copyright (C) 2003 - 2016  Dirk Eddelbuettel <edd@debian.org>
 
   This file is part of digest.
 
@@ -27,6 +27,7 @@
 #include <R.h>
 #include <Rdefines.h>
 #include <Rinternals.h>
+#include <Rversion.h>
 #include <inttypes.h>
 #include "sha1.h"
 #include "sha2.h"
@@ -58,7 +59,11 @@ SEXP digest(SEXP Txt, SEXP Algo, SEXP Length, SEXP Skip, SEXP Leave_raw, SEXP Se
     int output_length = -1;
     if (IS_RAW(Txt)) { /* Txt is either RAW */
         txt = (char*) RAW(Txt);
+#if defined(R_VERSION) && R_VERSION >= R_Version(3,0,0)        
         nChar = XLENGTH(Txt);
+#else        
+        nChar = LENGTH(Txt);
+#endif
     } else { /* or a string */
         txt = (char*) STRING_VALUE(Txt);
         nChar = strlen(txt);
