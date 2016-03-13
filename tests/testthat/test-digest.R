@@ -1,5 +1,7 @@
-
 ## tests for digest, taken from the examples in the manual page
+context("digest")
+
+# Old testing framework ==================
 
 stopifnot(require(digest))
 
