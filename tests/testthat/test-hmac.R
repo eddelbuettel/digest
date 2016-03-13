@@ -1,13 +1,16 @@
-
 ## tests for hmac, taken from the examples in the manual page
+context("hmac")
 
-stopifnot(require(digest))
+# Tests ==============
 
-## Standard RFC 2104 test vectors
-current <- hmac('Jefe', 'what do ya want for nothing?', "md5")
-target <- '750c783e6ab0b503eaa86e310a5db738'
-stopifnot(identical(target, as.character(current)))
-cat(current, "\n")
+test_that("Standard RFC 2104 test vectors", {
+    current <- hmac('Jefe', 'what do ya want for nothing?', "md5")
+    target <- '750c783e6ab0b503eaa86e310a5db738'
+    stopifnot(identical(target, as.character(current)))
+    cat(current, "\n")
+})
+
+# Old testing framework ================
 
 current <- hmac('Jefe', 'what do ya want for nothing?', "md5")
 target <- '750c783e6ab0b503eaa86e310a5db738'
