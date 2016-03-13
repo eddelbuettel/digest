@@ -7,9 +7,15 @@ cache:
   - apt
   - packages
 
+
 # You will need to set sudo: false in order to use the container based builds
 # and package caching.
 sudo: false
+
+addons:
+  apt:
+    packages:
+    - libssh2-1-dev
 
 warnings_are_errors: true
 
