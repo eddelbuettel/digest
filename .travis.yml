@@ -1,27 +1,27 @@
-# Sample .travis.yml for R projects.
-# Taken from my fork of Craig Citro's r-travis
-#
-# See https://github.com/eddelbuettel/r-travis/
-# and https://github.com/craigcitro/r-travis
-#
-# See README.md for instructions.
+language: r
+# see also https://docs.travis-ci.com/user/languages/r
 
-language: c
-sudo: required
+# Using the package cache to store R package dependencies can significantly
+# speed up build times and is recommended for most builds.
+cache:
+  - apt
+  - packages
 
-before_install:
-  - curl -OL http://raw.github.com/craigcitro/r-travis/master/scripts/travis-tool.sh
-  - chmod 755 ./travis-tool.sh
-  - ./travis-tool.sh bootstrap
+# You will need to set sudo: false in order to use the container based builds
+# and package caching.
+sudo: false
 
-install:
-  - ./travis-tool.sh install_aptget r-cran-knitr r-cran-rmarkdown
-#  - ./travis-tool.sh install_r rbenchmark microbenchmark
-
-script: ./travis-tool.sh run_tests
+warnings_are_errors: true
 
 notifications:
   email:
     on_success: change
     on_failure: change
 
+r_github_packages:
+  - jimhester/covr
+  - jimhester/lintr
+
+after_success:
+  - Rscript -e 'library(covr);codecov()'
+  - Rscript -e 'devtools::install();lintr::lint_package()'
