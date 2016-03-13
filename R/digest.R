@@ -190,9 +190,13 @@ digest <- function(object, algo = c("md5", "sha1", "crc32", "sha256", "sha512",
                                    "or raw vector if serialize is FALSE"),
                              mode = errormode))
     }
-    if (file && !is.character(object))
-        return(.errorhandler("file=TRUE can only be used with a character object",
-                             mode = errormode))
+
+    if (file && !is.character(object)) {
+        return(.errorhandler(
+            "file=TRUE can only be used with a character object",
+            mode = errormode))
+    }
+
     ## HB 14 Mar 2007:  null op, only turned to char if alreadt char
     ##if (!inherits(object,"raw"))
     ##  object <- as.character(object)

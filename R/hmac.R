@@ -1,7 +1,7 @@
 
 makeRaw <- function(object)
     ## generic function, converts an object to a raw
-    UseMethod('makeRaw')
+    UseMethod("makeRaw")
 
 makeRaw.raw <- function(object) object
 
@@ -95,16 +95,18 @@ padWithZeros <- function(k,algo) {
 #' @keywords misc
 #' @export
 hmac <- function(key, object,
-                 algo=c("md5", "sha1", "crc32", "sha256", "sha512"),
-                 serialize=FALSE, raw=FALSE, ...) {
+                 algo = c("md5", "sha1", "crc32", "sha256", "sha512"),
+                 serialize = FALSE, raw = FALSE, ...) {
     padded.key <- padWithZeros(key,algo)
     i.xored.key <- xor(padded.key, makeRaw(0x36))
     character.digest <- digest(c(i.xored.key, makeRaw(object)),
-                               algo=algo, serialize=serialize, ...)
+                               algo = algo, serialize = serialize, ...)
     raw.digest <- makeRaw.digest(character.digest)
     o.xored.key <- xor(padded.key, makeRaw(0x5c))
-    result <- digest(c(o.xored.key, raw.digest), algo=algo, serialize=serialize, ...)
-    if(raw)
+    result <- digest(c(o.xored.key, raw.digest), algo = algo,
+                     serialize = serialize, ...)
+    if (raw) {
         result <- makeRaw.digest(result)
+    }
     return(result)
 }
