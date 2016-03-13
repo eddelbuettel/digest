@@ -1,8 +1,27 @@
-# functions written by Thierry Onkelinx
+#' Calculate a SHA1 hash of an object.
+#'
+#' Calculate a SHA1 hash of an object. The main difference with
+#' \code{digest(x, algo = "sha1")} is that \code{sha1()} will give the same hash
+#' on 32-bit and 64-bit systems. Note that the results depends on the setting of
+#' \code{digits} and \code{zapsmall} when handling floating point numbers. The
+#' current defaults keep \code{digits} and \code{zapsmall} as large as possible
+#' while maintaining the same hash on 32 bit and 64 bit systems.
+#'
+#' @param x The object to calculate the SHA1
+#' @param digits The approximate number of significant digits in base 10. Will
+#'   be converted to a base 16 equivalent. Defaults to \code{digits = 14},
+#'   expect for sha1.anova where \code{digits = 4}
+#' @param zapsmall The apporixmate negative magnitute of the smallest relevant
+#'   digit. Will be converted to a base 2 equivalent. Values smaller than this
+#'   number are equivalent to 0. Defaults to \code{zapsmall = 7}
+#'
+#' @author Thierry Onkelinx
+#' @export
 sha1 <- function(x, digits = 14L, zapsmall = 7L){
     UseMethod("sha1")
 }
 
+#' @export
 sha1.default <- function(x, digits = 14L, zapsmall = 7L) {
     stop(
         "sha1() has not method for the '",
@@ -12,6 +31,7 @@ sha1.default <- function(x, digits = 14L, zapsmall = 7L) {
     )
 }
 
+#' @export
 sha1.integer <- function(x, digits = 14L, zapsmall = 7L) {
     attr(x, "digest::sha1") <- list(
         class = class(x),
@@ -21,6 +41,7 @@ sha1.integer <- function(x, digits = 14L, zapsmall = 7L) {
     digest(x, algo = "sha1")
 }
 
+#' @export
 sha1.character <- function(x, digits = 14L, zapsmall = 7L) {
     attr(x, "digest::sha1") <- list(
         class = class(x),
@@ -30,6 +51,7 @@ sha1.character <- function(x, digits = 14L, zapsmall = 7L) {
     digest(x, algo = "sha1")
 }
 
+#' @export
 sha1.factor <- function(x, digits = 14L, zapsmall = 7L) {
     attr(x, "digest::sha1") <- list(
         class = class(x),
@@ -39,10 +61,12 @@ sha1.factor <- function(x, digits = 14L, zapsmall = 7L) {
     digest(x, algo = "sha1")
 }
 
+#' @export
 sha1.NULL <- function(x, digits = 14L, zapsmall = 7L) {
     digest(x, algo = "sha1")
 }
 
+#' @export
 sha1.logical <- function(x, digits = 14L, zapsmall = 7L) {
     attr(x, "digest::sha1") <- list(
         class = class(x),
@@ -52,6 +76,7 @@ sha1.logical <- function(x, digits = 14L, zapsmall = 7L) {
     digest(x, algo = "sha1")
 }
 
+#' @export
 sha1.numeric <- function(x, digits = 14L, zapsmall = 7L){
     y <- num2hex(
         x,
@@ -66,6 +91,7 @@ sha1.numeric <- function(x, digits = 14L, zapsmall = 7L){
     digest(y, algo = "sha1")
 }
 
+#' @export
 sha1.matrix <- function(x, digits = 14L, zapsmall = 7L){
     # needed to make results comparable between 32-bit and 64-bit
     if (class(x[1, 1]) == "numeric") {
@@ -95,6 +121,7 @@ sha1.matrix <- function(x, digits = 14L, zapsmall = 7L){
     }
 }
 
+#' @export
 sha1.data.frame <- function(x, digits = 14L, zapsmall = 7L){
     if (length(x)) {
         # needed to make results comparable between 32-bit and 64-bit
@@ -116,6 +143,7 @@ sha1.data.frame <- function(x, digits = 14L, zapsmall = 7L){
     digest(y, algo = "sha1")
 }
 
+#' @export
 sha1.list <- function(x, digits = 14L, zapsmall = 7L){
     if (length(x)) {
         # needed to make results comparable between 32-bit and 64-bit
@@ -137,6 +165,7 @@ sha1.list <- function(x, digits = 14L, zapsmall = 7L){
     digest(y, algo = "sha1")
 }
 
+#' @export
 sha1.POSIXlt <- function(x, digits = 14L, zapsmall = 7L) {
     y <- do.call(
         data.frame,
@@ -151,6 +180,7 @@ sha1.POSIXlt <- function(x, digits = 14L, zapsmall = 7L) {
     digest(y, algo = "sha1")
 }
 
+#' @export
 sha1.POSIXct <- function(x, digits = 14L, zapsmall = 7L) {
     y <- sha1(as.POSIXlt(x), digits = digits, zapsmall = zapsmall)
     attr(y, "digest::sha1") <- list(
@@ -161,6 +191,7 @@ sha1.POSIXct <- function(x, digits = 14L, zapsmall = 7L) {
     digest(y, algo = "sha1")
 }
 
+#' @export
 sha1.anova <- function(x, digits = 4L, zapsmall = 7L){
     if (digits > 4) {
         warning(
@@ -182,6 +213,7 @@ sha1.anova <- function(x, digits = 4L, zapsmall = 7L){
     digest(y, algo = "sha1")
 }
 
+#' @note not exported
 num2hex <- function(x, digits = 14L, zapsmall = 7L){
     if (!is.numeric(x)) {
         stop("x is not numeric")

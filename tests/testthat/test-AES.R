@@ -1,12 +1,15 @@
-
 ## tests for AES, taken from the examples in the manual page
+context("digest")
+
+# Old testing framework ==================
 
 stopifnot(require(digest))
 
 # FIPS-197 examples
 
 hextextToRaw <- function(text) {
-  vals <- matrix(as.integer(as.hexmode(strsplit(text, "")[[1]])), ncol=2, byrow=TRUE)
+  vals <- matrix(as.integer(as.hexmode(strsplit(text, "")[[1]])),
+                 ncol = 2, byrow = TRUE)
   vals <- vals %*% c(16, 1)
   as.raw(vals)
 }
