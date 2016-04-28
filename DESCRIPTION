@@ -2,7 +2,7 @@ Package: digest
 Author: Dirk Eddelbuettel <edd@debian.org> with contributions 
  by Antoine Lucas, Jarek Tuszynski, Henrik Bengtsson, Simon Urbanek,
  Mario Frasca, Bryan Lewis, Murray Stokely, Hannes Muehleisen,
- Duncan Murdoch, Jim Hester, Wush Wu, Thierry Onkelinx and
+ Duncan Murdoch, Jim Hester, Wush Wu, Qiang Kou, Thierry Onkelinx and
  Michel Lang.
 Version: 0.6.9.1
 Date: 2016-01-11
