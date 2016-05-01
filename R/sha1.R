@@ -104,6 +104,13 @@ sha1.Date <- function(x, digits = 14L, zapsmall = 7L) {
     sha1(as.numeric(x), digits, zapsmall)
 }
 
+sha1.array <- function(x, digits = 14L, zapsmall = 7L) {
+    # Array x encoded as list of two elements:
+    # 1. lengths of all dimensions of x
+    # 2. all cells of x as a single vector
+    sha1(list(dim(x), as.numeric(x)), digits, zapsmall)
+}
+
 sha1.data.frame <- function(x, digits = 14L, zapsmall = 7L){
     if (length(x)) {
         # needed to make results comparable between 32-bit and 64-bit
