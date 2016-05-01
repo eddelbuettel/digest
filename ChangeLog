@@ -1,3 +1,8 @@
+2016-05-01  Viliam Simko  <viliam.simko@gmail.com>
+
+	* R/sha1.R: Support for complex and Date
+	* NAMESPACE: Ditto
+
 2016-04-27  Dirk Eddelbuettel  <edd@debian.org>
 
 	* DESCRIPTION (Author): Add Qiang Kou to Authors
