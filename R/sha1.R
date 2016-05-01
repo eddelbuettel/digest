@@ -97,7 +97,7 @@ sha1.matrix <- function(x, digits = 14L, zapsmall = 7L){
 
 sha1.complex <- function(x, digits = 14L, zapsmall = 7L){
     # a vector of complex numbers is converted into 2-column matrix (Re,Im)
-    sha1(matrix(c(Re(x), Im(x)), ncol = 2))
+    sha1(matrix(c(Re(x), Im(x)), ncol = 2), digits, zapsmall)
 }
 
 sha1.data.frame <- function(x, digits = 14L, zapsmall = 7L){
