@@ -95,6 +95,15 @@ sha1.matrix <- function(x, digits = 14L, zapsmall = 7L){
     }
 }
 
+sha1.complex <- function(x, digits = 14L, zapsmall = 7L){
+    # a vector of complex numbers is converted into 2-column matrix (Re,Im)
+    sha1(cbind(Re(x),Im(x)), digits, zapsmall)
+}
+
+sha1.Date <- function(x, digits = 14L, zapsmall = 7L){
+    sha1(as.numeric(x), digits, zapsmall)
+}
+
 sha1.data.frame <- function(x, digits = 14L, zapsmall = 7L){
     if (length(x)) {
         # needed to make results comparable between 32-bit and 64-bit
