@@ -1,6 +1,7 @@
 2016-05-01  Viliam Simko  <viliam.simko@gmail.com>
 
-	* R/sha1.R: Support for complex and Date
+	* R/sha1.R: Support for complex, Date and array
+	* tests/sha1Test.R: Ditto
 	* NAMESPACE: Ditto
 
 2016-04-27  Dirk Eddelbuettel  <edd@debian.org>
@@ -179,7 +180,7 @@
 	* R/digest.R: Applied pull request #3 by Jim Hester with support for
 	xxHash (https://code.google.com/p/xxhash/)
 	* src/digest.c: Ditto
-	
+
 	* src/xxhash.c: xxHash implementation supplied as part of #3
 	* src/xxhash.h: xxHash implementation supplied as part of #3
 

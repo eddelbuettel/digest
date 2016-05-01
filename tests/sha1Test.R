@@ -349,6 +349,23 @@ stopifnot(is.character(sha1(list())))
 stopifnot(is.character(sha1(data.frame())))
 stopifnot(is.character(sha1(list(a = 1, b = list(), c = data.frame()))))
 
+# does work with complex type
+stopifnot(is.character(sha1(2 + 5i))) # single complex number
+stopifnot(is.character(sha1(1:10 + 5i))) # vector of complex numbers
+
+# complex number with only the real part should be different from real number
+stopifnot(sha1(2) != sha1(2 + 0i))
+
+# does work with Date type
+stopifnot(is.character(sha1(Sys.Date())))
+stopifnot(sha1(as.Date("1980-01-01")) != sha1(as.Date("1990-01-01")))
+
+# different hashes for differently shaped arrays that contain the same data
+data <- 1:8
+a <- array(data, dim = c(2,2,2)) # cube 2x2x2
+b <- array(data, dim = c(2,4,1)) # matrix 2x4
+stopifnot(sha1(a) != sha1(b))
+
 # test error message
 junk <- pi
 class(junk) <- c("A", "B")
