@@ -49,5 +49,7 @@ Henrik Bengtsson, Simon Urbanek, Mario Frasca, Bryan Lewis, Murray Stokely,
 Hannes Muehleisen, Duncan Murdoch, Jim Hester, Wush Wu, Qiang Kou, Thierry
 Onkelinx, Michel Lang and Viliam Simko.
 
+### License
+
 GPL-2
 
