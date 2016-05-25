@@ -1,3 +1,11 @@
+2016-05-25 Thierry Onkelinx <thierry.onkelinx@inbo.be>
+
+	* R/sha1.R: Support for pairlist and name
+	* tests/sha1Test.R: Support for pairlist and name
+	* man/sha1.Rd: Support for pairlist, name, complex, array and Date
+	* NAMESPACE: Support for pairlist, name and array
+	* DESCRIPTION: bump version number and date
+
 2016-05-01  Viliam Simko  <viliam.simko@gmail.com>
 
 	* R/sha1.R: Support for complex, Date and array
