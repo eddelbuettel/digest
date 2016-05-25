@@ -262,3 +262,24 @@ num2hex <- function(x, digits = 14L, zapsmall = 7L){
     output[!x.na][!zero] <- paste0(negative, mantissa, " ", exponent[!zero])
     return(output)
 }
+
+sha1.pairlist <- function(x, digits = 14L, zapsmall = 7L) {
+    # needed to make results comparable between 32-bit and 64-bit
+    y <- vapply(
+        x,
+        sha1,
+        digits = digits,
+        zapsmall = zapsmall,
+        FUN.VALUE = NA_character_
+    )
+    attr(y, "digest::sha1") <- list(
+        class = class(x),
+        digits = as.integer(digits),
+        zapsmall = as.integer(zapsmall)
+    )
+    digest(y, algo = "sha1")
+}
+
+sha1.name <- function(x, digits = 14L, zapsmall = 7L) {
+    digest(x, algo = "sha1")
+}

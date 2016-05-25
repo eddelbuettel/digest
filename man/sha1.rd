@@ -13,6 +13,8 @@
 \alias{sha1.matrix}
 \alias{sha1.data.frame}
 \alias{sha1.list}
+\alias{sha1.pairlist}
+\alias{sha1.name}
 \alias{sha1.POSIXlt}
 \alias{sha1.POSIXct}
 \alias{sha1.anova}
@@ -32,6 +34,8 @@ sha1(x, digits = 14, zapsmall = 7)
 \method{sha1}{data.frame}(x, digits = 14, zapsmall = 7)
 \method{sha1}{array}(x, digits = 14, zapsmall = 7)
 \method{sha1}{list}(x, digits = 14, zapsmall = 7)
+\method{sha1}{pairlist}(x, digits = 14, zapsmall = 7)
+\method{sha1}{name}(x, digits = 14, zapsmall = 7)
 \method{sha1}{POSIXlt}(x, digits = 14, zapsmall = 7)
 \method{sha1}{POSIXct}(x, digits = 14, zapsmall = 7)
 \method{sha1}{anova}(x, digits = 4, zapsmall = 7)
