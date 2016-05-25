@@ -1,9 +1,12 @@
 \docType{methods}
 \name{sha1}
 \alias{sha1}
+\alias{sha1.array}
 \alias{sha1.integer}
 \alias{sha1.numeric}
 \alias{sha1.character}
+\alias{sha1.complex}
+\alias{sha1.Date}
 \alias{sha1.factor}
 \alias{sha1.NULL}
 \alias{sha1.logical}
@@ -21,10 +24,13 @@ sha1(x, digits = 14, zapsmall = 7)
 \method{sha1}{numeric}(x, digits = 14, zapsmall = 7)
 \method{sha1}{character}(x, digits = 14, zapsmall = 7)
 \method{sha1}{factor}(x, digits = 14, zapsmall = 7)
+\method{sha1}{complex}(x, digits = 14, zapsmall = 7)
+\method{sha1}{Date}(x, digits = 14, zapsmall = 7)
 \method{sha1}{NULL}(x, digits = 14, zapsmall = 7)
 \method{sha1}{logical}(x, digits = 14, zapsmall = 7)
 \method{sha1}{matrix}(x, digits = 14, zapsmall = 7)
 \method{sha1}{data.frame}(x, digits = 14, zapsmall = 7)
+\method{sha1}{array}(x, digits = 14, zapsmall = 7)
 \method{sha1}{list}(x, digits = 14, zapsmall = 7)
 \method{sha1}{POSIXlt}(x, digits = 14, zapsmall = 7)
 \method{sha1}{POSIXct}(x, digits = 14, zapsmall = 7)
