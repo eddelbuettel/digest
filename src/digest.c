@@ -68,7 +68,7 @@ SEXP digest(SEXP Txt, SEXP Algo, SEXP Length, SEXP Skip, SEXP Leave_raw, SEXP Se
         txt = (char*) STRING_VALUE(Txt);
         nChar = strlen(txt);
     }
-    if (skip>0) {
+    if (skip > 0 && algo < 100) {
         if (skip>=nChar) {
             nChar=0;
         } else {
