@@ -40,7 +40,7 @@ Loading required package: digest
 +       "d174ab98d277d9f5a5611c2c9f419d9f",
 +       "57edf4a22be3c955ac49da2e2107b67a")
 > 
-> for (i in seq(along=md5Input)) {
+> for (i in seq(along.with=md5Input)) {
 +     md5 <- digest(md5Input[i], serialize=FALSE)
 +     stopifnot(identical(md5, md5Output[i]))
 +     cat(md5, "\n")
@@ -54,7 +54,7 @@ d174ab98d277d9f5a5611c2c9f419d9f
 57edf4a22be3c955ac49da2e2107b67a 
 > 
 > ## md5 raw output test
-> for (i in seq(along=md5Input)) {
+> for (i in seq(along.with=md5Input)) {
 +     md5 <- digest(md5Input[i], serialize=FALSE, raw=TRUE)
 +     md5 <- gsub(" ","",capture.output(cat(md5)))
 +     stopifnot(identical(md5, md5Output[i]))
@@ -77,7 +77,7 @@ d174ab98d277d9f5a5611c2c9f419d9f
 +       "84983e441c3bd26ebaae4aa1f95129e5e54670f1",
 +       "34aa973cd4c4daa4f61eeb2bdbad27316534016f")
 > 
-> for (i in seq(along=sha1Input)) {
+> for (i in seq(along.with=sha1Input)) {
 +     sha1 <- digest(sha1Input[i], algo="sha1", serialize=FALSE)
 +     stopifnot(identical(sha1, sha1Output[i]))
 +     cat(sha1, "\n")
@@ -86,7 +86,7 @@ a9993e364706816aba3e25717850c26c9cd0d89d
 84983e441c3bd26ebaae4aa1f95129e5e54670f1 
 > 
 > ## sha1 raw output test
-> for (i in seq(along=sha1Input)) {
+> for (i in seq(along.with=sha1Input)) {
 +     sha1 <- digest(sha1Input[i], algo="sha1", serialize=FALSE, raw=TRUE)
 +     print(sha1)
 +     sha1 <- gsub(" ","",capture.output(cat(sha1)))
@@ -114,7 +114,7 @@ a9993e364706816aba3e25717850c26c9cd0d89d
 +     "cf83e1357eefb8bdf1542850d66d8007d620e4050b5715dc83f4a921d36ce9ce47d0d13c5d85f2b0ff8318d2877eec2f63b931bd47417a81a538327af927da3e",
 +     "91ea1245f20d46ae9a037a989f54f1f790f0a47607eeb8a14d12890cea77a1bbc6c7ed9cf205e67b7f2b8fd4c7dfd3a7a8617e45f3c463d481c7e586c39ac1ed")
 > 
-> for (i in seq(along=sha512Input)) {
+> for (i in seq(along.with=sha512Input)) {
 +     sha512 <- digest(sha512Input[i], algo="sha512", serialize=FALSE)
 +     stopifnot(identical(sha512, sha512Output[i]))
 +     cat(sha512, "\n")
@@ -123,7 +123,7 @@ cf83e1357eefb8bdf1542850d66d8007d620e4050b5715dc83f4a921d36ce9ce47d0d13c5d85f2b0
 91ea1245f20d46ae9a037a989f54f1f790f0a47607eeb8a14d12890cea77a1bbc6c7ed9cf205e67b7f2b8fd4c7dfd3a7a8617e45f3c463d481c7e586c39ac1ed 
 > 
 > ## sha512 raw output test
-> for (i in seq(along=sha512Input)) {
+> for (i in seq(along.with=sha512Input)) {
 +     sha512 <- digest(sha512Input[i], algo="sha512", serialize=FALSE, raw=TRUE)
 +     print(sha512)
 + 
@@ -157,7 +157,7 @@ cf83e1357eefb8bdf1542850d66d8007d620e4050b5715dc83f4a921d36ce9ce47d0d13c5d85f2b0
 +       "171a3f5f",
 +       "2ef80172")
 > 
-> for (i in seq(along=crc32Input)) {
+> for (i in seq(along.with=crc32Input)) {
 +     crc32 <- digest(crc32Input[i], algo="crc32", serialize=FALSE)
 +     stopifnot(identical(crc32, crc32Output[i]))
 +     cat(crc32, "\n")
@@ -185,7 +185,7 @@ cf83e1357eefb8bdf1542850d66d8007d620e4050b5715dc83f4a921d36ce9ce47d0d13c5d85f2b0
 +       "89ea60c3",
 +       "02cc5d05")
 > 
-> for (i in seq(along=xxhash32Input)) {
+> for (i in seq(along.with=xxhash32Input)) {
 +     xxhash32 <- digest(xxhash32Input[i], algo="xxhash32", serialize=FALSE)
 +     cat(xxhash32, "\n")
 +     stopifnot(identical(xxhash32, xxhash32Output[i]))
@@ -204,7 +204,7 @@ cf83e1357eefb8bdf1542850d66d8007d620e4050b5715dc83f4a921d36ce9ce47d0d13c5d85f2b0
 +       "f06103773e8585df",
 +       "ef46db3751d8e999")
 > 
-> for (i in seq(along=xxhash64Input)) {
+> for (i in seq(along.with=xxhash64Input)) {
 +     xxhash64 <- digest(xxhash64Input[i], algo="xxhash64", serialize=FALSE)
 +     cat(xxhash64, "\n")
 +     stopifnot(identical(xxhash64, xxhash64Output[i]))
@@ -223,7 +223,7 @@ ef46db3751d8e999
 +       "ee925b90",
 +       "00000000")
 > 
-> for (i in seq(along=murmur32Input)) {
+> for (i in seq(along.with=murmur32Input)) {
 +     murmur32 <- digest(murmur32Input[i], algo="murmur32", serialize=FALSE)
 +     cat(murmur32, "\n")
 +     stopifnot(identical(murmur32, murmur32Output[i]))
@@ -235,6 +235,7 @@ ee925b90
 > ##fname <- file.path(R.home(),"COPYING")  ## not invariant across OSs
 > fname <- system.file("GPL-2", package="digest")
 > x <- readChar(fname, file.info(fname)$size) # read file
+> xskip <- substring(x, first=20+1)
 > for (alg in c("sha1", "md5", "crc32","sha512", "xxhash32", "xxhash64")) {
 +                                         # partial file
 +     h1 <- digest(x    , length=18000, algo=alg, serialize=FALSE)
@@ -243,9 +244,14 @@ ee925b90
 +     stopifnot( identical(h1,h2), identical(h1,h3) )
 +     cat(h1, "\n", h2, "\n", h3, "\n")
 +                                         # whole file
-+     h1 <- digest(x    , algo=alg, serialize=FALSE)
-+     h2 <- digest(fname, algo=alg, serialize=FALSE, file=TRUE)
-+     stopifnot( identical(h1,h2) )
++     h4 <- digest(x    , algo=alg, serialize=FALSE)
++     h5 <- digest(fname, algo=alg, serialize=FALSE, file=TRUE)
++     stopifnot( identical(h4,h5) )
++
++     ## Assert that 'skip' works
++     h6 <- digest(xskip, algo=alg, serialize=FALSE)
++     h7 <- digest(fname, algo=alg, serialize=FALSE, skip=20, file=TRUE)
++     stopifnot( identical(h6, h7) )
 + }
 6a165a2bc0ebf484edaf11c05c60560e5f3674f0 
  6a165a2bc0ebf484edaf11c05c60560e5f3674f0 
