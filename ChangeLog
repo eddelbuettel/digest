@@ -1,3 +1,14 @@
+2016-07-12  Henrik Bengtsson  <hb@aroma-project.org>
+
+	* src/digest.c: Correct bug with skip and file parameter interaction
+	* tests/digestTest.R: Test code
+	* tests/digestTest.Rout.save: Test reference output
+
+	* R/zzz.R: Allow for unloading of shared library
+	* tests/load-unload.R: Test code
+
+	* DESCRIPTION: Rolled minor Version and Date
+
 2016-05-25 Thierry Onkelinx <thierry.onkelinx@inbo.be>
 
 	* R/sha1.R: Support for pairlist and name
