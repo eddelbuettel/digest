@@ -1,3 +1,10 @@
+2016-08-02  Dirk Eddelbuettel  <edd@debian.org>
+
+	* DESCRIPTION (Description): Shortened to one paragraph
+	* DESCRIPTION (BugReports): URL to GH issues added
+
+	* .travis.yml: Rewritten for run.sh from forked r-travis
+
 2016-07-12  Henrik Bengtsson  <hb@aroma-project.org>
 
 	* src/digest.c: Correct bug with skip and file parameter interaction
