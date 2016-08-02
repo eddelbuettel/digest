@@ -18,6 +18,6 @@ Description: Implementation of a function 'digest()' for the creation
 URL: http://dirk.eddelbuettel.com/code/digest.html
 BugReports: https://github.com/eddelbuettel/digest/issues
 Depends: R (>= 2.4.1)
-License: GPL-2
+License: GPL (>= 2)
 Suggests: knitr, rmarkdown
 VignetteBuilder: knitr

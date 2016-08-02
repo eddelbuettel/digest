@@ -1,5 +1,11 @@
 2016-08-02  Dirk Eddelbuettel  <edd@debian.org>
 
+	* DESCRIPTION (License): Now GPL (>= 2), cf issue 36 on GH
+
+	* README.md: Updated badge accordingly
+
+2016-08-02  Dirk Eddelbuettel  <edd@debian.org>
+
 	* DESCRIPTION (Version): Release 0.6.10
 
 	* DESCRIPTION (Description): Shortened to one paragraph
