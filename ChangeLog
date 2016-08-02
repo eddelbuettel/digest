@@ -1,5 +1,7 @@
 2016-08-02  Dirk Eddelbuettel  <edd@debian.org>
 
+	* DESCRIPTION (Version): Release 0.6.10
+
 	* DESCRIPTION (Description): Shortened to one paragraph
 	* DESCRIPTION (BugReports): URL to GH issues added
 
