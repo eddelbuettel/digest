@@ -47,7 +47,7 @@ sha1(x, digits = 14, zapsmall = 7)
 be converted to a base 16 equivalent. Defaults to \code{digits = 14}, expect for
 sha1.anova where \code{digits = 4}}
 
-\item{zapsmall}{the apporixmate negative magnitute of the smallest relevant
+\item{zapsmall}{the approximate negative magnitude of the smallest relevant
 digit. Will be converted to a base 2 equivalent. Values smaller than this
 number are equivalent to 0. Defaults to \code{zapsmall = 7}}
 }
