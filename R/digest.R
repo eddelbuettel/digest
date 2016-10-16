@@ -1,7 +1,7 @@
 
 ##  digest -- hash digest functions for R
 ##
-##  Copyright (C) 2003 - 2015  Dirk Eddelbuettel <edd@debian.org>
+##  Copyright (C) 2003 - 2016  Dirk Eddelbuettel <edd@debian.org>
 ##
 ##  This file is part of digest.
 ##
@@ -49,7 +49,11 @@ digest <- function(object, algo=c("md5", "sha1", "crc32", "sha256", "sha512",
     }
 
     if (serialize && !file) {
-        object <- serialize(object, connection=NULL, ascii=ascii)
+        ## support the 'nosharing' option in pqR's base::serialize()
+        object <- if ("nosharing" %in% names(formals(base::serialize)))
+                      base::serialize (object, connection=NULL, ascii=ascii, nosharing=TRUE)
+                  else
+                      base::serialize (object, connection=NULL, ascii=ascii)
         ## we support raw vectors, so no mangling of 'object' is necessary
         ## regardless of R version
         ## skip="auto" - skips the serialization header [SU]

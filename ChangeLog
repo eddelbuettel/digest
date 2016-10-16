@@ -1,3 +1,8 @@
+2016-10-16  Dirk Eddelbuettel  <edd@debian.org>
+
+	* R/digest.R (digest): Support 'nosharing' option of base::serialize
+	as suggested by Radford Neal whose pqR uses this
+
 2016-08-02  Dirk Eddelbuettel  <edd@debian.org>
 
 	* DESCRIPTION (License): Now GPL (>= 2), cf issue 36 on GH
