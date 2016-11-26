@@ -51,5 +51,5 @@ Onkelinx, Michel Lang and Viliam Simko.
 
 ### License
 
-GPL-2
+GPL (>= 2)
 
