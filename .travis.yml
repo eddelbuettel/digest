@@ -16,6 +16,9 @@ install:
 script:
   - ./run.sh run_tests
 
+after_failure:
+  - ./run.sh dump_logs
+ 
 after_success:
   - ./run.sh coverage
 

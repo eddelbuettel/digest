@@ -1,3 +1,11 @@
+2016-11-26  Dirk Eddelbuettel  <edd@debian.org>
+
+	* .travis.yml (after_success): Integrated Jim Hester's suggestion of
+	activating code coverage sent many moons ago (in PR #12)
+	* .codecov.yml (comment): Added
+	* .Rbuildignore: Exclude .codecov.yml
+	* README.md: Added code coverage badge
+
 2016-10-16  Dirk Eddelbuettel  <edd@debian.org>
 
 	* R/digest.R (digest): Support 'nosharing' option of base::serialize
