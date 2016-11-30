@@ -1,3 +1,12 @@
+2016-11-30  Dirk Eddelbuettel  <edd@debian.org>
+
+	* .travis.yml (before_install): Activate PPA as we (currently)
+	need an updated version of (r-cran)-covr to run coverage
+	* tests/load-unload.R: Comment-out for now as it upsets coverage
+
+	* tests/digestTest.R: Test two more algorithms
+	* tests/digestTest.Rout.save: Updated reference output
+
 2016-11-26  Dirk Eddelbuettel  <edd@debian.org>
 
 	* .travis.yml (after_success): Integrated Jim Hester's suggestion of

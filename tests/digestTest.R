@@ -168,7 +168,8 @@ for (i in seq(along.with=murmur32Input)) {
 fname <- system.file("GPL-2", package="digest")
 x <- readChar(fname, file.info(fname)$size) # read file
 xskip <- substring(x, first=20+1)
-for (alg in c("sha1", "md5", "crc32","sha512", "xxhash32", "xxhash64")) {
+for (alg in c("sha1", "md5", "crc32", "sha256", "sha512",
+              "xxhash32", "xxhash64", "murmur32")) {
                                         # partial file
     h1 <- digest(x    , length=18000, algo=alg, serialize=FALSE)
     h2 <- digest(fname, length=18000, algo=alg, serialize=FALSE, file=TRUE)

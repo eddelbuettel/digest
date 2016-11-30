@@ -1,7 +1,7 @@
 
-R version 3.1.2 (2014-10-31) -- "Pumpkin Helmet"
-Copyright (C) 2014 The R Foundation for Statistical Computing
-Platform: i686-pc-linux-gnu (32-bit)
+R version 3.3.2 (2016-10-31) -- "Sincere Pumpkin Patch"
+Copyright (C) 2016 The R Foundation for Statistical Computing
+Platform: x86_64-pc-linux-gnu (64-bit)
 
 R is free software and comes with ABSOLUTELY NO WARRANTY.
 You are welcome to redistribute it under certain conditions.
@@ -236,18 +236,19 @@ ee925b90
 > fname <- system.file("GPL-2", package="digest")
 > x <- readChar(fname, file.info(fname)$size) # read file
 > xskip <- substring(x, first=20+1)
-> for (alg in c("sha1", "md5", "crc32","sha512", "xxhash32", "xxhash64")) {
+> for (alg in c("sha1", "md5", "crc32", "sha256", "sha512",
++               "xxhash32", "xxhash64", "murmur32")) {
 +                                         # partial file
 +     h1 <- digest(x    , length=18000, algo=alg, serialize=FALSE)
 +     h2 <- digest(fname, length=18000, algo=alg, serialize=FALSE, file=TRUE)
-+     h3 <- digest( substr(x,1,18000) , algo=alg, serialize=FALSE)
++     h3 <- digest(substr(x,1,18000)  , algo=alg, serialize=FALSE)
 +     stopifnot( identical(h1,h2), identical(h1,h3) )
 +     cat(h1, "\n", h2, "\n", h3, "\n")
 +                                         # whole file
 +     h4 <- digest(x    , algo=alg, serialize=FALSE)
 +     h5 <- digest(fname, algo=alg, serialize=FALSE, file=TRUE)
 +     stopifnot( identical(h4,h5) )
-+
++ 
 +     ## Assert that 'skip' works
 +     h6 <- digest(xskip, algo=alg, serialize=FALSE)
 +     h7 <- digest(fname, algo=alg, serialize=FALSE, skip=20, file=TRUE)
@@ -262,6 +263,9 @@ ee925b90
 f1233fcd 
  f1233fcd 
  f1233fcd 
+7c50eb0cecac5beb39f84594e97ad6813c70b87e671515dea39e731332cdf240 
+ 7c50eb0cecac5beb39f84594e97ad6813c70b87e671515dea39e731332cdf240 
+ 7c50eb0cecac5beb39f84594e97ad6813c70b87e671515dea39e731332cdf240 
 691e7eda9e1c1a197a7e6628533c6cdfb9c022a5cf2ad6c0561f9007d8d5637996f04e7d24829bc0820380270bf1ca5a352f64d0001ef198355bedf355d01152 
  691e7eda9e1c1a197a7e6628533c6cdfb9c022a5cf2ad6c0561f9007d8d5637996f04e7d24829bc0820380270bf1ca5a352f64d0001ef198355bedf355d01152 
  691e7eda9e1c1a197a7e6628533c6cdfb9c022a5cf2ad6c0561f9007d8d5637996f04e7d24829bc0820380270bf1ca5a352f64d0001ef198355bedf355d01152 
@@ -271,6 +275,9 @@ f1233fcd
 0158bab92b6e7084 
  0158bab92b6e7084 
  0158bab92b6e7084 
+1db17196 
+ 1db17196 
+ 1db17196 
 > 
 > ## compare md5 algorithm to other tools
 > library(tools)
@@ -289,4 +296,4 @@ f1233fcd
 > 
 > proc.time()
    user  system elapsed 
-  0.420   0.288   0.420 
+  0.216   0.284   0.184 
