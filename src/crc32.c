@@ -178,7 +178,7 @@ unsigned long ZEXPORT digest_crc32(crc, buf, len)
         if (*((unsigned char *)(&endian)))
             return digest_crc32_little(crc, buf, len);
         else
-            return digest_crc32_big(crc, buf, len);
+            return digest_crc32_big(crc, buf, len); /* #nocov */
     }
 #endif /* BYFOUR */
     crc = crc ^ 0xffffffffUL;
@@ -212,8 +212,8 @@ local unsigned long digest_crc32_little(crc, buf, len)
     c = (u4)crc;
     c = ~c;
     while (len && ((ptrdiff_t)buf & 3)) {
-        c = crc_table[0][(c ^ *buf++) & 0xff] ^ (c >> 8);
-        len--;
+        c = crc_table[0][(c ^ *buf++) & 0xff] ^ (c >> 8); /* #nocov */
+        len--;                                            /* #nocov */
     }
 
     buf4 = (const u4 FAR *)buf;
@@ -241,7 +241,7 @@ local unsigned long digest_crc32_little(crc, buf, len)
 #define DOBIG32 DOBIG4; DOBIG4; DOBIG4; DOBIG4; DOBIG4; DOBIG4; DOBIG4; DOBIG4
 
 /* ========================================================================= */
-local unsigned long digest_crc32_big(crc, buf, len)
+local unsigned long digest_crc32_big(crc, buf, len) /* #nocov start */
     unsigned long crc;
     const unsigned char FAR *buf;
     unsigned len;
@@ -274,6 +274,6 @@ local unsigned long digest_crc32_big(crc, buf, len)
     } while (--len);
     c = ~c;
     return (unsigned long)(REV(c));
-}
+} /* #nocov end */
 
 #endif /* BYFOUR */

@@ -7,6 +7,14 @@
 	* tests/digestTest.R: Test two more algorithms
 	* tests/digestTest.Rout.save: Updated reference output
 
+	* R/digest.R: Added #nocov tags
+	* R/zzz.R (.onUnload): Ditoo
+	* src/crc32.c: Ditto
+	* src/pmurhash.c: Ditto
+	* src/raes.c: Ditto
+	* src/sha2.c: Ditto
+	* src/xxhash.c: Ditto
+
 2016-11-26  Dirk Eddelbuettel  <edd@debian.org>
 
 	* .travis.yml (after_success): Integrated Jim Hester's suggestion of

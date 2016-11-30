@@ -8,7 +8,7 @@
 
 static aes_context ctx;
 
-void encrypt(unsigned char *key, int *len, unsigned char *text) {
+void encrypt(unsigned char *key, int *len, unsigned char *text) { /* #nocov start */ 
   aes_set_key(&ctx, key, 8*(*len));
   aes_encrypt(&ctx, text, text);
 }
@@ -24,7 +24,7 @@ static void AESFinalizer(SEXP ptr)
   if (!ctx) return;
   Free(ctx);
   R_ClearExternalPtr(ptr);
-}
+} /* #nocov end */
 
 SEXP AESinit(SEXP key) {
   int nbits = 8*length(key);

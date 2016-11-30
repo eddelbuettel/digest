@@ -252,7 +252,7 @@ FORCE_INLINE U64 XXH_readLE64(const void* ptr, XXH_endianess endian)
 // Simple Hash Functions
 //****************************
 FORCE_INLINE U32 XXH32_endian_align(const void* input, size_t len, U32 seed, XXH_endianess endian, XXH_alignment align)
-{
+{ /* #nocov start */ 
     const BYTE* p = (const BYTE*)input;
     const BYTE* bEnd = p + len;
     U32 h32;
@@ -325,11 +325,11 @@ FORCE_INLINE U32 XXH32_endian_align(const void* input, size_t len, U32 seed, XXH
     h32 ^= h32 >> 16;
 
     return h32;
-}
+} /* #nocov end */
 
 
 unsigned int XXH32 (const void* input, size_t len, unsigned seed)
-{
+{ /* #nocov start */ 
 #if 0
     // Simple version, good for code maintenance, but unfortunately slow for small inputs
     XXH32_state_t state;
@@ -465,11 +465,11 @@ FORCE_INLINE U64 XXH64_endian_align(const void* input, size_t len, U64 seed, XXH
     h64 ^= h64 >> 32;
 
     return h64;
-}
+} /* #nocov end */
 
 
 unsigned long long XXH64 (const void* input, size_t len, unsigned long long seed)
-{
+{ /* #nocov start */ 
 #if 0
     // Simple version, good for code maintenance, but unfortunately slow for small inputs
     XXH64_state_t state;
@@ -494,7 +494,7 @@ unsigned long long XXH64 (const void* input, size_t len, unsigned long long seed
     else
         return XXH64_endian_align(input, len, seed, XXH_bigEndian, XXH_unaligned);
 #endif
-}
+} /* #nocov end */
 
 /****************************************************
  *  Advanced Hash Functions
@@ -526,8 +526,8 @@ typedef struct
 } XXH_istate64_t;
 
 
-XXH32_state_t* XXH32_createState(void)
-{
+XXH32_state_t* XXH32_createState(void) 
+{ /* #nocov start */ 
     XXH_STATIC_ASSERT(sizeof(XXH32_state_t) >= sizeof(XXH_istate32_t));   // A compilation error here means XXH32_state_t is not large enough
     return (XXH32_state_t*)XXH_malloc(sizeof(XXH32_state_t));
 }
@@ -546,7 +546,7 @@ XXH_errorcode XXH64_freeState(XXH64_state_t* statePtr)
 {
     XXH_free(statePtr);
     return XXH_OK;
-}
+} /* #nocov end */
 
 
 /*** Hash feed ***/
@@ -599,7 +599,7 @@ FORCE_INLINE XXH_errorcode XXH32_update_endian (XXH32_state_t* state_in, const v
 
     if (state->memsize)   // some data left from previous update
     {
-        XXH_memcpy((BYTE*)(state->mem32) + state->memsize, input, 16-state->memsize);
+        XXH_memcpy((BYTE*)(state->mem32) + state->memsize, input, 16-state->memsize); /* #nocov start */ 
         {
             const U32* p32 = state->mem32;
             state->v1 += XXH_readLE32(p32, endian) * PRIME32_2;
@@ -620,7 +620,7 @@ FORCE_INLINE XXH_errorcode XXH32_update_endian (XXH32_state_t* state_in, const v
             p32++;
         }
         p += 16-state->memsize;
-        state->memsize = 0;
+        state->memsize = 0;  /* #nocov end */
     }
 
     if (p <= bEnd-16)
@@ -753,7 +753,7 @@ FORCE_INLINE XXH_errorcode XXH64_update_endian (XXH64_state_t* state_in, const v
 
     if (state->memsize)   // some data left from previous update
     {
-        XXH_memcpy(((BYTE*)state->mem64) + state->memsize, input, 32-state->memsize);
+        XXH_memcpy(((BYTE*)state->mem64) + state->memsize, input, 32-state->memsize); /* #nocov start */ 
         {
             const U64* p64 = state->mem64;
             state->v1 += XXH_readLE64(p64, endian) * PRIME64_2;
@@ -774,7 +774,7 @@ FORCE_INLINE XXH_errorcode XXH64_update_endian (XXH64_state_t* state_in, const v
             p64++;
         }
         p += 32-state->memsize;
-        state->memsize = 0;
+        state->memsize = 0;  /* #nocov end */
     }
 
     if (p+32 <= bEnd)

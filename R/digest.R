@@ -24,7 +24,7 @@ digest <- function(object, algo=c("md5", "sha1", "crc32", "sha256", "sha512",
                    serialize=TRUE, file=FALSE, length=Inf,
                    skip="auto", ascii=FALSE, raw=FALSE, seed=0,
                    errormode=c("stop","warn","silent")) {
-    
+
     algo <- match.arg(algo)
     errormode <- match.arg(errormode)
 
@@ -32,20 +32,20 @@ digest <- function(object, algo=c("md5", "sha1", "crc32", "sha256", "sha512",
         if (mode == "stop") {
             stop(txt, obj, call.=FALSE)
         } else if (mode == "warn") {
-            warning(txt, obj, call.=FALSE)
-            return(invisible(NA))
+            warning(txt, obj, call.=FALSE)  # nocov
+            return(invisible(NA))           # nocov
         } else {
-            return(invisible(NULL))
+            return(invisible(NULL))         # nocov
         }
     }
-    
+
     if (is.infinite(length)) {
         length <- -1               # internally we use -1 for infinite len
     }
 
     if (is.character(file) && missing(object)) {
-        object <- file
-        file <- TRUE
+        object <- file                  # nocov
+        file <- TRUE                  	# nocov
     }
 
     if (serialize && !file) {

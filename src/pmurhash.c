@@ -306,7 +306,7 @@ uint32_t PMurHash32_Result(uint32_t h, uint32_t carry, uint32_t total_length)
 /*---------------------------------------------------------------------------*/
 
 /* Murmur3A compatable all-at-once */
-uint32_t PMurHash32(uint32_t seed, const void *key, int len)
+uint32_t PMurHash32(uint32_t seed, const void *key, int len) 
 {
   uint32_t h1=seed, carry=0;
   PMurHash32_Process(&h1, &carry, key, len);
@@ -316,7 +316,7 @@ uint32_t PMurHash32(uint32_t seed, const void *key, int len)
 /*---------------------------------------------------------------------------*/
 
 /* Provide an API suitable for smhasher */
-void PMurHash32_test(const void *key, int len, uint32_t seed, void *out)
+void PMurHash32_test(const void *key, int len, uint32_t seed, void *out) /* #nocov start */
 {
   uint32_t h1=seed, carry=0;
   const uint8_t *ptr = (uint8_t*)key;
@@ -335,6 +335,6 @@ void PMurHash32_test(const void *key, int len, uint32_t seed, void *out)
 #endif
   h1 = PMurHash32_Result(h1, carry, len);
   *(uint32_t*)out = h1;
-}
+} /* #nocov end */
 
 /*---------------------------------------------------------------------------*/
