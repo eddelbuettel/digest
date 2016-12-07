@@ -76,3 +76,9 @@ target <- '54b274484a8b8a371c8ae898f453d37c90d488b0c88c89dd705de06b18263d50c2806
 stopifnot(identical(target, as.character(current)))
 cat(current, "\n")
 
+
+## motivated by coverage report
+rw <- charToRaw("123456789ABCDEF")
+stopifnot(all.equal(digest:::makeRaw.raw(rw), rw))
+
+digest:::padWithZeros(rw, "crc32")

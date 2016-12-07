@@ -636,8 +636,7 @@ void SHA256_Final(sha2_byte digest[], SHA256_CTX* context) {
 #endif
 }
 
-char *SHA256_End(SHA256_CTX* context, char buffer[]) {
-#if 0  
+char *SHA256_End(SHA256_CTX* context, char buffer[]) { /* #nocov start */ 
 	sha2_byte	digest[SHA256_DIGEST_LENGTH], *d = digest;
 	int		i;
 
@@ -658,8 +657,7 @@ char *SHA256_End(SHA256_CTX* context, char buffer[]) {
 	}
 	MEMSET_BZERO(digest, SHA256_DIGEST_LENGTH);
 	return buffer;
-#endif
-}
+} 
 
 char* SHA256_Data(const sha2_byte* data, size_t len, char digest[SHA256_DIGEST_STRING_LENGTH]) { /* #nocov start */ 
 	SHA256_CTX	context;
@@ -1051,7 +1049,6 @@ void SHA384_Final(sha2_byte digest[], SHA384_CTX* context) {
 }
 
 char *SHA384_End(SHA384_CTX* context, char buffer[]) {
-#if 0  
 	sha2_byte	digest[SHA384_DIGEST_LENGTH], *d = digest;
 	int		i;
 
@@ -1072,16 +1069,13 @@ char *SHA384_End(SHA384_CTX* context, char buffer[]) {
 	}
 	MEMSET_BZERO(digest, SHA384_DIGEST_LENGTH);
 	return buffer;
-#endif
 }
 
 char* SHA384_Data(const sha2_byte* data, size_t len, char digest[SHA384_DIGEST_STRING_LENGTH]) {
-#if 0  
 	SHA384_CTX	context;
 
 	SHA384_Init(&context);
 	SHA384_Update(&context, data, len);
 	return SHA384_End(&context, digest);
-#endif
 } /* #nocov end */
 

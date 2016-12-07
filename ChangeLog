@@ -1,3 +1,15 @@
+2016-12-07  Dirk Eddelbuettel  <edd@debian.org>
+
+	* DESCRIPTION (Version, Date): Rolled minor version
+
+	* README.md: Use shields.io badge for codecov
+
+	* R/digest.R: Additional #nocov tags
+	* src/sha2.c: Ditto
+
+	* tests/hmacTest.R: Additional tests
+	* tests/hmacTest.Rout.save: Ditto
+
 2016-11-30  Dirk Eddelbuettel  <edd@debian.org>
 
 	* .travis.yml (before_install): Activate PPA as we (currently)
@@ -8,7 +20,7 @@
 	* tests/digestTest.Rout.save: Updated reference output
 
 	* R/digest.R: Added #nocov tags
-	* R/zzz.R (.onUnload): Ditoo
+	* R/zzz.R (.onUnload): Ditto
 	* src/crc32.c: Ditto
 	* src/pmurhash.c: Ditto
 	* src/raes.c: Ditto

@@ -1,14 +1,11 @@
 
-R version 2.15.2 (2012-10-26) -- "Trick or Treat"
-Copyright (C) 2012 The R Foundation for Statistical Computing
-ISBN 3-900051-07-0
-Platform: x86_64-redhat-linux-gnu (64-bit)
+R version 3.3.2 (2016-10-31) -- "Sincere Pumpkin Patch"
+Copyright (C) 2016 The R Foundation for Statistical Computing
+Platform: x86_64-pc-linux-gnu (64-bit)
 
 R is free software and comes with ABSOLUTELY NO WARRANTY.
 You are welcome to redistribute it under certain conditions.
 Type 'license()' or 'licence()' for distribution details.
-
-  Natural language support but running in an English locale
 
 R is a collaborative project with many contributors.
 Type 'contributors()' for more information and
@@ -22,6 +19,7 @@ Type 'q()' to quit R.
 > ## tests for hmac, taken from the examples in the manual page
 > 
 > stopifnot(require(digest))
+Loading required package: digest
 > 
 > ## Standard RFC 2104 test vectors
 > current <- hmac('Jefe', 'what do ya want for nothing?', "md5")
@@ -109,3 +107,13 @@ f955821b3f6161673eb20985c677e3dc101860cafef3321ee31641acad9fcd85d9c7d3481ed3e4e1
 54b274484a8b8a371c8ae898f453d37c90d488b0c88c89dd705de06b18263d50c28069f1f778c8a997a61a4d53a06bc8e8719ad11a553c49140bb93a4636882e 
 > 
 > 
+> ## motivated by coverage report
+> rw <- charToRaw("123456789ABCDEF")
+> stopifnot(all.equal(digest:::makeRaw.raw(rw), rw))
+> 
+> digest:::padWithZeros(rw, "crc32")
+[1] 52 4c 3a e4
+> 
+> proc.time()
+   user  system elapsed 
+  0.148   0.024   0.167 
