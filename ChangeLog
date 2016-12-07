@@ -6,6 +6,7 @@
 
 	* R/digest.R: Additional #nocov tags
 	* src/sha2.c: Ditto
+	* src/raes.c: Ditto
 
 	* tests/hmacTest.R: Additional tests
 	* tests/hmacTest.Rout.save: Ditto
