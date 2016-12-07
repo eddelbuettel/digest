@@ -659,7 +659,7 @@ char *SHA256_End(SHA256_CTX* context, char buffer[]) { /* #nocov start */
 	return buffer;
 } 
 
-char* SHA256_Data(const sha2_byte* data, size_t len, char digest[SHA256_DIGEST_STRING_LENGTH]) { /* #nocov start */ 
+char* SHA256_Data(const sha2_byte* data, size_t len, char digest[SHA256_DIGEST_STRING_LENGTH]) { 
 	SHA256_CTX	context;
 
 	SHA256_Init(&context);
