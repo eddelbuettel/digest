@@ -79,6 +79,6 @@ cat(current, "\n")
 
 ## motivated by coverage report
 rw <- charToRaw("123456789ABCDEF")
-stopifnot(all.equal(digest:::makeRaw(rw), rw))
+stopifnot(all.equal(makeRaw(rw), rw))
 
 digest:::padWithZeros(rw, "crc32")

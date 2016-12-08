@@ -5,7 +5,8 @@ useDynLib(digest, digest_impl=digest, AESinit, AESencryptECB, AESdecryptECB)
 export(AES,
        digest,
        sha1,
-       hmac)
+       hmac,
+       makeRaw)
 
 S3method(print, AES)
 

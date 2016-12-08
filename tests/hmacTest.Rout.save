@@ -109,7 +109,7 @@ f955821b3f6161673eb20985c677e3dc101860cafef3321ee31641acad9fcd85d9c7d3481ed3e4e1
 > 
 > ## motivated by coverage report
 > rw <- charToRaw("123456789ABCDEF")
-> stopifnot(all.equal(digest:::makeRaw(rw), rw))
+> stopifnot(all.equal(makeRaw(rw), rw))
 > 
 > digest:::padWithZeros(rw, "crc32")
 [1] 52 4c 3a e4
