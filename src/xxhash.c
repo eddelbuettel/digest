@@ -84,8 +84,8 @@ You can contact the author at :
 // Modify the local functions below should you wish to use some other memory routines
 // for malloc(), free()
 #include <stdlib.h>
-static void* XXH_malloc(size_t s) { return malloc(s); }
-static void  XXH_free  (void* p)  { free(p); }
+static void* XXH_malloc(size_t s) { return malloc(s); }   /* #nocov */
+static void  XXH_free  (void* p)  { free(p); }            /* #nocov */
 // for memcpy()
 #include <string.h>
 static void* XXH_memcpy(void* dest, const void* src, size_t size)
@@ -226,7 +226,7 @@ FORCE_INLINE U32 XXH_readLE32_align(const void* ptr, XXH_endianess endian, XXH_a
     if (align==XXH_unaligned)
         return endian==XXH_littleEndian ? A32(ptr) : XXH_swap32(A32(ptr));
     else
-        return endian==XXH_littleEndian ? *(U32*)ptr : XXH_swap32(*(U32*)ptr);
+        return endian==XXH_littleEndian ? *(U32*)ptr : XXH_swap32(*(U32*)ptr);  /* #nocov */
 }
 
 FORCE_INLINE U32 XXH_readLE32(const void* ptr, XXH_endianess endian)
@@ -239,7 +239,7 @@ FORCE_INLINE U64 XXH_readLE64_align(const void* ptr, XXH_endianess endian, XXH_a
     if (align==XXH_unaligned)
         return endian==XXH_littleEndian ? A64(ptr) : XXH_swap64(A64(ptr));
     else
-        return endian==XXH_littleEndian ? *(U64*)ptr : XXH_swap64(*(U64*)ptr);
+        return endian==XXH_littleEndian ? *(U64*)ptr : XXH_swap64(*(U64*)ptr);  /* #nocov */
 }
 
 FORCE_INLINE U64 XXH_readLE64(const void* ptr, XXH_endianess endian)
@@ -328,8 +328,8 @@ FORCE_INLINE U32 XXH32_endian_align(const void* input, size_t len, U32 seed, XXH
 } /* #nocov end */
 
 
-unsigned int XXH32 (const void* input, size_t len, unsigned seed)
-{ /* #nocov start */ 
+unsigned int XXH32 (const void* input, size_t len, unsigned seed)       /* #nocov start */ 
+{ 
 #if 0
     // Simple version, good for code maintenance, but unfortunately slow for small inputs
     XXH32_state_t state;
@@ -465,11 +465,11 @@ FORCE_INLINE U64 XXH64_endian_align(const void* input, size_t len, U64 seed, XXH
     h64 ^= h64 >> 32;
 
     return h64;
-} /* #nocov end */
+} 
 
 
 unsigned long long XXH64 (const void* input, size_t len, unsigned long long seed)
-{ /* #nocov start */ 
+{ 
 #if 0
     // Simple version, good for code maintenance, but unfortunately slow for small inputs
     XXH64_state_t state;
@@ -526,8 +526,8 @@ typedef struct
 } XXH_istate64_t;
 
 
-XXH32_state_t* XXH32_createState(void) 
-{ /* #nocov start */ 
+XXH32_state_t* XXH32_createState(void) 				/* #nocov start */ 
+{ 
     XXH_STATIC_ASSERT(sizeof(XXH32_state_t) >= sizeof(XXH_istate32_t));   // A compilation error here means XXH32_state_t is not large enough
     return (XXH32_state_t*)XXH_malloc(sizeof(XXH32_state_t));
 }
@@ -674,7 +674,7 @@ XXH_errorcode XXH32_update (XXH32_state_t* state_in, const void* input, size_t l
     if ((endian_detected==XXH_littleEndian) || XXH_FORCE_NATIVE_FORMAT)
         return XXH32_update_endian(state_in, input, len, XXH_littleEndian);
     else
-        return XXH32_update_endian(state_in, input, len, XXH_bigEndian);
+        return XXH32_update_endian(state_in, input, len, XXH_bigEndian);        /* #nocov */ 
 }
 
 
@@ -728,7 +728,7 @@ U32 XXH32_digest (const XXH32_state_t* state_in)
     if ((endian_detected==XXH_littleEndian) || XXH_FORCE_NATIVE_FORMAT)
         return XXH32_digest_endian(state_in, XXH_littleEndian);
     else
-        return XXH32_digest_endian(state_in, XXH_bigEndian);
+        return XXH32_digest_endian(state_in, XXH_bigEndian);                    /* #nocov */ 
 }
 
 
@@ -828,7 +828,7 @@ XXH_errorcode XXH64_update (XXH64_state_t* state_in, const void* input, size_t l
     if ((endian_detected==XXH_littleEndian) || XXH_FORCE_NATIVE_FORMAT)
         return XXH64_update_endian(state_in, input, len, XXH_littleEndian);
     else
-        return XXH64_update_endian(state_in, input, len, XXH_bigEndian);
+        return XXH64_update_endian(state_in, input, len, XXH_bigEndian);        /* #nocov */ 
 }
 
 
@@ -922,7 +922,7 @@ unsigned long long XXH64_digest (const XXH64_state_t* state_in)
     if ((endian_detected==XXH_littleEndian) || XXH_FORCE_NATIVE_FORMAT)
         return XXH64_digest_endian(state_in, XXH_littleEndian);
     else
-        return XXH64_digest_endian(state_in, XXH_bigEndian);
+        return XXH64_digest_endian(state_in, XXH_bigEndian);                    /* #nocov */ 
 }
 
 

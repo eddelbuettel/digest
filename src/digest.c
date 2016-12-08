@@ -70,7 +70,7 @@ SEXP digest(SEXP Txt, SEXP Algo, SEXP Length, SEXP Skip, SEXP Leave_raw, SEXP Se
     }
     if (skip > 0 && algo < 100) {
         if (skip>=nChar) {
-            nChar=0;
+            nChar=0;                                                            /* #nocov */ 
         } else {
             nChar -= skip;
             txt += skip;
@@ -197,7 +197,7 @@ SEXP digest(SEXP Txt, SEXP Algo, SEXP Length, SEXP Skip, SEXP Leave_raw, SEXP Se
         unsigned char md5sum[16];
 
         if (!(fp = fopen(txt,"rb"))) {
-            error("Cannot open input file: %s", txt); /* already covered at R level too */
+            error("Cannot open input file: %s", txt); /* already covered at R level too */ /* #nocov */ 
         }
         if (skip > 0) fseek(fp, skip, SEEK_SET);
         md5_starts( &ctx );
@@ -228,7 +228,7 @@ SEXP digest(SEXP Txt, SEXP Algo, SEXP Length, SEXP Skip, SEXP Leave_raw, SEXP Se
         unsigned char sha1sum[20];
 
         if (!(fp = fopen(txt,"rb"))) {
-            error("Cannot open input file: %s", txt); /* already covered at R level too */
+            error("Cannot open input file: %s", txt); /* already covered at R level too */ /* #nocov */ 
         }
         if (skip > 0) fseek(fp, skip, SEEK_SET);
         sha1_starts ( &ctx );
@@ -255,7 +255,7 @@ SEXP digest(SEXP Txt, SEXP Algo, SEXP Length, SEXP Skip, SEXP Leave_raw, SEXP Se
         unsigned long val;
 
         if (!(fp = fopen(txt,"rb"))) {
-            error("Cannot open input file: %s", txt); /* already covered at R level too */
+            error("Cannot open input file: %s", txt); /* already covered at R level too */ /* #nocov */ 
         }
         if (skip > 0) fseek(fp, skip, SEEK_SET);
         val  = digest_crc32(0L, 0, 0);
@@ -281,7 +281,7 @@ SEXP digest(SEXP Txt, SEXP Algo, SEXP Length, SEXP Skip, SEXP Leave_raw, SEXP Se
         unsigned char sha256sum[32];
 
         if (!(fp = fopen(txt,"rb"))) {
-            error("Cannot open input file: %s", txt); /* already covered at R level too */
+            error("Cannot open input file: %s", txt); /* already covered at R level too */ /* #nocov */ 
         }
         if (skip > 0) fseek(fp, skip, SEEK_SET);
         sha256_starts ( &ctx );
@@ -312,7 +312,7 @@ SEXP digest(SEXP Txt, SEXP Algo, SEXP Length, SEXP Skip, SEXP Leave_raw, SEXP Se
         unsigned char buf[BUF_SIZE];
 
         if (!(fp = fopen(txt,"rb"))) {
-            error("Cannot open input file: %s", txt); /* already covered at R level too */
+            error("Cannot open input file: %s", txt); /* already covered at R level too */ /* #nocov */ 
         }
         if (skip > 0) fseek(fp, skip, SEEK_SET);
         SHA512_Init(&ctx);
@@ -350,7 +350,7 @@ SEXP digest(SEXP Txt, SEXP Algo, SEXP Length, SEXP Skip, SEXP Leave_raw, SEXP Se
         XXH32_state_t state;
 
         if (!(fp = fopen(txt,"rb"))) {
-            error("Cannot open input file: %s", txt); /* already covered at R level too */
+            error("Cannot open input file: %s", txt); /* already covered at R level too */ /* #nocov */ 
         }
         if (skip > 0) fseek(fp, skip, SEEK_SET);
         XXH32_reset(&state, seed);
@@ -375,7 +375,7 @@ SEXP digest(SEXP Txt, SEXP Algo, SEXP Length, SEXP Skip, SEXP Leave_raw, SEXP Se
         XXH64_state_t state;
 
         if (!(fp = fopen(txt,"rb"))) {
-            error("Cannot open input file: %s", txt); /* already covered at R level too */
+            error("Cannot open input file: %s", txt); /* already covered at R level too */ /* #nocov */ 
         }
         if (skip > 0) fseek(fp, skip, SEEK_SET);
         XXH64_reset(&state, seed);
@@ -406,7 +406,7 @@ SEXP digest(SEXP Txt, SEXP Algo, SEXP Length, SEXP Skip, SEXP Leave_raw, SEXP Se
         size_t total_length = 0;
 
         if (!(fp = fopen(txt,"rb"))) {
-            error("Cannot open input file: %s", txt); /* already covered at R level too */
+            error("Cannot open input file: %s", txt); /* already covered at R level too */ /* #nocov */ 
         }
         if (skip > 0) fseek(fp, skip, SEEK_SET);
         XXH64_reset(&state, seed);
@@ -431,7 +431,7 @@ SEXP digest(SEXP Txt, SEXP Algo, SEXP Length, SEXP Skip, SEXP Leave_raw, SEXP Se
         break;
     }
     default: {
-        error("Unsupported algorithm code"); /* should not be reached due to test in R */
+        error("Unsupported algorithm code"); /* should not be reached due to test in R */ /* #nocov */ 
     }
     } /* end switch */
 
