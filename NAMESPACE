@@ -5,9 +5,11 @@ useDynLib(digest, digest_impl=digest, AESinit, AESencryptECB, AESdecryptECB)
 export(AES,
        digest,
        sha1,
-       hmac)
+       hmac,
+       makeRaw)
 
 S3method(print, AES)
+
 S3method(sha1, anova)
 S3method(sha1, array)
 S3method(sha1, character)
@@ -26,3 +28,8 @@ S3method(sha1, numeric)
 S3method(sha1, pairlist)
 S3method(sha1, POSIXct)
 S3method(sha1, POSIXlt)
+
+S3method(makeRaw, default)
+S3method(makeRaw, digest)
+S3method(makeRaw, character)
+S3method(makeRaw, raw)

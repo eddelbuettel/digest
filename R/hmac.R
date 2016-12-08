@@ -8,9 +8,9 @@ makeRaw.raw <- function(object) object
 makeRaw.character <- function(object) charToRaw(object)
 
 # splits a hex-string into the values it contains.
-makeRaw.digest <- function(x) {
-    parts <- sapply(seq(1, nchar(x), 2),
-                    function(i) { substr(x, i, i + 1) })
+makeRaw.digest <- function(object) {
+    parts <- sapply(seq(1, nchar(object), 2),
+                    function(i) { substr(object, i, i + 1) })
     as.raw(as.hexmode(parts))
 }
 

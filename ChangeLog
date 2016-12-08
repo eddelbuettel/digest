@@ -1,5 +1,12 @@
 2016-12-08  Dirk Eddelbuettel  <edd@debian.org>
 
+	* NAMESPACE: Register (and exported) makeRaw S3 methods
+
+	* man/makeRaw.Rd: New manual page
+
+	* tests/hmacTest.R: Direct call to makeRaw()
+	* tests/hmacTest.Rout.save: Ditto
+
 	* src/digest.c: Additional #nocov tags
 	* src/xxhash.c: Ditto
 
