@@ -16,6 +16,7 @@ plaintext       <- hextextToRaw("00112233445566778899aabbccddeeff")
 aes128key       <- hextextToRaw("000102030405060708090a0b0c0d0e0f")
 aes128output    <- hextextToRaw("69c4e0d86a7b0430d8cdb78070b4c55a")
 aes <- AES(aes128key)
+aes
 aes128 <- aes$encrypt(plaintext)
 aes128
 stopifnot(identical(aes128, aes128output))
@@ -24,6 +25,7 @@ stopifnot(identical(plaintext, aes$decrypt(aes128, raw=TRUE)))
 aes192key       <- hextextToRaw("000102030405060708090a0b0c0d0e0f1011121314151617")
 aes192output    <- hextextToRaw("dda97ca4864cdfe06eaf70a0ec0d7191")
 aes <- AES(aes192key)
+aes
 aes192 <- aes$encrypt(plaintext)
 aes192
 stopifnot(identical(aes192, aes192output))

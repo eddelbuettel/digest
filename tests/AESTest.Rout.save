@@ -1,7 +1,6 @@
 
-R version 2.15.2 (2012-10-26) -- "Trick or Treat"
-Copyright (C) 2012 The R Foundation for Statistical Computing
-ISBN 3-900051-07-0
+R version 3.3.2 (2016-10-31) -- "Sincere Pumpkin Patch"
+Copyright (C) 2016 The R Foundation for Statistical Computing
 Platform: x86_64-pc-linux-gnu (64-bit)
 
 R is free software and comes with ABSOLUTELY NO WARRANTY.
@@ -35,6 +34,8 @@ Loading required package: digest
 > aes128key       <- hextextToRaw("000102030405060708090a0b0c0d0e0f")
 > aes128output    <- hextextToRaw("69c4e0d86a7b0430d8cdb78070b4c55a")
 > aes <- AES(aes128key)
+> aes
+AES cipher object; mode ECB key size 16 
 > aes128 <- aes$encrypt(plaintext)
 > aes128
  [1] 69 c4 e0 d8 6a 7b 04 30 d8 cd b7 80 70 b4 c5 5a
@@ -44,6 +45,8 @@ Loading required package: digest
 > aes192key       <- hextextToRaw("000102030405060708090a0b0c0d0e0f1011121314151617")
 > aes192output    <- hextextToRaw("dda97ca4864cdfe06eaf70a0ec0d7191")
 > aes <- AES(aes192key)
+> aes
+AES cipher object; mode ECB key size 24 
 > aes192 <- aes$encrypt(plaintext)
 > aes192
  [1] dd a9 7c a4 86 4c df e0 6e af 70 a0 ec 0d 71 91
@@ -112,4 +115,4 @@ Loading required package: digest
 > 
 > proc.time()
    user  system elapsed 
-  0.324   0.020   0.179 
+  0.180   0.300   0.161 
