@@ -1,5 +1,7 @@
 2017-01-01  Dirk Eddelbuettel  <edd@debian.org>
 
+	* DESCRIPTION (Version, Date): Release 0.6.11
+
 	* R/sha1.R (sha1.anova): Added more #nocov marks
 	* src/sha2.c (SHA256_Transform): Idem
 
