@@ -179,9 +179,7 @@ sha1.POSIXct <- function(x, digits = 14L, zapsmall = 7L) {
 
 sha1.anova <- function(x, digits = 4L, zapsmall = 7L){
     if (digits > 4) {
-        warning(
-"Hash on 32 bit might be different from hash on 64 bit with digits > 4"
-        )
+        warning("Hash on 32 bit might be different from hash on 64 bit with digits > 4") # #nocov
     }
     y <- apply(
         x,
@@ -200,31 +198,31 @@ sha1.anova <- function(x, digits = 4L, zapsmall = 7L){
 
 num2hex <- function(x, digits = 14L, zapsmall = 7L){
     if (!is.numeric(x)) {
-        stop("x is not numeric")
+        stop("x is not numeric")				# #nocov
     }
     if (!is.integer(digits)) {
         if (!all.equal(as.integer(digits), digits)) {
-            stop("digits is not integer")
+            stop("digits is not integer")			# #nocov
         }
         digits <- as.integer(digits)
     }
     if (length(digits) != 1) {
-        stop("digits must contain exactly one integer")
+        stop("digits must contain exactly one integer")		# #nocov
     }
     if (digits < 1) {
-        stop("digits must be positive")
+        stop("digits must be positive")				# #nocov
     }
     if (!is.integer(zapsmall)) {
         if (!all.equal(as.integer(zapsmall), zapsmall)) {
-            stop("zapsmall is not integer")
+            stop("zapsmall is not integer")			# #nocov
         }
         zapsmall <- as.integer(zapsmall)
     }
     if (length(zapsmall) != 1) {
-        stop("zapsmall must contain exactly one integer")
+        stop("zapsmall must contain exactly one integer")	# #nocov
     }
     if (zapsmall < 1) {
-        stop("zapsmall must be positive")
+        stop("zapsmall must be positive")			# #nocov
     }
 
     if (length(x) == 0) {
