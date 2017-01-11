@@ -18,6 +18,7 @@
 \alias{sha1.POSIXlt}
 \alias{sha1.POSIXct}
 \alias{sha1.anova}
+\alias{sha1.function}
 \title{Calculate a SHA1 hash of an object}
 \author{Thierry Onkelinx}
 \usage{
@@ -39,6 +40,7 @@ sha1(x, digits = 14, zapsmall = 7)
 \method{sha1}{POSIXlt}(x, digits = 14, zapsmall = 7)
 \method{sha1}{POSIXct}(x, digits = 14, zapsmall = 7)
 \method{sha1}{anova}(x, digits = 4, zapsmall = 7)
+\method{sha1}{function}(x, digits = 14, zapsmall = 7)
 }
 \arguments{
 \item{x}{the object to calculate the SHA1}

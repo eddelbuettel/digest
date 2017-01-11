@@ -376,3 +376,5 @@ stopifnot(
 
 stopifnot(sha1(formals(lm)) == "b8c1359ca3f9e16d64d3c67e50611ca724e4b27d")
 stopifnot(sha1(formals(cov2cor)) == "9cd0f7430f50c301cf1b84cf3ee10b334d023809")
+
+stopifnot(sha1(sum) == "8a9c0cc85103d4e2df1354800943976e2f00924c")
