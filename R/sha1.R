@@ -281,3 +281,7 @@ sha1.pairlist <- function(x, digits = 14L, zapsmall = 7L) {
 sha1.name <- function(x, digits = 14L, zapsmall = 7L) {
     digest(x, algo = "sha1")
 }
+
+sha1.function <- function(x, digits = 14L, zapsmall = 7L){
+    digest(x, algo = "sha1")
+}
