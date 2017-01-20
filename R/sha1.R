@@ -16,7 +16,8 @@ sha1.integer <- function(x, digits = 14L, zapsmall = 7L, ...) {
     attr(x, "digest::sha1") <- list(
         class = class(x),
         digits = as.integer(digits),
-        zapsmall = as.integer(zapsmall)
+        zapsmall = as.integer(zapsmall),
+        ... = ...
     )
     digest(x, algo = "sha1")
 }
@@ -25,7 +26,8 @@ sha1.character <- function(x, digits = 14L, zapsmall = 7L, ...) {
     attr(x, "digest::sha1") <- list(
         class = class(x),
         digits = as.integer(digits),
-        zapsmall = as.integer(zapsmall)
+        zapsmall = as.integer(zapsmall),
+        ... = ...
     )
     digest(x, algo = "sha1")
 }
@@ -34,7 +36,8 @@ sha1.factor <- function(x, digits = 14L, zapsmall = 7L, ...) {
     attr(x, "digest::sha1") <- list(
         class = class(x),
         digits = as.integer(digits),
-        zapsmall = as.integer(zapsmall)
+        zapsmall = as.integer(zapsmall),
+        ... = ...
     )
     digest(x, algo = "sha1")
 }
@@ -47,7 +50,8 @@ sha1.logical <- function(x, digits = 14L, zapsmall = 7L, ...) {
     attr(x, "digest::sha1") <- list(
         class = class(x),
         digits = as.integer(digits),
-        zapsmall = as.integer(zapsmall)
+        zapsmall = as.integer(zapsmall),
+        ... = ...
     )
     digest(x, algo = "sha1")
 }
@@ -61,7 +65,8 @@ sha1.numeric <- function(x, digits = 14L, zapsmall = 7L, ...){
     attr(y, "digest::sha1") <- list(
         class = class(x),
         digits = as.integer(digits),
-        zapsmall = as.integer(zapsmall)
+        zapsmall = as.integer(zapsmall),
+        ... = ...
     )
     digest(y, algo = "sha1")
 }
@@ -75,21 +80,24 @@ sha1.matrix <- function(x, digits = 14L, zapsmall = 7L, ...){
                 2,
                 num2hex,
                 digits = digits,
-                zapsmall = zapsmall
+                zapsmall = zapsmall,
+                ... = ...
             ),
             ncol = ncol(x)
         )
         attr(y, "digest::sha1") <- list(
             class = class(x),
             digits = as.integer(digits),
-            zapsmall = as.integer(zapsmall)
+            zapsmall = as.integer(zapsmall),
+            ... = ...
         )
         digest(y, algo = "sha1")
     } else {
         attr(x, "digest::sha1") <- list(
             class = class(x),
             digits = as.integer(digits),
-            zapsmall = as.integer(zapsmall)
+            zapsmall = as.integer(zapsmall),
+            ... = ...
         )
         digest(x, algo = "sha1")
     }
@@ -97,18 +105,18 @@ sha1.matrix <- function(x, digits = 14L, zapsmall = 7L, ...){
 
 sha1.complex <- function(x, digits = 14L, zapsmall = 7L, ...) {
     # a vector of complex numbers is converted into 2-column matrix (Re,Im)
-    sha1(cbind(Re(x),Im(x)), digits, zapsmall)
+    sha1(cbind(Re(x),Im(x)), digits = digits, zapsmall = zapsmall, ...)
 }
 
 sha1.Date <- function(x, digits = 14L, zapsmall = 7L, ...) {
-    sha1(as.numeric(x), digits, zapsmall)
+    sha1(as.numeric(x), digits = digits, zapsmall = zapsmall, ...)
 }
 
 sha1.array <- function(x, digits = 14L, zapsmall = 7L, ...) {
     # Array x encoded as list of two elements:
     # 1. lengths of all dimensions of x
     # 2. all cells of x as a single vector
-    sha1(list(dim(x), as.numeric(x)), digits, zapsmall)
+    sha1(list(dim(x), as.numeric(x)), digits = digits, zapsmall = zapsmall, ...)
 }
 
 sha1.data.frame <- function(x, digits = 14L, zapsmall = 7L, ...){
@@ -119,6 +127,7 @@ sha1.data.frame <- function(x, digits = 14L, zapsmall = 7L, ...){
             sha1,
             digits = digits,
             zapsmall = zapsmall,
+            ... = ...,
             FUN.VALUE = NA_character_
         )
     } else {
@@ -127,7 +136,8 @@ sha1.data.frame <- function(x, digits = 14L, zapsmall = 7L, ...){
     attr(y, "digest::sha1") <- list(
         class = class(x),
         digits = as.integer(digits),
-        zapsmall = as.integer(zapsmall)
+        zapsmall = as.integer(zapsmall),
+        ... = ...
     )
     digest(y, algo = "sha1")
 }
@@ -140,6 +150,7 @@ sha1.list <- function(x, digits = 14L, zapsmall = 7L, ...){
             sha1,
             digits = digits,
             zapsmall = zapsmall,
+            ... = ...,
             FUN.VALUE = NA_character_
         )
     } else {
@@ -148,7 +159,8 @@ sha1.list <- function(x, digits = 14L, zapsmall = 7L, ...){
     attr(y, "digest::sha1") <- list(
         class = class(x),
         digits = as.integer(digits),
-        zapsmall = as.integer(zapsmall)
+        zapsmall = as.integer(zapsmall),
+        ... = ...
     )
     digest(y, algo = "sha1")
 }
@@ -162,17 +174,19 @@ sha1.POSIXlt <- function(x, digits = 14L, zapsmall = 7L, ...) {
     attr(y, "digest::sha1") <- list(
         class = class(x),
         digits = as.integer(digits),
-        zapsmall = as.integer(zapsmall)
+        zapsmall = as.integer(zapsmall),
+        ... = ...
     )
     digest(y, algo = "sha1")
 }
 
 sha1.POSIXct <- function(x, digits = 14L, zapsmall = 7L, ...) {
-    y <- sha1(as.POSIXlt(x), digits = digits, zapsmall = zapsmall)
+    y <- sha1(as.POSIXlt(x), digits = digits, zapsmall = zapsmall, ... = ...)
     attr(y, "digest::sha1") <- list(
         class = class(x),
         digits = as.integer(digits),
-        zapsmall = as.integer(zapsmall)
+        zapsmall = as.integer(zapsmall),
+        ... = ...
     )
     digest(y, algo = "sha1")
 }
@@ -186,17 +200,19 @@ sha1.anova <- function(x, digits = 4L, zapsmall = 7L, ...){
         1,
         num2hex,
         digits = digits,
-        zapsmall = zapsmall
+        zapsmall = zapsmall,
+        ... = ...
     )
     attr(y, "digest::sha1") <- list(
         class = class(x),
         digits = as.integer(digits),
-        zapsmall = as.integer(zapsmall)
+        zapsmall = as.integer(zapsmall),
+        ... = ...
     )
     digest(y, algo = "sha1")
 }
 
-num2hex <- function(x, digits = 14L, zapsmall = 7L, ...){
+num2hex <- function(x, digits = 14L, zapsmall = 7L){
     if (!is.numeric(x)) {
         stop("x is not numeric")				# #nocov
     }
@@ -268,12 +284,14 @@ sha1.pairlist <- function(x, digits = 14L, zapsmall = 7L, ...) {
         sha1,
         digits = digits,
         zapsmall = zapsmall,
+        ... = ...,
         FUN.VALUE = NA_character_
     )
     attr(y, "digest::sha1") <- list(
         class = class(x),
         digits = as.integer(digits),
-        zapsmall = as.integer(zapsmall)
+        zapsmall = as.integer(zapsmall),
+        ... = ...
     )
     digest(y, algo = "sha1")
 }
@@ -284,7 +302,10 @@ sha1.name <- function(x, digits = 14L, zapsmall = 7L, ...) {
 
 sha1.function <- function(x, digits = 14L, zapsmall = 7L, ...){
     dots <- list(...)
-    if (is.null(dots$environment) || isTRUE(dots$environment)) {
+    if (is.null(dots$environment)) {
+        dots$environment <- TRUE
+    }
+    if (isTRUE(dots$environment)) {
         y <- list(
             formals = formals(x),
             body = body(x),
@@ -301,12 +322,15 @@ sha1.function <- function(x, digits = 14L, zapsmall = 7L, ...){
         sha1,
         digits = digits,
         zapsmall = zapsmall,
+        environment = dots$environment,
+        ... = dots,
         FUN.VALUE = NA_character_
     )
     attr(y, "digest::sha1") <- list(
         class = class(y),
         digits = as.integer(digits),
-        zapsmall = as.integer(zapsmall)
+        zapsmall = as.integer(zapsmall),
+        dots
     )
     digest(y, algo = "sha1")
 }
