@@ -43,6 +43,7 @@ sha1.factor <- function(x, digits = 14L, zapsmall = 7L, ...) {
 }
 
 sha1.NULL <- function(x, digits = 14L, zapsmall = 7L, ...) {
+    # attributes cannot be set on a NULL object
     digest(x, algo = "sha1")
 }
 
@@ -105,18 +106,41 @@ sha1.matrix <- function(x, digits = 14L, zapsmall = 7L, ...){
 
 sha1.complex <- function(x, digits = 14L, zapsmall = 7L, ...) {
     # a vector of complex numbers is converted into 2-column matrix (Re,Im)
-    sha1(cbind(Re(x),Im(x)), digits = digits, zapsmall = zapsmall, ...)
+    y <- cbind(Re(x), Im(x))
+    attr(y, "digest::sha1") <- list(
+        class = class(x),
+        digits = as.integer(digits),
+        zapsmall = as.integer(zapsmall),
+        ... = ...
+    )
+    sha1(y, digits = digits, zapsmall = zapsmall, ...)
 }
 
 sha1.Date <- function(x, digits = 14L, zapsmall = 7L, ...) {
-    sha1(as.numeric(x), digits = digits, zapsmall = zapsmall, ...)
+    y <- as.numeric(x)
+    attr(y, "digest::sha1") <- list(
+        class = class(x),
+        digits = as.integer(digits),
+        zapsmall = as.integer(zapsmall),
+        ... = ...
+    )
+    sha1(y, digits = digits, zapsmall = zapsmall, ...)
 }
 
 sha1.array <- function(x, digits = 14L, zapsmall = 7L, ...) {
     # Array x encoded as list of two elements:
     # 1. lengths of all dimensions of x
     # 2. all cells of x as a single vector
-    sha1(list(dim(x), as.numeric(x)), digits = digits, zapsmall = zapsmall, ...)
+    y <- list(
+        dimension = dim(x),
+        value = as.numeric(x))
+    attr(y, "digest::sha1") <- list(
+        class = class(x),
+        digits = as.integer(digits),
+        zapsmall = as.integer(zapsmall),
+        ... = ...
+    )
+    sha1(y, digits = digits, zapsmall = zapsmall, ...)
 }
 
 sha1.data.frame <- function(x, digits = 14L, zapsmall = 7L, ...){
@@ -297,6 +321,7 @@ sha1.pairlist <- function(x, digits = 14L, zapsmall = 7L, ...) {
 }
 
 sha1.name <- function(x, digits = 14L, zapsmall = 7L, ...) {
+    # attribute cannot be set on a name object
     digest(x, algo = "sha1")
 }
 
