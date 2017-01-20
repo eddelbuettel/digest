@@ -283,5 +283,14 @@ sha1.name <- function(x, digits = 14L, zapsmall = 7L) {
 }
 
 sha1.function <- function(x, digits = 14L, zapsmall = 7L){
-    digest(x, algo = "sha1")
+    y <- list(
+      formals = formals(x),
+      body = body(x)
+    )
+    attr(y, "digest::sha1") <- list(
+        class = class(y),
+        digits = as.integer(digits),
+        zapsmall = as.integer(zapsmall)
+    )
+    digest(y, algo = "sha1")
 }
