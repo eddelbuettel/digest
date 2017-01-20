@@ -333,13 +333,13 @@ sha1.function <- function(x, digits = 14L, zapsmall = 7L, ...){
     if (isTRUE(dots$environment)) {
         y <- list(
             formals = formals(x),
-            body = body(x),
-            environment = environment(x)
+            body = as.character(body(x)),
+            environment = digest(environment(x), algo = "sha1")
         )
     } else {
         y <- list(
             formals = formals(x),
-            body = body(x)
+            body = as.character(body(x))
         )
     }
     y <- vapply(
@@ -358,4 +358,14 @@ sha1.function <- function(x, digits = 14L, zapsmall = 7L, ...){
         dots
     )
     digest(y, algo = "sha1")
+}
+
+sha1.call <- function(x, digits = 14L, zapsmall = 7L, ...){
+    attr(x, "digest::sha1") <- list(
+        class = class(x),
+        digits = as.integer(digits),
+        zapsmall = as.integer(zapsmall),
+        ... = ...
+    )
+    digest(x, algo = "sha1")
 }
