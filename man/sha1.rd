@@ -19,28 +19,30 @@
 \alias{sha1.POSIXct}
 \alias{sha1.anova}
 \alias{sha1.function}
+\alias{sha1.call}
 \title{Calculate a SHA1 hash of an object}
 \author{Thierry Onkelinx}
 \usage{
-sha1(x, digits = 14, zapsmall = 7)
-\method{sha1}{integer}(x, digits = 14, zapsmall = 7)
-\method{sha1}{numeric}(x, digits = 14, zapsmall = 7)
-\method{sha1}{character}(x, digits = 14, zapsmall = 7)
-\method{sha1}{factor}(x, digits = 14, zapsmall = 7)
-\method{sha1}{complex}(x, digits = 14, zapsmall = 7)
-\method{sha1}{Date}(x, digits = 14, zapsmall = 7)
-\method{sha1}{NULL}(x, digits = 14, zapsmall = 7)
-\method{sha1}{logical}(x, digits = 14, zapsmall = 7)
-\method{sha1}{matrix}(x, digits = 14, zapsmall = 7)
-\method{sha1}{data.frame}(x, digits = 14, zapsmall = 7)
-\method{sha1}{array}(x, digits = 14, zapsmall = 7)
-\method{sha1}{list}(x, digits = 14, zapsmall = 7)
-\method{sha1}{pairlist}(x, digits = 14, zapsmall = 7)
-\method{sha1}{name}(x, digits = 14, zapsmall = 7)
-\method{sha1}{POSIXlt}(x, digits = 14, zapsmall = 7)
-\method{sha1}{POSIXct}(x, digits = 14, zapsmall = 7)
-\method{sha1}{anova}(x, digits = 4, zapsmall = 7)
-\method{sha1}{function}(x, digits = 14, zapsmall = 7)
+sha1(x, digits = 14, zapsmall = 7, ...)
+\method{sha1}{integer}(x, digits = 14, zapsmall = 7, ...)
+\method{sha1}{numeric}(x, digits = 14, zapsmall = 7, ...)
+\method{sha1}{character}(x, digits = 14, zapsmall = 7, ...)
+\method{sha1}{factor}(x, digits = 14, zapsmall = 7, ...)
+\method{sha1}{complex}(x, digits = 14, zapsmall = 7, ...)
+\method{sha1}{Date}(x, digits = 14, zapsmall = 7, ...)
+\method{sha1}{NULL}(x, digits = 14, zapsmall = 7, ...)
+\method{sha1}{logical}(x, digits = 14, zapsmall = 7, ...)
+\method{sha1}{matrix}(x, digits = 14, zapsmall = 7, ...)
+\method{sha1}{data.frame}(x, digits = 14, zapsmall = 7, ...)
+\method{sha1}{array}(x, digits = 14, zapsmall = 7, ...)
+\method{sha1}{list}(x, digits = 14, zapsmall = 7, ...)
+\method{sha1}{pairlist}(x, digits = 14, zapsmall = 7, ...)
+\method{sha1}{name}(x, digits = 14, zapsmall = 7, ...)
+\method{sha1}{POSIXlt}(x, digits = 14, zapsmall = 7, ...)
+\method{sha1}{POSIXct}(x, digits = 14, zapsmall = 7, ...)
+\method{sha1}{anova}(x, digits = 4, zapsmall = 7, ...)
+\method{sha1}{function}(x, digits = 14, zapsmall = 7, ...)
+\method{sha1}{call}(x, digits = 14, zapsmall = 7, ...)
 }
 \arguments{
 \item{x}{the object to calculate the SHA1}
@@ -52,6 +54,8 @@ sha1.anova where \code{digits = 4}}
 \item{zapsmall}{the approximate negative magnitude of the smallest relevant
 digit. Will be converted to a base 2 equivalent. Values smaller than this
 number are equivalent to 0. Defaults to \code{zapsmall = 7}}
+
+\item{...}{Ignored in most methods. See Details for usage}
 }
 \description{
 Calculate a SHA1 hash of an object. The main difference with
@@ -60,4 +64,11 @@ Calculate a SHA1 hash of an object. The main difference with
 \code{digits} and \code{zapsmall} when handling floating point numbers. The
 current defaults keep \code{digits} and \code{zapsmall} as large as possible
 while maintaining the same hash on 32 bit and 64 bit systems.
+}
+\details{
+Extra arguments:
+
+environment: An optional extra argument for \code{sha1.function}. Should
+be TRUE, FALSE or missing. \code{sha1.function} will ignore the enviroment of
+the function only when \code{environment = FALSE}.
 }

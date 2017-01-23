@@ -12,6 +12,7 @@ S3method(print, AES)
 
 S3method(sha1, anova)
 S3method(sha1, array)
+S3method(sha1, call)
 S3method(sha1, character)
 S3method(sha1, complex)
 S3method(sha1, data.frame)
