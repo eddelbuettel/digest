@@ -1,14 +1,23 @@
+2017-01-26  Dirk Eddelbuettel  <edd@debian.org>
+
+ 	* DESCRIPTION (Version, Date): Release 0.6.12
+
 2017-01-23  Thierry Onkelinx <thierry.onkelinx@inbo.be>
 
-    * NAMESPACE: export sha1.function() and sha1.call()
-    * R/sha1.R:
-        * sha1() gains methods for the class "function" and "call"
-        * sha1() gains a ... argument, currently only relevant for "function"
-        * sha1() takes arguments into account for hash for complex, Date and
-            array. Note that this will lead to different hashed for these
-            classes and for objects containing these classes
-    * man/sha1.rd: update helppage for sha1()
-    * tests/sha1Test.R: update unit tests for sha1()
+	* NAMESPACE: export sha1.function() and sha1.call()
+
+	* R/sha1.R:
+          - sha1() gains methods for the class "function" and "call"
+          - sha1() gains a ... argument, currently only relevant for
+	    "function"
+	  - sha1() takes arguments into account for hash for complex,
+   	    Date and array. Note that this will lead to different
+            hasheS for these classes and for objects containing
+	    these classes
+
+	* man/sha1.rd: update helppage for sha1()
+
+	* tests/sha1Test.R: update unit tests for sha1()
 
 2017-01-01  Dirk Eddelbuettel  <edd@debian.org>
 
