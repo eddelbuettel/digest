@@ -50,7 +50,9 @@ digest(object, algo=c("md5", "sha1", "crc32", "sha256", "sha512",
     is computed on the ASCII or binary representation.}
   \item{raw}{A logical variable with a default value of FALSE, implying
     \code{digest} returns digest output as ASCII hex values. Set to TRUE
-    to return \code{digest} output in raw (binary) form. }
+    to return \code{digest} output in raw (binary) form. Note that this
+    option is supported by most but not all of the implemented hashing
+    algorithms}
   \item{seed}{an integer to seed the random number generator.  This is only
     used in the \code{xxhash32}, \code{xxhash64} and \code{murmur32} functions
     and can be used to generate additional hashes for the same input if

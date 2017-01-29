@@ -1,3 +1,12 @@
+2017-01-29  Dirk Eddelbuettel  <edd@debian.org>
+
+	* DESCRIPTION (Version, Date): Roll minor version
+
+	* man/digest.Rd: Note that support for 'raw' is not available for all
+	hashing algorithms
+
+	* .travis.yml: Use https for curl download
+
 2017-01-26  Dirk Eddelbuettel  <edd@debian.org>
 
  	* DESCRIPTION (Version, Date): Release 0.6.12
