@@ -1,3 +1,7 @@
+2017-02-20  Dirk Eddelbuettel  <edd@debian.org>
+
+	* man/digest.Rd: Expand example section with a Vectorize() use
+
 2017-01-29  Dirk Eddelbuettel  <edd@debian.org>
 
 	* DESCRIPTION (Version, Date): Roll minor version
@@ -5,7 +9,7 @@
 	* man/digest.Rd: Note that support for 'raw' is not available for all
 	hashing algorithms
 
-	* .travis.yml: Use https for curl download
+	* .travis.yml (before_install): Use https for curl fetch
 
 2017-01-26  Dirk Eddelbuettel  <edd@debian.org>
 
