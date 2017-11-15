@@ -116,10 +116,10 @@ digest(object, algo=c("md5", "sha1", "crc32", "sha256", "sha512",
   \url{http://en.wikipedia.org/wiki/SHA_hash_functions} for
   documentation on the sha functions.
 
-  \url{https://code.google.com/p/xxhash/} for documentation on the xxHash
+  \url{https://github.com/Cyan4973/xxHash} for documentation on the xxHash
   functions.
 
-  \url{https://code.google.com/p/smhasher/} for documentation on MurmurHash.
+  \url{https://github.com/aappleby/smhasher} for documentation on MurmurHash.
 
 }
 \author{Dirk Eddelbuettel \email{edd@debian.org} for the \R interface;
