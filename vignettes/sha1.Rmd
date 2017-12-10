@@ -34,7 +34,7 @@ sprintf("%a", a)
 ```
 
 Although the difference is small, any difference will result in different hash when using the `digest()` function. 
-However, the`sha1()` function tackles this problem by using the hexadecimal representation of the numbers and truncates 
+However, the `sha1()` function tackles this problem by using the hexadecimal representation of the numbers and truncates 
 that representation to a certain number of digits prior to calculating the hash function. 
 
 ```{r faq7_31digest}
