@@ -399,9 +399,9 @@ static const uint32 RCON[10] =
 
 int do_init = 0;
 
-void aes_gen_tables( void )
+void aes_gen_tables( void ) /* #nocov start */
 {
-}
+} /* #nocov end */
 
 #endif
 
@@ -441,9 +441,9 @@ int aes_set_key( aes_context *ctx, uint8 *key, int nbits )
 
     if( do_init )
     {
-        aes_gen_tables();
+        aes_gen_tables();  /* #nocov start */
 
-        do_init = 0;
+        do_init = 0;       /* #nocov end */
     }
 
     switch( nbits )
@@ -451,7 +451,7 @@ int aes_set_key( aes_context *ctx, uint8 *key, int nbits )
         case 128: ctx->nr = 10; break;
         case 192: ctx->nr = 12; break;
         case 256: ctx->nr = 14; break;
-        default : return( 1 );
+        default : return( 1 );	/* #nocov */
     }
 
     RK = ctx->erk;

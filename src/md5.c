@@ -171,7 +171,7 @@ void md5_update( md5_context *ctx, uint8 *input, uint32 length )
     ctx->total[0] &= 0xFFFFFFFF;
 
     if( ctx->total[0] < length )
-        ctx->total[1]++;
+        ctx->total[1]++; /* #nocov */
 
     if( left && length >= fill )
     {

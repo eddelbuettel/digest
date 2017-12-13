@@ -215,7 +215,7 @@ void PMurHash32_Process(uint32_t *ph1, uint32_t *pcarry, const void *key, int le
   /* Consume any carry bytes */
   int i = (4-n) & 3;
   if(i && i <= len) {
-    DOBYTES(i, h1, c, n, ptr, len);
+    DOBYTES(i, h1, c, n, ptr, len);   /* #nocov */
   }
 
   /* Process 32-bit chunks */
