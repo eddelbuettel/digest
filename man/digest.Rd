@@ -16,7 +16,8 @@
 digest(object, algo=c("md5", "sha1", "crc32", "sha256", "sha512",
        "xxhash32", "xxhash64", "murmur32"), serialize=TRUE, file=FALSE,
        length=Inf, skip="auto", ascii=FALSE, raw=FALSE, seed=0,
-       errormode=c("stop","warn","silent"))
+       errormode=c("stop","warn","silent"),
+       serializeVersion=.getSerializeVersion())
 }
 \arguments{
   \item{object}{An arbitrary R object which will then be passed to the
@@ -32,7 +33,7 @@ digest(object, algo=c("md5", "sha1", "crc32", "sha256", "sha512",
     output of given character strings to known control output. It also
     allows the use of raw vectors such as the output of non-ASCII
     serialization.
- }
+  }
   \item{file}{A logical variable indicating whether the object is a file
     name or a file name if \code{object} is not specified.}
   \item{length}{Number of characters to process. By default, when
@@ -61,6 +62,11 @@ digest(object, algo=c("md5", "sha1", "crc32", "sha256", "sha512",
     the case of error: \sQuote{stop} aborts (and is the default value),
     \sQuote{warn} emits a warning and returns \code{NULL} and
     \sQuote{silent} suppresses the error and returns an empty string.}
+  \item{serializeVersion}{An integer value specifying the internal
+    version of the serialization format, with 2 being the default;
+    see \code{\link{serialize}} for details. The \code{serializeVersion}
+    field of \code{\link{option}} can also be used to set a different
+    value.}
 }
 \value{
   The \code{digest} function returns a character string of a fixed
