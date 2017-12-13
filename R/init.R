@@ -22,9 +22,11 @@
 
 .onLoad <- function(libname, pkgname) {
     ## we set a default level of two, with a possible override
-    .pkgenv[["serializeVersion"]] <- getOption("serializeVersion", 2L)
+    .pkgenv[["serializeVersion"]] <- getOption("serializeVersion", 2L)  # #nocov
 }
 
 .getSerializeVersion <- function() {
+    ## return the options() value if set, otherwise the package env value
+    ## doing it as a two-step ensure we can set a different default later
     getOption("serializeVersion", .pkgenv[["serializeVersion"]])
 }
