@@ -1,7 +1,7 @@
 
 ##  digest -- hash digest functions for R
 ##
-##  Copyright (C) 2003 - 2016  Dirk Eddelbuettel <edd@debian.org>
+##  Copyright (C) 2003 - 2017  Dirk Eddelbuettel <edd@debian.org>
 ##
 ##  This file is part of digest.
 ##
@@ -20,10 +20,16 @@
 
 
 digest <- function(object, algo=c("md5", "sha1", "crc32", "sha256", "sha512",
-                           "xxhash32", "xxhash64", "murmur32"),
-                   serialize=TRUE, file=FALSE, length=Inf,
-                   skip="auto", ascii=FALSE, raw=FALSE, seed=0,
-                   errormode=c("stop","warn","silent")) {
+                                  "xxhash32", "xxhash64", "murmur32"),
+                   serialize=TRUE,
+                   file=FALSE,
+                   length=Inf,
+                   skip="auto",
+                   ascii=FALSE,
+                   raw=FALSE,
+                   seed=0,
+                   errormode=c("stop","warn","silent"),
+                   serializeVersion=.getSerializeVersion()) {
 
     algo <- match.arg(algo)
     errormode <- match.arg(errormode)
@@ -51,9 +57,11 @@ digest <- function(object, algo=c("md5", "sha1", "crc32", "sha256", "sha512",
     if (serialize && !file) {
         ## support the 'nosharing' option in pqR's base::serialize()
         object <- if ("nosharing" %in% names(formals(base::serialize)))
-                      base::serialize (object, connection=NULL, ascii=ascii, nosharing=TRUE)
+                      base::serialize (object, connection=NULL, ascii=ascii,
+                                       nosharing=TRUE, version=serializeVersion)
                   else
-                      base::serialize (object, connection=NULL, ascii=ascii)
+                      base::serialize (object, connection=NULL, ascii=ascii,
+                                       version=serializeVersion)
         ## we support raw vectors, so no mangling of 'object' is necessary
         ## regardless of R version
         ## skip="auto" - skips the serialization header [SU]
@@ -70,10 +78,10 @@ digest <- function(object, algo=c("md5", "sha1", "crc32", "sha256", "sha512",
             }
             ## Was: skip <- if (ascii) 18 else 14
         }
-    } else if (!is.character(object) && !inherits(object,"raw")) { 
-        return(.errorhandler(paste("Argument object must be of type character",	# nocov 
+    } else if (!is.character(object) && !inherits(object,"raw")) {
+        return(.errorhandler(paste("Argument object must be of type character",	# nocov
                                    "or raw vector if serialize is FALSE"), mode=errormode)) # nocov
-    } 
+    }
     if (file && !is.character(object))
         return(.errorhandler("file=TRUE can only be used with a character object",
                              mode=errormode))
@@ -96,7 +104,7 @@ digest <- function(object, algo=c("md5", "sha1", "crc32", "sha256", "sha512",
             return(.errorhandler("The file does not exist: ", object, mode=errormode)) # nocov
         }
         if (!isTRUE(!file.info(object)$isdir)) {
-            return(.errorhandler("The specified pathname is not a file: ", # nocov 
+            return(.errorhandler("The specified pathname is not a file: ", # nocov
                                  object, mode=errormode))                  # nocov
         }
         if (file.access(object, 4)) {

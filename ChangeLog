@@ -1,3 +1,12 @@
+2017-12-12  Dirk Eddelbuettel  <edd@debian.org>
+
+	* DESCRIPTION (Version, Date): New minor version
+
+	* R/digest.R: Support serializeVersion format
+	* man/digest.Rd: Document new option
+
+	* R/init.R: Set a default version, and internal getter function
+
 2017-02-20  Dirk Eddelbuettel  <edd@debian.org>
 
 	* man/digest.Rd: Expand example section with a Vectorize() use
