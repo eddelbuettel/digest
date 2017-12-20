@@ -64,7 +64,7 @@ SEXP AESencryptECB(SEXP context, SEXP text) {
   if (len % 16)
     error("Text length must be a multiple of 16 bytes");	/* #nocov */
   
-  if (NAMED(text)) text = duplicate(text);
+  if (MAYBE_REFERENCED(text)) text = duplicate(text);
   
   block = RAW(text);
   while (len > 0) {
@@ -87,7 +87,7 @@ SEXP AESdecryptECB(SEXP context, SEXP ciphertext) {
   if (len % 16)
     error("Ciphertext length must be a multiple of 16 bytes");	/* #nocov */
   
-  if (NAMED(ciphertext)) ciphertext = duplicate(ciphertext);
+  if (MAYBE_REFERENCED(ciphertext)) ciphertext = duplicate(ciphertext);
   
   block = RAW(ciphertext);
   
