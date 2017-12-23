@@ -1,3 +1,8 @@
+2017-12-20  Dirk Eddelbuettel  <edd@debian.org>
+
+	* src/raes.c (AESencryptECB,AESdecryptECD): Replace two uses of NAMED
+	with MAYBE_REFERENCED
+
 2017-12-13  Dirk Eddelbuettel  <edd@debian.org>
 
 	* DESCRIPTION (Date, Version): Release 0.6.13
