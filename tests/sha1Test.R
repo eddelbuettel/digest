@@ -371,7 +371,7 @@ junk <- pi
 class(junk) <- c("A", "B")
 error.message <- try(sha1(junk))
 stopifnot(
-    grepl("sha1\\(\\) has not method for the 'A', 'B' class", error.message)
+    grepl("sha1\\(\\) has no method for the 'A', 'B' class", error.message)
 )
 
 junk <- function(

@@ -5,7 +5,7 @@ sha1 <- function(x, digits = 14L, zapsmall = 7L, ...){
 
 sha1.default <- function(x, digits = 14L, zapsmall = 7L, ...) {
     stop(
-        "sha1() has not method for the '",
+        "sha1() has no method for the '",
         paste(class(x), collapse = "', '"),
         "' class",
         call. = FALSE
