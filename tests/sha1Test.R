@@ -371,7 +371,7 @@ junk <- pi
 class(junk) <- c("A", "B")
 error.message <- try(sha1(junk))
 stopifnot(
-    grepl("sha1\\(\\) has not method for the 'A', 'B' class", error.message)
+    grepl("sha1\\(\\) has no method for the 'A', 'B' class", error.message)
 )
 
 junk <- function(
@@ -383,3 +383,20 @@ junk <- function(
 stopifnot(sha1(junk) == "be194e8cdae926c13fd4e2c65bf6cb7a28dd0505")
 stopifnot(sha1(junk) == sha1(junk, environment = TRUE))
 stopifnot(sha1(junk) != sha1(junk, environment = FALSE))
+
+stopifnot(
+    sha1(matrix(integer(0))) == "e13485e1b995f3e36d43674dcbfedea08ce237bc"
+)
+stopifnot(
+    !identical(
+        sha1(matrix(integer(0))),
+        sha1(matrix(character(0)))
+    )
+)
+stopifnot(
+    !identical(
+        sha1(matrix(integer(0))),
+        sha1(matrix(numeric(0)))
+    )
+)
+

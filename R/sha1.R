@@ -5,7 +5,7 @@ sha1 <- function(x, digits = 14L, zapsmall = 7L, ...){
 
 sha1.default <- function(x, digits = 14L, zapsmall = 7L, ...) {
     stop(
-        "sha1() has not method for the '",
+        "sha1() has no method for the '",
         paste(class(x), collapse = "', '"),
         "' class",
         call. = FALSE
@@ -74,7 +74,7 @@ sha1.numeric <- function(x, digits = 14L, zapsmall = 7L, ...){
 
 sha1.matrix <- function(x, digits = 14L, zapsmall = 7L, ...){
     # needed to make results comparable between 32-bit and 64-bit
-    if (class(x[1, 1]) == "numeric") {
+    if (storage.mode(x) == "double") {
         y <- matrix( #return a matrix with the same dimensions as x
             apply(
                 x,
