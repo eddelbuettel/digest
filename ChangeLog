@@ -6,6 +6,10 @@
 	* man/digest.Rd: Idem
 	* man/hmac.Rd: Idem
 
+	* man/digest.Rd: Use Wikiepedia page as reference for SHA1 as the
+	reference page at NIST has (long) vanished.
+	* man/hmac.Rd: Idem
+
 2018-01-12  Thierry Onkelinx  <thierry.onkelinx@inbo.be>
 
 	* sha1() handles empty matrices
