@@ -1,6 +1,10 @@
-2018-01-12  Thierry Onkelinx <thierry.onkelinx@inbo.be>
+2018-01-14  Dirk Eddelbuettel  <edd@debian.org>
 
-    * sha1() handles empty matrices
+	* DESCRIPTION (Date, Version): Release 0.6.14
+
+2018-01-12  Thierry Onkelinx  <thierry.onkelinx@inbo.be>
+
+	* sha1() handles empty matrices
 
 2017-12-20  Dirk Eddelbuettel  <edd@debian.org>
 
@@ -20,7 +24,7 @@
 
 	* R/init.R: Set a default version, and internal getter function
 
-2017-10-12  ChrisMuir  <chrismuirRVA@gmail.com>
+2017-10-12  Chris Muir  <chrismuirRVA@gmail.com>
 
 	* vignette/sha1.Rmd: Correct simple typo
 
