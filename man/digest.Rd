@@ -101,8 +101,8 @@ digest(object, algo=c("md5", "sha1", "crc32", "sha256", "sha512",
 \references{
   MD5: \url{http://www.ietf.org/rfc/rfc1321.txt}. 
 
-  SHA-1: \url{http://www.itl.nist.gov/fipspubs/fip180-1.htm}.
-  SHA-256: \url{http://csrc.nist.gov/publications/fips/fips180-2/fips180-2withchangenotice.pdf}.
+  SHA-1: \url{https://www.itl.nist.gov/fipspubs/fip180-1.htm}.
+  SHA-256: \url{https://csrc.nist.gov/publications/fips/fips180-2/fips180-2withchangenotice.pdf}.
   CRC32:  The original reference webpage at \code{rocksoft.com} has
   vanished from the web; see
   \url{https://en.wikipedia.org/wiki/Cyclic_redundancy_check} for

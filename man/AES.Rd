@@ -63,12 +63,12 @@ implementation is by Christophe Devine.
 United States National Institute of Standards and Technology (2001).
 "Announcing the ADVANCED ENCRYPTION STANDARD (AES)". 
 Federal Information Processing Standards Publication 197.  
-\url{http://csrc.nist.gov/publications/fips/fips197/fips-197.pdf}.
+\url{https://csrc.nist.gov/publications/fips/fips197/fips-197.pdf}.
 
 Morris Dworkin (2001).
 "Recommendation for Block Cipher Modes of Operation".
 NIST Special Publication 800-38A 2001 Edition.
-\url{http://csrc.nist.gov/publications/nistpubs/800-38a/sp800-38a.pdf}.
+\url{https://csrc.nist.gov/publications/nistpubs/800-38a/sp800-38a.pdf}.
 }
 \examples{
 # First in ECB mode: the repeated block is coded the same way each time
