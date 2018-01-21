@@ -1,3 +1,8 @@
+2018-01-21  Thierry Onkelinx  <thierry.onkelinx@inbo.be>
+
+	* sha1() gains an `algo` argument
+	* sha1() handles raw class
+
 2018-01-14  Dirk Eddelbuettel  <edd@debian.org>
 
 	* DESCRIPTION (Date, Version): Release 0.6.14

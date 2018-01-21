@@ -30,6 +30,7 @@ S3method(sha1, numeric)
 S3method(sha1, pairlist)
 S3method(sha1, POSIXct)
 S3method(sha1, POSIXlt)
+S3method(sha1, raw)
 
 S3method(makeRaw, default)
 S3method(makeRaw, digest)

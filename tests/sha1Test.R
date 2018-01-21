@@ -400,3 +400,23 @@ stopifnot(
     )
 )
 
+stopifnot(
+    identical(
+        sha1(serialize("e13485e1b995f3e36d43674dcbfedea08ce237bc", NULL)),
+        "93ab6a61f1a2ad50d4bf58396dc38cd3821b2eaf"
+    )
+)
+
+x <- letters
+for (algo in c("md5", "sha1", "crc32", "sha256", "sha512", "xxhash32",
+               "xxhash64",  "murmur32")) {
+    y <- x
+    attr(y, "digest::sha1") <- digest:::attr_sha1(x, 14L, 7L, algo = algo)
+    stopifnot(
+        identical(
+            sha1(x, algo = algo),
+            digest(y, algo = algo)
+        )
+    )
+
+}

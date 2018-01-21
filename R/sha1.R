@@ -1,9 +1,9 @@
 # functions written by Thierry Onkelinx
-sha1 <- function(x, digits = 14L, zapsmall = 7L, ...){
+sha1 <- function(x, digits = 14L, zapsmall = 7L, ..., algo = "sha1"){
     UseMethod("sha1")
 }
 
-sha1.default <- function(x, digits = 14L, zapsmall = 7L, ...) {
+sha1.default <- function(x, digits = 14L, zapsmall = 7L, ..., algo = "sha1") {
     stop(
         "sha1() has no method for the '",
         paste(class(x), collapse = "', '"),
@@ -12,67 +12,52 @@ sha1.default <- function(x, digits = 14L, zapsmall = 7L, ...) {
     )
 }
 
-sha1.integer <- function(x, digits = 14L, zapsmall = 7L, ...) {
-    attr(x, "digest::sha1") <- list(
-        class = class(x),
-        digits = as.integer(digits),
-        zapsmall = as.integer(zapsmall),
-        ... = ...
+sha1.integer <- function(x, digits = 14L, zapsmall = 7L, ..., algo = "sha1") {
+    attr(x, "digest::sha1") <- attr_sha1(
+        x = x, digits = digits, zapsmall = zapsmall, algo = algo, ...
     )
-    digest(x, algo = "sha1")
+    digest(x, algo = algo)
 }
 
-sha1.character <- function(x, digits = 14L, zapsmall = 7L, ...) {
-    attr(x, "digest::sha1") <- list(
-        class = class(x),
-        digits = as.integer(digits),
-        zapsmall = as.integer(zapsmall),
-        ... = ...
+sha1.character <- function(x, digits = 14L, zapsmall = 7L, ..., algo = "sha1") {
+    attr(x, "digest::sha1") <- attr_sha1(
+        x = x, digits = digits, zapsmall = zapsmall, algo = algo, ...
     )
-    digest(x, algo = "sha1")
+    digest(x, algo = algo)
 }
 
-sha1.factor <- function(x, digits = 14L, zapsmall = 7L, ...) {
-    attr(x, "digest::sha1") <- list(
-        class = class(x),
-        digits = as.integer(digits),
-        zapsmall = as.integer(zapsmall),
-        ... = ...
+sha1.factor <- function(x, digits = 14L, zapsmall = 7L, ..., algo = "sha1") {
+    attr(x, "digest::sha1") <- attr_sha1(
+        x = x, digits = digits, zapsmall = zapsmall, algo = algo, ...
     )
-    digest(x, algo = "sha1")
+    digest(x, algo = algo)
 }
 
-sha1.NULL <- function(x, digits = 14L, zapsmall = 7L, ...) {
+sha1.NULL <- function(x, digits = 14L, zapsmall = 7L, ..., algo = "sha1") {
     # attributes cannot be set on a NULL object
-    digest(x, algo = "sha1")
+    digest(x, algo = algo)
 }
 
-sha1.logical <- function(x, digits = 14L, zapsmall = 7L, ...) {
-    attr(x, "digest::sha1") <- list(
-        class = class(x),
-        digits = as.integer(digits),
-        zapsmall = as.integer(zapsmall),
-        ... = ...
+sha1.logical <- function(x, digits = 14L, zapsmall = 7L, ..., algo = "sha1") {
+    attr(x, "digest::sha1") <- attr_sha1(
+        x = x, digits = digits, zapsmall = zapsmall, algo = algo, ...
     )
-    digest(x, algo = "sha1")
+    digest(x, algo = algo)
 }
 
-sha1.numeric <- function(x, digits = 14L, zapsmall = 7L, ...){
+sha1.numeric <- function(x, digits = 14L, zapsmall = 7L, ..., algo = "sha1"){
     y <- num2hex(
         x,
         digits = digits,
         zapsmall = zapsmall
     )
-    attr(y, "digest::sha1") <- list(
-        class = class(x),
-        digits = as.integer(digits),
-        zapsmall = as.integer(zapsmall),
-        ... = ...
+    attr(y, "digest::sha1") <- attr_sha1(
+        x = x, digits = digits, zapsmall = zapsmall, algo = algo, ...
     )
-    digest(y, algo = "sha1")
+    digest(y, algo = algo)
 }
 
-sha1.matrix <- function(x, digits = 14L, zapsmall = 7L, ...){
+sha1.matrix <- function(x, digits = 14L, zapsmall = 7L, ..., algo = "sha1"){
     # needed to make results comparable between 32-bit and 64-bit
     if (storage.mode(x) == "double") {
         y <- matrix( #return a matrix with the same dimensions as x
@@ -81,69 +66,53 @@ sha1.matrix <- function(x, digits = 14L, zapsmall = 7L, ...){
                 2,
                 num2hex,
                 digits = digits,
-                zapsmall = zapsmall,
-                ... = ...
+                zapsmall = zapsmall
             ),
             ncol = ncol(x)
         )
-        attr(y, "digest::sha1") <- list(
-            class = class(x),
-            digits = as.integer(digits),
-            zapsmall = as.integer(zapsmall),
-            ... = ...
+        attr(y, "digest::sha1") <- attr_sha1(
+            x = x, digits = digits, zapsmall = zapsmall, algo = algo, ...
         )
-        digest(y, algo = "sha1")
+        digest(y, algo = algo)
     } else {
-        attr(x, "digest::sha1") <- list(
-            class = class(x),
-            digits = as.integer(digits),
-            zapsmall = as.integer(zapsmall),
-            ... = ...
+        attr(x, "digest::sha1") <- attr_sha1(
+            x = x, digits = digits, zapsmall = zapsmall, algo = algo, ...
         )
-        digest(x, algo = "sha1")
+        digest(x, algo = algo)
     }
 }
 
-sha1.complex <- function(x, digits = 14L, zapsmall = 7L, ...) {
+sha1.complex <- function(x, digits = 14L, zapsmall = 7L, ..., algo = "sha1") {
     # a vector of complex numbers is converted into 2-column matrix (Re,Im)
     y <- cbind(Re(x), Im(x))
-    attr(y, "digest::sha1") <- list(
-        class = class(x),
-        digits = as.integer(digits),
-        zapsmall = as.integer(zapsmall),
-        ... = ...
+    attr(y, "digest::sha1") <- attr_sha1(
+        x = x, digits = digits, zapsmall = zapsmall, algo = algo, ...
     )
-    sha1(y, digits = digits, zapsmall = zapsmall, ...)
+    sha1(y, digits = digits, zapsmall = zapsmall, ..., algo = algo)
 }
 
-sha1.Date <- function(x, digits = 14L, zapsmall = 7L, ...) {
+sha1.Date <- function(x, digits = 14L, zapsmall = 7L, ..., algo = "sha1") {
     y <- as.numeric(x)
-    attr(y, "digest::sha1") <- list(
-        class = class(x),
-        digits = as.integer(digits),
-        zapsmall = as.integer(zapsmall),
-        ... = ...
+    attr(y, "digest::sha1") <- attr_sha1(
+        x = x, digits = digits, zapsmall = zapsmall, algo = algo, ...
     )
-    sha1(y, digits = digits, zapsmall = zapsmall, ...)
+    sha1(y, digits = digits, zapsmall = zapsmall, ..., algo = algo)
 }
 
-sha1.array <- function(x, digits = 14L, zapsmall = 7L, ...) {
+sha1.array <- function(x, digits = 14L, zapsmall = 7L, ..., algo = "sha1") {
     # Array x encoded as list of two elements:
     # 1. lengths of all dimensions of x
     # 2. all cells of x as a single vector
     y <- list(
         dimension = dim(x),
         value = as.numeric(x))
-    attr(y, "digest::sha1") <- list(
-        class = class(x),
-        digits = as.integer(digits),
-        zapsmall = as.integer(zapsmall),
-        ... = ...
+    attr(y, "digest::sha1") <- attr_sha1(
+        x = x, digits = digits, zapsmall = zapsmall, algo = algo, ...
     )
-    sha1(y, digits = digits, zapsmall = zapsmall, ...)
+    sha1(y, digits = digits, zapsmall = zapsmall, ..., algo = algo)
 }
 
-sha1.data.frame <- function(x, digits = 14L, zapsmall = 7L, ...){
+sha1.data.frame <- function(x, digits = 14L, zapsmall = 7L, ..., algo = "sha1"){
     if (length(x)) {
         # needed to make results comparable between 32-bit and 64-bit
         y <- vapply(
@@ -151,7 +120,29 @@ sha1.data.frame <- function(x, digits = 14L, zapsmall = 7L, ...){
             sha1,
             digits = digits,
             zapsmall = zapsmall,
-            ... = ...,
+            ...,
+            algo = algo,
+            FUN.VALUE = NA_character_
+        )
+    } else {
+        y <- x
+    }
+    attr(y, "digest::sha1") <- attr_sha1(
+        x = x, digits = digits, zapsmall = zapsmall, algo = algo, ...
+    )
+    digest(y, algo = algo)
+}
+
+sha1.list <- function(x, digits = 14L, zapsmall = 7L, ..., algo = "sha1"){
+    if (length(x)) {
+        # needed to make results comparable between 32-bit and 64-bit
+        y <- vapply(
+            x,
+            sha1,
+            digits = digits,
+            zapsmall = zapsmall,
+            ...,
+            algo = algo,
             FUN.VALUE = NA_character_
         )
     } else {
@@ -163,59 +154,36 @@ sha1.data.frame <- function(x, digits = 14L, zapsmall = 7L, ...){
         zapsmall = as.integer(zapsmall),
         ... = ...
     )
-    digest(y, algo = "sha1")
+    digest(y, algo = algo)
 }
 
-sha1.list <- function(x, digits = 14L, zapsmall = 7L, ...){
-    if (length(x)) {
-        # needed to make results comparable between 32-bit and 64-bit
-        y <- vapply(
-            x,
-            sha1,
-            digits = digits,
-            zapsmall = zapsmall,
-            ... = ...,
-            FUN.VALUE = NA_character_
-        )
-    } else {
-        y <- x
-    }
-    attr(y, "digest::sha1") <- list(
-        class = class(x),
-        digits = as.integer(digits),
-        zapsmall = as.integer(zapsmall),
-        ... = ...
-    )
-    digest(y, algo = "sha1")
-}
-
-sha1.POSIXlt <- function(x, digits = 14L, zapsmall = 7L, ...) {
+sha1.POSIXlt <- function(x, digits = 14L, zapsmall = 7L, ..., algo = "sha1") {
     y <- do.call(
         data.frame,
         lapply(as.POSIXlt(x), unlist)
     )
     y$sec <- num2hex(y$sec, digits = digits, zapsmall = zapsmall)
-    attr(y, "digest::sha1") <- list(
-        class = class(x),
-        digits = as.integer(digits),
-        zapsmall = as.integer(zapsmall),
-        ... = ...
+    attr(y, "digest::sha1") <- attr_sha1(
+        x = x, digits = digits, zapsmall = zapsmall, algo = algo, ...
     )
-    digest(y, algo = "sha1")
+    digest(y, algo = algo)
 }
 
-sha1.POSIXct <- function(x, digits = 14L, zapsmall = 7L, ...) {
-    y <- sha1(as.POSIXlt(x), digits = digits, zapsmall = zapsmall, ... = ...)
-    attr(y, "digest::sha1") <- list(
-        class = class(x),
-        digits = as.integer(digits),
-        zapsmall = as.integer(zapsmall),
-        ... = ...
+sha1.POSIXct <- function(x, digits = 14L, zapsmall = 7L, ..., algo = "sha1") {
+    y <- sha1(
+        as.POSIXlt(x),
+        digits = digits,
+        zapsmall = zapsmall,
+        ...,
+        algo = algo
     )
-    digest(y, algo = "sha1")
+    attr(y, "digest::sha1") <- attr_sha1(
+        x = x, digits = digits, zapsmall = zapsmall, algo = algo, ...
+    )
+    digest(y, algo = algo)
 }
 
-sha1.anova <- function(x, digits = 4L, zapsmall = 7L, ...){
+sha1.anova <- function(x, digits = 4L, zapsmall = 7L, ..., algo = "sha1"){
     if (digits > 4) {
         warning("Hash on 32 bit might be different from hash on 64 bit with digits > 4") # #nocov
     }
@@ -224,16 +192,32 @@ sha1.anova <- function(x, digits = 4L, zapsmall = 7L, ...){
         1,
         num2hex,
         digits = digits,
-        zapsmall = zapsmall,
-        ... = ...
+        zapsmall = zapsmall
     )
-    attr(y, "digest::sha1") <- list(
+    attr(y, "digest::sha1") <- attr_sha1(
+        x = x, digits = digits, zapsmall = zapsmall, algo = algo, ...
+    )
+    digest(y, algo = algo)
+}
+
+attr_sha1 <- function(x, digits, zapsmall, algo, ...) {
+    if (algo == "sha1") {
+        return(
+            list(
+                class = class(x),
+                digits = as.integer(digits),
+                zapsmall = as.integer(zapsmall),
+                ...
+            )
+        )
+    }
+    list(
         class = class(x),
         digits = as.integer(digits),
         zapsmall = as.integer(zapsmall),
-        ... = ...
+        algo = algo,
+        ...
     )
-    digest(y, algo = "sha1")
 }
 
 num2hex <- function(x, digits = 14L, zapsmall = 7L){
@@ -301,31 +285,29 @@ num2hex <- function(x, digits = 14L, zapsmall = 7L){
     return(output)
 }
 
-sha1.pairlist <- function(x, digits = 14L, zapsmall = 7L, ...) {
+sha1.pairlist <- function(x, digits = 14L, zapsmall = 7L, ..., algo = "sha1") {
     # needed to make results comparable between 32-bit and 64-bit
     y <- vapply(
         x,
         sha1,
         digits = digits,
         zapsmall = zapsmall,
-        ... = ...,
+        ...,
+        algo = algo,
         FUN.VALUE = NA_character_
     )
-    attr(y, "digest::sha1") <- list(
-        class = class(x),
-        digits = as.integer(digits),
-        zapsmall = as.integer(zapsmall),
-        ... = ...
+    attr(y, "digest::sha1") <- attr_sha1(
+        x = x, digits = digits, zapsmall = zapsmall, algo = algo, ...
     )
-    digest(y, algo = "sha1")
+    digest(y, algo = algo)
 }
 
-sha1.name <- function(x, digits = 14L, zapsmall = 7L, ...) {
+sha1.name <- function(x, digits = 14L, zapsmall = 7L, ..., algo = "sha1") {
     # attribute cannot be set on a name object
-    digest(x, algo = "sha1")
+    digest(x, algo = algo)
 }
 
-sha1.function <- function(x, digits = 14L, zapsmall = 7L, ...){
+sha1.function <- function(x, digits = 14L, zapsmall = 7L, ..., algo = "sha1"){
     dots <- list(...)
     if (is.null(dots$environment)) {
         dots$environment <- TRUE
@@ -334,7 +316,7 @@ sha1.function <- function(x, digits = 14L, zapsmall = 7L, ...){
         y <- list(
             formals = formals(x),
             body = as.character(body(x)),
-            environment = digest(environment(x), algo = "sha1")
+            environment = digest(environment(x), algo = algo)
         )
     } else {
         y <- list(
@@ -349,23 +331,25 @@ sha1.function <- function(x, digits = 14L, zapsmall = 7L, ...){
         zapsmall = zapsmall,
         environment = dots$environment,
         ... = dots,
+        algo = algo,
         FUN.VALUE = NA_character_
     )
-    attr(y, "digest::sha1") <- list(
-        class = class(y),
-        digits = as.integer(digits),
-        zapsmall = as.integer(zapsmall),
-        dots
+    attr(y, "digest::sha1") <- attr_sha1(
+        x = y, digits = digits, zapsmall = zapsmall, algo = algo, dots
     )
-    digest(y, algo = "sha1")
+    digest(y, algo = algo)
 }
 
-sha1.call <- function(x, digits = 14L, zapsmall = 7L, ...){
-    attr(x, "digest::sha1") <- list(
-        class = class(x),
-        digits = as.integer(digits),
-        zapsmall = as.integer(zapsmall),
-        ... = ...
+sha1.call <- function(x, digits = 14L, zapsmall = 7L, ..., algo = "sha1"){
+    attr(x, "digest::sha1") <- attr_sha1(
+        x = x, digits = digits, zapsmall = zapsmall, algo = algo, ...
     )
-    digest(x, algo = "sha1")
+    digest(x, algo = algo)
+}
+
+sha1.raw <- function(x, digits = 14L, zapsmall = 7L, ..., algo = "sha1") {
+    attr(x, "digest::sha1") <- attr_sha1(
+        x = x, digits = digits, zapsmall = zapsmall, algo = algo, ...
+    )
+    digest(x, algo = algo)
 }
