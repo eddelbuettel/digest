@@ -369,3 +369,13 @@ sha1.call <- function(x, digits = 14L, zapsmall = 7L, ...){
     )
     digest(x, algo = "sha1")
 }
+
+sha1.raw <- function(x, digits = 14L, zapsmall = 7L, ...) {
+    attr(x, "digest::sha1") <- list(
+        class = class(x),
+        digits = as.integer(digits),
+        zapsmall = as.integer(zapsmall),
+        ... = ...
+    )
+    digest(x, algo = "sha1")
+}
