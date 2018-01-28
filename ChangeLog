@@ -1,3 +1,11 @@
+2018-01-28  Dirk Eddelbuettel  <edd@debian.org>
+
+	* R/sha1.R (sha1.POSIXlt): Unclass POSIXlt objects as suggested by
+	Kurt Hornik to accomodate R-devel changes
+
+	* tests/sha1Test.R: Condition one sha1 test seemingly affected by
+	R-devel serialization changes to run only with R < 3.5.0
+
 2018-01-21  Thierry Onkelinx  <thierry.onkelinx@inbo.be>
 
 	* sha1() gains an `algo` argument

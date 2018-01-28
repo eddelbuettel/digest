@@ -160,7 +160,7 @@ sha1.list <- function(x, digits = 14L, zapsmall = 7L, ..., algo = "sha1"){
 sha1.POSIXlt <- function(x, digits = 14L, zapsmall = 7L, ..., algo = "sha1") {
     y <- do.call(
         data.frame,
-        lapply(as.POSIXlt(x), unlist)
+        lapply(unclass(as.POSIXlt(x)), unlist)
     )
     y$sec <- num2hex(y$sec, digits = digits, zapsmall = zapsmall)
     attr(y, "digest::sha1") <- attr_sha1(
