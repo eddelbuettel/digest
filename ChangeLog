@@ -1,3 +1,7 @@
+2018-01-29  Dirk Eddelbuettel  <edd@debian.org>
+
+	* src/sha2.c: Comment-out three unused 'const static' variables
+
 2018-01-28  Dirk Eddelbuettel  <edd@debian.org>
 
 	* DESCRIPTION (Date, Version): Release 0.6.15
