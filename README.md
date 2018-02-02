@@ -1,6 +1,3 @@
-**NB** If you are about to complain about macOS / el Capitain:  Not our fault.   
-Please see issues [#76](https://github.com/eddelbuettel/digest/issues/76), [#77](https://github.com/eddelbuettel/digest/issues/77) and [#78](https://github.com/eddelbuettel/digest/issues/78) and _please_ do not file a new one.  
-
 ## digest [![Build Status](https://travis-ci.org/eddelbuettel/digest.svg)](https://travis-ci.org/eddelbuettel/digest) [![License](http://img.shields.io/badge/license-GPL%20%28%3E=%202%29-brightgreen.svg?style=flat)](http://www.gnu.org/licenses/gpl-2.0.html) [![CRAN](http://www.r-pkg.org/badges/version/digest)](https://cran.r-project.org/package=digest) [![Downloads](http://cranlogs.r-pkg.org/badges/digest?color=brightgreen)](http://www.r-pkg.org/pkg/digest) [![Code Coverage](https://img.shields.io/codecov/c/github/eddelbuettel/digest/master.svg)](https://codecov.io/gh/eddelbuettel/digest)
 
 Compact hash representations of arbitrary R objects
