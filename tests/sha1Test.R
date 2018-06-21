@@ -400,14 +400,14 @@ stopifnot(
     )
 )
 
-if (getRversion() < "3.5.0") {
-    stopifnot(
-        identical(
-            sha1(serialize("e13485e1b995f3e36d43674dcbfedea08ce237bc", NULL)),
-            "93ab6a61f1a2ad50d4bf58396dc38cd3821b2eaf"
-        )
-    )
-}
+## if (getRversion() < "3.5.0") {
+##     stopifnot(
+##         identical(
+##             sha1(serialize("e13485e1b995f3e36d43674dcbfedea08ce237bc", NULL)),
+##             "93ab6a61f1a2ad50d4bf58396dc38cd3821b2eaf"
+##         )
+##     )
+## }
 
 x <- letters
 for (algo in c("md5", "sha1", "crc32", "sha256", "sha512", "xxhash32",

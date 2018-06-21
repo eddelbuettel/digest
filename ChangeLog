@@ -1,3 +1,8 @@
+2018-06-21  Dirk Eddelbuettel  <edd@debian.org>
+
+	* tests/sha1Test.R: Do not run test using serialize() as its output
+	always reflects the R version used (thanks, Radford Neal)
+
 2018-01-29  Dirk Eddelbuettel  <edd@debian.org>
 
 	* src/sha2.c: Comment-out three unused 'const static' variables
