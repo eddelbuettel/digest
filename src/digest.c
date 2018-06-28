@@ -119,8 +119,7 @@ SEXP digest(SEXP Txt, SEXP Algo, SEXP Length, SEXP Skip, SEXP Leave_raw, SEXP Se
         val  = digest_crc32(0L, 0, 0);
         val  = digest_crc32(val, (unsigned char*) txt, (unsigned) l);
 
-        sprintf(output, "%2.2x", (unsigned int) val);
-
+        sprintf(output, "%08x", (unsigned int) val);
         break;
     }
     case 4: {     /* sha256 case */
@@ -270,7 +269,7 @@ SEXP digest(SEXP Txt, SEXP Algo, SEXP Length, SEXP Skip, SEXP Leave_raw, SEXP Se
                 val  = digest_crc32(val , buf, (unsigned) nChar);
         }
         fclose(fp);
-        sprintf(output, "%2.2x", (unsigned int) val);
+        sprintf(output, "%08x", (unsigned int) val);
         break;
     }
     case 104: {     /* sha256 file case */

@@ -1,3 +1,9 @@
+2018-06-27  Dirk Eddelbuettel  <edd@debian.org>
+
+	* src/digest.c (digest): Change print format for crc32 to always
+	return eight characters and no longer drop leading zeros (thanks to
+	Henrik Bengtsson for the heads-up)
+
 2018-06-21  Dirk Eddelbuettel  <edd@debian.org>
 
 	* tests/sha1Test.R: Do not run test using serialize() as its output
