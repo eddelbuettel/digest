@@ -123,5 +123,12 @@ digest <- function(object, algo=c("md5", "sha1", "crc32", "sha256", "sha512",
                  as.integer(skip),
                  as.integer(raw),
                  as.integer(seed))
+
+    ## crc32 output was not guaranteed to be eight chars long, which we corrected
+    ## this allows to get the old behaviour back for compatibility
+    if ((algoint == 3 || algoint == 103) && .getCRC32PreferOldOutput()) {
+        val <- sub("^0+", "", val)
+    }
+
     return(val)
 }
