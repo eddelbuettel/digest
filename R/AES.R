@@ -7,7 +7,7 @@ modes <- c("ECB", "CBC", "CFB", "PGP", "OFB", "CTR", "OPENPGP")
 AES <- function(key, mode=c("ECB", "CBC", "CTR"), IV=NULL) {
     mode <- match(match.arg(mode), modes)
     if (!(mode %in% c(1:2, 6)))
-        stop("Only ECB, CBC and CTR mode encryption are supported.")
+        stop("Only ECB, CBC and CTR mode encryption are supported.")	# #nocov
 
     key <- as.raw(key)
     IV <- as.raw(IV)
@@ -19,13 +19,13 @@ AES <- function(key, mode=c("ECB", "CBC", "CTR"), IV=NULL) {
 
     encrypt <- function(text) {
         if (typeof(text) == "character")
-            text <- charToRaw(text)
+            text <- charToRaw(text)					# #nocov
         if (mode == 1)
             .Call(AESencryptECB, context, text)
         else if (mode == 2) {
             len <- length(text)
             if (len %% 16 != 0)
-                stop("Text length must be a multiple of 16 bytes")
+                stop("Text length must be a multiple of 16 bytes")	# #nocov
             result <- raw(length(text))
             for (i in seq_len(len/16)) {
                 ind <- (i-1)*16 + 1:16
@@ -59,7 +59,7 @@ AES <- function(key, mode=c("ECB", "CBC", "CTR"), IV=NULL) {
         else if (mode == 2) {
             len <- length(ciphertext)
             if (len %% 16 != 0)
-                stop("Ciphertext length must be a multiple of 16 bytes")
+                stop("Ciphertext length must be a multiple of 16 bytes")	# #nocov
             result <- raw(length(ciphertext))
             for (i in seq_len(len/16)) {
                 ind <- (i-1)*16 + 1:16
@@ -69,9 +69,9 @@ AES <- function(key, mode=c("ECB", "CBC", "CTR"), IV=NULL) {
             }
         } else if (mode == 6)
               result <- encrypt(ciphertext)
-        
+
         if (!raw)
-            result <- rawToChar(result)
+            result <- rawToChar(result)						# #nocov
         result
     }
 

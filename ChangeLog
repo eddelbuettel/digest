@@ -1,3 +1,7 @@
+2018-06-30  Dirk Eddelbuettel  <edd@debian.org>
+
+	* tests/crc32.R: Added test for crc32 and old versus new formats
+
 2018-06-29  Dirk Eddelbuettel  <edd@debian.org>
 
 	* R/init.R: Provide option 'digestOldCRC32Format' which if TRUE
@@ -5,7 +9,7 @@
 	* R/digest.R: If crc32 selected and option set, return in old format
 	* man/digest.Rd: Document new option
 
-2018-06-27  Dirk Eddelbuettel  <edd@debian.org>
+2018-06-28  Dirk Eddelbuettel  <edd@debian.org>
 
 	* src/digest.c (digest): Change print format for crc32 to always
 	return eight characters and no longer drop leading zeros (thanks to

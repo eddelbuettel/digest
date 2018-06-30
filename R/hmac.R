@@ -16,7 +16,7 @@ makeRaw.digest <- function(object) {
 
 makeRaw.default <- function(object) as.raw(object)
 
-# key shall be padded if its length is smaller than the block size of the 
+# key shall be padded if its length is smaller than the block size of the
 # respective algorithm, hashed if longer. block sizes are as follows:
 #
 # md5		64
@@ -26,11 +26,11 @@ makeRaw.default <- function(object) as.raw(object)
 # sha512	128 (doh!)
 
 padWithZeros <- function(k,algo) {
-    blocksize <- 64 
+    blocksize <- 64
     if (algo == "crc32") blocksize <- 4
     if (algo == "sha512") blocksize <- 128
     k <- makeRaw(k)
-    if(length(k) > blocksize) {# not while() 
+    if(length(k) > blocksize) {# not while()
         k <-digest(k, algo=algo, serialize=FALSE,raw=TRUE)
         if (algo == "crc32") {
             k <- substring(k, seq(1,7,2), seq(2,8,2))
@@ -50,7 +50,6 @@ hmac <- function(key, object,
     raw.digest <- makeRaw.digest(character.digest)
     o.xored.key <- xor(padded.key, makeRaw(0x5c))
     result <- digest(c(o.xored.key, raw.digest), algo=algo, serialize=serialize, ...)
-    if(raw)
-        result <- makeRaw.digest(result)
+    if (raw) result <- makeRaw.digest(result)
     return(result)
 }

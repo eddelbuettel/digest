@@ -348,8 +348,8 @@ sha1.call <- function(x, digits = 14L, zapsmall = 7L, ..., algo = "sha1"){
 }
 
 sha1.raw <- function(x, digits = 14L, zapsmall = 7L, ..., algo = "sha1") {
-    attr(x, "digest::sha1") <- attr_sha1(
-        x = x, digits = digits, zapsmall = zapsmall, algo = algo, ...
-    )
-    digest(x, algo = algo)
+    attr(x, "digest::sha1") <- attr_sha1(                                    # #nocov
+        x = x, digits = digits, zapsmall = zapsmall, algo = algo, ...        # #nocov
+    )                                                                        # #nocov
+    digest(x, algo = algo)                                                   # #nocov
 }
