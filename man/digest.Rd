@@ -98,6 +98,13 @@ digest(object, algo=c("md5", "sha1", "crc32", "sha256", "sha512",
   certain cryptographic weaknesses as well. For more details, see for example 
   \url{http://www.schneier.com/blog/archives/2005/02/cryptanalysis_o.html}.
 }
+\section{Change Management}{
+  Version 0.6.16 of digest corrects an error in which \code{crc32} was not
+  guaranteeing an eight-character return. We now pad with zero to always
+  return eight characters. Should the previous behaviour be required,
+  set \code{option("digestOldCRC32Format"=TRUE)} and the output will be
+  consistent with prior version (but not be consistentnly eight characters).
+}
 \references{
   MD5: \url{http://www.ietf.org/rfc/rfc1321.txt}. 
 
@@ -132,7 +139,7 @@ digest(object, algo=c("md5", "sha1", "crc32", "sha256", "sha512",
   Antoine Lucas for the integration of crc32; Jarek Tuszynski for the
   file-based operations; Henrik Bengtsson and Simon Urbanek for improved
   serialization patches; Christophe Devine for the hash function
-  implementations for sha-1, sha-256 and md5; Jean-loup Gailly and Mark Adler
+  implementations for sha-1, sha-256 and md5; Jean-Loup Gailly and Mark Adler
   for crc32; Hannes Muehleisen for the integration of sha-512; Jim Hester for
   the integration of xxhash32, xxhash64 and murmur32.}
 \seealso{\code{\link{serialize}}, \code{\link{md5sum}}}
