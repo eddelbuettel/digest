@@ -1,3 +1,10 @@
+2018-06-29  Dirk Eddelbuettel  <edd@debian.org>
+
+	* R/init.R: Provide option 'digestOldCRC32Format' which if TRUE
+	returns without zero padding which can be shorter than eight bytes
+	* R/digest.R: If crc32 selected and option set, return in old format
+	* man/digest.Rd: Document new option
+
 2018-06-27  Dirk Eddelbuettel  <edd@debian.org>
 
 	* src/digest.c (digest): Change print format for crc32 to always

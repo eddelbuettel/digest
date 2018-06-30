@@ -1,7 +1,7 @@
 
 ##  digest -- hash digest functions for R
 ##
-##  Copyright (C) 2003 - 2017  Dirk Eddelbuettel <edd@debian.org>
+##  Copyright (C) 2003 - 2018  Dirk Eddelbuettel <edd@debian.org>
 ##
 ##  This file is part of digest.
 ##
