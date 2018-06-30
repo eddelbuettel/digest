@@ -1,4 +1,8 @@
 
+## tests for old versus new (ie guaranteed eight chars, added in 0.6.16) format for crc32
+
+stopifnot(require(digest))
+
 args <- c(0L, 51L, 126L, 8480L, 60929L, 180832L)
 
 resOld <- c("b7fa0888",  "82a699e",   "4754b3",    "b3da3",     "e67c",      "872")
