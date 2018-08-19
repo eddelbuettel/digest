@@ -1,6 +1,6 @@
 
-R version 3.3.2 (2016-10-31) -- "Sincere Pumpkin Patch"
-Copyright (C) 2016 The R Foundation for Statistical Computing
+R version 3.5.1 (2018-07-02) -- "Feather Spray"
+Copyright (C) 2018 The R Foundation for Statistical Computing
 Platform: x86_64-pc-linux-gnu (64-bit)
 
 R is free software and comes with ABSOLUTELY NO WARRANTY.
@@ -173,7 +173,7 @@ cf83e1357eefb8bdf1542850d66d8007d620e4050b5715dc83f4a921d36ce9ce47d0d13c5d85f2b0
 > cat(digest(list(LETTERS, data.frame(a=letters[1:5],
 +                                     b=matrix(1:10,
 +                                     ncol=2)))), "\n")
-8b23d6c96da88f525c0a4a4909cce01f 
+a118afecaa144a3ef45565ecf7e04c5e 
 > 
 > ## these outputs were calculated using xxh32sum
 > xxhash32Input <-
@@ -296,4 +296,4 @@ f1233fcd
 > 
 > proc.time()
    user  system elapsed 
-  0.216   0.284   0.184 
+  0.372   0.590   0.168 

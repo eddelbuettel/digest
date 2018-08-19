@@ -1,6 +1,6 @@
 
-R version 3.3.2 (2016-10-31) -- "Sincere Pumpkin Patch"
-Copyright (C) 2016 The R Foundation for Statistical Computing
+R version 3.5.1 (2018-07-02) -- "Feather Spray"
+Copyright (C) 2018 The R Foundation for Statistical Computing
 Platform: x86_64-pc-linux-gnu (64-bit)
 
 R is free software and comes with ABSOLUTELY NO WARRANTY.
@@ -111,9 +111,13 @@ f955821b3f6161673eb20985c677e3dc101860cafef3321ee31641acad9fcd85d9c7d3481ed3e4e1
 > rw <- charToRaw("123456789ABCDEF")
 > stopifnot(all.equal(makeRaw(rw), rw))
 > 
+> current <- hmac('Jefe', 'what do ya want for nothing?', "md5", raw=TRUE)
+> target <- as.raw(c(0x75, 0x0c, 0x78, 0x3e, 0x6a, 0xb0, 0xb5, 0x03, 0xea, 0xa8, 0x6e, 0x31, 0x0a, 0x5d, 0xb7, 0x38))
+> stopifnot(identical(target, current))
+> 
 > digest:::padWithZeros(rw, "crc32")
 [1] 52 4c 3a e4
 > 
 > proc.time()
    user  system elapsed 
-  0.148   0.024   0.167 
+  0.343   0.559   0.110 

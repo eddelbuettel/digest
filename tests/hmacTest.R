@@ -81,4 +81,8 @@ cat(current, "\n")
 rw <- charToRaw("123456789ABCDEF")
 stopifnot(all.equal(makeRaw(rw), rw))
 
+current <- hmac('Jefe', 'what do ya want for nothing?', "md5", raw=TRUE)
+target <- as.raw(c(0x75, 0x0c, 0x78, 0x3e, 0x6a, 0xb0, 0xb5, 0x03, 0xea, 0xa8, 0x6e, 0x31, 0x0a, 0x5d, 0xb7, 0x38))
+stopifnot(identical(target, current))
+
 digest:::padWithZeros(rw, "crc32")

@@ -1,6 +1,16 @@
+2018-08-19  Dirk Eddelbuettel  <edd@debian.org>
+
+	* tests/hmacTest.R: Added raw test
+	* tests/hmacTest.Rout.save: Updated reference output accordingly
+
+	* R/sha1.R: Removed no longer needed #nocov tags
+
+	* tests/digestTest.Rout.save: Updated one reference output
+
 2018-06-30  Dirk Eddelbuettel  <edd@debian.org>
 
 	* tests/crc32.R: Added test for crc32 and old versus new formats
+	* tests/raw.R: Added small test file for raw tests
 
 2018-06-29  Dirk Eddelbuettel  <edd@debian.org>
 
