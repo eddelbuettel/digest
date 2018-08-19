@@ -3,6 +3,8 @@
 	* tests/hmacTest.R: Added raw test
 	* tests/hmacTest.Rout.save: Updated reference output accordingly
 
+	* tests/raw.R: Added test for 'raw' vector input to sha1()
+
 	* R/sha1.R: Removed no longer needed #nocov tags
 
 	* tests/digestTest.Rout.save: Updated one reference output
