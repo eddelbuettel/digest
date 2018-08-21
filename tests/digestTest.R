@@ -111,10 +111,12 @@ for (i in seq(along.with=crc32Input)) {
 sha1 <- digest("abc", algo="sha1", serialize=FALSE)
 stopifnot(identical(sha1, "a9993e364706816aba3e25717850c26c9cd0d89d"))
 
-                                        # example of a digest of a standard R list structure
-cat(digest(list(LETTERS, data.frame(a=letters[1:5],
-                                    b=matrix(1:10,
-                                    ncol=2)))), "\n")
+## This one seems to give slightly different output depending on the R version used
+##
+##                                      # example of a digest of a standard R list structure
+## cat(digest(list(LETTERS, data.frame(a=letters[1:5],
+##                                     b=matrix(1:10,
+##                                     ncol=2)))), "\n")
 
 ## these outputs were calculated using xxh32sum
 xxhash32Input <-

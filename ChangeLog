@@ -1,3 +1,9 @@
+2018-08-20  Dirk Eddelbuettel  <edd@debian.org>
+
+	* tests/digestTest.Rout: Skip one test which creates different
+	results across versions and operating systems
+	* tests/digestTest.Rout.save: Ditto
+
 2018-08-19  Dirk Eddelbuettel  <edd@debian.org>
 
 	* tests/hmacTest.R: Added raw test
@@ -7,7 +13,9 @@
 
 	* R/sha1.R: Removed no longer needed #nocov tags
 
-	* tests/digestTest.Rout.save: Updated one reference output
+2018-07-21  Henrik Bengtsson  <hb@aroma-project.org>
+
+	* DESCRIPTION: digest (>= 0.6.14) requires R (>= 3.0.3)
 
 2018-06-30  Dirk Eddelbuettel  <edd@debian.org>
 
