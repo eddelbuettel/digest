@@ -1,3 +1,7 @@
+2018-08-21  Dirk Eddelbuettel  <edd@debian.org>
+
+	* DESCRIPTION (Date, Version): Release 0.6.16
+
 2018-08-20  Dirk Eddelbuettel  <edd@debian.org>
 
 	* tests/digestTest.Rout: Skip one test which creates different
