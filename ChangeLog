@@ -1,3 +1,7 @@
+2018-09-02  Dirk Eddelbuettel  <edd@debian.org>
+
+	* .travis.yml: Simplified as covr can be installed from c2d4u
+
 2018-08-21  Dirk Eddelbuettel  <edd@debian.org>
 
 	* DESCRIPTION (Date, Version): Release 0.6.16
