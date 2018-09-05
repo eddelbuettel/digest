@@ -2,6 +2,11 @@
 
 	* .travis.yml: Simplified as covr can be installed from c2d4u
 
+2018-08-30  Radford Neal  <radfordneal@gmail.com>
+
+	* src/sha2.c: Memory alignment changes motivated by 32bit sparc
+	* src/sha2.h: Ditto
+
 2018-08-21  Dirk Eddelbuettel  <edd@debian.org>
 
 	* DESCRIPTION (Date, Version): Release 0.6.16
