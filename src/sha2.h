@@ -122,12 +122,12 @@ typedef unsigned long long u_int64_t;	/* 8-bytes (64-bits) */
 typedef struct _SHA256_CTX {
 	uint32_t	state[8];
 	uint64_t	bitcount;
-	uint8_t	buffer[SHA256_BLOCK_LENGTH];
+	uint8_t	buffer[SHA256_BLOCK_LENGTH];  /* must be 32-bit aligned */
 } SHA256_CTX;
 typedef struct _SHA512_CTX {
 	uint64_t	state[8];
 	uint64_t	bitcount[2];
-	uint8_t	buffer[SHA512_BLOCK_LENGTH];
+	uint8_t	buffer[SHA512_BLOCK_LENGTH];  /* must be 64-bit aligned */
 } SHA512_CTX;
 
 #else /* SHA2_USE_INTTYPES_H */
@@ -135,12 +135,12 @@ typedef struct _SHA512_CTX {
 typedef struct _SHA256_CTX {
 	u_int32_t	state[8];
 	u_int64_t	bitcount;
-	u_int8_t	buffer[SHA256_BLOCK_LENGTH];
+	u_int8_t buffer[SHA256_BLOCK_LENGTH];  /* must be 32-bit aligned */
 } SHA256_CTX;
 typedef struct _SHA512_CTX {
 	u_int64_t	state[8];
 	u_int64_t	bitcount[2];
-	u_int8_t	buffer[SHA512_BLOCK_LENGTH];
+	u_int8_t buffer[SHA512_BLOCK_LENGTH];  /* must be 64-bit aligned */
 } SHA512_CTX;
 
 #endif /* SHA2_USE_INTTYPES_H */
