@@ -1,3 +1,9 @@
+2018-09-02  Jim Hester  <james.f.hester@gmail.com>
+
+	* src/xxhash.c: Updated to use xxHash v0.6.5
+	* src/xxhash.h: Ditto
+	* src/digest.c: Ditto
+
 2018-09-02  Dirk Eddelbuettel  <edd@debian.org>
 
 	* .travis.yml: Simplified as covr can be installed from c2d4u
