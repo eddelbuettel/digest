@@ -1,8 +1,12 @@
-2018-09-02  Jim Hester  <james.f.hester@gmail.com>
+2018-09-13  Jim Hester  <james.f.hester@gmail.com>
 
 	* src/xxhash.c: Updated to use xxHash v0.6.5
 	* src/xxhash.h: Ditto
 	* src/digest.c: Ditto
+
+2018-09-11  Dirk Eddelbuettel  <edd@debian.org>
+
+	* DESCRIPTION (Date, Version): Release 0.6.17
 
 2018-09-02  Dirk Eddelbuettel  <edd@debian.org>
 
