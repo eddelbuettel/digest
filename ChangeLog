@@ -2,6 +2,9 @@
 
 	* DESCRIPTION (Version, Date): Roll minor version
 
+	* src/sha2.c: Explicitly #undef SHA256_ and SHA384_ functions not
+	used from this file
+
 2018-09-13  Radford Neal  <radfordneal@gmail.com>
 
 	* src/pmurhash.c (DOBYTES): Explicit cast to uint32_t avoids UBSAN

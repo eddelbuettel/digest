@@ -221,7 +221,7 @@ typedef u_int64_t sha2_word64;	/* Exactly 8 bytes */
  * only.
  */
 static void SHA512_Last(SHA512_CTX*);
-static void SHA256_Transform(SHA256_CTX*);
+/*static void SHA256_Transform(SHA256_CTX*);*/
 static void SHA512_Transform(SHA512_CTX*);
 
 
@@ -334,16 +334,16 @@ static const char *sha2_hex_digits = "0123456789abcdef";
 
 
 /*** SHA-256: *********************************************************/
-void SHA256_Init(SHA256_CTX* context) { /* #nocov start */ 
 #if 0  
+void SHA256_Init(SHA256_CTX* context) { /* #nocov start */ 
 	if (context == (SHA256_CTX*)0) {
 		return;
 	}
 	MEMCPY_BCOPY(context->state, sha256_initial_hash_value, SHA256_DIGEST_LENGTH);
 	MEMSET_BZERO(context->buffer, SHA256_BLOCK_LENGTH);
 	context->bitcount = 0;
-#endif        
 } /* #nocov end */
+#endif        
 
 #ifdef SHA2_UNROLL_TRANSFORM
 
@@ -382,6 +382,7 @@ void SHA256_Init(SHA256_CTX* context) { /* #nocov start */
 	(h) = T1 + Sigma0_256(a) + Maj((a), (b), (c)); \
 	j++
 
+#if 0
 static void SHA256_Transform(SHA256_CTX* context) {
 	sha2_word32	a, b, c, d, e, f, g, h, s0, s1;
 	sha2_word32	T1, *W256;
@@ -437,11 +438,12 @@ static void SHA256_Transform(SHA256_CTX* context) {
 	/* Clean up */
 	a = b = c = d = e = f = g = h = T1 = 0;
 }
+#endif
 
 #else /* SHA2_UNROLL_TRANSFORM */
 
-static void SHA256_Transform(SHA256_CTX* context) { // #nocov
 #if 0  
+static void SHA256_Transform(SHA256_CTX* context) { // #nocov
 	sha2_word32	a, b, c, d, e, f, g, h, s0, s1;
 	sha2_word32	T1, T2, *W256;
 	int		j;
@@ -517,13 +519,13 @@ static void SHA256_Transform(SHA256_CTX* context) { // #nocov
 
 	/* Clean up */
 	a = b = c = d = e = f = g = h = T1 = T2 = 0;
-#endif
 }										// #nocov
+#endif /* around SHA256_Transform */
 
 #endif /* SHA2_UNROLL_TRANSFORM */
 
-void SHA256_Update(SHA256_CTX* context, const sha2_byte *data, size_t len) {	// #nocov
 #if 0  
+void SHA256_Update(SHA256_CTX* context, const sha2_byte *data, size_t len) {	// #nocov
 	unsigned int	freespace, usedspace;
 
 	if (len == 0) {
@@ -570,11 +572,9 @@ void SHA256_Update(SHA256_CTX* context, const sha2_byte *data, size_t len) {	// 
 	}
 	/* Clean up: */
 	usedspace = freespace = 0;
-#endif
 }										// #nocov
 
 void SHA256_Final(sha2_byte digest[], SHA256_CTX* context) {			// #nocov
-#if 0  
 	sha2_word32	*d = (sha2_word32*)digest;
 	unsigned int	usedspace;
 
@@ -636,7 +636,6 @@ void SHA256_Final(sha2_byte digest[], SHA256_CTX* context) {			// #nocov
 	/* Clean up state data: */
 	MEMSET_BZERO(context, sizeof(SHA256_CTX));
 	usedspace = 0;
-#endif
 }									// #nocov
 
 char *SHA256_End(SHA256_CTX* context, char buffer[]) { /* #nocov start */ 
@@ -669,7 +668,7 @@ char* SHA256_Data(const sha2_byte* data, size_t len, char digest[SHA256_DIGEST_S
 	SHA256_Update(&context, data, len);
 	return SHA256_End(&context, digest);
 } /* #nocov end */
-
+#endif /* SHA256_ functions */
 
 /*** SHA-512: *********************************************************/
 void SHA512_Init(SHA512_CTX* context) {
@@ -1004,25 +1003,21 @@ char* SHA512_Data(const sha2_byte* data, size_t len, char digest[SHA512_DIGEST_S
 
 
 /*** SHA-384: *********************************************************/
-void SHA384_Init(SHA384_CTX* context) {
 #if 0  
+void SHA384_Init(SHA384_CTX* context) {
 	if (context == (SHA384_CTX*)0) {
 		return;
 	}
 	MEMCPY_BCOPY(context->state, sha384_initial_hash_value, SHA512_DIGEST_LENGTH);
 	MEMSET_BZERO(context->buffer, SHA384_BLOCK_LENGTH);
 	context->bitcount[0] = context->bitcount[1] = 0;
-#endif
 }
 
 void SHA384_Update(SHA384_CTX* context, const sha2_byte* data, size_t len) {
-#if 0  
 	SHA512_Update((SHA512_CTX*)context, data, len);
-#endif
 }
 
 void SHA384_Final(sha2_byte digest[], SHA384_CTX* context) {
-#if 0  
 	sha2_word64	*d = (sha2_word64*)digest;
 
 	/* Sanity check: */
@@ -1049,7 +1044,6 @@ void SHA384_Final(sha2_byte digest[], SHA384_CTX* context) {
 
 	/* Zero out state data */
 	MEMSET_BZERO(context, sizeof(SHA384_CTX));
-#endif
 }
 
 char *SHA384_End(SHA384_CTX* context, char buffer[]) {
@@ -1082,4 +1076,5 @@ char* SHA384_Data(const sha2_byte* data, size_t len, char digest[SHA384_DIGEST_S
 	SHA384_Update(&context, data, len);
 	return SHA384_End(&context, digest);
 } /* #nocov end */
+#endif
 
