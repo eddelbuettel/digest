@@ -1,3 +1,7 @@
+2018-09-13  Radford Neal  <radfordneal@gmail.com>
+
+	* src/pmurhash.c (DOBYTES): Explicit cast to uint32_t avoids UBSAN
+
 2018-09-13  Jim Hester  <james.f.hester@gmail.com>
 
 	* src/xxhash.c: Updated to use xxHash v0.6.5
