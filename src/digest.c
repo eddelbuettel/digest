@@ -348,14 +348,14 @@ SEXP digest(SEXP Txt, SEXP Algo, SEXP Length, SEXP Skip, SEXP Leave_raw, SEXP Se
         if (skip > 0) fseek(fp, skip, SEEK_SET);
         XXH_errorcode const resetResult = XXH32_reset(state, seed);
         if (resetResult == XXH_ERROR) {
-          error("Error in `XXH32_reset()`");
+          error("Error in `XXH32_reset()`"); 				/* #nocov */
         }
         if (length>=0) {
             while ( ( nChar = fread( buf, 1, sizeof( buf ), fp ) ) > 0 && length>0) {
                 if (nChar>length) nChar=length;
                 XXH_errorcode const updateResult = XXH32_update(state, buf, nChar);
                 if (updateResult == XXH_ERROR) {
-                  error("Error in `XXH32_update()`");
+                  error("Error in `XXH32_update()`"); 		/* #nocov */
                 }
                 length -= nChar;
             }
@@ -363,7 +363,7 @@ SEXP digest(SEXP Txt, SEXP Algo, SEXP Length, SEXP Skip, SEXP Leave_raw, SEXP Se
             while ( ( nChar = fread( buf, 1, sizeof( buf ), fp ) ) > 0) {
               XXH_errorcode const updateResult = XXH32_update(state, buf, nChar);
               if (updateResult == XXH_ERROR) {
-                error("Error in `XXH32_update()`");
+                error("Error in `XXH32_update()`");	 		/* #nocov */
               }
             }
         }
@@ -384,14 +384,14 @@ SEXP digest(SEXP Txt, SEXP Algo, SEXP Length, SEXP Skip, SEXP Leave_raw, SEXP Se
         if (skip > 0) fseek(fp, skip, SEEK_SET);
         XXH_errorcode const resetResult = XXH64_reset(state, seed);
         if (resetResult == XXH_ERROR) {
-          error("Error in `XXH64_reset()`");
+          error("Error in `XXH64_reset()`"); 				/* #nocov */
         }
         if (length>=0) {
             while ( ( nChar = fread( buf, 1, sizeof( buf ), fp ) ) > 0 && length>0) {
                 if (nChar>length) nChar=length;
                 XXH_errorcode const updateResult = XXH64_update(state, buf, nChar);
                 if (updateResult == XXH_ERROR) {
-                  error("Error in `XXH64_update()`");
+                  error("Error in `XXH64_update()`"); 		/* #nocov */
                 }
                 length -= nChar;
             }
@@ -399,7 +399,7 @@ SEXP digest(SEXP Txt, SEXP Algo, SEXP Length, SEXP Skip, SEXP Leave_raw, SEXP Se
             while ( ( nChar = fread( buf, 1, sizeof( buf ), fp ) ) > 0) {
               XXH_errorcode const updateResult = XXH64_update(state, buf, nChar);
               if (updateResult == XXH_ERROR) {
-                error("Error in `XXH64_update()`");
+                error("Error in `XXH64_update()`"); 		/* #nocov */
               }
             }
         }

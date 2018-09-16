@@ -151,6 +151,8 @@ for (i in seq(along.with=xxhash64Input)) {
 }
 
 ## these outputs were calculated using mmh3 python package
+## the first two are also shown at this StackOverflow question on test vectors
+##   https://stackoverflow.com/questions/14747343/murmurhash3-test-vectors
 murmur32Input <-
     c("abc",
       "abcdbcdecdefdefgefghfghighijhijkijkljklmklmnlmnomnopnopq",
