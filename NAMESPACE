@@ -1,9 +1,10 @@
 ## package has a dynamic library
-useDynLib(digest, digest_impl=digest, AESinit, AESencryptECB, AESdecryptECB)
+useDynLib(digest, digest_impl=digest, digest2int_impl=digest2int, AESinit, AESencryptECB, AESdecryptECB)
 
 ## and exported functions
 export(AES,
        digest,
+       digest2int,
        sha1,
        hmac,
        makeRaw)
