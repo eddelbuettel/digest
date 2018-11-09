@@ -2,10 +2,6 @@
 #include <Rdefines.h>
 #include <stdint.h>
 
-#ifndef uint32_t
-#define uint32_t unsigned long int
-#endif
-
 // https://en.wikipedia.org/wiki/Jenkins_hash_function#one_at_a_time
 uint32_t jenkins_one_at_a_time_hash(const char *key, uint32_t seed) {
 
