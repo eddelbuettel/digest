@@ -30,7 +30,7 @@ digest2int(x, seed = 0L)
 \examples{
 
 current <- digest2int("The quick brown fox jumps over the lazy dog", 0L)
-target <- -1172273020L
+target <- 1369346549L
 stopifnot(identical(target, current))
 
 }
