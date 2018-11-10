@@ -1,10 +1,18 @@
+2018-11-10  Dirk Eddelbuettel  <edd@debian.org>
+
+	* DESCRIPTION (Version, Date): Roll minor version
+
+2018-11-08  Dmitriy Selivanov  <selivanov.dmitriy@gmail.com>
+
+	* src/digest2int.c: Removed (bad) redefinition of unin32_t
+	* tests/digest2intTest.R: Additional test
+
 2018-10-29  Dmitriy Selivanov  <selivanov.dmitriy@gmail.com>
 
 	* DESCRIPTION (Version, Date):  minor version
 	* digest2int.R (digest2int): added digest2int
-	* src/digest2int.c (digest2int): added Bob Jenkins
-	`one_at_a_time` function for hashing arbitrary
-	character vectors to integer vectors
+	* src/digest2int.c (digest2int): added Bob Jenkins `one_at_a_time`
+	function for hashing arbitrary character vectors to integer vectors
 
 2018-10-18  Dirk Eddelbuettel  <edd@debian.org>
 
