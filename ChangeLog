@@ -1,3 +1,7 @@
+2018-12-23  Dirk Eddelbuettel  <edd@debian.org>
+
+	* NAMESPACE: Add .registration=TRUE to useDynLib()
+
 2018-11-10  Dirk Eddelbuettel  <edd@debian.org>
 
 	* DESCRIPTION (Version, Date): Roll minor version
