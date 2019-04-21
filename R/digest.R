@@ -20,7 +20,7 @@
 
 
 digest <- function(object, algo=c("md5", "sha1", "crc32", "sha256", "sha256_new", "sha512",
-                                  "xxhash32", "xxhash64", "murmur32"),
+                                  "xxhash32", "xxhash64", "murmur32", "spookyhash"),
                    serialize=TRUE,
                    file=FALSE,
                    length=Inf,
@@ -54,7 +54,13 @@ digest <- function(object, algo=c("md5", "sha1", "crc32", "sha256", "sha256_new"
         file <- TRUE                  	# nocov
     }
 
-    if (serialize && !file) {
+    algorithms_with_streaming_serialization <- c("spookyhash")
+    if(algo %in% algorithms_with_streaming_serialization && !serialize){
+        .errorhandler(paste0(algo, " algorithm is not available without serialization."),
+                      mode=errormode)
+    }
+
+    if (serialize && !file && !(algo %in% algorithms_with_streaming_serialization)) {
         ## support the 'nosharing' option in pqR's base::serialize()
         object <- if ("nosharing" %in% names(formals(base::serialize)))
                       base::serialize (object, connection=NULL, ascii=ascii,
@@ -78,13 +84,19 @@ digest <- function(object, algo=c("md5", "sha1", "crc32", "sha256", "sha256_new"
             }
             ## Was: skip <- if (ascii) 18 else 14
         }
-    } else if (!is.character(object) && !inherits(object,"raw")) {
+    } else if (!is.character(object) && !inherits(object,"raw") &&
+               !(algo %in% algorithms_with_streaming_serialization)) {
         return(.errorhandler(paste("Argument object must be of type character",		    # #nocov
                                    "or raw vector if serialize is FALSE"), mode=errormode)) # #nocov
     }
     if (file && !is.character(object))
         return(.errorhandler("file=TRUE can only be used with a character object",          # #nocov
                              mode=errormode))                                               # #nocov
+
+    if (file && algo %in% algorithms_with_streaming_serialization)
+        return(.errorhandler(paste0(algo, " algorithm can not be used with files."),          # #nocov
+                             mode=errormode))                                               # #nocov
+
     ## HB 14 Mar 2007:  null op, only turned to char if alreadt char
     ##if (!inherits(object,"raw"))
     ##  object <- as.character(object)
@@ -93,11 +105,11 @@ digest <- function(object, algo=c("md5", "sha1", "crc32", "sha256", "sha256_new"
                       sha1=2,
                       crc32=3,
                       sha256=4,
-                      sha256_new=5,
-                      sha512=6,
-                      xxhash32=7,
-                      xxhash64=8,
-                      murmur32=9)
+                      sha512=5,
+                      xxhash32=6,
+                      xxhash64=7,
+                      murmur32=8,
+                      spookyhash=9)
     if (file) {
         algoint <- algoint+100
         object <- path.expand(object)
@@ -117,13 +129,18 @@ digest <- function(object, algo=c("md5", "sha1", "crc32", "sha256", "sha256_new"
     ## into 0 because auto should have been converted into a number earlier
     ## if it was valid [SU]
     if (is.character(skip)) skip <- 0
-    val <- .Call(digest_impl,
-                 object,
-                 as.integer(algoint),
-                 as.integer(length),
-                 as.integer(skip),
-                 as.integer(raw),
-                 as.integer(seed))
+    if(algo != "spookyhash"){
+        val <- .Call(digest_impl,
+                     object,
+                     as.integer(algoint),
+                     as.integer(length),
+                     as.integer(skip),
+                     as.integer(raw),
+                     as.integer(seed))
+    } else {
+        val <- paste(.Call(R_fastdigest, object, ref_serializer, PACKAGE="digest"),
+                     collapse="")
+    }
 
     ## crc32 output was not guaranteed to be eight chars long, which we corrected
     ## this allows to get the old behaviour back for compatibility
