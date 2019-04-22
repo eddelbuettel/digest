@@ -32,7 +32,6 @@
 #include "sha1.h"
 #include "sha2.h"
 #include "sha256.h"
-#include "sha256_new.h"
 #include "md5.h"
 #include "zlib.h"
 #include "xxhash.h"
@@ -140,24 +139,7 @@ SEXP digest(SEXP Txt, SEXP Algo, SEXP Length, SEXP Skip, SEXP Leave_raw, SEXP Se
 
         break;
     }
-    case 5: {     /* sha256 newcase */
-        int j;
-        sha256_new_context ctx;
-        output_length = 32;
-        unsigned char sha256_newsum[32];
-
-        sha256_new_starts( &ctx );
-        sha256_new_update( &ctx, (uint8 *) txt, nChar);
-        sha256_new_finish( &ctx, sha256_newsum );
-        memcpy(output, sha256_newsum, 32);
-
-        if (!leaveRaw)
-            for ( j = 0; j < 32; j++ )
-                sprintf( output + j * 2, "%02x", sha256_newsum[j] );
-
-        break;
-    }
-    case 6: {     /* sha2-512 case */
+    case 5: {     /* sha2-512 case */
         int j;
         SHA512_CTX ctx;
         output_length = SHA512_DIGEST_LENGTH;
@@ -181,12 +163,12 @@ SEXP digest(SEXP Txt, SEXP Algo, SEXP Length, SEXP Skip, SEXP Leave_raw, SEXP Se
         }
         break;
     }
-    case 7: {     /* xxhash32 case */
+    case 6: {     /* xxhash32 case */
         unsigned int val =  XXH32(txt, nChar, seed);
         sprintf(output, "%08x", val);
         break;
     }
-    case 8: {     /* xxhash64 case */
+    case 7: {     /* xxhash64 case */
         unsigned long long val =  XXH64(txt, nChar, seed);
 #ifdef WIN32
         sprintf(output, "%016" PRIx64, val);
@@ -195,7 +177,7 @@ SEXP digest(SEXP Txt, SEXP Algo, SEXP Length, SEXP Skip, SEXP Leave_raw, SEXP Se
 #endif
         break;
     }
-    case 9: {     /* MurmurHash3 32 */
+    case 8: {     /* MurmurHash3 32 */
         unsigned int val = PMurHash32(seed, txt, nChar);
         sprintf(output, "%08x", val);
         break;

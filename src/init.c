@@ -21,18 +21,22 @@
 
 */
 
+#include <Rdefines.h>
 #include <R_ext/Rdynload.h>
 #include "xxhash.h"
 #include "pmurhash.h"
 
+SEXP R_spookydigest(SEXP s, SEXP fun);
+
 static const R_CallMethodDef callMethods [] = {
     { "PMurHash32", (DL_FUNC) &PMurHash32, 3 },
+    { "R_spookydigest", (DL_FUNC) &R_spookydigest, 2 },
     { NULL, NULL, 0 }
 };
 
 void R_init_digest(DllInfo *info) {
     R_RegisterCCallable("digest", "PMurHash32", (DL_FUNC) &PMurHash32);
-
+    R_RegisterCCallable("digest", "R_spookydigest", (DL_FUNC) &R_spookydigest);
     R_registerRoutines(info,
                        NULL,            /* slot for .C */
                        callMethods,     /* slot for .Call */

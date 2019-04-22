@@ -1,5 +1,5 @@
 ## package has a dynamic library
-useDynLib(digest, digest_impl=digest, digest2int_impl=digest2int, AESinit, AESencryptECB, AESdecryptECB)
+useDynLib(digest, digest_impl=digest, digest2int_impl=digest2int, AESinit, AESencryptECB, AESdecryptECB, R_spookydigest)
 
 ## and exported functions
 export(AES,

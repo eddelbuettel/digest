@@ -54,13 +54,13 @@ digest <- function(object, algo=c("md5", "sha1", "crc32", "sha256", "sha256_new"
         file <- TRUE                  	# nocov
     }
 
-    algorithms_with_streaming_serialization <- c("spookyhash")
-    if(algo %in% algorithms_with_streaming_serialization && !serialize){
+    streaming_algos <- c("spookyhash")
+    if(algo %in% streaming_algos && !serialize){
         .errorhandler(paste0(algo, " algorithm is not available without serialization."),
                       mode=errormode)
     }
 
-    if (serialize && !file && !(algo %in% algorithms_with_streaming_serialization)) {
+    if (serialize && !file && !(algo %in% streaming_algos)) {
         ## support the 'nosharing' option in pqR's base::serialize()
         object <- if ("nosharing" %in% names(formals(base::serialize)))
                       base::serialize (object, connection=NULL, ascii=ascii,
@@ -85,7 +85,7 @@ digest <- function(object, algo=c("md5", "sha1", "crc32", "sha256", "sha256_new"
             ## Was: skip <- if (ascii) 18 else 14
         }
     } else if (!is.character(object) && !inherits(object,"raw") &&
-               !(algo %in% algorithms_with_streaming_serialization)) {
+               !(algo %in% streaming_algos)) {
         return(.errorhandler(paste("Argument object must be of type character",		    # #nocov
                                    "or raw vector if serialize is FALSE"), mode=errormode)) # #nocov
     }
@@ -93,7 +93,7 @@ digest <- function(object, algo=c("md5", "sha1", "crc32", "sha256", "sha256_new"
         return(.errorhandler("file=TRUE can only be used with a character object",          # #nocov
                              mode=errormode))                                               # #nocov
 
-    if (file && algo %in% algorithms_with_streaming_serialization)
+    if (file && algo %in% streaming_algos)
         return(.errorhandler(paste0(algo, " algorithm can not be used with files."),          # #nocov
                              mode=errormode))                                               # #nocov
 
@@ -138,7 +138,7 @@ digest <- function(object, algo=c("md5", "sha1", "crc32", "sha256", "sha256_new"
                      as.integer(raw),
                      as.integer(seed))
     } else {
-        val <- paste(.Call(R_fastdigest, object, ref_serializer, PACKAGE="digest"),
+        val <- paste(.Call(R_spookydigest, object, NULL, PACKAGE="digest"),
                      collapse="")
     }
 

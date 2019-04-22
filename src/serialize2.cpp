@@ -44,7 +44,7 @@ static SEXP CallHook(SEXP x, SEXP fun)
 }
 
 
-static SEXP R_spookydigest(SEXP s, SEXP fun)
+extern "C" SEXP R_spookydigest(SEXP s, SEXP fun)
 {
     SpookyHash spooky;
     uint64 seed1 = 100000, seed2 = 9872143234;
@@ -72,16 +72,4 @@ static SEXP R_spookydigest(SEXP s, SEXP fun)
 	RAW(ans)[j + 8] = tmp[j];
     UNPROTECT(1);
     return ans;
-}
-
-static R_CallMethodDef callMethods[]  = {
-  {"R_fastdigest", (DL_FUNC) &R_spookydigest, 2},
-  {NULL, NULL, 0}
-};
-
-extern "C" {
-void R_init_fastdigest(DllInfo *info)
-{
-    R_registerRoutines(info, NULL, callMethods, NULL, NULL);
-}
 }
