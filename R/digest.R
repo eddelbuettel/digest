@@ -20,7 +20,7 @@
 
 
 digest <- function(object, algo=c("md5", "sha1", "crc32", "sha256", "sha512",
-                                  "xxhash32", "xxhash64", "murmur32"),
+                                  "xxhash32", "xxhash64", "murmur32", "spookyhash"),
                    serialize=TRUE,
                    file=FALSE,
                    length=Inf,
@@ -54,7 +54,15 @@ digest <- function(object, algo=c("md5", "sha1", "crc32", "sha256", "sha512",
         file <- TRUE                  	# nocov
     }
 
-    if (serialize && !file) {
+    streaming_algos <- c("spookyhash")
+    non_streaming_algos <- c("md5", "sha1", "crc32", "sha256", "sha512",
+                             "xxhash32", "xxhash64", "murmur32")
+    if(algo %in% streaming_algos && !serialize){
+        .errorhandler(paste0(algo, " algorithm is not available without serialization."),
+                      mode=errormode)
+    }
+
+    if (serialize && !file && algo %in% non_streaming_algos) {
         ## support the 'nosharing' option in pqR's base::serialize()
         object <- if ("nosharing" %in% names(formals(base::serialize)))
                       base::serialize (object, connection=NULL, ascii=ascii,
@@ -78,13 +86,19 @@ digest <- function(object, algo=c("md5", "sha1", "crc32", "sha256", "sha512",
             }
             ## Was: skip <- if (ascii) 18 else 14
         }
-    } else if (!is.character(object) && !inherits(object,"raw")) {
+    } else if (!is.character(object) && !inherits(object,"raw") &&
+               algo %in% non_streaming_algos) {
         return(.errorhandler(paste("Argument object must be of type character",		    # #nocov
                                    "or raw vector if serialize is FALSE"), mode=errormode)) # #nocov
     }
     if (file && !is.character(object))
         return(.errorhandler("file=TRUE can only be used with a character object",          # #nocov
                              mode=errormode))                                               # #nocov
+
+    if (file && algo %in% streaming_algos)
+        return(.errorhandler(paste0(algo, " algorithm can not be used with files."),          # #nocov
+                             mode=errormode))                                               # #nocov
+
     ## HB 14 Mar 2007:  null op, only turned to char if alreadt char
     ##if (!inherits(object,"raw"))
     ##  object <- as.character(object)
@@ -96,7 +110,8 @@ digest <- function(object, algo=c("md5", "sha1", "crc32", "sha256", "sha512",
                       sha512=5,
                       xxhash32=6,
                       xxhash64=7,
-                      murmur32=8)
+                      murmur32=8,
+                      spookyhash=9)
     if (file) {
         algoint <- algoint+100
         object <- path.expand(object)
@@ -116,13 +131,17 @@ digest <- function(object, algo=c("md5", "sha1", "crc32", "sha256", "sha512",
     ## into 0 because auto should have been converted into a number earlier
     ## if it was valid [SU]
     if (is.character(skip)) skip <- 0
-    val <- .Call(digest_impl,
-                 object,
-                 as.integer(algoint),
-                 as.integer(length),
-                 as.integer(skip),
-                 as.integer(raw),
-                 as.integer(seed))
+    if(algo %in% non_streaming_algos){
+        val <- .Call(digest_impl,
+                     object,
+                     as.integer(algoint),
+                     as.integer(length),
+                     as.integer(skip),
+                     as.integer(raw),
+                     as.integer(seed))
+    } else if (algo == "spookyhash"){
+        val <- paste(.Call(spooky_impl, object), collapse="")
+    }
 
     ## crc32 output was not guaranteed to be eight chars long, which we corrected
     ## this allows to get the old behaviour back for compatibility
