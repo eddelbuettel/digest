@@ -1,3 +1,7 @@
+2019-04-23  Kendon Bell  <bellk@landcareresearch.co.nz>
+
+	* src/digest.c: Switch length counter to R_xlen_t
+
 2018-12-23  Dirk Eddelbuettel  <edd@debian.org>
 
 	* NAMESPACE: Add .registration=TRUE to useDynLib()
