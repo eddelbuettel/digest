@@ -44,7 +44,7 @@ static SEXP CallHook(SEXP x, SEXP fun)
 }
 
 
-extern "C" SEXP spooky_impl(SEXP s, SEXP fun)
+extern "C" SEXP spookydigest_impl(SEXP s, SEXP fun)
 {
     SpookyHash spooky;
     uint64 seed1 = 0, seed2 = 0;

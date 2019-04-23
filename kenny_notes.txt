@@ -1,0 +1,7 @@
+Notes:
+
+Compared to fastdigest:
+ - Removed fun / ref_serializer. These aren't necessary but could be added later.
+ - Changed seeds to 0 (seems to be consistent with other implementations).
+ - I haven't been able to match any other spooky hashes (see linktofdissue) but I also haven't been able to find a streaming example. May have to add a skip argument?
+

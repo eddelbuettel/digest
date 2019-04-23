@@ -140,7 +140,7 @@ digest <- function(object, algo=c("md5", "sha1", "crc32", "sha256", "sha512",
                      as.integer(raw),
                      as.integer(seed))
     } else if (algo == "spookyhash"){
-        val <- paste(.Call(spooky_impl, object), collapse="")
+        val <- paste(.Call(spookydigest_impl, object), collapse="")
     }
 
     ## crc32 output was not guaranteed to be eight chars long, which we corrected
