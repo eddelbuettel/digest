@@ -8,6 +8,7 @@
 //   July 12 2012: was passing out variables in final to in/out in short
 //   July 30 2012: I reintroduced the buffer overflow
 //   August 5 2012: SpookyV2: d = should be d += in short hash, and remove extra mix from long hash
+//   April 30 2019: Added counters to help with skipping first n bytes
 
 #include <memory.h>
 #include "SpookyV2.h"
@@ -349,3 +350,12 @@ void SpookyHash::Final(uint64 *hash1, uint64 *hash2)
     *hash2 = h1;
 }
 
+void SpookyHash::UpdateSkipCounter(size_t length)
+{
+    m_skipped = m_skipped + length;
+}
+
+void SpookyHash::GetSkipCounter(uint8 *count)
+{
+    *count = m_skipped;
+}

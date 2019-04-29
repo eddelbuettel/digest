@@ -19,7 +19,17 @@ static void OutCharSpooky(R_outpstream_t stream, int c)
 static void OutBytesSpooky(R_outpstream_t stream, void *buf, int length)
 {
     SpookyHash *spooky = (SpookyHash *)stream->data;
-    spooky->Update(buf, length);
+    uint8 skipped = 0;
+    spooky->GetSkipCounter(&skipped);
+    if(skipped < 14){
+        if((skipped + length) > 14){
+            error("Serialization header has an unexpected length. Please file an issue at https://github.com/eddelbuettel/digest/issues.");
+        }
+        spooky->UpdateSkipCounter(length);
+    } else {
+        Rprintf("%d ", length);
+        spooky->Update(buf, length);
+    }
 }
 
 

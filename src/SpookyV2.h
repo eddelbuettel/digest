@@ -8,6 +8,7 @@
 //   Feb  5 2012: adjusted definitions of uint* to be more portable
 //   Mar 30 2012: 3 bytes/cycle, not 4.  Alpha was 4 but wasn't thorough enough.
 //   August 5 2012: SpookyV2 (different results)
+//   April 30 2019: Added counters to help with skipping first n bytes
 // 
 // Up to 3 bytes/cycle for long messages.  Reasonably fast for short messages.
 // All 1 or 2 bit deltas achieve avalanche within 1% bias per output bit.
@@ -256,6 +257,15 @@ public:
         h0 ^= h3;  h3 = Rot64(h3,25);  h0 += h3;
         h1 ^= h0;  h0 = Rot64(h0,63);  h1 += h0;
     }
+
+    // Added by Kendon Bell 2019-04-30
+    // UpdateSkipCounter: update the skip counter
+    // GetSkipCounter: get the skip counter
+    //
+    void UpdateSkipCounter(
+        size_t length);       // length of message fragment skipped
+    void GetSkipCounter(
+        uint8 *count);       // length of message fragment skipped
     
 private:
 
@@ -293,6 +303,9 @@ private:
     uint64 m_state[sc_numVars];  // internal state of the hash
     size_t m_length;             // total length of the input so far
     uint8  m_remainder;          // length of unhashed data stashed in m_data
+	// Added by Kendon Bell 2019-04-30
+    uint8  m_skipped;              // length of original message already skipped
+
 };
 
 
