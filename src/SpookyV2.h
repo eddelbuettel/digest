@@ -8,7 +8,7 @@
 //   Feb  5 2012: adjusted definitions of uint* to be more portable
 //   Mar 30 2012: 3 bytes/cycle, not 4.  Alpha was 4 but wasn't thorough enough.
 //   August 5 2012: SpookyV2 (different results)
-//   April 30 2019: Added counters to help with skipping first n bytes
+//   Kendon Bell April 30 2019: Added counters to help with skipping first n bytes
 // 
 // Up to 3 bytes/cycle for long messages.  Reasonably fast for short messages.
 // All 1 or 2 bit deltas achieve avalanche within 1% bias per output bit.
