@@ -189,12 +189,14 @@ void SpookyHash::Hash128(
 
 
 // init spooky state
-void SpookyHash::Init(uint64 seed1, uint64 seed2)
+void SpookyHash::Init(uint64 seed1, uint64 seed2, uint8 to_skip)
 {
     m_length = 0;
     m_remainder = 0;
     m_state[0] = seed1;
     m_state[1] = seed2;
+    m_skipped = 0;
+    m_to_skip = to_skip;
 }
 
 
@@ -358,4 +360,9 @@ void SpookyHash::UpdateSkipCounter(size_t length)
 void SpookyHash::GetSkipCounter(uint8 *count)
 {
     *count = m_skipped;
+}
+
+void SpookyHash::GetToSkip(uint8 *to_skip)
+{
+    *to_skip = m_to_skip;
 }

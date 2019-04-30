@@ -88,7 +88,8 @@ public:
     //
     void Init(
         uint64 seed1,       // any 64-bit value will do, including 0
-        uint64 seed2);      // different seeds produce independent hashes
+        uint64 seed2,
+        uint8 to_skip);      // different seeds produce independent hashes
     
     //
     // Update: add a piece of a message to a SpookyHash state
@@ -266,6 +267,8 @@ public:
         size_t length);       // length of message fragment skipped
     void GetSkipCounter(
         uint8 *count);       // length of message fragment skipped
+    void GetToSkip(
+        uint8 *to_skip);       // value of skip parameter
     
 private:
 
@@ -305,6 +308,7 @@ private:
     uint8  m_remainder;          // length of unhashed data stashed in m_data
 	// Added by Kendon Bell 2019-04-30
     uint8  m_skipped;              // length of original message already skipped
+    uint8  m_to_skip;              // parameter for how many bytes to skip at the front of the object
 
 };
 

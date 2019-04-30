@@ -6,6 +6,7 @@
 #include <R.h>
 #include <Rinternals.h>
 #include <R_ext/Rdynload.h>
+#include <Rdefines.h>
 
 #include "SpookyV2.h"
 
@@ -20,14 +21,15 @@ static void OutBytesSpooky(R_outpstream_t stream, void *buf, int length)
 {
     SpookyHash *spooky = (SpookyHash *)stream->data;
     uint8 skipped = 0;
+    uint8 to_skip = 0;
     spooky->GetSkipCounter(&skipped);
-    if(skipped < 14){
-        if((skipped + length) > 14){
+    spooky->GetToSkip(&to_skip);
+    if(skipped < to_skip){
+        if((skipped + length) > to_skip){
             error("Serialization header has an unexpected length. Please file an issue at https://github.com/eddelbuettel/digest/issues.");
         }
         spooky->UpdateSkipCounter(length);
     } else {
-        Rprintf("%d ", length);
         spooky->Update(buf, length);
     }
 }
@@ -54,11 +56,16 @@ static SEXP CallHook(SEXP x, SEXP fun)
 }
 
 
-extern "C" SEXP spookydigest_impl(SEXP s, SEXP fun)
+extern "C" SEXP spookydigest_impl(SEXP s, SEXP to_skip_r, SEXP seed1_r, SEXP seed2_r, SEXP fun)
 {
     SpookyHash spooky;
-    uint64 seed1 = 0, seed2 = 0;
-    spooky.Init(seed1, seed2);
+    double seed1_d = NUMERIC_VALUE(seed1_r);
+    double seed2_d = NUMERIC_VALUE(seed2_r);
+    uint64 seed1 = seed1_d;
+    uint64 seed2 = seed2_d;
+
+	uint8 to_skip = INTEGER_VALUE(to_skip_r);
+	spooky.Init(seed1, seed2, to_skip);
     R_outpstream_st spooky_stream;
     R_pstream_format_t type = R_pstream_binary_format;
     SEXP (*hook)(SEXP, SEXP);

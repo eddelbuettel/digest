@@ -140,7 +140,8 @@ digest <- function(object, algo=c("md5", "sha1", "crc32", "sha256", "sha512",
                      as.integer(raw),
                      as.integer(seed))
     } else if (algo == "spookyhash"){
-        val <- paste(.Call(spookydigest_impl, object), collapse="")
+        # 0s are the seeds. They are included to enable testing against fastdigest.
+        val <- paste(.Call(spookydigest_impl, object, skip, 0, 0), collapse="")
     }
 
     ## crc32 output was not guaranteed to be eight chars long, which we corrected
