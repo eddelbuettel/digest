@@ -30,7 +30,6 @@ static void OutBytesSpooky(R_outpstream_t stream, void *buf, int length)
         }
         spooky->UpdateSkipCounter(length);
     } else {
-        Rprintf("processed this Update(): %d\n", length);
         spooky->Update(buf, length);
     }
 }
