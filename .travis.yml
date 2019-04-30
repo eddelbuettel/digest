@@ -9,7 +9,7 @@ before_install:
   - ./run.sh bootstrap
 
 install:
-  - ./run.sh install_aptget r-cran-knitr r-cran-rmarkdown
+  - ./run.sh install_aptget r-cran-knitr r-cran-rmarkdown r-cran-fastdigest
 
 script:
   - ./run.sh run_tests
