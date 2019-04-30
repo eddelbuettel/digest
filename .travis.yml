@@ -9,8 +9,8 @@ before_install:
   - ./run.sh bootstrap
 
 install:
-  - ./run.sh install_aptget r-cran-knitr r-cran-rmarkdown r-cran-fastdigest
-
+  - ./run.sh install_aptget r-cran-knitr r-cran-rmarkdown
+  - ./travis-tool.sh install_r fastdigest
 script:
   - ./run.sh run_tests
 
