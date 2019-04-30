@@ -38,7 +38,12 @@ for (i in seq(along.with=spookyInput)) {
 for (i in seq(along.with=spookyInput)) {
     # skip = 0 includes the entire serialization header for a length 1 character vector (this is a bug in fastdigest, I believe)
     # A failing test here might be due to a fix of this in fastdigest
-    spooky <- paste(.Call(digest:::spookydigest_impl, spookyInput[i], 0, 100000.0, 9872143234.0, NULL), collapse = "")
+    # fastdigest also currently uses the system default serialization version which is
+    if(as.double(R.Version()$major) > 3 | as.double(R.Version()$major) == 3 & as.double(R.Version()$minor) >= 6){
+      spooky <- paste(.Call(digest:::spookydigest_impl, spookyInput[i], 0, 100000.0, 9872143234.0, 3, NULL), collapse = "")
+    } else {
+      spooky <- paste(.Call(digest:::spookydigest_impl, spookyInput[i], 0, 100000.0, 9872143234.0, 2, NULL), collapse = "")
+    }
     stopifnot(identical(spooky, fastdigest::fastdigest(spookyInput[i])))
     cat(spooky, "\n")
 }

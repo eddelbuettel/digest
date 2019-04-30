@@ -25,9 +25,6 @@ static void OutBytesSpooky(R_outpstream_t stream, void *buf, int length)
     spooky->GetSkipCounter(&skipped);
     spooky->GetToSkip(&to_skip);
     if(skipped < to_skip){
-        Rprintf("length: %d\n", length);
-        Rprintf("skipped: %d\n", skipped);
-        Rprintf("to_skip: %d\n", to_skip);
         if((skipped + length) > to_skip){
             error("Serialization header has an unexpected length. Please file an issue at https://github.com/eddelbuettel/digest/issues.");
         }
@@ -60,7 +57,7 @@ static SEXP CallHook(SEXP x, SEXP fun)
 }
 
 
-extern "C" SEXP spookydigest_impl(SEXP s, SEXP to_skip_r, SEXP seed1_r, SEXP seed2_r, SEXP fun)
+extern "C" SEXP spookydigest_impl(SEXP s, SEXP to_skip_r, SEXP seed1_r, SEXP seed2_r, SEXP version_r, SEXP fun)
 {
     SpookyHash spooky;
     double seed1_d = NUMERIC_VALUE(seed1_r);
@@ -73,7 +70,7 @@ extern "C" SEXP spookydigest_impl(SEXP s, SEXP to_skip_r, SEXP seed1_r, SEXP see
     R_outpstream_st spooky_stream;
     R_pstream_format_t type = R_pstream_binary_format;
     SEXP (*hook)(SEXP, SEXP);
-    int version = 0; //R_DefaultSerializeVersion?;
+    int version = INTEGER_VALUE(version_r);
     hook = fun != R_NilValue ? CallHook : NULL;
     InitSpookyPStream(&spooky_stream, &spooky, type, version, hook, fun);
     R_Serialize(s, &spooky_stream);
