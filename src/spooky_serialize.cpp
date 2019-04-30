@@ -25,6 +25,9 @@ static void OutBytesSpooky(R_outpstream_t stream, void *buf, int length)
     spooky->GetSkipCounter(&skipped);
     spooky->GetToSkip(&to_skip);
     if(skipped < to_skip){
+        Rprintf("length: %d\n", length);
+        Rprintf("length: %d\n", skipped);
+        Rprintf("length: %d\n", to_skip);
         if((skipped + length) > to_skip){
             error("Serialization header has an unexpected length. Please file an issue at https://github.com/eddelbuettel/digest/issues.");
         }
