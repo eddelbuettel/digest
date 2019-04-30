@@ -3,7 +3,7 @@
 
 stopifnot(require(digest))
 # Not sure if this is really bad practice. what's the best way to include a package that's just for testing?
-if (!require("fastdigest")) install.packages("fastdigest")
+if (!require("fastdigest")) install.packages("fastdigest", repos = "https://cran.rstudio.com")
 
 ## test vectors (originally for md5)
 spookyInput <-
