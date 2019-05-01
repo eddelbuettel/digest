@@ -183,6 +183,30 @@ spookyInput <-
     paste("12345678901234567890123456789012345678901234567890123456789012",
           "345678901234567890", sep=""))
 
+# from spooky import hash128
+# from binascii import hexlify
+#
+# spookyInput = [
+#     "",
+#       "a",
+#       "abc",
+#       "message digest",
+#       "abcdefghijklmnopqrstuvwxyz",
+#       "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789",
+#       "12345678901234567890123456789012345678901234567890123456789012345678901234567890"
+#     ]
+#
+# for s in spookyInput:
+#     hexlify(hash128(s).to_bytes(16, 'little')).decode()
+#
+# '1909f56bfc062723c751e8b465ee728b'
+# 'bdc9bba09181101a922a4161f0584275'
+# '67c93775f715ab8ab01178caf86713c6'
+# '9630c2a55c0987a0db44434f9d67a192'
+# '5172de938ce149a98f4d06d3c3168ffe'
+# 'b5b3b2d0f08b58aa07f551895f929f81'
+# '3621ec01112dafa1610a4bd23041966b'
+
 spookyOutputPython <-
   c(
     '1909f56bfc062723c751e8b465ee728b',
