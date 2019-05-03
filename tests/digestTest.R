@@ -167,6 +167,67 @@ for (i in seq(along.with=murmur32Input)) {
     cat(murmur32, "\n")
     stopifnot(identical(murmur32, murmur32Output[i]))
 }
+
+## tests for digest spooky
+
+stopifnot(require(digest))
+
+## test vectors (originally for md5)
+spookyInput <-
+  c("",
+    "a",
+    "abc",
+    "message digest",
+    "abcdefghijklmnopqrstuvwxyz",
+    "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789",
+    paste("12345678901234567890123456789012345678901234567890123456789012",
+          "345678901234567890", sep=""))
+
+# from spooky import hash128
+# from binascii import hexlify
+#
+# spookyInput = [
+#     "",
+#       "a",
+#       "abc",
+#       "message digest",
+#       "abcdefghijklmnopqrstuvwxyz",
+#       "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789",
+#       "12345678901234567890123456789012345678901234567890123456789012345678901234567890"
+#     ]
+#
+# for s in spookyInput:
+#     hexlify(hash128(s).to_bytes(16, 'little')).decode()
+#
+# '1909f56bfc062723c751e8b465ee728b'
+# 'bdc9bba09181101a922a4161f0584275'
+# '67c93775f715ab8ab01178caf86713c6'
+# '9630c2a55c0987a0db44434f9d67a192'
+# '5172de938ce149a98f4d06d3c3168ffe'
+# 'b5b3b2d0f08b58aa07f551895f929f81'
+# '3621ec01112dafa1610a4bd23041966b'
+
+spookyOutputPython <-
+  c(
+    '1909f56bfc062723c751e8b465ee728b',
+    'bdc9bba09181101a922a4161f0584275',
+    '67c93775f715ab8ab01178caf86713c6',
+    '9630c2a55c0987a0db44434f9d67a192',
+    '5172de938ce149a98f4d06d3c3168ffe',
+    'b5b3b2d0f08b58aa07f551895f929f81',
+    '3621ec01112dafa1610a4bd23041966b'
+  )
+
+## spooky raw output test
+for (i in seq(along.with=spookyInput)) {
+  # skip = 30 skips the entire serialization header for a length 1 character vector
+  # this is equivalent to raw = TRUE and matches the python spooky implementation for those vectors
+  spooky <- digest(spookyInput[i], algo = "spookyhash", skip = 30)
+  stopifnot(identical(spooky, spookyOutputPython[i]))
+  cat(spooky, "\n")
+}
+
+
 ## test 'length' parameter and file input
 ##fname <- file.path(R.home(),"COPYING")  ## not invariant across OSs
 fname <- system.file("GPL-2", package="digest")
@@ -205,3 +266,4 @@ cat("Hello World, you won't have access to read me", file=fname)
 on.exit(unlink(fname))
 Sys.chmod(fname, mode="0000")
 try(res <- digest(fname, file=TRUE), silent=TRUE)
+

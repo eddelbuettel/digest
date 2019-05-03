@@ -14,7 +14,7 @@
 }
 \usage{
 digest(object, algo=c("md5", "sha1", "crc32", "sha256", "sha512",
-       "xxhash32", "xxhash64", "murmur32"), serialize=TRUE, file=FALSE,
+       "xxhash32", "xxhash64", "murmur32", "spookyhash"), serialize=TRUE, file=FALSE,
        length=Inf, skip="auto", ascii=FALSE, raw=FALSE, seed=0,
        errormode=c("stop","warn","silent"),
        serializeVersion=.getSerializeVersion())
@@ -25,8 +25,8 @@ digest(object, algo=c("md5", "sha1", "crc32", "sha256", "sha512",
     argument is set to \code{FALSE}.}
   \item{algo}{The algorithms to be used; currently available choices are
     \code{md5}, which is also the default, \code{sha1}, \code{crc32},
-    \code{sha256}, \code{sha512}, \code{xxhash32}, \code{xxhash64} and
-    \code{murmur32}.}
+    \code{sha256}, \code{sha512}, \code{xxhash32}, \code{xxhash64},
+    \code{murmur32} and \code{spookyhash}.}
   \item{serialize}{A logical variable indicating whether the object
     should be serialized using \code{serialize} (in ASCII
     form). Setting this to \code{FALSE} allows to compare the digest
@@ -79,23 +79,27 @@ digest(object, algo=c("md5", "sha1", "crc32", "sha256", "sha512",
   Cryptographic hash functions are well researched and documented. The
   MD5 algorithm by Ron Rivest is specified in RFC 1321. The SHA-1
   algorithm is specified in FIPS-180-1, SHA-2 is described in
-  FIPS-180-2. 
+  FIPS-180-2.
 
   For md5, sha-1 and sha-256, this R implementation relies on standalone
   implementations in C by Christophe Devine. For crc32, code from the
   zlib library by Jean-loup Gailly and Mark Adler is used.
-  
+
   For sha-512, a standalone implementation from Aaron Gifford is used.
 
   For xxhash32 and xxhash64, the reference implementation by Yann Collet is used.
 
   For murmur32, the progressive implementation by Shane Day is used.
 
+  For spookyhash, the original source code by Bob Jenkins is used. The R implementation
+  that integrates R's serialization directly with the algorithm allowing for
+  memory-efficient incremental calculation of the hash is by Gabe Becker.
+
   Please note that this package is not meant to be used for
   cryptographic purposes for which more comprehensive (and widely
   tested) libraries such as OpenSSL should be used. Also, it is known
   that crc32 is not collision-proof. For sha-1, recent results indicate
-  certain cryptographic weaknesses as well. For more details, see for example 
+  certain cryptographic weaknesses as well. For more details, see for example
   \url{http://www.schneier.com/blog/archives/2005/02/cryptanalysis_o.html}.
 }
 \section{Change Management}{
@@ -106,7 +110,7 @@ digest(object, algo=c("md5", "sha1", "crc32", "sha256", "sha512",
   consistent with prior version (but not be consistentnly eight characters).
 }
 \references{
-  MD5: \url{http://www.ietf.org/rfc/rfc1321.txt}. 
+  MD5: \url{http://www.ietf.org/rfc/rfc1321.txt}.
 
   SHA-1: \url{https://en.wikipedia.org/wiki/SHA-1}.
   SHA-256: \url{https://csrc.nist.gov/publications/fips/fips180-2/fips180-2withchangenotice.pdf}.
@@ -114,14 +118,14 @@ digest(object, algo=c("md5", "sha1", "crc32", "sha256", "sha512",
   vanished from the web; see
   \url{https://en.wikipedia.org/wiki/Cyclic_redundancy_check} for
   general information on CRC algorithms.
-  
-  \url{http://www.aarongifford.com/computers/sha.html} for the 
+
+  \url{http://www.aarongifford.com/computers/sha.html} for the
   integrated C implementation of sha-512.
 
   The page for the code underlying the C functions used here for sha-1
   and md5, and further references, is no longer accessible.  Please see
   \url{https://en.wikipedia.org/wiki/SHA-1} and
-  \url{https://en.wikipedia.org/wiki/MD5}.  
+  \url{https://en.wikipedia.org/wiki/MD5}.
 
   \url{http://zlib.net} for documentation on the zlib library which
   supplied the code for crc32.
@@ -134,6 +138,7 @@ digest(object, algo=c("md5", "sha1", "crc32", "sha256", "sha512",
 
   \url{https://github.com/aappleby/smhasher} for documentation on MurmurHash.
 
+  \url{https://burtleburtle.net/bob/hash/spooky.html} for the original source code of SpookyHash.
 }
 \author{Dirk Eddelbuettel \email{edd@debian.org} for the \R interface;
   Antoine Lucas for the integration of crc32; Jarek Tuszynski for the
@@ -141,7 +146,8 @@ digest(object, algo=c("md5", "sha1", "crc32", "sha256", "sha512",
   serialization patches; Christophe Devine for the hash function
   implementations for sha-1, sha-256 and md5; Jean-Loup Gailly and Mark Adler
   for crc32; Hannes Muehleisen for the integration of sha-512; Jim Hester for
-  the integration of xxhash32, xxhash64 and murmur32.}
+  the integration of xxhash32, xxhash64 and murmur32; Kendon Bell for
+  the integration of spookyhash using Gabe Becker's R package fastdigest.}
 \seealso{\code{\link{serialize}}, \code{\link{md5sum}}}
 
 \examples{
@@ -172,7 +178,7 @@ for (i in seq(along=md5Input)) {
 
 sha1Input <-
   c("abc", "abcdbcdecdefdefgefghfghighijhijkijkljklmklmnlmnomnopnopq")
-sha1Output <- 
+sha1Output <-
   c("a9993e364706816aba3e25717850c26c9cd0d89d",
     "84983e441c3bd26ebaae4aa1f95129e5e54670f1")
 
@@ -184,7 +190,7 @@ for (i in seq(along=sha1Input)) {
 crc32Input <-
   c("abc",
     "abcdbcdecdefdefgefghfghighijhijkijkljklmklmnlmnomnopnopq")
-crc32Output <- 
+crc32Output <-
   c("352441c2",
     "171a3f5f")
 
@@ -197,7 +203,7 @@ for (i in seq(along=crc32Input)) {
 sha256Input <-
   c("abc",
     "abcdbcdecdefdefgefghfghighijhijkijkljklmklmnlmnomnopnopq")
-sha256Output <- 
+sha256Output <-
   c("ba7816bf8f01cfea414140de5dae2223b00361a396177a9cb410ff61f20015ad",
     "248d6a61d20638b8e5c026930c3e6039a33ce45964ff2167f6ecedd419db06c1")
 
@@ -210,7 +216,7 @@ for (i in seq(along=sha256Input)) {
 sha512Input <-
   c("abc",
     "abcdbcdecdefdefgefghfghighijhijkijkljklmklmnlmnomnopnopq")
-sha512Output <- 
+sha512Output <-
   c(paste("ddaf35a193617abacc417349ae20413112e6fa4e89a97ea20a9eeee64b55d39a",
           "2192992a274fc1a836ba3c23a3feebbd454d4423643ce80e2a9ac94fa54ca49f",
           sep=""),
@@ -269,6 +275,23 @@ for (i in seq(along=murmur32Input)) {
     murmur32 <- digest(murmur32Input[i], algo="murmur32", serialize=FALSE)
     cat(murmur32, "\n")
     stopifnot(identical(murmur32, murmur32Output[i]))
+}
+
+## these outputs were calculated using spooky python package
+spookyInput <-
+    c("a",
+      "abc",
+      "message digest")
+spookyOutput <-
+    c("bdc9bba09181101a922a4161f0584275",
+      "67c93775f715ab8ab01178caf86713c6",
+      "9630c2a55c0987a0db44434f9d67a192")
+
+for (i in seq(along=spookyInput)) {
+    # skip = 30 skips the serialization header and just hashes the strings
+    spooky <- digest(spookyInput[i], algo="spookyhash", skip = 30)
+    cat(spooky, "\n")
+    stopifnot(identical(spooky, spookyOutput[i]))
 }
 
 # example of a digest of a standard R list structure
