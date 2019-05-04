@@ -13,7 +13,6 @@
 
 #include <memory.h>
 #include "SpookyV2.h"
-#include "R.h"
 
 #define ALLOW_UNALIGNED_READS 1
 
@@ -201,7 +200,7 @@ void SpookyHash::Update(const void *message, size_t length)
     }
     else
     {
-        u.p8 = (const uint8 *)message;
+        u.p8 = (const uint8 *)message; // #nocov
     }
 
     // handle all whole blocks of sc_blockSize bytes
@@ -273,13 +272,13 @@ void SpookyHash::Final(uint64 *hash1, uint64 *hash2)
     uint64 h10 = m_state[10];
     uint64 h11 = m_state[11];
 
-    if (remainder >= sc_blockSize)
+    if (remainder >= sc_blockSize) // #nocov start
     {
         // m_data can contain two blocks; handle any whole first block
         Mix(data, h0,h1,h2,h3,h4,h5,h6,h7,h8,h9,h10,h11);
         data += sc_numVars;
         remainder -= sc_blockSize;
-    }
+    }                              // #nocov end
 
     // mix in the last partial block, and the length mod sc_blockSize
     memset(&((uint8 *)data)[remainder], 0, (sc_blockSize-remainder));
