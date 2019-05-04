@@ -227,6 +227,10 @@ for (i in seq(along.with=spookyInput)) {
   cat(spooky, "\n")
 }
 
+error.message <- try(digest(spookyInput[i], algo = "spookyhash", serialize = FALSE))
+stopifnot(
+  grepl("spookyhash algorithm is not available without serialization.", error.message)
+)
 
 ## test 'length' parameter and file input
 ##fname <- file.path(R.home(),"COPYING")  ## not invariant across OSs

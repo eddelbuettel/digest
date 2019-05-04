@@ -58,8 +58,8 @@ digest <- function(object, algo=c("md5", "sha1", "crc32", "sha256", "sha512",
     non_streaming_algos <- c("md5", "sha1", "crc32", "sha256", "sha512",
                              "xxhash32", "xxhash64", "murmur32")
     if(algo %in% streaming_algos && !serialize){
-        .errorhandler(paste0(algo, " algorithm is not available without serialization."),   # #nocov
-                      mode=errormode)                                                       # #nocov
+        .errorhandler(paste0(algo, " algorithm is not available without serialization."),
+                      mode=errormode)
     }
 
     if (serialize && !file && algo %in% non_streaming_algos) {
