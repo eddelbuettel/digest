@@ -96,7 +96,7 @@ digest <- function(object, algo=c("md5", "sha1", "crc32", "sha256", "sha512",
                              mode=errormode))                                               # #nocov
 
     if (file && algo %in% streaming_algos)
-        return(.errorhandler(paste0(algo, " algorithm can not be used with files."),          # #nocov
+        return(.errorhandler(paste0(algo, " algorithm can not be used with files."),        # #nocov
                              mode=errormode))                                               # #nocov
 
     ## HB 14 Mar 2007:  null op, only turned to char if alreadt char
