@@ -3,3 +3,4 @@
 ^\.Rproj\.user$
 ^\.codecov\.yml$
 ^.*\.tar\.gz$
+^local
