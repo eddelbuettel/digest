@@ -58,8 +58,8 @@ digest <- function(object, algo=c("md5", "sha1", "crc32", "sha256", "sha512",
     non_streaming_algos <- c("md5", "sha1", "crc32", "sha256", "sha512",
                              "xxhash32", "xxhash64", "murmur32")
     if(algo %in% streaming_algos && !serialize){
-        .errorhandler(paste0(algo, " algorithm is not available without serialization."),
-                      mode=errormode)
+        .errorhandler(paste0(algo, " algorithm is not available without serialization."),   # #nocov
+                      mode=errormode)                                                       # #nocov
     }
 
     if (serialize && !file && algo %in% non_streaming_algos) {
@@ -96,7 +96,7 @@ digest <- function(object, algo=c("md5", "sha1", "crc32", "sha256", "sha512",
                              mode=errormode))                                               # #nocov
 
     if (file && algo %in% streaming_algos)
-        return(.errorhandler(paste0(algo, " algorithm can not be used with files."),          # #nocov
+        return(.errorhandler(paste0(algo, " algorithm can not be used with files."),        # #nocov
                              mode=errormode))                                               # #nocov
 
     ## HB 14 Mar 2007:  null op, only turned to char if alreadt char

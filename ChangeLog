@@ -1,3 +1,16 @@
+2019-05-04  Dirk Eddelbuettel  <edd@debian.org>
+
+	* R/digest.R: Add some #nocov tags
+	* src/SpookyV2.h: Idem
+	* src/SpookyV2.cpp: Idem
+	* src/spooky_serialize.cpp: Imde,
+
+2019-05-03  Dirk Eddelbuettel  <edd@debian.org>
+
+	* tests/digestTest.Rout.save: Updated reference output
+
+2019-04-30  Kendon Bell  <bellk@landcareresearch.co.nz>
+	
 2019-04-23  Kendon Bell  <bellk@landcareresearch.co.nz>
 
 	* src/digest.c: Switch length counter to R_xlen_t

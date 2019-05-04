@@ -11,11 +11,11 @@
 #include "SpookyV2.h"
 
 
-static void OutCharSpooky(R_outpstream_t stream, int c)
+static void OutCharSpooky(R_outpstream_t stream, int c)		// #nocov start
 {
     SpookyHash *spooky = (SpookyHash *)stream->data;
     spooky->Update(&c, 1);
-}
+}								// #nocov end
 
 static void OutBytesSpooky(R_outpstream_t stream, void *buf, int length)
 {
@@ -26,7 +26,7 @@ static void OutBytesSpooky(R_outpstream_t stream, void *buf, int length)
     spooky->GetToSkip(&to_skip);
     if(skipped < to_skip){
         if((skipped + length) > to_skip){
-            error("Serialization header has an unexpected length. Please file an issue at https://github.com/eddelbuettel/digest/issues.");
+            error("Serialization header has an unexpected length. Please file an issue at https://github.com/eddelbuettel/digest/issues."); // #nocov
         }
         spooky->UpdateSkipCounter(length);
     } else {
@@ -46,14 +46,14 @@ static void InitSpookyPStream(R_outpstream_t stream, SpookyHash *spooky,
 
 //From serialize.c in R sources
 /* ought to quote the argument, but it should only be an ENVSXP or STRSXP */
-static SEXP CallHook(SEXP x, SEXP fun)
+static SEXP CallHook(SEXP x, SEXP fun)				// #nocov start
 {
     SEXP val, call;
     PROTECT(call = LCONS(fun, LCONS(x, R_NilValue)));
     val = eval(call, R_GlobalEnv);
     UNPROTECT(1);
     return val;
-}
+}								// #nocov end
 
 
 extern "C" SEXP spookydigest_impl(SEXP s, SEXP to_skip_r, SEXP seed1_r, SEXP seed2_r, SEXP version_r, SEXP fun)
