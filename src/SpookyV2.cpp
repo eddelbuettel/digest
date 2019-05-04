@@ -9,9 +9,11 @@
 //   July 30 2012: I reintroduced the buffer overflow
 //   August 5 2012: SpookyV2: d = should be d += in short hash, and remove extra mix from long hash
 //   Kendon Bell April 30 2019: Added counters to help with skipping first n bytes
+//   Kendon Bell May 04 2019: Deleted original source code that doesn't get used
 
 #include <memory.h>
 #include "SpookyV2.h"
+#include "R.h"
 
 #define ALLOW_UNALIGNED_READS 1
 
@@ -78,7 +80,7 @@ void SpookyHash::Short(
     switch (remainder)
     {
     case 15:
-      d += ((uint64)u.p8[14]) << 48;				// #nocov
+        d += ((uint64)u.p8[14]) << 48;
     case 14:
         d += ((uint64)u.p8[13]) << 40;
     case 13:
@@ -88,7 +90,7 @@ void SpookyHash::Short(
         c += u.p64[0];
         break;
     case 11:
-        d += ((uint64)u.p8[10]) << 16;				// #nocov
+        d += ((uint64)u.p8[10]) << 16;
     case 10:
         d += ((uint64)u.p8[9]) << 8;
     case 9:
@@ -97,14 +99,14 @@ void SpookyHash::Short(
         c += u.p64[0];
         break;
     case 7:
-        c += ((uint64)u.p8[6]) << 48;				// #nocov
+        c += ((uint64)u.p8[6]) << 48;
     case 6:
-        c += ((uint64)u.p8[5]) << 40;				// #nocov
+        c += ((uint64)u.p8[5]) << 40;
     case 5:
-        c += ((uint64)u.p8[4]) << 32;				// #nocov
+        c += ((uint64)u.p8[4]) << 32;
     case 4:
-        c += u.p32[0];						// #nocov
-        break;							// #nocov
+        c += u.p32[0];
+        break;
     case 3:
         c += ((uint64)u.p8[2]) << 16;
     case 2:
@@ -124,67 +126,6 @@ void SpookyHash::Short(
 
 
 
-// do the whole hash in one call
-void SpookyHash::Hash128(					// #nocov start
-    const void *message,
-    size_t length,
-    uint64 *hash1,
-    uint64 *hash2)
-{
-    if (length < sc_bufSize)
-    {
-        Short(message, length, hash1, hash2);
-        return;
-    }
-
-    uint64 h0,h1,h2,h3,h4,h5,h6,h7,h8,h9,h10,h11;
-    uint64 buf[sc_numVars];
-    uint64 *end;
-    union
-    {
-        const uint8 *p8;
-        uint64 *p64;
-        size_t i;
-    } u;
-    size_t remainder;
-
-    h0=h3=h6=h9  = *hash1;
-    h1=h4=h7=h10 = *hash2;
-    h2=h5=h8=h11 = sc_const;
-
-    u.p8 = (const uint8 *)message;
-    end = u.p64 + (length/sc_blockSize)*sc_numVars;
-
-    // handle all whole sc_blockSize blocks of bytes
-    if (ALLOW_UNALIGNED_READS || ((u.i & 0x7) == 0))
-    {
-        while (u.p64 < end)
-        {
-            Mix(u.p64, h0,h1,h2,h3,h4,h5,h6,h7,h8,h9,h10,h11);
-	    u.p64 += sc_numVars;
-        }
-    }
-    else
-    {
-        while (u.p64 < end)
-        {
-            memcpy(buf, u.p64, sc_blockSize);
-            Mix(buf, h0,h1,h2,h3,h4,h5,h6,h7,h8,h9,h10,h11);
-	    u.p64 += sc_numVars;
-        }
-    }
-
-    // handle the last partial block of sc_blockSize bytes
-    remainder = (length - ((const uint8 *)end-(const uint8 *)message));
-    memcpy(buf, end, remainder);
-    memset(((uint8 *)buf)+remainder, 0, sc_blockSize-remainder);
-    ((uint8 *)buf)[sc_blockSize-1] = remainder;
-
-    // do some final mixing
-    End(buf, h0,h1,h2,h3,h4,h5,h6,h7,h8,h9,h10,h11);
-    *hash1 = h0;
-    *hash2 = h1;
-} 								// #nocov end
 
 
 
@@ -224,7 +165,7 @@ void SpookyHash::Update(const void *message, size_t length)
     }
 
     // init the variables
-    if (m_length < sc_bufSize)					// #nocov start
+    if (m_length < sc_bufSize)
     {
         h0=h3=h6=h9  = m_state[0];
         h1=h4=h7=h10 = m_state[1];
@@ -301,7 +242,7 @@ void SpookyHash::Update(const void *message, size_t length)
     m_state[9] = h9;
     m_state[10] = h10;
     m_state[11] = h11;
-}								// #nocov end
+}
 
 
 // report the hash for the concatenation of all message fragments so far
@@ -316,7 +257,7 @@ void SpookyHash::Final(uint64 *hash1, uint64 *hash2)
         return;
     }
 
-    const uint64 *data = (const uint64 *)m_data;		// #nocov start
+    const uint64 *data = (const uint64 *)m_data;
     uint8 remainder = m_remainder;
 
     uint64 h0 = m_state[0];
@@ -349,7 +290,7 @@ void SpookyHash::Final(uint64 *hash1, uint64 *hash2)
     End(data, h0,h1,h2,h3,h4,h5,h6,h7,h8,h9,h10,h11);
 
     *hash1 = h0;
-    *hash2 = h1;						// #nocov end
+    *hash2 = h1;
 }
 
 void SpookyHash::UpdateSkipCounter(size_t length)

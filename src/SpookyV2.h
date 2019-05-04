@@ -9,6 +9,7 @@
 //   Mar 30 2012: 3 bytes/cycle, not 4.  Alpha was 4 but wasn't thorough enough.
 //   August 5 2012: SpookyV2 (different results)
 //   Kendon Bell April 30 2019: Added counters to help with skipping first n bytes
+//   Kendon Bell May 04 2019: Deleted original source code that doesn't get used
 //
 // Up to 3 bytes/cycle for long messages.  Reasonably fast for short messages.
 // All 1 or 2 bit deltas achieve avalanche within 1% bias per output bit.
@@ -48,41 +49,6 @@
 class SpookyHash
 {
 public:
-    //
-    // SpookyHash: hash a single message in one call, produce 128-bit output
-    //
-    static void Hash128(
-        const void *message,  // message to hash
-        size_t length,        // length of message in bytes
-        uint64 *hash1,        // in/out: in seed 1, out hash value 1
-        uint64 *hash2);       // in/out: in seed 2, out hash value 2
-
-    //
-    // Hash64: hash a single message in one call, return 64-bit output
-    //
-    static uint64 Hash64(
-        const void *message,  // message to hash
-        size_t length,        // length of message in bytes
-        uint64 seed)          // seed
-    {
-        uint64 hash1 = seed;
-        Hash128(message, length, &hash1, &seed);
-        return hash1;
-    }
-
-    //
-    // Hash32: hash a single message in one call, produce 32-bit output
-    //
-    static uint32 Hash32(
-        const void *message,  // message to hash
-        size_t length,        // length of message in bytes
-        uint32 seed)          // seed
-    {
-        uint64 hash1 = seed, hash2 = seed;
-        Hash128(message, length, &hash1, &hash2);
-        return (uint32)hash1;
-    }
-
     //
     // Init: initialize the context of a SpookyHash
     //
@@ -132,7 +98,7 @@ public:
     //   When run forward or backwards one Mix
     // I tried 3 pairs of each; they all differed by at least 212 bits.
     //
-    static INLINE void Mix(					// #nocov start
+    static INLINE void Mix(
         const uint64 *data,
         uint64 &s0, uint64 &s1, uint64 &s2, uint64 &s3,
         uint64 &s4, uint64 &s5, uint64 &s6, uint64 &s7,
@@ -199,7 +165,7 @@ public:
         EndPartial(h0,h1,h2,h3,h4,h5,h6,h7,h8,h9,h10,h11);
         EndPartial(h0,h1,h2,h3,h4,h5,h6,h7,h8,h9,h10,h11);
         EndPartial(h0,h1,h2,h3,h4,h5,h6,h7,h8,h9,h10,h11);
-    }								// #nocov end
+    }
 
     //
     // The goal is for each bit of the input to expand into 128 bits of
