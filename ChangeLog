@@ -1,3 +1,8 @@
+2019-05-06  Dirk Eddelbuettel  <edd@debian.org>
+
+	* README.md: Mention spookyhash and Kendon
+	* DESCRIPTION (Description): Mention spookyhash
+
 2019-05-04  Dirk Eddelbuettel  <edd@debian.org>
 
 	* R/digest.R: Add some #nocov tags

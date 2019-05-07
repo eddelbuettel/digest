@@ -13,7 +13,6 @@
 
 #include <memory.h>
 #include "SpookyV2.h"
-#include "R.h"
 
 #define ALLOW_UNALIGNED_READS 1
 
