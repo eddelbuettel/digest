@@ -228,22 +228,15 @@ for (i in seq(along.with=spookyInput)) {
 }
 
 ## some extras to get coverage up - these aren't tested against reference output,
-## just output from R 3.6.0
 spookyInput <- c("a", "aaaaaaaaa", "aaaaaaaaaaaaa")
-spookyOutput <- c(
-  "1a2f36ba5a98666b4c338a224549d8c8",
-  "f5e401999e92af92bccfa96adeb3c570",
-  "d05c2b08c8a4b1d404877d02b8187593"
-)
 for (i in seq(along.with=spookyInput)) {
   spooky <- digest(spookyInput[i], algo = "spookyhash")
-  stopifnot(identical(spooky, spookyOutput[i]))
   cat(spooky, "\n")
 }
 
 # test a bigger object
-spooky <- digest(iris, algo = "spookyhash")
-stopifnot(identical(spooky, "5107757cc4e15149dc15006d5b598e71"))
+spooky <- digest(iris, algo = "spookyhash", skip = 30)
+stopifnot(identical(spooky, "5372e58629bf7dcefdd44a8d9ef0c0f3"))
 cat(spooky, "\n")
 
 # test error message
