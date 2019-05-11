@@ -6,3 +6,5 @@ src/*.so
 src/*.dll
 inst/doc
 *.tar.gz
+local
+digest.Rcheck

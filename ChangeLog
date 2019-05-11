@@ -1,3 +1,19 @@
+2019-05-09  Dirk Eddelbuettel  <edd@debian.org>
+
+	* src/Makevars: Added to ensure C++11 compilation standard
+	* cleanup: Do not delete src/Makevars now that we have one
+	* tests/digestTest.Rout.save: Updated reference output
+
+2019-05-06  Dirk Eddelbuettel  <edd@debian.org>
+
+	* README.md: Mention spookyhash and Kendon
+	* DESCRIPTION (Description): Mention spookyhash
+
+2019-05-04  Kendon Bell  <bellk@landcareresearch.co.nz>
+
+	* tests/digestTest.R: Added more tests
+	* src/spooky_serialize.cpp: Added copyright header
+	
 2019-05-04  Dirk Eddelbuettel  <edd@debian.org>
 
 	* R/digest.R: Add some #nocov tags
