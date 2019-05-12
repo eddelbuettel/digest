@@ -227,14 +227,14 @@ for (i in seq(along.with=spookyInput)) {
   cat(spooky, "\n")
 }
 
-## some extras to get coverage up - these aren't tested against reference output,
-## just output from R 3.6.0
-spookyInput <- c("a", "aaaaaaaaa", "aaaaaaaaaaaaa")
-
-for (i in seq(along.with=spookyInput)) {
-  spooky <- digest(spookyInput[i], algo = "spookyhash")
-  cat(spooky, "\n")
-}
+# ## some extras to get coverage up - these aren't tested against reference output,
+# ## just output from R 3.6.0
+# spookyInput <- c("a", "aaaaaaaaa", "aaaaaaaaaaaaa")
+#
+# for (i in seq(along.with=spookyInput)) {
+#   spooky <- digest(spookyInput[i], algo = "spookyhash")
+#   cat(spooky, "\n")
+# }
 
 # test a bigger object
 spooky <- digest(iris, algo = "spookyhash", skip = 30)
