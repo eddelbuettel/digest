@@ -62,14 +62,16 @@ digest <- function(object, algo=c("md5", "sha1", "crc32", "sha256", "sha512",
                       mode=errormode)
     }
 
-    if (serialize && !file && algo %in% non_streaming_algos) {
-        ## support the 'nosharing' option in pqR's base::serialize()
-        object <- if ("nosharing" %in% names(formals(base::serialize)))
-                      base::serialize (object, connection=NULL, ascii=ascii,
-                                       nosharing=TRUE, version=serializeVersion)
-                  else
-                      base::serialize (object, connection=NULL, ascii=ascii,
-                                       version=serializeVersion)
+    if (serialize && !file) {
+        if(algo %in% non_streaming_algos){
+            ## support the 'nosharing' option in pqR's base::serialize()
+            object <- if ("nosharing" %in% names(formals(base::serialize)))
+                base::serialize (object, connection=NULL, ascii=ascii,
+                                 nosharing=TRUE, version=serializeVersion)
+            else
+                base::serialize (object, connection=NULL, ascii=ascii,
+                                 version=serializeVersion)
+        }
         ## we support raw vectors, so no mangling of 'object' is necessary
         ## regardless of R version
         ## skip="auto" - skips the serialization header [SU]
