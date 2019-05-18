@@ -305,24 +305,24 @@ b5b3b2d0f08b58aa07f551895f929f81
 > ## just output from R 3.6.0
 > spookyInput <- c("a", "aaaaaaaaa", "aaaaaaaaaaaaa")
 > spookyOutput <- c(
-+   "1a2f36ba5a98666b4c338a224549d8c8",
-+   "f5e401999e92af92bccfa96adeb3c570",
-+   "d05c2b08c8a4b1d404877d02b8187593"
++   "b7a3573ba6139dfdc52db30acba87f46",
++   "fd876ecaa5d1e442600333118f223e02",
++   "91848873bf91d06ad321bbd47400a556"
 + )
 > for (i in seq(along.with=spookyInput)) {
 +   spooky <- digest(spookyInput[i], algo = "spookyhash")
 +   stopifnot(identical(spooky, spookyOutput[i]))
 +   cat(spooky, "\n")
 + }
-1a2f36ba5a98666b4c338a224549d8c8 
-f5e401999e92af92bccfa96adeb3c570 
-d05c2b08c8a4b1d404877d02b8187593 
+b7a3573ba6139dfdc52db30acba87f46 
+fd876ecaa5d1e442600333118f223e02 
+91848873bf91d06ad321bbd47400a556 
 > 
 > # test a bigger object
 > spooky <- digest(iris, algo = "spookyhash")
-> stopifnot(identical(spooky, "5107757cc4e15149dc15006d5b598e71"))
+> stopifnot(identical(spooky, "af58add8b4f7044582b331083bc239ff"))
 > cat(spooky, "\n")
-5107757cc4e15149dc15006d5b598e71 
+af58add8b4f7044582b331083bc239ff 
 > 
 > # test error message
 > error.message <- try(digest(spookyInput[i], algo = "spookyhash", serialize = FALSE))
@@ -397,4 +397,4 @@ f1233fcd
 > 
 > proc.time()
    user  system elapsed 
-  0.241   0.187   0.208 
+  0.259   0.231   0.196 

@@ -1,3 +1,14 @@
+2019-05-18  Dirk Eddelbuettel  <edd@debian.org>
+
+	* DESCRIPTION (Version, Date): New minor version
+
+	* tests/digestTest.Rout.save: Updated reference output
+
+2019-05-12  Kendon Bell  <bellk@landcareresearch.co.nz>
+
+	* R/digest.R: Account for 'skip' bytes for streaming algos
+	* tests/digestTest.R: Adjust test for streaming_algos
+	
 2019-05-09  Dirk Eddelbuettel  <edd@debian.org>
 
 	* src/Makevars: Added to ensure C++11 compilation standard
