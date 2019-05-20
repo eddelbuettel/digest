@@ -1,5 +1,7 @@
 2019-05-19  Dirk Eddelbuettel  <edd@debian.org>
 
+	* DESCRIPTION (Version, Date): Release 0.6.19
+
         * src/SpookyV2.cpp: Add some #nocov tags
 
 2019-05-18  Dirk Eddelbuettel  <edd@debian.org>
@@ -62,7 +64,7 @@
 
 2018-11-08  Dmitriy Selivanov  <selivanov.dmitriy@gmail.com>
 
-        * src/digest2int.c: Removed (bad) redefinition of unin32_t
+        * src/digest2int.c: Removed (bad) redefinition of uint32_t
         * tests/digest2intTest.R: Additional test
 
 2018-10-29  Dmitriy Selivanov  <selivanov.dmitriy@gmail.com>
