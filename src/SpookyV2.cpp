@@ -79,7 +79,7 @@ void SpookyHash::Short(
     switch (remainder)
     {
     case 15:
-        d += ((uint64)u.p8[14]) << 48;
+        d += ((uint64)u.p8[14]) << 48; 				// #nocov
     case 14:
         d += ((uint64)u.p8[13]) << 40;
     case 13:
@@ -89,7 +89,7 @@ void SpookyHash::Short(
         c += u.p64[0];
         break;
     case 11:
-        d += ((uint64)u.p8[10]) << 16;
+        d += ((uint64)u.p8[10]) << 16; 				// #nocov
     case 10:
         d += ((uint64)u.p8[9]) << 8;
     case 9:
@@ -98,14 +98,14 @@ void SpookyHash::Short(
         c += u.p64[0];
         break;
     case 7:
-        c += ((uint64)u.p8[6]) << 48;
+        c += ((uint64)u.p8[6]) << 48; 				// #nocov
     case 6:
-        c += ((uint64)u.p8[5]) << 40;
+        c += ((uint64)u.p8[5]) << 40; 				// #nocov
     case 5:
-        c += ((uint64)u.p8[4]) << 32;
+        c += ((uint64)u.p8[4]) << 32; 				// #nocov
     case 4:
-        c += u.p32[0];
-        break;
+        c += u.p32[0]; 						// #nocov
+        break; 							// #nocov
     case 3:
         c += ((uint64)u.p8[2]) << 16;
     case 2:
@@ -200,7 +200,7 @@ void SpookyHash::Update(const void *message, size_t length)
     }
     else
     {
-        u.p8 = (const uint8 *)message;
+        u.p8 = (const uint8 *)message; 				// #nocov
     }
 
     // handle all whole blocks of sc_blockSize bytes
@@ -275,9 +275,9 @@ void SpookyHash::Final(uint64 *hash1, uint64 *hash2)
     if (remainder >= sc_blockSize)
     {
         // m_data can contain two blocks; handle any whole first block
-        Mix(data, h0,h1,h2,h3,h4,h5,h6,h7,h8,h9,h10,h11);
+        Mix(data, h0,h1,h2,h3,h4,h5,h6,h7,h8,h9,h10,h11);	 		// #nocov start
         data += sc_numVars;
-        remainder -= sc_blockSize;
+        remainder -= sc_blockSize; 						// #nocov end
     }
 
     // mix in the last partial block, and the length mod sc_blockSize
