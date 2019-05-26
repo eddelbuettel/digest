@@ -13,6 +13,11 @@
 	* inst/tinytest/testAES.R: Converted from tests/aesTest.R
 	* inst/tinytest/testDigest.R: From tests/digestTest.R
 
+	* R/AES.R: Additional #nocov tags
+	* R/digest.R: Idem
+	* R/hmac.R: Idem
+	* R/sha1.R: Idem
+	
 2019-05-19  Dirk Eddelbuettel  <edd@debian.org>
 
 	* DESCRIPTION (Version, Date): Release 0.6.19

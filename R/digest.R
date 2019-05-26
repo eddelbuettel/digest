@@ -58,8 +58,8 @@ digest <- function(object, algo=c("md5", "sha1", "crc32", "sha256", "sha512",
     non_streaming_algos <- c("md5", "sha1", "crc32", "sha256", "sha512",
                              "xxhash32", "xxhash64", "murmur32")
     if(algo %in% streaming_algos && !serialize){
-        .errorhandler(paste0(algo, " algorithm is not available without serialization."),
-                      mode=errormode)
+        .errorhandler(paste0(algo, " algorithm is not available without serialization."),  # #nocov
+                      mode=errormode)                                                      # #nocov
     }
 
     if (serialize && !file) {
@@ -125,8 +125,8 @@ digest <- function(object, algo=c("md5", "sha1", "crc32", "sha256", "sha512",
                                  object, mode=errormode))                  # nocov
         }
         if (file.access(object, 4)) {
-            return(.errorhandler("The specified file is not readable: ",
-                                 object, mode=errormode))
+            return(.errorhandler("The specified file is not readable: ",   # #nocov
+                                 object, mode=errormode))                  # #nocov
         }
     }
     ## if skip is auto (or any other text for that matter), we just turn it

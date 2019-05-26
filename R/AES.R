@@ -84,6 +84,5 @@ AES <- function(key, mode=c("ECB", "CBC", "CTR"), IV=NULL) {
               class = "AES")
 }
 
-print.AES <- function(x, ...)
-    cat("AES cipher object; mode", x$mode(), "key size", x$key_size(), "\n")
-
+print.AES <- function(x, ...)							# #nocov
+    cat("AES cipher object; mode", x$mode(), "key size", x$key_size(), "\n")	# #nocov

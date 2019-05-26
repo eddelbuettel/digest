@@ -27,14 +27,14 @@ makeRaw.default <- function(object) as.raw(object)
 
 padWithZeros <- function(k,algo) {
     blocksize <- 64
-    if (algo == "crc32") blocksize <- 4
+    if (algo == "crc32") blocksize <- 4			  # #nocov
     if (algo == "sha512") blocksize <- 128
     k <- makeRaw(k)
     if(length(k) > blocksize) {# not while()
         k <-digest(k, algo=algo, serialize=FALSE,raw=TRUE)
         if (algo == "crc32") {
-            k <- substring(k, seq(1,7,2), seq(2,8,2))
-            k <- makeRaw(strtoi(k,16))
+            k <- substring(k, seq(1,7,2), seq(2,8,2))  	  # #nocov
+            k <- makeRaw(strtoi(k,16))                    # #nocov
         }
     }
     makeRaw(c(k, rep(0, blocksize - length(k))))

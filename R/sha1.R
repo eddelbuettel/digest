@@ -4,12 +4,12 @@ sha1 <- function(x, digits = 14L, zapsmall = 7L, ..., algo = "sha1"){
 }
 
 sha1.default <- function(x, digits = 14L, zapsmall = 7L, ..., algo = "sha1") {
-    stop(
+    stop(  							# #nocov start
         "sha1() has no method for the '",
         paste(class(x), collapse = "', '"),
         "' class",
         call. = FALSE
-    )
+    )								# #nocov end
 }
 
 sha1.integer <- function(x, digits = 14L, zapsmall = 7L, ..., algo = "sha1") {
