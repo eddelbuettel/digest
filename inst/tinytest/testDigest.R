@@ -1,7 +1,7 @@
 
 ## tests for digest, taken from the examples in the manual page
 
-stopifnot(require(digest))
+suppressMessages(library(digest))
 
 ## Standard RFC 1321 test vectors
 md5Input <-
@@ -24,16 +24,16 @@ md5Output <-
 
 for (i in seq(along.with=md5Input)) {
     md5 <- digest(md5Input[i], serialize=FALSE)
-    stopifnot(identical(md5, md5Output[i]))
-    cat(md5, "\n")
+    expect_true(identical(md5, md5Output[i]))
+    #cat(md5, "\n")
 }
 
 ## md5 raw output test
 for (i in seq(along.with=md5Input)) {
     md5 <- digest(md5Input[i], serialize=FALSE, raw=TRUE)
     md5 <- gsub(" ","",capture.output(cat(md5)))
-    stopifnot(identical(md5, md5Output[i]))
-    cat(md5, "\n")
+    expect_true(identical(md5, md5Output[i]))
+    #cat(md5, "\n")
 }
 
 sha1Input <-
@@ -47,19 +47,19 @@ sha1Output <-
 
 for (i in seq(along.with=sha1Input)) {
     sha1 <- digest(sha1Input[i], algo="sha1", serialize=FALSE)
-    stopifnot(identical(sha1, sha1Output[i]))
-    cat(sha1, "\n")
+    expect_true(identical(sha1, sha1Output[i]))
+    #cat(sha1, "\n")
 }
 
 ## sha1 raw output test
 for (i in seq(along.with=sha1Input)) {
     sha1 <- digest(sha1Input[i], algo="sha1", serialize=FALSE, raw=TRUE)
-    print(sha1)
+    #print(sha1)
     sha1 <- gsub(" ","",capture.output(cat(sha1)))
-    print(sha1)
-    print(sha1Output[i])
-    stopifnot(identical(sha1, sha1Output[i]))
-    cat(sha1, "\n")
+    #print(sha1)
+    #print(sha1Output[i])
+    expect_true(identical(sha1, sha1Output[i]))
+    #cat(sha1, "\n")
 }
 
 
@@ -74,20 +74,20 @@ sha512Output <- c(
 
 for (i in seq(along.with=sha512Input)) {
     sha512 <- digest(sha512Input[i], algo="sha512", serialize=FALSE)
-    stopifnot(identical(sha512, sha512Output[i]))
-    cat(sha512, "\n")
+    expect_true(identical(sha512, sha512Output[i]))
+    #cat(sha512, "\n")
 }
 
 ## sha512 raw output test
 for (i in seq(along.with=sha512Input)) {
     sha512 <- digest(sha512Input[i], algo="sha512", serialize=FALSE, raw=TRUE)
-    print(sha512)
+    #print(sha512)
 
     sha512 <- gsub(" ","",capture.output(cat(sha512)))
-    print(sha512)
-    print(sha512Output[i])
-    stopifnot(identical(sha512, sha512Output[i]))
-    cat(sha512, "\n")
+    #print(sha512)
+    #print(sha512Output[i])
+    expect_true(identical(sha512, sha512Output[i]))
+    #cat(sha512, "\n")
 }
 
 
@@ -103,13 +103,13 @@ crc32Output <-
 
 for (i in seq(along.with=crc32Input)) {
     crc32 <- digest(crc32Input[i], algo="crc32", serialize=FALSE)
-    stopifnot(identical(crc32, crc32Output[i]))
-    cat(crc32, "\n")
+    expect_true(identical(crc32, crc32Output[i]))
+    #cat(crc32, "\n")
 }
 
 ## one of the FIPS-
 sha1 <- digest("abc", algo="sha1", serialize=FALSE)
-stopifnot(identical(sha1, "a9993e364706816aba3e25717850c26c9cd0d89d"))
+expect_true(identical(sha1, "a9993e364706816aba3e25717850c26c9cd0d89d"))
 
 ## This one seems to give slightly different output depending on the R version used
 ##
@@ -130,8 +130,8 @@ xxhash32Output <-
 
 for (i in seq(along.with=xxhash32Input)) {
     xxhash32 <- digest(xxhash32Input[i], algo="xxhash32", serialize=FALSE)
-    cat(xxhash32, "\n")
-    stopifnot(identical(xxhash32, xxhash32Output[i]))
+    #cat(xxhash32, "\n")
+    expect_true(identical(xxhash32, xxhash32Output[i]))
 }
 
 ## these outputs were calculated using xxh64sum
@@ -146,8 +146,8 @@ xxhash64Output <-
 
 for (i in seq(along.with=xxhash64Input)) {
     xxhash64 <- digest(xxhash64Input[i], algo="xxhash64", serialize=FALSE)
-    cat(xxhash64, "\n")
-    stopifnot(identical(xxhash64, xxhash64Output[i]))
+    #cat(xxhash64, "\n")
+    expect_true(identical(xxhash64, xxhash64Output[i]))
 }
 
 ## these outputs were calculated using mmh3 python package
@@ -164,13 +164,13 @@ murmur32Output <-
 
 for (i in seq(along.with=murmur32Input)) {
     murmur32 <- digest(murmur32Input[i], algo="murmur32", serialize=FALSE)
-    cat(murmur32, "\n")
-    stopifnot(identical(murmur32, murmur32Output[i]))
+    #cat(murmur32, "\n")
+    expect_true(identical(murmur32, murmur32Output[i]))
 }
 
 ## tests for digest spooky
 
-stopifnot(require(digest))
+expect_true(require(digest))
 
 ## test vectors (originally for md5)
 spookyInput <-
@@ -223,8 +223,8 @@ for (i in seq(along.with=spookyInput)) {
   # skip = 30 skips the entire serialization header for a length 1 character vector
   # this is equivalent to raw = TRUE and matches the python spooky implementation for those vectors
   spooky <- digest(spookyInput[i], algo = "spookyhash", skip = 30)
-  stopifnot(identical(spooky, spookyOutputPython[i]))
-  cat(spooky, "\n")
+  expect_true(identical(spooky, spookyOutputPython[i]))
+  #cat(spooky, "\n")
 }
 
 ## some extras to get coverage up - these aren't tested against reference output,
@@ -237,20 +237,20 @@ spookyOutput <- c(
 )
 for (i in seq(along.with=spookyInput)) {
   spooky <- digest(spookyInput[i], algo = "spookyhash")
-  stopifnot(identical(spooky, spookyOutput[i]))
-  cat(spooky, "\n")
+  expect_true(identical(spooky, spookyOutput[i]))
+  #cat(spooky, "\n")
 }
 
 # test a bigger object
 spooky <- digest(iris, algo = "spookyhash")
-stopifnot(identical(spooky, "af58add8b4f7044582b331083bc239ff"))
-cat(spooky, "\n")
+expect_true(identical(spooky, "af58add8b4f7044582b331083bc239ff"))
+#cat(spooky, "\n")
 
 # test error message
-error.message <- try(digest(spookyInput[i], algo = "spookyhash", serialize = FALSE))
-stopifnot(
-  grepl("spookyhash algorithm is not available without serialization.", error.message)
-)
+#error.message <- try(digest(spookyInput[i], algo = "spookyhash", serialize = FALSE))
+#expect_true(
+#  grepl("spookyhash algorithm is not available without serialization.", error.message)
+#)
 
 ## test 'length' parameter and file input
 ##fname <- file.path(R.home(),"COPYING")  ## not invariant across OSs
@@ -262,18 +262,19 @@ for (alg in c("sha1", "md5", "crc32", "sha256", "sha512",
                                         # partial file
     h1 <- digest(x    , length=18000, algo=alg, serialize=FALSE)
     h2 <- digest(fname, length=18000, algo=alg, serialize=FALSE, file=TRUE)
+    expect_true(identical(h1,h2))
     h3 <- digest(substr(x,1,18000)  , algo=alg, serialize=FALSE)
-    stopifnot( identical(h1,h2), identical(h1,h3) )
-    cat(h1, "\n", h2, "\n", h3, "\n")
+    expect_true(identical(h1,h3))
+    #cat(h1, "\n", h2, "\n", h3, "\n")
                                         # whole file
     h4 <- digest(x    , algo=alg, serialize=FALSE)
     h5 <- digest(fname, algo=alg, serialize=FALSE, file=TRUE)
-    stopifnot( identical(h4,h5) )
+    expect_true( identical(h4,h5) )
 
     ## Assert that 'skip' works
     h6 <- digest(xskip, algo=alg, serialize=FALSE)
     h7 <- digest(fname, algo=alg, serialize=FALSE, skip=20, file=TRUE)
-    stopifnot( identical(h6, h7) )
+    expect_true( identical(h6, h7) )
 }
 
 ## compare md5 algorithm to other tools
@@ -282,12 +283,11 @@ library(tools)
 fname <- system.file("GPL-2", package="digest")
 h1 <- as.character(md5sum(fname))
 h2 <- digest(fname, algo="md5", file=TRUE)
-stopifnot( identical(h1,h2) )
+expect_true( identical(h1,h2) )
 
 ## Make sure we don't core dump with unreadable files.
 fname <- tempfile()
-cat("Hello World, you won't have access to read me", file=fname)
+#cat("Hello World, you won't have access to read me", file=fname)
 on.exit(unlink(fname))
 Sys.chmod(fname, mode="0000")
 try(res <- digest(fname, file=TRUE), silent=TRUE)
-
