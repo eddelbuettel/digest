@@ -1,3 +1,10 @@
+2019-05-26  Dirk Eddelbuettel  <edd@debian.org>
+
+	* tests/tinytest.R: New test driver using tinytest
+	* DESCRIPTION (Suggests): Added tinytest
+
+	* inst/tinytest/testRaw.R: Converted from tests/raw.R
+
 2019-05-19  Dirk Eddelbuettel  <edd@debian.org>
 
 	* DESCRIPTION (Version, Date): Release 0.6.19
