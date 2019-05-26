@@ -10,6 +10,8 @@
 	* inst/tinytest/testNum2Hex.R: From tests/num2hexTest.R
 	* inst/tinytest/testSHA1.R: Converted from tests/sha1Test.R
 	* inst/tinytest/testHMAC.R: Converted from tests/hmacTest.R
+	* inst/tinytest/testAES.R: Converted from tests/aesTest.R
+	* inst/tinytest/testDigest.R: From tests/digestTest.R
 
 2019-05-19  Dirk Eddelbuettel  <edd@debian.org>
 

@@ -1,7 +1,7 @@
 
 ## tests for AES, taken from the examples in the manual page
 
-stopifnot(require(digest))
+suppressMessages(library(digest))
 
 # FIPS-197 examples
 
@@ -16,28 +16,28 @@ plaintext       <- hextextToRaw("00112233445566778899aabbccddeeff")
 aes128key       <- hextextToRaw("000102030405060708090a0b0c0d0e0f")
 aes128output    <- hextextToRaw("69c4e0d86a7b0430d8cdb78070b4c55a")
 aes <- AES(aes128key)
-aes
+#aes
 aes128 <- aes$encrypt(plaintext)
-aes128
-stopifnot(identical(aes128, aes128output))
-stopifnot(identical(plaintext, aes$decrypt(aes128, raw=TRUE)))
+#aes128
+expect_true(identical(aes128, aes128output))
+expect_true(identical(plaintext, aes$decrypt(aes128, raw=TRUE)))
 
 aes192key       <- hextextToRaw("000102030405060708090a0b0c0d0e0f1011121314151617")
 aes192output    <- hextextToRaw("dda97ca4864cdfe06eaf70a0ec0d7191")
 aes <- AES(aes192key)
-aes
+#aes
 aes192 <- aes$encrypt(plaintext)
-aes192
-stopifnot(identical(aes192, aes192output))
-stopifnot(identical(plaintext, aes$decrypt(aes192, raw=TRUE)))
+#aes192
+expect_true(identical(aes192, aes192output))
+expect_true(identical(plaintext, aes$decrypt(aes192, raw=TRUE)))
 
 aes256key       <- hextextToRaw("000102030405060708090a0b0c0d0e0f101112131415161718191a1b1c1d1e1f")
 aes256output     <- hextextToRaw("8ea2b7ca516745bfeafc49904b496089")
 aes <- AES(aes256key)
 aes256 <- aes$encrypt(plaintext)
-aes256
-stopifnot(identical(aes256, aes256output))
-stopifnot(identical(plaintext, aes$decrypt(aes256, raw=TRUE)))
+#aes256
+expect_true(identical(aes256, aes256output))
+expect_true(identical(plaintext, aes$decrypt(aes256, raw=TRUE)))
 
 # SP800-38a examples
 
@@ -53,9 +53,9 @@ ecb128output <- hextextToRaw(paste("3ad77bb40d7a3660a89ecaf32466ef97",
                                    "7b0c785e27e8ad3f8223207104725dd4",sep=""))
 aes <- AES(key)
 ecb128 <- aes$encrypt(plaintext)
-ecb128
-stopifnot(identical(ecb128, ecb128output))
-stopifnot(identical(plaintext, aes$decrypt(ecb128, raw=TRUE)))
+#ecb128
+expect_true(identical(ecb128, ecb128output))
+expect_true(identical(plaintext, aes$decrypt(ecb128, raw=TRUE)))
 
 cbc128output <- hextextToRaw(paste("7649abac8119b246cee98e9b12e9197d",
                                     "5086cb9b507219ee95db113a917678b2",
@@ -64,10 +64,10 @@ cbc128output <- hextextToRaw(paste("7649abac8119b246cee98e9b12e9197d",
 iv <- hextextToRaw("000102030405060708090a0b0c0d0e0f")
 aes <- AES(key, mode="CBC", IV=iv)
 cbc128 <- aes$encrypt(plaintext)
-cbc128
-stopifnot(identical(cbc128, cbc128output))
+#cbc128
+expect_true(identical(cbc128, cbc128output))
 aes <- AES(key, mode="CBC", IV=iv)
-stopifnot(identical(plaintext, aes$decrypt(cbc128, raw=TRUE)))
+expect_true(identical(plaintext, aes$decrypt(cbc128, raw=TRUE)))
 
 ctr128output <- hextextToRaw(paste("874d6191b620e3261bef6864990db6ce",
                                    "9806f66b7970fdff8617187bb9fffdff",
@@ -76,7 +76,7 @@ ctr128output <- hextextToRaw(paste("874d6191b620e3261bef6864990db6ce",
 iv <- hextextToRaw("f0f1f2f3f4f5f6f7f8f9fafbfcfdfeff")
 aes <- AES(key, mode="CTR", IV=iv)
 ctr128 <- aes$encrypt(plaintext)
-ctr128
-stopifnot(identical(ctr128, ctr128output))
+#ctr128
+expect_true(identical(ctr128, ctr128output))
 aes <- AES(key, mode="CTR", IV=iv)
-stopifnot(identical(plaintext, aes$decrypt(ctr128, raw=TRUE)))
+expect_true(identical(plaintext, aes$decrypt(ctr128, raw=TRUE)))
