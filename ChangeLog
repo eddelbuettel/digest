@@ -1,3 +1,23 @@
+2019-05-26  Dirk Eddelbuettel  <edd@debian.org>
+
+	* tests/tinytest.R: New test driver using tinytest
+	* DESCRIPTION (Suggests): Added tinytest
+	* .travis.yml (install): Install tinytest
+
+	* inst/tinytest/testRaw.R: Converted from tests/raw.R
+	* inst/tinytest/testCRC32.R: Converted from tests/crc32.R
+	* inst/tinytest/testDigest2Int.R: From tests/digest2int.R
+	* inst/tinytest/testNum2Hex.R: From tests/num2hexTest.R
+	* inst/tinytest/testSHA1.R: Converted from tests/sha1Test.R
+	* inst/tinytest/testHMAC.R: Converted from tests/hmacTest.R
+	* inst/tinytest/testAES.R: Converted from tests/aesTest.R
+	* inst/tinytest/testDigest.R: From tests/digestTest.R
+
+	* R/AES.R: Additional #nocov tags
+	* R/digest.R: Idem
+	* R/hmac.R: Idem
+	* R/sha1.R: Idem
+	
 2019-05-19  Dirk Eddelbuettel  <edd@debian.org>
 
 	* DESCRIPTION (Version, Date): Release 0.6.19
