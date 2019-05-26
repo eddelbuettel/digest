@@ -8,6 +8,7 @@
 	* inst/tinytest/testCRC32.R: Converted from tests/crc32.R
 	* inst/tinytest/testDigest2Int.R: From tests/digest2int.R
 	* inst/tinytest/testNum2Hex.R: From tests/num2hexTest.R
+	* inst/tinytest/testSHA1.R: Converted from tests/sha1Test.R
 
 2019-05-19  Dirk Eddelbuettel  <edd@debian.org>
 

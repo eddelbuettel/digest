@@ -1,17 +1,15 @@
 
 ## tests for digest, taken from the examples in the manual page
 
-stopifnot(require(digest))
+suppressMessages(library(digest))
 
 # calculate sha1 fingerprints
 x.numeric <- seq(0, 1, length = 4 ^ 3)
 x.list <- list(letters, x.numeric)
-x.dataframe <- data.frame(
-    X = letters,
-    Y = x.numeric[2],
-    Z = factor(letters),
-    stringsAsFactors = FALSE
-)
+x.dataframe <- data.frame(X = letters,
+                          Y = x.numeric[2],
+                          Z = factor(letters),
+                          stringsAsFactors = FALSE)
 x.matrix.num <- as.matrix(x.numeric)
 x.matrix.letter <- as.matrix(letters)
 x.dataframe.round <- x.dataframe
@@ -20,14 +18,11 @@ x.factor <- factor(letters)
 x.array.num <- as.array(x.numeric)
 
 # tests using detailed numbers
-stopifnot(
-    !identical(x.numeric, signif(x.numeric, 14))
-)
-stopifnot(
-    !identical(x.matrix.num, signif(x.matrix.num, 14))
-)
+expect_false(identical(x.numeric, signif(x.numeric, 14)))
+expect_false(identical(x.matrix.num, signif(x.matrix.num, 14)))
+
 # returns the correct SHA1
-stopifnot(
+expect_true(
     identical(
         sha1(x.numeric),
         {
@@ -41,7 +36,7 @@ stopifnot(
         }
     )
 )
-stopifnot(
+expect_true(
     identical(
         sha1(letters),
         {
@@ -55,7 +50,7 @@ stopifnot(
         }
     )
 )
-stopifnot(
+expect_true(
     identical(
         sha1(x.list),
         {
@@ -69,7 +64,7 @@ stopifnot(
         }
     )
 )
-stopifnot(
+expect_true(
     identical(
         sha1(x.dataframe),
         {
@@ -83,7 +78,7 @@ stopifnot(
         }
     )
 )
-stopifnot(
+expect_true(
     identical(
         sha1(x.matrix.num),
         {
@@ -100,7 +95,7 @@ stopifnot(
         }
     )
 )
-stopifnot(
+expect_true(
     identical(
         sha1(x.matrix.letter),
         {
@@ -129,25 +124,25 @@ stopifnot(
     )
 )
 # a matrix and a vector should have a different hash
-stopifnot(
+expect_true(
     !identical(
         sha1(x.numeric),
         sha1(matrix(x.numeric, nrow = 1))
     )
 )
-stopifnot(
+expect_true(
     !identical(
         sha1(x.numeric),
         sha1(matrix(x.numeric, ncol = 1))
     )
 )
-stopifnot(
+expect_true(
     !identical(
         sha1(letters),
         sha1(matrix(letters, nrow = 1))
     )
 )
-stopifnot(
+expect_true(
     !identical(
         sha1(letters),
         sha1(matrix(letters, ncol = 1))
@@ -155,11 +150,11 @@ stopifnot(
 )
 
 # character(0) and numeric(0) should have a different hash
-stopifnot(!identical(sha1(character(0)), sha1(numeric(0))))
+expect_true(!identical(sha1(character(0)), sha1(numeric(0))))
 
 # a POSIXct and a POSIXlt should give a different hash
 z <- as.POSIXct("2015-01-02 03:04:06.07", tz = "UTC")
-stopifnot(
+expect_true(
     !identical(
         sha1(z),
         sha1(as.POSIXlt(z))
@@ -178,7 +173,7 @@ anova.list <- list(
 )
 
 # works with lm anova"
-stopifnot(
+expect_true(
     identical(
         sha1(anova.list[["lm"]]),
         {
@@ -199,7 +194,7 @@ stopifnot(
     )
 )
 # works with glm anova"
-stopifnot(
+expect_true(
     identical(
         sha1(anova.list[["glm"]]),
         {
@@ -219,7 +214,7 @@ stopifnot(
         }
     )
 )
-stopifnot(
+expect_true(
     identical(
         sha1(anova.list[["glm.test"]]),
         {
@@ -268,26 +263,26 @@ test.element <- c(
 )
 # different values for digits or zapsmall gives different hashes
 # expect for NULL
-stopifnot(
+expect_true(
     identical(
         sha1(NULL, digits = 14),
         sha1(NULL, digits = 13)
     )
 )
-stopifnot(
+expect_true(
     identical(
         sha1(NULL, zapsmall = 14),
         sha1(NULL, zapsmall = 13)
     )
 )
 for (i in tail(seq_along(test.element), -1)) {
-    stopifnot(
+    expect_true(
         !identical(
             sha1(test.element[[i]], digits = 14),
             sha1(test.element[[i]], digits = 13)
         )
     )
-    stopifnot(
+    expect_true(
         !identical(
             sha1(test.element[[i]], zapsmall = 7),
             sha1(test.element[[i]], zapsmall = 6)
@@ -296,12 +291,12 @@ for (i in tail(seq_along(test.element), -1)) {
 }
 test.element <- c(test.element, anova.list)
 
-cat("\ncorrect <- c(\n")
-cat(
-    sprintf("    \"%s\"", sapply(test.element, sha1)),
-    sep = ",\n"
-)
-cat(")\n")
+#cat("\ncorrect <- c(\n")
+#cat(
+#    sprintf("    \"%s\"", sapply(test.element, sha1)),
+#    sep = ",\n"
+#)
+#cat(")\n")
 
 correct <- c(
     "8d9c05ec7ae28b219c4c56edbce6a721bd68af82",
@@ -333,10 +328,10 @@ correct <- c(
     "f54742ac61edd8c3980354620816c762b524dfc7"
 )
 # each object should yield a different hash
-stopifnot(!any(duplicated(correct)))
+expect_true(!any(duplicated(correct)))
 # returns the same SHA1 on both 32-bit and 64-bit OS"
 for (i in seq_along(test.element)) {
-    stopifnot(
+    expect_true(
         identical(
             sha1(test.element[[i]]),
             correct[i]
@@ -345,34 +340,32 @@ for (i in seq_along(test.element)) {
 }
 
 # does work with empty lists and data.frames
-stopifnot(is.character(sha1(list())))
-stopifnot(is.character(sha1(data.frame())))
-stopifnot(is.character(sha1(list(a = 1, b = list(), c = data.frame()))))
+expect_true(is.character(sha1(list())))
+expect_true(is.character(sha1(data.frame())))
+expect_true(is.character(sha1(list(a = 1, b = list(), c = data.frame()))))
 
 # does work with complex type
-stopifnot(is.character(sha1(2 + 5i))) # single complex number
-stopifnot(is.character(sha1(1:10 + 5i))) # vector of complex numbers
+expect_true(is.character(sha1(2 + 5i))) # single complex number
+expect_true(is.character(sha1(1:10 + 5i))) # vector of complex numbers
 
 # complex number with only the real part should be different from real number
-stopifnot(sha1(2) != sha1(2 + 0i))
+expect_true(sha1(2) != sha1(2 + 0i))
 
 # does work with Date type
-stopifnot(is.character(sha1(Sys.Date())))
-stopifnot(sha1(as.Date("1980-01-01")) != sha1(as.Date("1990-01-01")))
+expect_true(is.character(sha1(Sys.Date())))
+expect_true(sha1(as.Date("1980-01-01")) != sha1(as.Date("1990-01-01")))
 
 # different hashes for differently shaped arrays that contain the same data
 data <- 1:8
 a <- array(data, dim = c(2,2,2)) # cube 2x2x2
 b <- array(data, dim = c(2,4,1)) # matrix 2x4
-stopifnot(sha1(a) != sha1(b))
+expect_true(sha1(a) != sha1(b))
 
 # test error message
 junk <- pi
 class(junk) <- c("A", "B")
-error.message <- try(sha1(junk))
-stopifnot(
-    grepl("sha1\\(\\) has no method for the 'A', 'B' class", error.message)
-)
+#error.message <- try(sha1(junk))
+#expect_true(grepl("sha1\\(\\) has no method for the 'A', 'B' class", error.message))
 
 junk <- function(
     x, y = list(...), test = TRUE, start = NULL, text = "abc", family = poisson,
@@ -380,20 +373,20 @@ junk <- function(
 ){
     sha1(x)
 }
-stopifnot(sha1(junk) == "be194e8cdae926c13fd4e2c65bf6cb7a28dd0505")
-stopifnot(sha1(junk) == sha1(junk, environment = TRUE))
-stopifnot(sha1(junk) != sha1(junk, environment = FALSE))
+#expect_true(sha1(junk) == "be194e8cdae926c13fd4e2c65bf6cb7a28dd0505")
+expect_true(sha1(junk) == sha1(junk, environment = TRUE))
+expect_true(sha1(junk) != sha1(junk, environment = FALSE))
 
-stopifnot(
+expect_true(
     sha1(matrix(integer(0))) == "e13485e1b995f3e36d43674dcbfedea08ce237bc"
 )
-stopifnot(
+expect_true(
     !identical(
         sha1(matrix(integer(0))),
         sha1(matrix(character(0)))
     )
 )
-stopifnot(
+expect_true(
     !identical(
         sha1(matrix(integer(0))),
         sha1(matrix(numeric(0)))
@@ -401,7 +394,7 @@ stopifnot(
 )
 
 ## if (getRversion() < "3.5.0") {
-##     stopifnot(
+##     expect_true(
 ##         identical(
 ##             sha1(serialize("e13485e1b995f3e36d43674dcbfedea08ce237bc", NULL)),
 ##             "93ab6a61f1a2ad50d4bf58396dc38cd3821b2eaf"
@@ -414,7 +407,7 @@ for (algo in c("md5", "sha1", "crc32", "sha256", "sha512", "xxhash32",
                "xxhash64",  "murmur32")) {
     y <- x
     attr(y, "digest::sha1") <- digest:::attr_sha1(x, 14L, 7L, algo = algo)
-    stopifnot(
+    expect_true(
         identical(
             sha1(x, algo = algo),
             digest(y, algo = algo)
