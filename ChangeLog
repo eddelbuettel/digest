@@ -4,6 +4,7 @@
 	* DESCRIPTION (Suggests): Added tinytest
 
 	* inst/tinytest/testRaw.R: Converted from tests/raw.R
+	* inst/tinytest/testCRC32.R: Converted from tests/crc32.R
 
 2019-05-19  Dirk Eddelbuettel  <edd@debian.org>
 
