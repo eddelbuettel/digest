@@ -1,3 +1,14 @@
+2019-06-23  Dirk Eddelbuettel  <edd@debian.org>
+
+        * test/tinytest/test_aes.R: renamed from testAES.R
+        * test/tinytest/test_crc32.R: renamed from testCRC32.R
+        * test/tinytest/test_digest.R: renamed from testDigest.R
+        * test/tinytest/test_digest2int.R: from testDigest2Int.R
+        * test/tinytest/test_hmac.R: renamed from testHMAC.R
+        * test/tinytest/test_num2hex.R: renamed from testNum2Hex.R
+        * test/tinytest/test_raw.R: renamed from testRaw.R
+        * test/tinytest/test_sha1.R: renamed from testSHA1.R
+
 2019-06-10  Dirk Eddelbuettel  <edd@debian.org>
 
 	* inst/tinytest/testCRC32.R: Use expcect_* functions 
