@@ -1,5 +1,9 @@
 2019-06-23  Dirk Eddelbuettel  <edd@debian.org>
 
+	* DESCRIPTION (Version, Date): Roll minor version
+
+	* inst/tinytest/test_num2hex.R: Quieter with sapply
+
         * test/tinytest/test_aes.R: renamed from testAES.R
         * test/tinytest/test_crc32.R: renamed from testCRC32.R
         * test/tinytest/test_digest.R: renamed from testDigest.R
