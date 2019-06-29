@@ -1,5 +1,7 @@
 2019-06-29  Dirk Eddelbuettel  <edd@debian.org>
 
+	* README.md: Add installation and continues testing sections
+
 	* .travis.yml (install): Use r-cran-tinytest from PPA
 
 2019-06-23  Dirk Eddelbuettel  <edd@debian.org>
