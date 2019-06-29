@@ -42,6 +42,26 @@ Please note that this package is not meant to be deployed for
 cryptographic purposes for which more comprehensive (and widely 
 tested) libraries such as OpenSSL should be used.
 
+### Installation
+
+The package is on [CRAN](https://cran.r-project.org) and can be installed
+via a standard
+
+```r
+install.packages("digest")
+```
+
+### Continued Testing
+
+As we rely on the [tinytest](https://cran.r-project.org/package=tinytest) package, the
+already-installed package can also be verified via
+
+```r
+tinytest::test_package("digest")
+```
+
+at any later point.
+
 ### Author
 
 Dirk Eddelbuettel, with contributions by Antoine Lucas, Jarek Tuszynski,
