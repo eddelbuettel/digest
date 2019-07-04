@@ -1,3 +1,7 @@
+2019-07-04  Dirk Eddelbuettel  <edd@debian.org>
+
+	* DESCRIPTION (Version, Date): Release 0.6.20
+
 2019-06-29  Dirk Eddelbuettel  <edd@debian.org>
 
 	* README.md: Add installation and continues testing sections
