@@ -30,8 +30,8 @@ exponent <-  unique(gsub("^[0-9a-f]* ", "", x.hex))
 expect_equal(length(exponent), 1L)
 
 mantissa <- gsub(" [0-9]*$", "", x.hex)
-ignore(expect_true(all(
-    lapply(
+ignore(expect_true)(all(
+    sapply(
         head(seq_along(mantissa), -1),
         function(i){
             all(
@@ -42,7 +42,7 @@ ignore(expect_true(all(
             )
         }
     )
-)))
+))
 
 #it keeps NA values
 x <- c(pi, NA, 0)
