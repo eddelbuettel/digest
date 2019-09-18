@@ -28,6 +28,21 @@ for (i in seq(along.with=md5Input)) {
     #cat(md5, "\n")
 }
 
+md5 <- getVDigest()
+expect_identical(md5(md5Input, serialize = FALSE), md5Output)
+
+expect_identical(digest(NULL),
+                 md5(NULL))
+expect_identical(digest(character(0)),
+                 md5(character(0)))
+expect_identical(digest(list("abc")),
+                 md5(list(list("abc"))))
+expect_identical(digest(list(NULL)),
+                 md5(list(list(NULL))))
+expect_identical(digest(character(0), serialize = FALSE),
+                 md5(character(0), serialize = FALSE))
+
+
 ## md5 raw output test
 for (i in seq(along.with=md5Input)) {
     md5 <- digest(md5Input[i], serialize=FALSE, raw=TRUE)
@@ -51,6 +66,9 @@ for (i in seq(along.with=sha1Input)) {
     #cat(sha1, "\n")
 }
 
+sha1 <- getVDigest(algo = 'sha1')
+expect_identical(sha1(sha1Input, serialize = FALSE), sha1Output[1:2])
+
 ## sha1 raw output test
 for (i in seq(along.with=sha1Input)) {
     sha1 <- digest(sha1Input[i], algo="sha1", serialize=FALSE, raw=TRUE)
@@ -61,7 +79,6 @@ for (i in seq(along.with=sha1Input)) {
     expect_true(identical(sha1, sha1Output[i]))
     #cat(sha1, "\n")
 }
-
 
 ## sha512 test
 sha512Input <-c(
@@ -78,6 +95,9 @@ for (i in seq(along.with=sha512Input)) {
     #cat(sha512, "\n")
 }
 
+sha512 <- getVDigest(algo = 'sha512')
+expect_identical(sha512(sha512Input, serialize = FALSE), sha512Output[1:2])
+
 ## sha512 raw output test
 for (i in seq(along.with=sha512Input)) {
     sha512 <- digest(sha512Input[i], algo="sha512", serialize=FALSE, raw=TRUE)
@@ -89,8 +109,6 @@ for (i in seq(along.with=sha512Input)) {
     expect_true(identical(sha512, sha512Output[i]))
     #cat(sha512, "\n")
 }
-
-
 
 crc32Input <-
     c("abc",
@@ -106,6 +124,10 @@ for (i in seq(along.with=crc32Input)) {
     expect_true(identical(crc32, crc32Output[i]))
     #cat(crc32, "\n")
 }
+
+crc32 <- getVDigest(algo = 'crc32')
+expect_identical(crc32(crc32Input, serialize = FALSE), crc32Output[1:2])
+
 
 ## one of the FIPS-
 sha1 <- digest("abc", algo="sha1", serialize=FALSE)
@@ -134,6 +156,10 @@ for (i in seq(along.with=xxhash32Input)) {
     expect_true(identical(xxhash32, xxhash32Output[i]))
 }
 
+xxhash32 <- getVDigest(algo = 'xxhash32')
+expect_identical(xxhash32(xxhash32Input, serialize = FALSE), xxhash32Output)
+
+
 ## these outputs were calculated using xxh64sum
 xxhash64Input <-
     c("abc",
@@ -149,6 +175,10 @@ for (i in seq(along.with=xxhash64Input)) {
     #cat(xxhash64, "\n")
     expect_true(identical(xxhash64, xxhash64Output[i]))
 }
+
+xxhash64 <- getVDigest(algo = 'xxhash64')
+expect_identical(xxhash64(xxhash64Input, serialize = FALSE), xxhash64Output)
+
 
 ## these outputs were calculated using mmh3 python package
 ## the first two are also shown at this StackOverflow question on test vectors
@@ -167,6 +197,10 @@ for (i in seq(along.with=murmur32Input)) {
     #cat(murmur32, "\n")
     expect_true(identical(murmur32, murmur32Output[i]))
 }
+
+murmur32 <- getVDigest(algo = 'murmur32')
+expect_identical(murmur32(murmur32Input, serialize = FALSE), murmur32Output)
+
 
 ## tests for digest spooky
 
@@ -227,6 +261,11 @@ for (i in seq(along.with=spookyInput)) {
   #cat(spooky, "\n")
 }
 
+expect_identical(
+  getVDigest(algo = 'spookyhash')(spookyInput, skip = 30),
+  spookyOutputPython
+)
+
 ## some extras to get coverage up - these aren't tested against reference output,
 ## just output from R 3.6.0
 spookyInput <- c("a", "aaaaaaaaa", "aaaaaaaaaaaaa")
@@ -241,9 +280,16 @@ for (i in seq(along.with=spookyInput)) {
   #cat(spooky, "\n")
 }
 
+expect_identical(
+  getVDigest(algo = 'spookyhash')(spookyInput),
+  spookyOutput
+)
+
 # test a bigger object
 spooky <- digest(iris, algo = "spookyhash")
 expect_true(identical(spooky, "af58add8b4f7044582b331083bc239ff"))
+expect_identical(getVDigest('spookyhash')(list(iris)),
+                 "af58add8b4f7044582b331083bc239ff")
 #cat(spooky, "\n")
 
 # test error message
@@ -266,15 +312,28 @@ for (alg in c("sha1", "md5", "crc32", "sha256", "sha512",
     h3 <- digest(substr(x,1,18000)  , algo=alg, serialize=FALSE)
     expect_true(identical(h1,h3))
     #cat(h1, "\n", h2, "\n", h3, "\n")
+    expect_identical(
+      getVDigest(alg)(x, length = 18e3, serialize = FALSE),
+      getVDigest(alg)(fname, length = 18e3, serialize = FALSE, file = TRUE)
+    )
                                         # whole file
     h4 <- digest(x    , algo=alg, serialize=FALSE)
     h5 <- digest(fname, algo=alg, serialize=FALSE, file=TRUE)
     expect_true( identical(h4,h5) )
 
+    expect_identical(
+      getVDigest(alg)(x, serialize = FALSE),
+      getVDigest(alg)(fname, serialize = FALSE, file = TRUE)
+    )
+
     ## Assert that 'skip' works
     h6 <- digest(xskip, algo=alg, serialize=FALSE)
     h7 <- digest(fname, algo=alg, serialize=FALSE, skip=20, file=TRUE)
     expect_true( identical(h6, h7) )
+    expect_identical(
+      getVDigest(alg)(xskip, serialize = FALSE),
+      getVDigest(alg)(fname, serialize = FALSE, skip = 20, file = TRUE)
+    )
 }
 
 ## compare md5 algorithm to other tools

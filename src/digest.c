@@ -459,3 +459,25 @@ SEXP digest(SEXP Txt, SEXP Algo, SEXP Length, SEXP Skip, SEXP Leave_raw, SEXP Se
 
   return result;
 }
+
+
+SEXP vdigest(SEXP Txt, SEXP Algo, SEXP Length, SEXP Skip, SEXP Leave_raw, SEXP Seed){
+    R_xlen_t n = length(Txt);
+    if (TYPEOF(Txt) == RAWSXP || n == 0)
+        return(digest(Txt, Algo, Length, Skip, Leave_raw, Seed));
+    SEXP ans = PROTECT(allocVector(STRSXP, n));
+    SEXP d = R_NilValue;
+    if (TYPEOF(Txt) == VECSXP){
+        for (R_xlen_t i = 0; i < n; i++){
+            d = digest(VECTOR_ELT(Txt, i), Algo, Length, Skip, Leave_raw, Seed);
+            SET_STRING_ELT(ans, i, STRING_ELT(d, 0));
+        }
+    } else {
+        for (R_xlen_t i = 0; i < n; i++){
+            d = digest(STRING_ELT(Txt, i), Algo, Length, Skip, Leave_raw, Seed);
+            SET_STRING_ELT(ans, i, STRING_ELT(d, 0));
+        }
+    }
+    UNPROTECT(1);
+    return ans;
+}

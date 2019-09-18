@@ -320,10 +320,11 @@ h2 <- digest(fname, algo="md5", file=TRUE)
 stopifnot( identical(h1,h2) )
 
 ## digest is _designed_ to return one has summary per object to for a desired
-## vector of digests you need to explicitly loop, which Vectorize() can do for
-## you -- see this nice SO answer: https://stackoverflow.com/a/28360092/143305
-vdigest <- Vectorize(digest)
-v <- vdigest(1:5)     			# digest integers 1 to 5
+## For vectorised output see digest::getVDigest() which provides
+## better performance than base::Vectorize()
+
+md5 <- getVDigest()
+v <- md5(1:5)     			# digest integers 1 to 5
 stopifnot(identical(v[1], digest(1L)),	# check first and third result
           identical(v[3], digest(3L)))
 
