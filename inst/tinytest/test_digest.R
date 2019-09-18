@@ -28,7 +28,7 @@ for (i in seq(along.with=md5Input)) {
     #cat(md5, "\n")
 }
 
-md5 <- set_vdigest()
+md5 <- getVDigest()
 expect_identical(md5(md5Input, serialize = FALSE), md5Output)
 
 expect_identical(digest(NULL),
@@ -66,7 +66,7 @@ for (i in seq(along.with=sha1Input)) {
     #cat(sha1, "\n")
 }
 
-sha1 <- set_vdigest(algo = 'sha1')
+sha1 <- getVDigest(algo = 'sha1')
 expect_identical(sha1(sha1Input, serialize = FALSE), sha1Output[1:2])
 
 ## sha1 raw output test
@@ -95,7 +95,7 @@ for (i in seq(along.with=sha512Input)) {
     #cat(sha512, "\n")
 }
 
-sha512 <- set_vdigest(algo = 'sha512')
+sha512 <- getVDigest(algo = 'sha512')
 expect_identical(sha512(sha512Input, serialize = FALSE), sha512Output[1:2])
 
 ## sha512 raw output test
@@ -125,7 +125,7 @@ for (i in seq(along.with=crc32Input)) {
     #cat(crc32, "\n")
 }
 
-crc32 <- set_vdigest(algo = 'crc32')
+crc32 <- getVDigest(algo = 'crc32')
 expect_identical(crc32(crc32Input, serialize = FALSE), crc32Output[1:2])
 
 
@@ -156,7 +156,7 @@ for (i in seq(along.with=xxhash32Input)) {
     expect_true(identical(xxhash32, xxhash32Output[i]))
 }
 
-xxhash32 <- set_vdigest(algo = 'xxhash32')
+xxhash32 <- getVDigest(algo = 'xxhash32')
 expect_identical(xxhash32(xxhash32Input, serialize = FALSE), xxhash32Output)
 
 
@@ -176,7 +176,7 @@ for (i in seq(along.with=xxhash64Input)) {
     expect_true(identical(xxhash64, xxhash64Output[i]))
 }
 
-xxhash64 <- set_vdigest(algo = 'xxhash64')
+xxhash64 <- getVDigest(algo = 'xxhash64')
 expect_identical(xxhash64(xxhash64Input, serialize = FALSE), xxhash64Output)
 
 
@@ -198,7 +198,7 @@ for (i in seq(along.with=murmur32Input)) {
     expect_true(identical(murmur32, murmur32Output[i]))
 }
 
-murmur32 <- set_vdigest(algo = 'murmur32')
+murmur32 <- getVDigest(algo = 'murmur32')
 expect_identical(murmur32(murmur32Input, serialize = FALSE), murmur32Output)
 
 
@@ -262,7 +262,7 @@ for (i in seq(along.with=spookyInput)) {
 }
 
 expect_identical(
-  set_vdigest(algo = 'spookyhash')(spookyInput, skip = 30),
+  getVDigest(algo = 'spookyhash')(spookyInput, skip = 30),
   spookyOutputPython
 )
 
@@ -281,14 +281,14 @@ for (i in seq(along.with=spookyInput)) {
 }
 
 expect_identical(
-  set_vdigest(algo = 'spookyhash')(spookyInput),
+  getVDigest(algo = 'spookyhash')(spookyInput),
   spookyOutput
 )
 
 # test a bigger object
 spooky <- digest(iris, algo = "spookyhash")
 expect_true(identical(spooky, "af58add8b4f7044582b331083bc239ff"))
-expect_identical(set_vdigest('spookyhash')(list(iris)),
+expect_identical(getVDigest('spookyhash')(list(iris)),
                  "af58add8b4f7044582b331083bc239ff")
 #cat(spooky, "\n")
 
@@ -313,8 +313,8 @@ for (alg in c("sha1", "md5", "crc32", "sha256", "sha512",
     expect_true(identical(h1,h3))
     #cat(h1, "\n", h2, "\n", h3, "\n")
     expect_identical(
-      set_vdigest(alg)(x, length = 18e3, serialize = FALSE),
-      set_vdigest(alg)(fname, length = 18e3, serialize = FALSE, file = TRUE)
+      getVDigest(alg)(x, length = 18e3, serialize = FALSE),
+      getVDigest(alg)(fname, length = 18e3, serialize = FALSE, file = TRUE)
     )
                                         # whole file
     h4 <- digest(x    , algo=alg, serialize=FALSE)
@@ -322,8 +322,8 @@ for (alg in c("sha1", "md5", "crc32", "sha256", "sha512",
     expect_true( identical(h4,h5) )
 
     expect_identical(
-      set_vdigest(alg)(x, serialize = FALSE),
-      set_vdigest(alg)(fname, serialize = FALSE, file = TRUE)
+      getVDigest(alg)(x, serialize = FALSE),
+      getVDigest(alg)(fname, serialize = FALSE, file = TRUE)
     )
 
     ## Assert that 'skip' works
@@ -331,8 +331,8 @@ for (alg in c("sha1", "md5", "crc32", "sha256", "sha512",
     h7 <- digest(fname, algo=alg, serialize=FALSE, skip=20, file=TRUE)
     expect_true( identical(h6, h7) )
     expect_identical(
-      set_vdigest(alg)(xskip, serialize = FALSE),
-      set_vdigest(alg)(fname, serialize = FALSE, skip = 20, file = TRUE)
+      getVDigest(alg)(xskip, serialize = FALSE),
+      getVDigest(alg)(fname, serialize = FALSE, skip = 20, file = TRUE)
     )
 }
 

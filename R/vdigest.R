@@ -1,5 +1,5 @@
 
-set_vdigest <- function(algo = c("md5", "sha1", "crc32", "sha256", "sha512",
+getVDigest <- function(algo = c("md5", "sha1", "crc32", "sha256", "sha512",
                                  "xxhash32", "xxhash64", "murmur32", "spookyhash"),
                         errormode=c("stop","warn","silent")){
     algo <- match.arg(algo)

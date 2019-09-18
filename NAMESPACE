@@ -5,7 +5,7 @@ useDynLib(digest, digest_impl=digest, vdigest_impl=vdigest, digest2int_impl=dige
 export(AES,
        digest,
        digest2int,
-       set_vdigest,
+       getVDigest,
        sha1,
        hmac,
        makeRaw)

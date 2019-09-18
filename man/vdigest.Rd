@@ -1,13 +1,13 @@
-\name{set_vdigest}
-\alias{set_vdigest}
+\name{getVDigest}
+\alias{getVDigest}
 \title{Set a vectorised function for creating hash function digests}
 \description{
-The \code{set_vdigest} function extends \code{digest} by allowing one to
+The \code{getVDigest} function extends \code{digest} by allowing one to
 set a function that returns hash summaries as a character vector of the same length as the input. It also provides a performance advantage
 when repeated calls are necessary (e.g. applying a hash function repeatedly to an object). The returned function contains the same arguments as \code{digest} with the exception of the \code{raw} argument (see \code{\link{digest}} for more details).
 }
 \usage{
-set_vdigest(algo=c("md5", "sha1", "crc32", "sha256", "sha512", "xxhash32",
+getVDigest(algo=c("md5", "sha1", "crc32", "sha256", "sha512", "xxhash32",
             "xxhash64", "murmur32", "spookyhash"),
              errormode=c("stop","warn","silent"))
 }
@@ -22,24 +22,24 @@ set_vdigest(algo=c("md5", "sha1", "crc32", "sha256", "sha512", "xxhash32",
     \sQuote{silent} suppresses the error and returns an empty string.}
 }
 \value{
-  The \code{set_vdigest} function returns a function for a given
+  The \code{getVDigest} function returns a function for a given
   algorithm and error-mode.
 }
 \details{
  Note that since one hash summary will be returned for each element passed as input,  care must be taken when determining whether or not to include the data structure as  part of the object. For instance, to return the equivalent output of
  \code{digest(list("a"))} it would be necessary to wrap the list object itself
- \code{set_vdigest()(list(list("a")))}
+ \code{getVDigest()(list(list("a")))}
 }
 \seealso{\code{\link{digest}}, \code{\link{serialize}}, \code{\link{md5sum}}}
 \examples{
 stretch_key <- function(d, n) {
-    md5 <- set_vdigest()
+    md5 <- getVDigest()
     for (i in seq_len(n))
         d <- md5(d, serialize = FALSE)
     d
 }
 stretch_key('abc123', 65e3)
-sha1 <- set_vdigest(algo = 'sha1')
+sha1 <- getVDigest(algo = 'sha1')
 sha1(letters)
 
 md5Input <-
@@ -60,7 +60,7 @@ md5Output <-
       "d174ab98d277d9f5a5611c2c9f419d9f",
       "57edf4a22be3c955ac49da2e2107b67a")
 
-md5 <- set_vdigest()
+md5 <- getVDigest()
 stopifnot(identical(md5(md5Input, serialize = FALSE), md5Output))
 stopifnot(identical(digest(list("abc")),
                  md5(list(list("abc")))))
@@ -73,7 +73,7 @@ sha512Output <- c(
     "cf83e1357eefb8bdf1542850d66d8007d620e4050b5715dc83f4a921d36ce9ce47d0d13c5d85f2b0ff8318d2877eec2f63b931bd47417a81a538327af927da3e",
     "91ea1245f20d46ae9a037a989f54f1f790f0a47607eeb8a14d12890cea77a1bbc6c7ed9cf205e67b7f2b8fd4c7dfd3a7a8617e45f3c463d481c7e586c39ac1ed")
 
-sha512 <- set_vdigest(algo = 'sha512')
+sha512 <- getVDigest(algo = 'sha512')
 stopifnot(identical(sha512(sha512Input, serialize = FALSE), sha512Output))
 
 }
