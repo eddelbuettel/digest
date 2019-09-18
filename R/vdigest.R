@@ -117,15 +117,12 @@ streaming_digest <- function(algo, errormode, algoint){
             if (any(!is.na(pmatch(skip,"auto"))))
                 skip <- set_skip(object, ascii)
         }
+
         if (file)
             return(.errorhandler(paste0(algo, " algorithm can not be used with files."),        # #nocov
                                  mode=errormode))                                               # #nocov
 
-        if (file) {
-            algoint <- algoint+100
-            object <- path.expand(object)
-            check_file(object, errormode)
-        }
+
         ## if skip is auto (or any other text for that matter), we just turn it
         ## into 0 because auto should have been converted into a number earlier
         ## if it was valid [SU]
