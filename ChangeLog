@@ -1,3 +1,23 @@
+2019-09-18  Dirk Eddelbuettel  <edd@debian.org>
+
+	* DESCRIPTION (Version, Date): Roll minor version
+	
+	* DESCRIPTION (Author): Add Matthew
+	* README.md (Author): Ditto
+	
+	* demo/vectorised.R: Add demo (based on Matthew's PR)
+
+	* R/vdigest.R: Added a handful of #nocov tags
+	* man/vdigest.Rd: Break up two long lines
+	
+2019-09-17  Matthew de Queljoe <matthew.dequeljoe@gmail.com>
+
+	* src/digest.c: Add vectorised digest function
+	* R/vdigest.R: Add vectorised digest function factory
+	* man/vdigest.Rd: Add documentation
+	* NAMESPACE: Export new function getVDigest
+	* inst/tinytest/test_digest.R: Add tests
+	
 2019-07-04  Dirk Eddelbuettel  <edd@debian.org>
 
 	* DESCRIPTION (Version, Date): Release 0.6.20

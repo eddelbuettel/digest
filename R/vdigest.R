@@ -80,7 +80,7 @@ non_streaming_digest <- function(algo, errormode, algoint){
         ## crc32 output was not guaranteed to be eight chars long, which we corrected
         ## this allows to get the old behaviour back for compatibility
         if ((algoint == 3 || algoint == 103) && .getCRC32PreferOldOutput()) {
-            val <- sub("^0+", "", val)
+            val <- sub("^0+", "", val)                                          		# #nocov
         }
 
         return(val)
@@ -126,7 +126,7 @@ streaming_digest <- function(algo, errormode, algoint){
         ## if skip is auto (or any other text for that matter), we just turn it
         ## into 0 because auto should have been converted into a number earlier
         ## if it was valid [SU]
-        if (is.character(skip)) skip <- 0
+        if (is.character(skip)) skip <- 0                                          		# #nocov
         if (algo == "spookyhash"){
             # 0s are the seeds. They are included to enable testing against fastdigest.
             val <- vapply(object,
@@ -142,7 +142,7 @@ streaming_digest <- function(algo, errormode, algoint){
         ## crc32 output was not guaranteed to be eight chars long, which we corrected
         ## this allows to get the old behaviour back for compatibility
         if ((algoint == 3 || algoint == 103) && .getCRC32PreferOldOutput()) {
-            val <- sub("^0+", "", val)
+            val <- sub("^0+", "", val)                                          		# #nocov
         }
 
         return(val)
@@ -156,13 +156,13 @@ serialize_ <- function(object, ...){
 }
 
 .errorhandler <- function(txt, obj="", mode="stop") {
-    if (mode == "stop") {
+    if (mode == "stop") {                                                                # nocov start
         stop(txt, obj, call.=FALSE)
-    } else if (mode == "warn") {	    # nocov
-        warning(txt, obj, call.=FALSE)  # nocov
-        return(invisible(NA))           # nocov
+    } else if (mode == "warn") {
+        warning(txt, obj, call.=FALSE)
+        return(invisible(NA))
     } else {
-        return(invisible(NULL))         # nocov
+        return(invisible(NULL))                                                          # nocov end
     }
 }
 
@@ -189,19 +189,19 @@ set_skip <- function(object, ascii){
     if (!ascii)
         return(14)
     ## Was: skip <- if (ascii) 18 else 14
-    which(object[1:30] == as.raw(10))[4]
+    which(object[1:30] == as.raw(10))[4]         					# nocov
 }
 
 check_file <- function(object, errormode){
     if (!file.exists(object)) {
-        return(.errorhandler("The file does not exist: ", object, mode=errormode)) # nocov
+        return(.errorhandler("The file does not exist: ", object, mode=errormode)) 	# nocov start
     }
     if (!isTRUE(!file.info(object)$isdir)) {
-        return(.errorhandler("The specified pathname is not a file: ", # nocov
-                             object, mode=errormode))                  # nocov
+        return(.errorhandler("The specified pathname is not a file: ",
+                             object, mode=errormode))
     }
     if (file.access(object, 4)) {
-        return(.errorhandler("The specified file is not readable: ",   # #nocov
-                             object, mode=errormode))                  # #nocov
+        return(.errorhandler("The specified file is not readable: ",
+                             object, mode=errormode))                  			# #nocov end
     }
 }
