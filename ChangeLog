@@ -1,3 +1,9 @@
+2019-09-20  Matthew de Queljoe <matthew.dequeljoe@gmail.com>
+
+	* R/digest.R: refactor digest function
+	* R/vdigest.R: remove helper functions from file
+	* R/utils.R: new file to hold helper functions
+
 2019-09-19  Dirk Eddelbuettel  <edd@debian.org>
 
 	* DESCRIPTION (Version, Date): Release 0.6.21
