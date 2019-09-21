@@ -34,17 +34,6 @@ digest <- function(object, algo=c("md5", "sha1", "crc32", "sha256", "sha512",
     algo <- match.arg(algo)
     errormode <- match.arg(errormode)
 
-    .errorhandler <- function(txt, obj="", mode="stop") {
-        if (mode == "stop") {
-            stop(txt, obj, call.=FALSE)
-        } else if (mode == "warn") {	    # #nocov
-            warning(txt, obj, call.=FALSE)  # nocov
-            return(invisible(NA))           # nocov
-        } else {
-            return(invisible(NULL))         # nocov
-        }
-    }
-
     if (is.infinite(length)) {
         length <- -1               # internally we use -1 for infinite len
     }
@@ -75,19 +64,9 @@ digest <- function(object, algo=c("md5", "sha1", "crc32", "sha256", "sha512",
         ## we support raw vectors, so no mangling of 'object' is necessary
         ## regardless of R version
         ## skip="auto" - skips the serialization header [SU]
-        if (any(!is.na(pmatch(skip,"auto")))) {
-            if (ascii) {
-                ## HB 14 Mar 2007:
-                ## Exclude serialization header (non-data dependent bytes but R
-                ## version specific).  In ASCII, the header consists of for rows
-                ## ending with a newline ('\n').  We need to skip these.
-                ## The end of 4th row is *typically* within the first 18 bytes
-                skip <- which(object[1:30] == as.raw(10))[4] # nocov
-            } else {
-                skip <- 14
-            }
-            ## Was: skip <- if (ascii) 18 else 14
-        }
+        if (any(!is.na(pmatch(skip,"auto"))))
+            skip <- set_skip(object, ascii)
+
     } else if (!is.character(object) && !inherits(object,"raw") &&
                algo %in% non_streaming_algos) {
         return(.errorhandler(paste("Argument object must be of type character",		    # #nocov
@@ -104,30 +83,11 @@ digest <- function(object, algo=c("md5", "sha1", "crc32", "sha256", "sha512",
     ## HB 14 Mar 2007:  null op, only turned to char if alreadt char
     ##if (!inherits(object,"raw"))
     ##  object <- as.character(object)
-    algoint <- switch(algo,
-                      md5=1,
-                      sha1=2,
-                      crc32=3,
-                      sha256=4,
-                      sha512=5,
-                      xxhash32=6,
-                      xxhash64=7,
-                      murmur32=8,
-                      spookyhash=9)
+    algoint <- algo_int(algo)
     if (file) {
         algoint <- algoint+100
         object <- path.expand(object)
-        if (!file.exists(object)) {
-            return(.errorhandler("The file does not exist: ", object, mode=errormode)) # nocov
-        }
-        if (!isTRUE(!file.info(object)$isdir)) {
-            return(.errorhandler("The specified pathname is not a file: ", # nocov
-                                 object, mode=errormode))                  # nocov
-        }
-        if (file.access(object, 4)) {
-            return(.errorhandler("The specified file is not readable: ",   # #nocov
-                                 object, mode=errormode))                  # #nocov
-        }
+        check_file(object, errormode)
     }
     ## if skip is auto (or any other text for that matter), we just turn it
     ## into 0 because auto should have been converted into a number earlier
