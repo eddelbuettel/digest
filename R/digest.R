@@ -93,7 +93,7 @@ digest <- function(object, algo=c("md5", "sha1", "crc32", "sha256", "sha512",
     ## into 0 because auto should have been converted into a number earlier
     ## if it was valid [SU]
     if (is.character(skip)) skip <- 0
-    if(algo %in% non_streaming_algos){
+    if (algo %in% non_streaming_algos) {
         val <- .Call(digest_impl,
                      object,
                      as.integer(algoint),
