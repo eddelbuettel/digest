@@ -103,10 +103,10 @@ cfb128output <- hextextToRaw(paste("3b3fd92eb72dad20333449f8e83cfb4a",
                                    "26751f67a3cbb140b1808cf187a4f4df",
                                    "c04b05357c5d1c0eeac4c66f9ff7f2e6",sep=""))
 aes <- AES(key, mode="CFB", IV=iv)
-cfb128 <- aes$encrypt(text)
+cfb128 <- aes$encrypt(plaintext)
 expect_true(identical(cfb128, cfb128output))
 aes <- AES(key, mode="CFB", IV=iv)
-expect_true(identical(text, aes$decrypt(cfb128, raw=TRUE)))
+expect_true(identical(plaintext, aes$decrypt(cfb128, raw=TRUE)))
 
 
 
