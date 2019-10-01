@@ -108,6 +108,15 @@ expect_true(identical(cfb128, cfb128output))
 aes <- AES(key, mode="CFB", IV=iv)
 expect_true(identical(plaintext, aes$decrypt(cfb128, raw=TRUE)))
 
+# test throws exeception on IV null or not a multiplier of 16 bytes
+aes <- AES(key, mode="CFB", IV=NULL)
+expect_error(aes$encrypt(plaintext))
+expect_error(aes$decrypt(plaintext))
+
+aes <- AES(key, mode="CFB", IV=raw(15))
+expect_error(aes$encrypt(plaintext))
+expect_error(aes$decrypt(plaintext))
+
 
 
 
