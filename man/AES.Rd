@@ -88,7 +88,7 @@ code
 aes <- AES(key, mode="CBC", iv)
 aes$decrypt(code, raw=TRUE)
 
-# For CFB mode: IV should be random initialized and must be the same length as the Block's block size
+# CFB mode: IV must be the same length as the Block's block size
 # Two different instances of AES are required for encryption and decryption
 iv <- sample(0:255, 16, replace=TRUE)
 aes <- AES(key, mode="CFB", iv)
