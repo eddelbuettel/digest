@@ -5,6 +5,8 @@
 	* man/digest.Rd: Change three URL references to https
 	* man/hmac.Rd: Ditto
 
+	* R/utils.R: Move back functions used by digest() + makeVDigest()
+
 2019-09-20  Matthew de Queljoe <matthew.dequeljoe@gmail.com>
 
 	* R/digest.R: refactor digest function
