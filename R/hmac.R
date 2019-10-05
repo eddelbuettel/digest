@@ -1,4 +1,24 @@
 
+##  hmac -- Hash-based message authentication code for R
+##
+##  Copyright (C) 2011 - 2019  Mario Frasca and Dirk Eddelbuettel
+##  Copyright (C) 2012 - 2019  Hannes Muehleisen and Dirk Eddelbuettel
+##
+##  This file is part of digest.
+##
+##  digest is free software: you can redistribute it and/or modify
+##  it under the terms of the GNU General Public License as published by
+##  the Free Software Foundation, either version 2 of the License, or
+##  (at your option) any later version.
+##
+##  digest is distributed in the hope that it will be useful,
+##  but WITHOUT ANY WARRANTY; without even the implied warranty of
+##  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+##  GNU General Public License for more details.
+##
+##  You should have received a copy of the GNU General Public License
+##  along with digest.  If not, see <http://www.gnu.org/licenses/>.
+
 makeRaw <- function(object)
     ## generic function, converts an object to a raw
     UseMethod('makeRaw')

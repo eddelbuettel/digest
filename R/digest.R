@@ -2,6 +2,11 @@
 ##  digest -- hash digest functions for R
 ##
 ##  Copyright (C) 2003 - 2019  Dirk Eddelbuettel <edd@debian.org>
+##  Copyright (C) 2009 - 2019  Henrik Bengtsson
+##  Copyright (C) 2012 - 2019  Hannes Muehleisen
+##  Copyright (C) 2014 - 2019  Jim Hester
+##  Copyright (C) 2019         Kendon Bell
+##  Copyright (C) 2019         Matthew de Queljoe
 ##
 ##  This file is part of digest.
 ##

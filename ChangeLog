@@ -7,6 +7,12 @@
 
 	* R/utils.R: Move back functions used by digest() + makeVDigest()
 
+	* R/AES.R: Added copyright header
+	* R/digest.R: Idem
+	* R/hmac.R: Idem
+	* R/sha1.R: Idem
+	* R/vdigest.R: Idem
+	
 2019-09-20  Matthew de Queljoe <matthew.dequeljoe@gmail.com>
 
 	* R/digest.R: refactor digest function

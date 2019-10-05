@@ -1,4 +1,23 @@
 
+##  vdigest -- Vectorist digest functions for R
+##
+##  Copyright (C) 2019         Matthew de Queljoe and Dirk Eddelbuettel
+##
+##  This file is part of digest.
+##
+##  digest is free software: you can redistribute it and/or modify
+##  it under the terms of the GNU General Public License as published by
+##  the Free Software Foundation, either version 2 of the License, or
+##  (at your option) any later version.
+##
+##  digest is distributed in the hope that it will be useful,
+##  but WITHOUT ANY WARRANTY; without even the implied warranty of
+##  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+##  GNU General Public License for more details.
+##
+##  You should have received a copy of the GNU General Public License
+##  along with digest.  If not, see <http://www.gnu.org/licenses/>.
+
 getVDigest <- function(algo = c("md5", "sha1", "crc32", "sha256", "sha512",
                                  "xxhash32", "xxhash64", "murmur32", "spookyhash"),
                         errormode=c("stop","warn","silent")){
@@ -154,4 +173,3 @@ serialize_ <- function(object, ...){
         return(lapply(object, base::serialize, ...))
     base::serialize(object, ...)
 }
-

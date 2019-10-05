@@ -1,6 +1,25 @@
-# This is loosely modelled on the AES code from the Python Crypto package.
+##  AES -- Advanced Encryption Standard (AES) block cipher for R
+##
+##  Copyright (C) 2013 - 2019  Duncan Murdoch and Dirk Eddelbuettel
+##  Copyright (C) 2019         Ion Suruceanu
+##
+##  This file is part of digest.
+##
+##  digest is free software: you can redistribute it and/or modify
+##  it under the terms of the GNU General Public License as published by
+##  the Free Software Foundation, either version 2 of the License, or
+##  (at your option) any later version.
+##
+##  digest is distributed in the hope that it will be useful,
+##  but WITHOUT ANY WARRANTY; without even the implied warranty of
+##  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+##  GNU General Public License for more details.
+##
+##  You should have received a copy of the GNU General Public License
+##  along with digest.  If not, see <http://www.gnu.org/licenses/>.
 
-# Currently only ECB, CBC, CFB and CTR modes are supported...
+## This is loosely modelled on the AES code from the Python Crypto package.
+## Currently only ECB, CBC, CFB and CTR modes are supported...
 
 modes <- c("ECB", "CBC", "CFB", "PGP", "OFB", "CTR", "OPENPGP")
 
