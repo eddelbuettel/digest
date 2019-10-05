@@ -119,7 +119,7 @@ digest(object, algo=c("md5", "sha1", "crc32", "sha256", "sha512",
   \url{https://en.wikipedia.org/wiki/Cyclic_redundancy_check} for
   general information on CRC algorithms.
 
-  \url{http://www.aarongifford.com/computers/sha.html} for the
+  \url{https://www.aarongifford.com/computers/sha.html} for the
   integrated C implementation of sha-512.
 
   The page for the code underlying the C functions used here for sha-1
@@ -127,10 +127,10 @@ digest(object, algo=c("md5", "sha1", "crc32", "sha256", "sha512",
   \url{https://en.wikipedia.org/wiki/SHA-1} and
   \url{https://en.wikipedia.org/wiki/MD5}.
 
-  \url{http://zlib.net} for documentation on the zlib library which
+  \url{https://zlib.net} for documentation on the zlib library which
   supplied the code for crc32.
 
-  \url{http://en.wikipedia.org/wiki/SHA_hash_functions} for
+  \url{https://en.wikipedia.org/wiki/SHA_hash_functions} for
   documentation on the sha functions.
 
   \url{https://github.com/Cyan4973/xxHash} for documentation on the xxHash
