@@ -278,16 +278,22 @@ num2hex <- function(x, digits = 14L, zapsmall = 7L){
     if (all(x.na)) {
         return(x)
     }
-    output <- rep(NA, length(x))
+    x.inf <- is.infinite(x)
+    if (all(x.inf)) {
+        return(rep("Inf", length(x)))
+    }
+    output <- rep(NA_character_, length(x))
+    output[x.inf] <- "Inf"
+    x.finite <- !x.na & !x.inf
 
-    x.hex <- sprintf("%a", x[!x.na])
+    x.hex <- sprintf("%a", x[x.finite])
     exponent <- as.integer(gsub("^.*p", "", x.hex))
 
     # detect "small" numbers
     zapsmall.hex <- floor(log2(10 ^ -zapsmall))
     zero <- x.hex == sprintf("%a", 0) | exponent <= zapsmall.hex
     if (any(zero)) {
-        output[!x.na][zero] <- "0"
+        output[x.finite][zero] <- "0"
         if (all(zero)) {
             return(output)
         }
@@ -303,7 +309,7 @@ num2hex <- function(x, digits = 14L, zapsmall = 7L){
     # remove potential trailing zero's
     mantissa <- gsub(mantissa, pattern = "0*$", replacement = "")
     negative <- ifelse(grepl(x.hex[!zero], pattern = "^-"), "-", "")
-    output[!x.na][!zero] <- paste0(negative, mantissa, " ", exponent[!zero])
+    output[x.finite][!zero] <- paste0(negative, mantissa, " ", exponent[!zero])
     return(output)
 }
 

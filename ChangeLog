@@ -1,3 +1,8 @@
+2019-10-12  Bill Denney <wdenney@humanpredictions.com>
+
+  * R/sha1.R: Fix issue with num2hex() and input of Inf
+  * inst/tinytest/test_sha1.R: Add Inf to the tests
+
 2019-10-05  Dirk Eddelbuettel  <edd@debian.org>
 
 	* DESCRIPTION (Version, Date): Roll minor version

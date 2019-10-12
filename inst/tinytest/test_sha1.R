@@ -4,7 +4,7 @@
 suppressMessages(library(digest))
 
 # calculate sha1 fingerprints
-x.numeric <- seq(0, 1, length = 4 ^ 3)
+x.numeric <- c(seq(0, 1, length = 4 ^ 3), Inf)
 x.list <- list(letters, x.numeric)
 x.dataframe <- data.frame(X = letters,
                           Y = x.numeric[2],
