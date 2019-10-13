@@ -4,7 +4,7 @@
 suppressMessages(library(digest))
 
 # calculate sha1 fingerprints
-x.numeric <- seq(0, 1, length = 4 ^ 3)
+x.numeric <- c(seq(0, 1, length = 4 ^ 3), -Inf, Inf, NA, NaN)
 x.list <- list(letters, x.numeric)
 x.dataframe <- data.frame(X = letters,
                           Y = x.numeric[2],
@@ -35,6 +35,11 @@ expect_true(
             digest(z, algo = "sha1")
         }
     )
+)
+# Verify that all numeric values (especially +-Inf and NA/NaN) return unique
+# SHA1 hashes
+expect_false(
+    any(duplicated(sapply(x.numeric, sha1)))
 )
 expect_true(
     identical(
