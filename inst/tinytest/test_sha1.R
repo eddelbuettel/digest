@@ -16,6 +16,7 @@ x.dataframe.round <- x.dataframe
 x.dataframe.round$Y <- signif(x.dataframe.round$Y, 14)
 x.factor <- factor(letters)
 x.array.num <- as.array(x.numeric)
+x.formula <- a~b+c|d
 
 # tests using detailed numbers
 expect_false(identical(x.numeric, signif(x.numeric, 14)))
@@ -236,6 +237,52 @@ expect_true(
                 zapsmall = 7L
             )
             digest(y, algo = "sha1")
+        }
+    )
+)
+expect_true(
+    identical(
+        sha1(x.formula, environment=FALSE),
+        {
+            y <- sapply(
+                X=x.formula,
+                FUN=sha1,
+                digits=14L,
+                zapsmall=7L,
+                ...=list(environment=FALSE),
+                algo="sha1"
+            )
+            attr(y, "digest::sha1") <- list(
+                class="formula",
+                digits=14L,
+                zapsmall=7L,
+                environment=FALSE
+            )
+            digest(y, algo="sha1")
+        }
+    )
+)
+expect_true(
+    identical(
+        sha1(x.formula),
+        {
+            y <- c(
+                sapply(
+                    X=x.formula,
+                    FUN=sha1,
+                    digits=14L,
+                    zapsmall=7L,
+                    ...=list(environment=TRUE),
+                    algo="sha1"
+                ),
+                digest(environment(x.formula), algo="sha1")
+            )
+            attr(y, "digest::sha1") <- list(
+                class="formula",
+                digits=14L,
+                zapsmall=7L
+            )
+            digest(y, algo="sha1")
         }
     )
 )

@@ -21,6 +21,7 @@
 \alias{sha1.function}
 \alias{sha1.call}
 \alias{sha1.raw}
+\alias{sha1.formula}
 \title{Calculate a SHA1 hash of an object}
 \author{Thierry Onkelinx}
 \usage{
@@ -45,6 +46,7 @@ sha1(x, digits = 14, zapsmall = 7, ..., algo = "sha1")
 \method{sha1}{function}(x, digits = 14, zapsmall = 7, ..., algo = "sha1")
 \method{sha1}{call}(x, digits = 14, zapsmall = 7, ..., algo = "sha1")
 \method{sha1}{raw}(x, digits = 14, zapsmall = 7, ..., algo = "sha1")
+\method{sha1}{formula}(x, digits = 14, zapsmall = 7, ..., algo = "sha1")
 }
 \arguments{
 \item{x}{the object to calculate the SHA1}
@@ -73,9 +75,10 @@ while maintaining the same hash on 32 bit and 64 bit systems.
 \details{
 Extra arguments:
 
-environment: An optional extra argument for \code{sha1.function}. Should
-be TRUE, FALSE or missing. \code{sha1.function} will ignore the enviroment of
-the function only when \code{environment = FALSE}.
+environment: An optional extra argument for \code{sha1.function} and
+\code{sha1.formula} should be TRUE, FALSE or missing. \code{sha1.function} and
+\code{sha1.formula} will ignore the enviroment of the function only when
+\code{environment = FALSE}.
 }
 \note{
 \code{sha1} gained an \code{algo} argument since version 0.6.15. This allows
