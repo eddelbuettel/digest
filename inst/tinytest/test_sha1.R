@@ -259,7 +259,7 @@ expect_true(
 )
 expect_true(
     identical(
-        sha1(x.formula, environment=TRUE),
+        sha1(x.formula),
         {
             y <- c(
                 sapply(
@@ -275,8 +275,7 @@ expect_true(
             attr(y, "digest::sha1") <- list(
                 class="formula",
                 digits=14L,
-                zapsmall=7L,
-                environment=TRUE
+                zapsmall=7L
             )
             digest(y, algo="sha1")
         }
