@@ -279,9 +279,6 @@ num2hex <- function(x, digits = 14L, zapsmall = 7L){
         return(x)
     }
     x.inf <- is.infinite(x)
-    if (all(x.inf)) {
-        return(rep("Inf", length(x)))
-    }
     output <- rep(NA_character_, length(x))
     output[x.inf & x > 0] <- "Inf"
     output[x.inf & x < 0] <- "-Inf"
