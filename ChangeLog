@@ -1,7 +1,14 @@
+2019-10-13  Bill Denney <wdenney@humanpredictions.com>
+
+	* R/sha1.R: Add sha1.formula()
+	* NAMESPACE: Idem
+	* man/sha1.rd: Idem
+	* inst/tinytest/test_sha1.R: Add tests for sha1.formula()
+
 2019-10-12  Bill Denney <wdenney@humanpredictions.com>
 
-  * R/sha1.R: Fix issue with num2hex() and input of Inf
-  * inst/tinytest/test_sha1.R: Add Inf to the tests
+	* R/sha1.R: Fix issue with num2hex() and input of Inf
+	* inst/tinytest/test_sha1.R: Add Inf to the tests
 
 2019-10-05  Dirk Eddelbuettel  <edd@debian.org>
 
@@ -17,7 +24,7 @@
 	* R/hmac.R: Idem
 	* R/sha1.R: Idem
 	* R/vdigest.R: Idem
-	
+
 2019-09-20  Matthew de Queljoe <matthew.dequeljoe@gmail.com>
 
 	* R/digest.R: refactor digest function
@@ -75,7 +82,7 @@
 
 2019-06-10  Dirk Eddelbuettel  <edd@debian.org>
 
-	* inst/tinytest/testCRC32.R: Use expcect_* functions 
+	* inst/tinytest/testCRC32.R: Use expcect_* functions
         * inst/tinytest/testDigest2Int.R: Idem
         * inst/tinytest/testNum2Hex.R: Idem
         * inst/tinytest/testRaw.R: Idem
@@ -99,7 +106,7 @@
 	* R/digest.R: Idem
 	* R/hmac.R: Idem
 	* R/sha1.R: Idem
-	
+
 2019-05-19  Dirk Eddelbuettel  <edd@debian.org>
 
 	* DESCRIPTION (Version, Date): Release 0.6.19
