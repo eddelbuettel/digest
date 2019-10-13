@@ -381,3 +381,29 @@ sha1.raw <- function(x, digits = 14L, zapsmall = 7L, ..., algo = "sha1") {
     )
     digest(x, algo = algo)
 }
+
+sha1.formula <- function(x, digits = 14L, zapsmall = 7L, ..., algo = "sha1"){
+    dots <- list(...)
+    if (is.null(dots$environment)) {
+        dots$environment <- TRUE
+    }
+    y <- vapply(
+        x,
+        sha1,
+        digits = digits,
+        zapsmall = zapsmall,
+        ... = dots,
+        algo = algo,
+        FUN.VALUE = NA_character_
+    )
+    if (isTRUE(dots$environment)) {
+        y <- c(
+            y,
+            digest(environment(x), algo = algo)
+        )
+    }
+    attr(y, "digest::sha1") <- attr_sha1(
+        x = x, digits = digits, zapsmall = zapsmall, algo = algo, ...
+    )
+    digest(y, algo = algo)
+}
