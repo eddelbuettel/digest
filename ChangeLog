@@ -1,4 +1,8 @@
 2019-10-13  Bill Denney <wdenney@humanpredictions.com>
+	* src/digest.c: Add support for UTF-8 file paths on Windows
+	* inst/tinytest/test_encoding.R: Add tests for UTF-8 file paths.
+
+2019-10-13  Bill Denney <wdenney@humanpredictions.com>
 
 	* R/sha1.R: Add sha1.formula()
 	* NAMESPACE: Idem

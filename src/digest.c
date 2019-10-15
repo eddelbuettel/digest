@@ -37,12 +37,45 @@
 #include "xxhash.h"
 #include "pmurhash.h"
 
+#ifdef _WIN32
+#include <Windows.h>
+#endif
+
 unsigned long ZEXPORT digest_crc32(unsigned long crc,
                                    const unsigned char FAR *buf,
                                    unsigned len);
 
 static const char *sha2_hex_digits = "0123456789abcdef";
 
+#ifdef _WIN32
+FILE* my_open(const char* txt) {
+    FILE* out;
+    wchar_t* buf;
+    size_t len = MultiByteToWideChar(CP_UTF8, 0, txt, -1, NULL, 0);
+    if (len <= 0) {
+        error("Cannot convert file to Unicode: %s", txt);
+    }
+    buf = (wchar_t*) R_alloc(len, sizeof(wchar_t));
+    if (buf == NULL) {
+        error("Could not allocate buffer of size: %ll", len);
+    }
+
+    MultiByteToWideChar(CP_UTF8, 0, txt, -1, buf, len);
+
+    if (!(out = _wfopen(buf, L"rb"))) {
+        error("Cannot open input file: %s", txt); /* already covered at R level too */ /* #nocov */
+    }
+    return out;
+}
+#else
+FILE* my_open(const char* txt) {
+    FILE* out;
+    if (!(out = fopen(txt, "rb"))) {
+        error("Cannot open input file: %s", txt); /* already covered at R level too */ /* #nocov */
+    }
+    return out;
+}
+#endif
 
 SEXP digest(SEXP Txt, SEXP Algo, SEXP Length, SEXP Skip, SEXP Leave_raw, SEXP Seed) {
     size_t BUF_SIZE = 1024;
@@ -67,6 +100,10 @@ SEXP digest(SEXP Txt, SEXP Algo, SEXP Length, SEXP Skip, SEXP Leave_raw, SEXP Se
     } else { /* or a string */
         txt = (char*) STRING_VALUE(Txt);
         nChar = strlen(txt);
+
+        if (algo >= 100) {
+            fp = my_open(txt);
+        }
     }
     if (skip > 0 && algo < 100) {
         if (skip>=nChar) {
@@ -189,9 +226,6 @@ SEXP digest(SEXP Txt, SEXP Algo, SEXP Length, SEXP Skip, SEXP Leave_raw, SEXP Se
         unsigned char buf[BUF_SIZE];
         unsigned char md5sum[16];
 
-        if (!(fp = fopen(txt,"rb"))) {
-            error("Cannot open input file: %s", txt); /* already covered at R level too */ /* #nocov */
-        }
         if (skip > 0) fseek(fp, skip, SEEK_SET);
         md5_starts( &ctx );
         if (length>=0) {
@@ -220,9 +254,6 @@ SEXP digest(SEXP Txt, SEXP Algo, SEXP Length, SEXP Skip, SEXP Leave_raw, SEXP Se
         unsigned char buf[BUF_SIZE];
         unsigned char sha1sum[20];
 
-        if (!(fp = fopen(txt,"rb"))) {
-            error("Cannot open input file: %s", txt); /* already covered at R level too */ /* #nocov */
-        }
         if (skip > 0) fseek(fp, skip, SEEK_SET);
         sha1_starts ( &ctx );
         if (length>=0) {
@@ -247,9 +278,6 @@ SEXP digest(SEXP Txt, SEXP Algo, SEXP Length, SEXP Skip, SEXP Leave_raw, SEXP Se
         unsigned char buf[BUF_SIZE];
         unsigned long val;
 
-        if (!(fp = fopen(txt,"rb"))) {
-            error("Cannot open input file: %s", txt); /* already covered at R level too */ /* #nocov */
-        }
         if (skip > 0) fseek(fp, skip, SEEK_SET);
         val  = digest_crc32(0L, 0, 0);
         if (length>=0) {
@@ -273,9 +301,6 @@ SEXP digest(SEXP Txt, SEXP Algo, SEXP Length, SEXP Skip, SEXP Leave_raw, SEXP Se
         unsigned char buf[BUF_SIZE];
         unsigned char sha256sum[32];
 
-        if (!(fp = fopen(txt,"rb"))) {
-            error("Cannot open input file: %s", txt); /* already covered at R level too */ /* #nocov */
-        }
         if (skip > 0) fseek(fp, skip, SEEK_SET);
         sha256_starts ( &ctx );
         if (length>=0) {
@@ -304,9 +329,6 @@ SEXP digest(SEXP Txt, SEXP Algo, SEXP Length, SEXP Skip, SEXP Leave_raw, SEXP Se
 
         unsigned char buf[BUF_SIZE];
 
-        if (!(fp = fopen(txt,"rb"))) {
-            error("Cannot open input file: %s", txt); /* already covered at R level too */ /* #nocov */
-        }
         if (skip > 0) fseek(fp, skip, SEEK_SET);
         SHA512_Init(&ctx);
         if (length>=0) {
@@ -342,9 +364,6 @@ SEXP digest(SEXP Txt, SEXP Algo, SEXP Length, SEXP Skip, SEXP Leave_raw, SEXP Se
         unsigned char buf[BUF_SIZE];
         XXH32_state_t* const state = XXH32_createState();
 
-        if (!(fp = fopen(txt,"rb"))) {
-            error("Cannot open input file: %s", txt); /* already covered at R level too */ /* #nocov */
-        }
         if (skip > 0) fseek(fp, skip, SEEK_SET);
         XXH_errorcode const resetResult = XXH32_reset(state, seed);
         if (resetResult == XXH_ERROR) {
@@ -378,9 +397,6 @@ SEXP digest(SEXP Txt, SEXP Algo, SEXP Length, SEXP Skip, SEXP Leave_raw, SEXP Se
         unsigned char buf[BUF_SIZE];
         XXH64_state_t* const state = XXH64_createState();
 
-        if (!(fp = fopen(txt,"rb"))) {
-            error("Cannot open input file: %s", txt); /* already covered at R level too */ /* #nocov */
-        }
         if (skip > 0) fseek(fp, skip, SEEK_SET);
         XXH_errorcode const resetResult = XXH64_reset(state, seed);
         if (resetResult == XXH_ERROR) {
@@ -419,9 +435,6 @@ SEXP digest(SEXP Txt, SEXP Algo, SEXP Length, SEXP Skip, SEXP Leave_raw, SEXP Se
         unsigned char buf[BUF_SIZE];
         size_t total_length = 0;
 
-        if (!(fp = fopen(txt,"rb"))) {
-            error("Cannot open input file: %s", txt); /* already covered at R level too */ /* #nocov */
-        }
         if (skip > 0) fseek(fp, skip, SEEK_SET);
         if (length>=0) {
             while( ( nChar = fread( buf, 1, sizeof( buf ), fp ) ) > 0
