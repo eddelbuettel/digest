@@ -1,5 +1,7 @@
-2019-10-13  Bill Denney <wdenney@humanpredictions.com>
+2019-10-13  Jim Hester <james.f.hester@gmail.com>
+
 	* src/digest.c: Add support for UTF-8 file paths on Windows
+	* R/digest.R: Idem
 	* inst/tinytest/test_encoding.R: Add tests for UTF-8 file paths.
 
 2019-10-13  Bill Denney <wdenney@humanpredictions.com>
