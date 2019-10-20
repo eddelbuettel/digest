@@ -40,6 +40,12 @@
 	* R/sha1.R: Idem
 	* R/vdigest.R: Idem
 
+2019-10-02  Ion Suruceanu  <ion.suruceanu@gapsquare.com>
+
+	* R/AES.R: Add support for CFB cipher mode
+	* man/AES.Rd: Add documentation
+	* inst/tinytest/test_aes.R: Add tests
+	
 2019-09-20  Matthew de Queljoe <matthew.dequeljoe@gmail.com>
 
 	* R/digest.R: refactor digest function
