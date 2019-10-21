@@ -2,6 +2,8 @@
 
 	* DESCRIPTION (Version, Date): Roll minor version
 
+	* inst/tinytest/test_misc.R: File split off test_digest.R
+
 2019-10-19  Dirk Eddelbuettel  <edd@debian.org>
 
 	* DESCRIPTION: Add Ion and Bill to Authors
