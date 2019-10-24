@@ -1,3 +1,7 @@
+
+isWindows <- Sys.info()[["sysname"]] == "Windows"
+if (!isWindows) exit_file("Skipping test on non-Windows platform")
+
 d <- tempfile()
 dir.create(d)
 
