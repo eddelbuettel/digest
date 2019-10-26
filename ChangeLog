@@ -1,3 +1,8 @@
+2019-10-26  Dirk Eddelbuettel  <edd@debian.org>
+
+	* R/digest.R (digest): Call enc2utf8() only on Windows; add internal
+	one-liner function to test for being on Windows
+
 2019-10-23  Dirk Eddelbuettel  <edd@debian.org>
 
 	* inst/tinytest/test_encoding.R: Skip test unless on Windows

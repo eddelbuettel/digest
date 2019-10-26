@@ -38,6 +38,8 @@ digest <- function(object, algo=c("md5", "sha1", "crc32", "sha256", "sha512",
     algo <- match.arg(algo)
     errormode <- match.arg(errormode)
 
+    isWindows <- Sys.info()[["sysname"]] == "Windows"
+
     if (is.infinite(length)) {
         length <- -1               # internally we use -1 for infinite len
     }
@@ -90,7 +92,10 @@ digest <- function(object, algo=c("md5", "sha1", "crc32", "sha256", "sha512",
     algoint <- algo_int(algo)
     if (file) {
         algoint <- algoint+100
-        object <- enc2utf8(path.expand(object))
+        object <- path.expand(object)
+        if (isWindows) {
+            object <- enc2utf8(object)
+        }
         check_file(object, errormode)
     }
     ## if skip is auto (or any other text for that matter), we just turn it
