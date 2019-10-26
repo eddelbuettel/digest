@@ -1,5 +1,7 @@
 2019-10-26  Dirk Eddelbuettel  <edd@debian.org>
 
+	* DESCRIPTION (Version, Date): Roll minor version
+
 	* R/digest.R (digest): Call enc2utf8() only on Windows; add internal
 	one-liner function to test for being on Windows
 
