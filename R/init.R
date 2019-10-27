@@ -25,6 +25,9 @@
     .pkgenv[["serializeVersion"]] <- getOption("serializeVersion", 2L)  # #nocov
     ## allow old crc32 behaviour
     .pkgenv[["crc32Preference"]] <- getOption("digestOldCRC32Format", FALSE)  # #nocov
+    ## allow version specific sha1 behaviour
+    .pkgenv[["sha1PackageVersion"]] <- getOption("sha1PackageVersion",  # #nocov
+                                                 packageVersion("digest"))  # #nocov
 }
 
 .getSerializeVersion <- function() {
@@ -37,4 +40,12 @@
     ## return the options() value if set, otherwise the package env value
     ## doing it as a two-step ensure we can set a different default later
     getOption("digestOldCRC32Format", .pkgenv[["crc32Preference"]])
+}
+
+.getsha1PackageVersion <- function() {
+    ## return the options() value if set, otherwise the package env value
+    ## doing it as a two-step ensure we can set a different default later
+    package_version(
+        getOption("sha1PackageVersion", .pkgenv[["sha1PackageVersion"]])
+    )
 }
