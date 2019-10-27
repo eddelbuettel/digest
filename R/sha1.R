@@ -26,6 +26,11 @@ sha1 <- function(x, digits = 14L, zapsmall = 7L, ..., algo = "sha1"){
 }
 
 sha1.default <- function(x, digits = 14L, zapsmall = 7L, ..., algo = "sha1") {
+    if (is.list(x)) {
+        return(
+            sha1.list(x, digits = digits, zapsmall = zapsmall, ..., algo = algo)
+        )
+    }
     stop(  							# #nocov start
         "sha1() has no method for the '",
         paste(class(x), collapse = "', '"),

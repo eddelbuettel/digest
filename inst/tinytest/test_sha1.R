@@ -467,3 +467,5 @@ for (algo in c("md5", "sha1", "crc32", "sha256", "sha512", "xxhash32",
     )
 
 }
+
+expect_true(is.character(sha1(sessionInfo())))
