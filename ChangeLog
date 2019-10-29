@@ -1,3 +1,12 @@
+2019-10-27  Thierry Onkelinx  <thierry.onkelinx@inbo.be>
+
+	* DESCRIPTION (Version, Date): Roll minor version
+	* NAMESPACE:  import utils::packageVersion
+	* man/sha1.Rd: update documentation
+	* R/init.R: add "sha1PackageVersion" option
+	* R/sha1.R: take object attributes into account when calculating the hash
+	* inst.tinytest/test_sha1.R: add units tests for new functionality
+
 2019-10-26  Dirk Eddelbuettel  <edd@debian.org>
 
 	* DESCRIPTION (Version, Date): Roll minor version
