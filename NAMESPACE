@@ -1,6 +1,8 @@
 ## package has a dynamic library
 useDynLib(digest, digest_impl=digest, vdigest_impl=vdigest, digest2int_impl=digest2int, AESinit, AESencryptECB, AESdecryptECB, spookydigest_impl, .registration=TRUE)
 
+importFrom(utils, packageVersion)
+
 ## and exported functions
 export(AES,
        digest,

@@ -70,6 +70,7 @@ expect_true(
         }
     )
 )
+options(sha1PackageVersion = "0.6.22.1")
 expect_true(
     identical(
         sha1(x.dataframe),
@@ -466,4 +467,19 @@ for (algo in c("md5", "sha1", "crc32", "sha256", "sha512", "xxhash32",
         )
     )
 
+}
+
+expect_true(is.character(sha1(sessionInfo())))
+
+# check the effect of attributes from version 0.6.22.2
+check_attribute_effect <- function(x) {
+    y <- x
+    attr(y, "test") <- "junk"
+    expect_false(sha1(x) == sha1(y))
+}
+options(sha1PackageVersion = utils::packageVersion("digest"))
+test.element <- list(2 + 5i, x.array.num, Sys.Date(), Sys.time(), y ~ x)
+test.element <- c(test.element, list(x.dataframe), anova.list, function(x){x})
+for (z in test.element) {
+    check_attribute_effect(z)
 }

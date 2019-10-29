@@ -26,6 +26,11 @@ sha1 <- function(x, digits = 14L, zapsmall = 7L, ..., algo = "sha1"){
 }
 
 sha1.default <- function(x, digits = 14L, zapsmall = 7L, ..., algo = "sha1") {
+    if (is.list(x)) {
+        return(
+            sha1.list(x, digits = digits, zapsmall = zapsmall, ..., algo = algo)
+        )
+    }
     stop(  							# #nocov start
         "sha1() has no method for the '",
         paste(class(x), collapse = "', '"),
@@ -73,6 +78,9 @@ sha1.numeric <- function(x, digits = 14L, zapsmall = 7L, ..., algo = "sha1"){
         digits = digits,
         zapsmall = zapsmall
     )
+    if (package_version("0.6.22.2") <= .getsha1PackageVersion()) {
+        attributes(y) <- c(attributes(y), "digest::attributes" = attributes(x))
+    }
     attr(y, "digest::sha1") <- attr_sha1(
         x = x, digits = digits, zapsmall = zapsmall, algo = algo, ...
     )
@@ -92,6 +100,9 @@ sha1.matrix <- function(x, digits = 14L, zapsmall = 7L, ..., algo = "sha1"){
             ),
             ncol = ncol(x)
         )
+        if (package_version("0.6.22.2") <= .getsha1PackageVersion()) {
+            attributes(y) <- attributes(x)
+        }
         attr(y, "digest::sha1") <- attr_sha1(
             x = x, digits = digits, zapsmall = zapsmall, algo = algo, ...
         )
@@ -107,6 +118,9 @@ sha1.matrix <- function(x, digits = 14L, zapsmall = 7L, ..., algo = "sha1"){
 sha1.complex <- function(x, digits = 14L, zapsmall = 7L, ..., algo = "sha1") {
     # a vector of complex numbers is converted into 2-column matrix (Re,Im)
     y <- cbind(Re(x), Im(x))
+    if (package_version("0.6.22.2") <= .getsha1PackageVersion()) {
+        attributes(y) <- c(attributes(y), "digest::attributes" = attributes(x))
+    }
     attr(y, "digest::sha1") <- attr_sha1(
         x = x, digits = digits, zapsmall = zapsmall, algo = algo, ...
     )
@@ -115,6 +129,9 @@ sha1.complex <- function(x, digits = 14L, zapsmall = 7L, ..., algo = "sha1") {
 
 sha1.Date <- function(x, digits = 14L, zapsmall = 7L, ..., algo = "sha1") {
     y <- as.numeric(x)
+    if (package_version("0.6.22.2") <= .getsha1PackageVersion()) {
+        attributes(y) <- c(attributes(y), "digest::attributes" = attributes(x))
+    }
     attr(y, "digest::sha1") <- attr_sha1(
         x = x, digits = digits, zapsmall = zapsmall, algo = algo, ...
     )
@@ -128,6 +145,9 @@ sha1.array <- function(x, digits = 14L, zapsmall = 7L, ..., algo = "sha1") {
     y <- list(
         dimension = dim(x),
         value = as.numeric(x))
+    if (package_version("0.6.22.2") <= .getsha1PackageVersion()) {
+        attributes(y) <- c(attributes(y), "digest::attributes" = attributes(x))
+    }
     attr(y, "digest::sha1") <- attr_sha1(
         x = x, digits = digits, zapsmall = zapsmall, algo = algo, ...
     )
@@ -148,6 +168,9 @@ sha1.data.frame <- function(x, digits = 14L, zapsmall = 7L, ..., algo = "sha1"){
         )
     } else {
         y <- x
+    }
+    if (package_version("0.6.22.2") <= .getsha1PackageVersion()) {
+        attributes(y) <- c(attributes(y), "digest::attributes" = attributes(x))
     }
     attr(y, "digest::sha1") <- attr_sha1(
         x = x, digits = digits, zapsmall = zapsmall, algo = algo, ...
@@ -170,6 +193,9 @@ sha1.list <- function(x, digits = 14L, zapsmall = 7L, ..., algo = "sha1"){
     } else {
         y <- x
     }
+    if (package_version("0.6.22.2") <= .getsha1PackageVersion()) {
+        attributes(y) <- c(attributes(y), "digest::attributes" = attributes(x))
+    }
     attr(y, "digest::sha1") <- list(
         class = class(x),
         digits = as.integer(digits),
@@ -185,6 +211,9 @@ sha1.POSIXlt <- function(x, digits = 14L, zapsmall = 7L, ..., algo = "sha1") {
         lapply(unclass(as.POSIXlt(x)), unlist)
     )
     y$sec <- num2hex(y$sec, digits = digits, zapsmall = zapsmall)
+    if (package_version("0.6.22.2") <= .getsha1PackageVersion()) {
+        attributes(y) <- c(attributes(y), "digest::attributes" = attributes(x))
+    }
     attr(y, "digest::sha1") <- attr_sha1(
         x = x, digits = digits, zapsmall = zapsmall, algo = algo, ...
     )
@@ -199,6 +228,9 @@ sha1.POSIXct <- function(x, digits = 14L, zapsmall = 7L, ..., algo = "sha1") {
         ...,
         algo = algo
     )
+    if (package_version("0.6.22.2") <= .getsha1PackageVersion()) {
+        attributes(y) <- c(attributes(y), "digest::attributes" = attributes(x))
+    }
     attr(y, "digest::sha1") <- attr_sha1(
         x = x, digits = digits, zapsmall = zapsmall, algo = algo, ...
     )
@@ -216,6 +248,9 @@ sha1.anova <- function(x, digits = 4L, zapsmall = 7L, ..., algo = "sha1"){
         digits = digits,
         zapsmall = zapsmall
     )
+    if (package_version("0.6.22.2") <= .getsha1PackageVersion()) {
+        attributes(y) <- c(attributes(y), "digest::attributes" = attributes(x))
+    }
     attr(y, "digest::sha1") <- attr_sha1(
         x = x, digits = digits, zapsmall = zapsmall, algo = algo, ...
     )
@@ -322,6 +357,9 @@ sha1.pairlist <- function(x, digits = 14L, zapsmall = 7L, ..., algo = "sha1") {
         algo = algo,
         FUN.VALUE = NA_character_
     )
+    if (package_version("0.6.22.2") <= .getsha1PackageVersion()) {
+        attributes(y) <- c(attributes(y), "digest::attributes" = attributes(x))
+    }
     attr(y, "digest::sha1") <- attr_sha1(
         x = x, digits = digits, zapsmall = zapsmall, algo = algo, ...
     )
@@ -360,6 +398,9 @@ sha1.function <- function(x, digits = 14L, zapsmall = 7L, ..., algo = "sha1"){
         algo = algo,
         FUN.VALUE = NA_character_
     )
+    if (package_version("0.6.22.2") <= .getsha1PackageVersion()) {
+        attributes(y) <- c(attributes(y), "digest::attributes" = attributes(x))
+    }
     attr(y, "digest::sha1") <- attr_sha1(
         x = y, digits = digits, zapsmall = zapsmall, algo = algo, dots
     )
@@ -399,6 +440,9 @@ sha1.formula <- function(x, digits = 14L, zapsmall = 7L, ..., algo = "sha1"){
             y,
             digest(environment(x), algo = algo)
         )
+    }
+    if (package_version("0.6.22.2") <= .getsha1PackageVersion()) {
+        attributes(y) <- c(attributes(y), "digest::attributes" = attributes(x))
     }
     attr(y, "digest::sha1") <- attr_sha1(
         x = x, digits = digits, zapsmall = zapsmall, algo = algo, ...

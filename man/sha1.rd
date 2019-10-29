@@ -87,4 +87,8 @@ hashes created with \code{sha1(x)} from digest >= 0.6.15 are identical to
 \code{sha1(x)} from digest <= 0.6.14. The only exceptions are hashes created
 with \code{sha1(x, algo = "sha1")}, they will be different starting from digest
 0.6.15
+
+Until version 0.6.22, \code{sha1} ignored the attributes of the object for
+some classes. This was fixed in version 0.6.23. Use
+\code{option(sha1PackageVersion = 0.6.23)} to get the old behaviour.
 }
