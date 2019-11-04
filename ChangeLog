@@ -1,3 +1,11 @@
+2019-11-03  Bill Denney <wdenney@predictions.com>
+
+	* R/sha1.R: Add support for the "(" class which is used in some formula
+	* NAMESPACE: Idem
+	* man/sha1.Rd: Idem; also corrected typo for old version behavior
+	* inst.tinytest/test_sha1.R: Add tests for the "(" class
+	* 
+
 2019-10-27  Thierry Onkelinx  <thierry.onkelinx@inbo.be>
 
 	* DESCRIPTION (Version, Date): Roll minor version

@@ -22,6 +22,7 @@
 \alias{sha1.call}
 \alias{sha1.raw}
 \alias{sha1.formula}
+\alias{sha1.(}
 \title{Calculate a SHA1 hash of an object}
 \author{Thierry Onkelinx}
 \usage{
@@ -47,6 +48,7 @@ sha1(x, digits = 14, zapsmall = 7, ..., algo = "sha1")
 \method{sha1}{call}(x, digits = 14, zapsmall = 7, ..., algo = "sha1")
 \method{sha1}{raw}(x, digits = 14, zapsmall = 7, ..., algo = "sha1")
 \method{sha1}{formula}(x, digits = 14, zapsmall = 7, ..., algo = "sha1")
+\method{sha1}{\(}(x, digits = 14, zapsmall = 7, ..., algo = "sha1")
 }
 \arguments{
 \item{x}{the object to calculate the SHA1}
@@ -90,5 +92,5 @@ with \code{sha1(x, algo = "sha1")}, they will be different starting from digest
 
 Until version 0.6.22, \code{sha1} ignored the attributes of the object for
 some classes. This was fixed in version 0.6.23. Use
-\code{option(sha1PackageVersion = 0.6.23)} to get the old behaviour.
+\code{option(sha1PackageVersion = 0.6.22)} to get the old behaviour.
 }
