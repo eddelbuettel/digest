@@ -449,3 +449,5 @@ sha1.formula <- function(x, digits = 14L, zapsmall = 7L, ..., algo = "sha1"){
     )
     digest(y, algo = algo)
 }
+
+"sha1.(" <- sha1.formula

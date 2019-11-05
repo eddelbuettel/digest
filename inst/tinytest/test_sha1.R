@@ -17,6 +17,8 @@ x.dataframe.round$Y <- signif(x.dataframe.round$Y, 14)
 x.factor <- factor(letters)
 x.array.num <- as.array(x.numeric)
 x.formula <- a~b+c|d
+x.paren_formula <- a~(b+c)
+x.no_paren_formula <- a~b+c
 
 # tests using detailed numbers
 expect_false(identical(x.numeric, signif(x.numeric, 14)))
@@ -286,6 +288,9 @@ expect_true(
             digest(y, algo="sha1")
         }
     )
+)
+expect_true(
+    sha1(x.paren_formula) != sha1(x.no_paren_formula)
 )
 
 test.element <- list(
