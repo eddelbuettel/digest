@@ -39,39 +39,6 @@ sha1.default <- function(x, digits = 14L, zapsmall = 7L, ..., algo = "sha1") {
     )								# #nocov end
 }
 
-sha1.integer <- function(x, digits = 14L, zapsmall = 7L, ..., algo = "sha1") {
-    attr(x, "digest::sha1") <- attr_sha1(
-        x = x, digits = digits, zapsmall = zapsmall, algo = algo, ...
-    )
-    digest(x, algo = algo)
-}
-
-sha1.character <- function(x, digits = 14L, zapsmall = 7L, ..., algo = "sha1") {
-    attr(x, "digest::sha1") <- attr_sha1(
-        x = x, digits = digits, zapsmall = zapsmall, algo = algo, ...
-    )
-    digest(x, algo = algo)
-}
-
-sha1.factor <- function(x, digits = 14L, zapsmall = 7L, ..., algo = "sha1") {
-    attr(x, "digest::sha1") <- attr_sha1(
-        x = x, digits = digits, zapsmall = zapsmall, algo = algo, ...
-    )
-    digest(x, algo = algo)
-}
-
-sha1.NULL <- function(x, digits = 14L, zapsmall = 7L, ..., algo = "sha1") {
-    # attributes cannot be set on a NULL object
-    digest(x, algo = algo)
-}
-
-sha1.logical <- function(x, digits = 14L, zapsmall = 7L, ..., algo = "sha1") {
-    attr(x, "digest::sha1") <- attr_sha1(
-        x = x, digits = digits, zapsmall = zapsmall, algo = algo, ...
-    )
-    digest(x, algo = algo)
-}
-
 sha1.numeric <- function(x, digits = 14L, zapsmall = 7L, ..., algo = "sha1"){
     y <- num2hex(
         x,
@@ -257,6 +224,121 @@ sha1.anova <- function(x, digits = 4L, zapsmall = 7L, ..., algo = "sha1"){
     digest(y, algo = algo)
 }
 
+sha1.pairlist <- function(x, digits = 14L, zapsmall = 7L, ..., algo = "sha1") {
+    # needed to make results comparable between 32-bit and 64-bit
+    y <- vapply(
+        x,
+        sha1,
+        digits = digits,
+        zapsmall = zapsmall,
+        ...,
+        algo = algo,
+        FUN.VALUE = NA_character_
+    )
+    if (package_version("0.6.22.2") <= .getsha1PackageVersion()) {
+        attributes(y) <- c(attributes(y), "digest::attributes" = attributes(x))
+    }
+    attr(y, "digest::sha1") <- attr_sha1(
+        x = x, digits = digits, zapsmall = zapsmall, algo = algo, ...
+    )
+    digest(y, algo = algo)
+}
+
+sha1.function <- function(x, digits = 14L, zapsmall = 7L, ..., algo = "sha1"){
+    dots <- list(...)
+    if (is.null(dots$environment)) {
+        dots$environment <- TRUE
+    }
+    if (isTRUE(dots$environment)) {
+        y <- list(
+            formals = formals(x),
+            body = as.character(body(x)),
+            environment = digest(environment(x), algo = algo)
+        )
+    } else {
+        y <- list(
+            formals = formals(x),
+            body = as.character(body(x))
+        )
+    }
+    y <- vapply(
+        y,
+        sha1,
+        digits = digits,
+        zapsmall = zapsmall,
+        environment = dots$environment,
+        ... = dots,
+        algo = algo,
+        FUN.VALUE = NA_character_
+    )
+    if (package_version("0.6.22.2") <= .getsha1PackageVersion()) {
+        attributes(y) <- c(attributes(y), "digest::attributes" = attributes(x))
+    }
+    attr(y, "digest::sha1") <- attr_sha1(
+        x = y, digits = digits, zapsmall = zapsmall, algo = algo, dots
+    )
+    digest(y, algo = algo)
+}
+
+sha1.formula <- function(x, digits = 14L, zapsmall = 7L, ..., algo = "sha1"){
+    dots <- list(...)
+    if (is.null(dots$environment)) {
+        dots$environment <- TRUE
+    }
+    y <- vapply(
+        x,
+        sha1,
+        digits = digits,
+        zapsmall = zapsmall,
+        ... = dots,
+        algo = algo,
+        FUN.VALUE = NA_character_
+    )
+    if (isTRUE(dots$environment)) {
+        y <- c(
+            y,
+            digest(environment(x), algo = algo)
+        )
+    }
+    if (package_version("0.6.22.2") <= .getsha1PackageVersion()) {
+        attributes(y) <- c(attributes(y), "digest::attributes" = attributes(x))
+    }
+    attr(y, "digest::sha1") <- attr_sha1(
+        x = x, digits = digits, zapsmall = zapsmall, algo = algo, ...
+    )
+    digest(y, algo = algo)
+}
+"sha1.(" <- sha1.formula
+
+# sha1_attr_digest variants ####
+
+sha1_attr_digest <- function(x, digits = 14L, zapsmall = 7L, ..., algo = "sha1") {
+    # attributes can be set on objects calling sha1_attr_digest()
+    attr(x, "digest::sha1") <- attr_sha1(
+        x = x, digits = digits, zapsmall = zapsmall, algo = algo, ...
+    )
+    digest(x, algo = algo)
+}
+
+sha1.call <- function(...) {sha1_attr_digest(...)}
+sha1.character <- function(...) {sha1_attr_digest(...)}
+sha1.factor <- function(...) {sha1_attr_digest(...)}
+sha1.logical <- function(...) {sha1_attr_digest(...)}
+sha1.integer <- function(...) {sha1_attr_digest(...)}
+sha1.raw <- function(...) {sha1_attr_digest(...)}
+
+# sha1_digest variants ####
+
+sha1_digest <- function(x, digits = 14L, zapsmall = 7L, ..., algo = "sha1") {
+    # attributes cannot be set on objects calling sha1_digest()
+    digest(x, algo = algo)
+}
+
+sha1.name <- function(...) {sha1_digest(...)}
+sha1.NULL <- function(...) {sha1_digest(...)}
+
+# Support Functions ####
+
 attr_sha1 <- function(x, digits, zapsmall, algo, ...) {
     if (algo == "sha1") {
         return(
@@ -305,7 +387,6 @@ num2hex <- function(x, digits = 14L, zapsmall = 7L){
     if (zapsmall < 1) {
         stop("zapsmall must be positive")			# #nocov
     }
-
     if (length(x) == 0) {
         return(character(0))
     }
@@ -318,10 +399,8 @@ num2hex <- function(x, digits = 14L, zapsmall = 7L){
     output[x.inf & x > 0] <- "Inf"
     output[x.inf & x < 0] <- "-Inf"
     x.finite <- !x.na & !x.inf
-
     x.hex <- sprintf("%a", x[x.finite])
     exponent <- as.integer(gsub("^.*p", "", x.hex))
-
     # detect "small" numbers
     zapsmall.hex <- floor(log2(10 ^ -zapsmall))
     zero <- x.hex == sprintf("%a", 0) | exponent <= zapsmall.hex
@@ -331,7 +410,6 @@ num2hex <- function(x, digits = 14L, zapsmall = 7L){
             return(output)
         }
     }
-
     digits.hex <- ceiling(log(10 ^ digits, base = 16))
     mantissa <- x.hex[!zero] # select "large" numbers
     # select mantissa
@@ -346,108 +424,4 @@ num2hex <- function(x, digits = 14L, zapsmall = 7L){
     return(output)
 }
 
-sha1.pairlist <- function(x, digits = 14L, zapsmall = 7L, ..., algo = "sha1") {
-    # needed to make results comparable between 32-bit and 64-bit
-    y <- vapply(
-        x,
-        sha1,
-        digits = digits,
-        zapsmall = zapsmall,
-        ...,
-        algo = algo,
-        FUN.VALUE = NA_character_
-    )
-    if (package_version("0.6.22.2") <= .getsha1PackageVersion()) {
-        attributes(y) <- c(attributes(y), "digest::attributes" = attributes(x))
-    }
-    attr(y, "digest::sha1") <- attr_sha1(
-        x = x, digits = digits, zapsmall = zapsmall, algo = algo, ...
-    )
-    digest(y, algo = algo)
-}
 
-sha1.name <- function(x, digits = 14L, zapsmall = 7L, ..., algo = "sha1") {
-    # attribute cannot be set on a name object
-    digest(x, algo = algo)
-}
-
-sha1.function <- function(x, digits = 14L, zapsmall = 7L, ..., algo = "sha1"){
-    dots <- list(...)
-    if (is.null(dots$environment)) {
-        dots$environment <- TRUE
-    }
-    if (isTRUE(dots$environment)) {
-        y <- list(
-            formals = formals(x),
-            body = as.character(body(x)),
-            environment = digest(environment(x), algo = algo)
-        )
-    } else {
-        y <- list(
-            formals = formals(x),
-            body = as.character(body(x))
-        )
-    }
-    y <- vapply(
-        y,
-        sha1,
-        digits = digits,
-        zapsmall = zapsmall,
-        environment = dots$environment,
-        ... = dots,
-        algo = algo,
-        FUN.VALUE = NA_character_
-    )
-    if (package_version("0.6.22.2") <= .getsha1PackageVersion()) {
-        attributes(y) <- c(attributes(y), "digest::attributes" = attributes(x))
-    }
-    attr(y, "digest::sha1") <- attr_sha1(
-        x = y, digits = digits, zapsmall = zapsmall, algo = algo, dots
-    )
-    digest(y, algo = algo)
-}
-
-sha1.call <- function(x, digits = 14L, zapsmall = 7L, ..., algo = "sha1"){
-    attr(x, "digest::sha1") <- attr_sha1(
-        x = x, digits = digits, zapsmall = zapsmall, algo = algo, ...
-    )
-    digest(x, algo = algo)
-}
-
-sha1.raw <- function(x, digits = 14L, zapsmall = 7L, ..., algo = "sha1") {
-    attr(x, "digest::sha1") <- attr_sha1(
-        x = x, digits = digits, zapsmall = zapsmall, algo = algo, ...
-    )
-    digest(x, algo = algo)
-}
-
-sha1.formula <- function(x, digits = 14L, zapsmall = 7L, ..., algo = "sha1"){
-    dots <- list(...)
-    if (is.null(dots$environment)) {
-        dots$environment <- TRUE
-    }
-    y <- vapply(
-        x,
-        sha1,
-        digits = digits,
-        zapsmall = zapsmall,
-        ... = dots,
-        algo = algo,
-        FUN.VALUE = NA_character_
-    )
-    if (isTRUE(dots$environment)) {
-        y <- c(
-            y,
-            digest(environment(x), algo = algo)
-        )
-    }
-    if (package_version("0.6.22.2") <= .getsha1PackageVersion()) {
-        attributes(y) <- c(attributes(y), "digest::attributes" = attributes(x))
-    }
-    attr(y, "digest::sha1") <- attr_sha1(
-        x = x, digits = digits, zapsmall = zapsmall, algo = algo, ...
-    )
-    digest(y, algo = algo)
-}
-
-"sha1.(" <- sha1.formula

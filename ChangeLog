@@ -1,10 +1,16 @@
+2019-11-07  Bill Denney <wdenney@humanpredictions.com>
+
+  * NAMESPACE: add sha1_digest() and sha1_attr_digest() Functions
+  * R/sha1.R: Idem
+  * man/sha1.Rd: Idem
+  * Also, renamed sha1.rd to sha1.Rd
+
 2019-11-03  Bill Denney <wdenney@predictions.com>
 
 	* R/sha1.R: Add support for the "(" class which is used in some formula
 	* NAMESPACE: Idem
 	* man/sha1.Rd: Idem; also corrected typo for old version behavior
 	* inst.tinytest/test_sha1.R: Add tests for the "(" class
-	* 
 
 2019-10-27  Thierry Onkelinx  <thierry.onkelinx@inbo.be>
 
