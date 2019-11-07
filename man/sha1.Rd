@@ -41,8 +41,9 @@ sha1(x, digits = 14, zapsmall = 7, ..., algo = "sha1")
 \method{sha1}{POSIXct}(x, digits = 14, zapsmall = 7, ..., algo = "sha1")
 \method{sha1}{anova}(x, digits = 4, zapsmall = 7, ..., algo = "sha1")
 \method{sha1}{function}(x, digits = 14, zapsmall = 7, ..., algo = "sha1")
+
 \method{sha1}{formula}(x, digits = 14, zapsmall = 7, ..., algo = "sha1")
-\method{sha1}{`(`}(x, digits = 14, zapsmall = 7, ..., algo = "sha1")
+\method{sha1}{`(`}(...)
 
 sha1_digest(x, digits = 14, zapsmall = 7, ..., algo = "sha1")
 \method{sha1}{NULL}(...)
@@ -67,9 +68,8 @@ sha1.anova where \code{digits = 4}}
 digit. Will be converted to a base 2 equivalent. Values smaller than this
 number are equivalent to 0. Defaults to \code{zapsmall = 7}}
 
-\item{...}{If it is the only defined argument, passed to either
-\code{sha1_digest()} or \code{sha1_attr_digest()}.  If other arguments exist,
-see Details for usage}
+\item{...}{If it is the only defined argument, passed to another \code{sha1}
+method.  If other arguments exist, see Details for usage.}
 
 \item{algo}{The hashing algoritm to be used by \code{\link{digest}}. Defaults to
 "sha1"}
