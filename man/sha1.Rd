@@ -42,7 +42,7 @@ sha1(x, digits = 14, zapsmall = 7, ..., algo = "sha1")
 \method{sha1}{anova}(x, digits = 4, zapsmall = 7, ..., algo = "sha1")
 \method{sha1}{function}(x, digits = 14, zapsmall = 7, ..., algo = "sha1")
 \method{sha1}{formula}(x, digits = 14, zapsmall = 7, ..., algo = "sha1")
-\method{sha1}{\(}(x, digits = 14, zapsmall = 7, ..., algo = "sha1")
+\method{sha1}{`(`}(x, digits = 14, zapsmall = 7, ..., algo = "sha1")
 
 sha1_digest(x, digits = 14, zapsmall = 7, ..., algo = "sha1")
 \method{sha1}{NULL}(...)
