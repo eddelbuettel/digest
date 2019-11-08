@@ -9,6 +9,8 @@ export(AES,
        digest2int,
        getVDigest,
        sha1,
+       sha1_attr_digest,
+       sha1_digest,
        hmac,
        makeRaw)
 
