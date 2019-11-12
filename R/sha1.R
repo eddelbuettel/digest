@@ -400,12 +400,10 @@ num2hex <- function(x, digits = 14L, zapsmall = 7L){
     output[x.inf & x < 0] <- "-Inf"
     # detect "small" numbers
     x.zero <- !x.na & !x.inf & abs(x) <= (2^floor(log2(10 ^ -zapsmall)))
-    if (any(x.zero)) {
-        output[x.zero] <- "0"
-    }
-    x.finite <- !(x.na | x.inf | x.zero)
+    output[x.zero] <- "0"
     # The calculations for non-na, non-inf, non-zero values are computationally
     # more intense.  Don't do them unless necessary.
+    x.finite <- !(x.na | x.inf | x.zero)
     if (!any(x.finite)) {
         return(output)
     }
@@ -418,9 +416,8 @@ num2hex <- function(x, digits = 14L, zapsmall = 7L){
     # select mantissa (starting format is 0x1.[0-9a-f]+p[+-][0-9]+), remove the
     # beginning through the decimal place, including the fact that exact powers
     # of two will not have a decimal place.
-    mantissa <- x.hex
     # Remove the beginning through the decimal place (if it exists).
-    mask_decimal <- startsWith(mantissa, "0x1.")
+    mask_decimal <- startsWith(x.hex, "0x1.")
     start_character <- 4 + mask_decimal
     # select required precision
     stop_character <- pmin(nc_x - 3, start_character + digits.hex - 1)
