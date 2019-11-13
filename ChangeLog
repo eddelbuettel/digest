@@ -1,140 +1,146 @@
-2019-11-11  Bill Denney <wdenney@humanpredictions.com>
+2019-11-13  Dirk Eddelbuettel  <edd@debian.org>
 
-	* R/sha1.R: Increase efficiency of num2hex()
+	* DESCRIPTION (Version, Date): Roll minor version
 
-2019-11-07  Bill Denney <wdenney@humanpredictions.com>
+2019-11-11  Bill Denney  <wdenney@humanpredictions.com>
 
-  * NAMESPACE: add sha1_digest() and sha1_attr_digest() Functions
-  * R/sha1.R: Idem
-  * man/sha1.Rd: Idem
-  * Also, renamed sha1.rd to sha1.Rd
+        * R/sha1.R: Increase efficiency of num2hex()
 
-2019-11-03  Bill Denney <wdenney@predictions.com>
+2019-11-07  Bill Denney  <wdenney@humanpredictions.com>
 
-	* R/sha1.R: Add support for the "(" class which is used in some formula
-	* NAMESPACE: Idem
-	* man/sha1.Rd: Idem; also corrected typo for old version behavior
-	* inst.tinytest/test_sha1.R: Add tests for the "(" class
+        * NAMESPACE: add sha1_digest() and sha1_attr_digest() functions
+        * R/sha1.R: Idem
+        * man/sha1.Rd: Idem
+        * Also, renamed sha1.rd to sha1.Rd
+
+2019-11-03  Bill Denney  <wdenney@predictions.com>
+
+        * R/sha1.R: Add support for the "(" class used in some formulae
+        * NAMESPACE: Idem
+        * man/sha1.Rd: Idem; also corrected typo for old version behavior
+        * inst.tinytest/test_sha1.R: Add tests for the "(" class
 
 2019-10-27  Thierry Onkelinx  <thierry.onkelinx@inbo.be>
 
-	* DESCRIPTION (Version, Date): Roll minor version
-	* NAMESPACE:  import utils::packageVersion
-	* man/sha1.Rd: update documentation
-	* R/init.R: add "sha1PackageVersion" option
-	* R/sha1.R: take object attributes into account when calculating the hash
-	* inst.tinytest/test_sha1.R: add units tests for new functionality
+        * DESCRIPTION (Version, Date): Roll minor version
+
+        * R/sha1.R: consider object attributes when calculating the hash
+        * man/sha1.Rd: update documentation
+        * R/init.R: add "sha1PackageVersion" option
+        * inst.tinytest/test_sha1.R: add units tests for new functionality
+
+        * NAMESPACE:  import utils::packageVersion
 
 2019-10-26  Dirk Eddelbuettel  <edd@debian.org>
 
-	* DESCRIPTION (Version, Date): Roll minor version
+        * DESCRIPTION (Version, Date): Roll minor version
 
-	* R/digest.R (digest): Call enc2utf8() only on Windows; add internal
-	one-liner function to test for being on Windows
+        * R/digest.R (digest): Call enc2utf8() only on Windows; add internal
+        one-liner function to test for being on Windows
 
 2019-10-23  Dirk Eddelbuettel  <edd@debian.org>
 
-	* inst/tinytest/test_encoding.R: Skip test unless on Windows
+        * inst/tinytest/test_encoding.R: Skip test unless on Windows
 
 2019-10-21  Dirk Eddelbuettel  <edd@debian.org>
 
-	* DESCRIPTION (Version, Date): Release 0.6.22
+        * DESCRIPTION (Version, Date): Release 0.6.22
 
 2019-10-20  Dirk Eddelbuettel  <edd@debian.org>
 
-	* DESCRIPTION (Version, Date): Roll minor version
+        * DESCRIPTION (Version, Date): Roll minor version
 
-	* inst/tinytest/test_misc.R: File split off test_digest.R
+        * inst/tinytest/test_misc.R: File split off test_digest.R
 
 2019-10-19  Dirk Eddelbuettel  <edd@debian.org>
 
-	* DESCRIPTION: Add Ion and Bill to Authors
-	* README.md: Idem
+        * DESCRIPTION: Add Ion and Bill to Authors
+        * README.md: Idem
 
 2019-10-13  Jim Hester <james.f.hester@gmail.com>
 
-	* src/digest.c: Add support for UTF-8 file paths on Windows
-	* R/digest.R: Idem
-	* inst/tinytest/test_encoding.R: Add tests for UTF-8 file paths.
+        * src/digest.c: Add support for UTF-8 file paths on Windows
+        * R/digest.R: Idem
+        * inst/tinytest/test_encoding.R: Add tests for UTF-8 file paths.
 
 2019-10-13  Bill Denney <wdenney@humanpredictions.com>
 
-	* R/sha1.R: Add sha1.formula()
-	* NAMESPACE: Idem
-	* man/sha1.rd: Idem
-	* inst/tinytest/test_sha1.R: Add tests for sha1.formula()
+        * R/sha1.R: Add sha1.formula()
+        * NAMESPACE: Idem
+        * man/sha1.rd: Idem
+        * inst/tinytest/test_sha1.R: Add tests for sha1.formula()
 
 2019-10-12  Bill Denney <wdenney@humanpredictions.com>
 
-	* R/sha1.R: Fix issue with num2hex() and input of Inf
-	* inst/tinytest/test_sha1.R: Add Inf to the tests
+        * R/sha1.R: Fix issue with num2hex() and input of Inf
+        * inst/tinytest/test_sha1.R: Add Inf to the tests
 
 2019-10-05  Dirk Eddelbuettel  <edd@debian.org>
 
-	* DESCRIPTION (Version, Date): Roll minor version
+        * DESCRIPTION (Version, Date): Roll minor version
 
-	* man/digest.Rd: Change three URL references to https
-	* man/hmac.Rd: Ditto
+        * man/digest.Rd: Change three URL references to https
+        * man/hmac.Rd: Ditto
 
-	* R/utils.R: Move back functions used by digest() + makeVDigest()
+        * R/utils.R: Move back functions used by digest() + makeVDigest()
 
-	* R/AES.R: Added copyright header
-	* R/digest.R: Idem
-	* R/hmac.R: Idem
-	* R/sha1.R: Idem
-	* R/vdigest.R: Idem
+        * R/AES.R: Added copyright header
+        * R/digest.R: Idem
+        * R/hmac.R: Idem
+        * R/sha1.R: Idem
+        * R/vdigest.R: Idem
 
 2019-10-02  Ion Suruceanu  <ion.suruceanu@gapsquare.com>
 
-	* R/AES.R: Add support for CFB cipher mode
-	* man/AES.Rd: Add documentation
-	* inst/tinytest/test_aes.R: Add tests
-
+        * R/AES.R: Add support for CFB cipher mode
+        * man/AES.Rd: Add documentation
+        * inst/tinytest/test_aes.R: Add tests
+	
 2019-09-20  Matthew de Queljoe <matthew.dequeljoe@gmail.com>
 
-	* R/digest.R: refactor digest function
-	* R/vdigest.R: remove helper functions from file
-	* R/utils.R: new file to hold helper functions
+        * R/digest.R: refactor digest function
+        * R/vdigest.R: remove helper functions from file
+        * R/utils.R: new file to hold helper functions
 
 2019-09-19  Dirk Eddelbuettel  <edd@debian.org>
 
-	* DESCRIPTION (Version, Date): Release 0.6.21
+        * DESCRIPTION (Version, Date): Release 0.6.21
 
 2019-09-18  Dirk Eddelbuettel  <edd@debian.org>
 
-	* DESCRIPTION (Version, Date): Roll minor version
+        * DESCRIPTION (Version, Date): Roll minor version
 
-	* DESCRIPTION (Author): Add Matthew
-	* README.md (Author): Ditto
+        * DESCRIPTION (Author): Add Matthew
+        * README.md (Author): Ditto
 
-	* demo/vectorised.R: Add demo (based on Matthew's PR)
+        * demo/vectorised.R: Add demo (based on Matthew's PR)
 
-	* R/vdigest.R: Added a handful of #nocov tags
-	* man/vdigest.Rd: Break up two long lines
+        * R/vdigest.R: Added a handful of #nocov tags
+        * man/vdigest.Rd: Break up two long lines
 
 2019-09-17  Matthew de Queljoe <matthew.dequeljoe@gmail.com>
 
-	* src/digest.c: Add vectorised digest function
-	* R/vdigest.R: Add vectorised digest function factory
-	* man/vdigest.Rd: Add documentation
-	* NAMESPACE: Export new function getVDigest
-	* inst/tinytest/test_digest.R: Add tests
+        * src/digest.c: Add vectorised digest function
+        * R/vdigest.R: Add vectorised digest function factory
+        * man/vdigest.Rd: Add documentation
+        * NAMESPACE: Export new function getVDigest
+        * inst/tinytest/test_digest.R: Add tests
 
 2019-07-04  Dirk Eddelbuettel  <edd@debian.org>
 
-	* DESCRIPTION (Version, Date): Release 0.6.20
+        * DESCRIPTION (Version, Date): Release 0.6.20
 
 2019-06-29  Dirk Eddelbuettel  <edd@debian.org>
 
-	* README.md: Add installation and continues testing sections
+        * README.md: Add installation and continues testing sections
 
-	* .travis.yml (install): Use r-cran-tinytest from PPA
+        * .travis.yml (install): Use r-cran-tinytest from PPA
 
 2019-06-23  Dirk Eddelbuettel  <edd@debian.org>
 
-	* DESCRIPTION (Version, Date): Roll minor version
+        * DESCRIPTION (Version, Date): Roll minor version
 
-	* inst/tinytest/test_num2hex.R: Quieter with sapply
+        * inst/tinytest/test_num2hex.R: Quieter with sapply
 
         * test/tinytest/test_aes.R: renamed from testAES.R
         * test/tinytest/test_crc32.R: renamed from testCRC32.R
@@ -147,34 +153,34 @@
 
 2019-06-10  Dirk Eddelbuettel  <edd@debian.org>
 
-	* inst/tinytest/testCRC32.R: Use expcect_* functions
+        * inst/tinytest/testCRC32.R: Use expcect_* functions
         * inst/tinytest/testDigest2Int.R: Idem
         * inst/tinytest/testNum2Hex.R: Idem
         * inst/tinytest/testRaw.R: Idem
 
 2019-05-26  Dirk Eddelbuettel  <edd@debian.org>
 
-	* tests/tinytest.R: New test driver using tinytest
-	* DESCRIPTION (Suggests): Added tinytest
-	* .travis.yml (install): Install tinytest
+        * tests/tinytest.R: New test driver using tinytest
+        * DESCRIPTION (Suggests): Added tinytest
+        * .travis.yml (install): Install tinytest
 
-	* inst/tinytest/testRaw.R: Converted from tests/raw.R
-	* inst/tinytest/testCRC32.R: Converted from tests/crc32.R
-	* inst/tinytest/testDigest2Int.R: From tests/digest2int.R
-	* inst/tinytest/testNum2Hex.R: From tests/num2hexTest.R
-	* inst/tinytest/testSHA1.R: Converted from tests/sha1Test.R
-	* inst/tinytest/testHMAC.R: Converted from tests/hmacTest.R
-	* inst/tinytest/testAES.R: Converted from tests/aesTest.R
-	* inst/tinytest/testDigest.R: From tests/digestTest.R
+        * inst/tinytest/testRaw.R: Converted from tests/raw.R
+        * inst/tinytest/testCRC32.R: Converted from tests/crc32.R
+        * inst/tinytest/testDigest2Int.R: From tests/digest2int.R
+        * inst/tinytest/testNum2Hex.R: From tests/num2hexTest.R
+        * inst/tinytest/testSHA1.R: Converted from tests/sha1Test.R
+        * inst/tinytest/testHMAC.R: Converted from tests/hmacTest.R
+        * inst/tinytest/testAES.R: Converted from tests/aesTest.R
+        * inst/tinytest/testDigest.R: From tests/digestTest.R
 
-	* R/AES.R: Additional #nocov tags
-	* R/digest.R: Idem
-	* R/hmac.R: Idem
-	* R/sha1.R: Idem
+        * R/AES.R: Additional #nocov tags
+        * R/digest.R: Idem
+        * R/hmac.R: Idem
+        * R/sha1.R: Idem
 
 2019-05-19  Dirk Eddelbuettel  <edd@debian.org>
 
-	* DESCRIPTION (Version, Date): Release 0.6.19
+        * DESCRIPTION (Version, Date): Release 0.6.19
 
         * src/SpookyV2.cpp: Add some #nocov tags
 

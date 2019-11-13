@@ -93,9 +93,7 @@ digest <- function(object, algo=c("md5", "sha1", "crc32", "sha256", "sha512",
     if (file) {
         algoint <- algoint+100
         object <- path.expand(object)
-        if (isWindows) {
-            object <- enc2utf8(object)
-        }
+        if (isWindows) object <- enc2utf8(object)
         check_file(object, errormode)
     }
     ## if skip is auto (or any other text for that matter), we just turn it
