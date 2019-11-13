@@ -398,30 +398,32 @@ num2hex <- function(x, digits = 14L, zapsmall = 7L){
     output <- rep(NA_character_, length(x))
     output[x.inf & x > 0] <- "Inf"
     output[x.inf & x < 0] <- "-Inf"
-    x.finite <- !x.na & !x.inf
-    x.hex <- sprintf("%a", x[x.finite])
-    exponent <- as.integer(gsub("^.*p", "", x.hex))
     # detect "small" numbers
-    zapsmall.hex <- floor(log2(10 ^ -zapsmall))
-    zero <- x.hex == sprintf("%a", 0) | exponent <= zapsmall.hex
-    if (any(zero)) {
-        output[x.finite][zero] <- "0"
-        if (all(zero)) {
-            return(output)
-        }
+    x.zero <- !x.na & !x.inf & abs(x) <= (2^floor(log2(10 ^ -zapsmall)))
+    output[x.zero] <- "0"
+    # The calculations for non-na, non-inf, non-zero values are computationally
+    # more intense.  Don't do them unless necessary.
+    x.finite <- !(x.na | x.inf | x.zero)
+    if (!any(x.finite)) {
+        return(output)
     }
+    x_abs <- abs(x[x.finite])
+    exponent <- floor(log2(x_abs))
+    negative <- c("", "-")[(x[x.finite] < 0) + 1]
+    x.hex <- sprintf("%a", x_abs*2^-exponent)
+    nc_x <- nchar(x.hex)
     digits.hex <- ceiling(log(10 ^ digits, base = 16))
-    mantissa <- x.hex[!zero] # select "large" numbers
-    # select mantissa
-    mantissa <- gsub(mantissa, pattern = ".*x1\\.{0,1}", replacement = "")
-    # select mantissa
-    mantissa <- gsub(mantissa, pattern = "p.*$", replacement = "")
-    mantissa <- substring(mantissa, 1, digits.hex) # select required precision
-    # remove potential trailing zero's
-    mantissa <- gsub(mantissa, pattern = "0*$", replacement = "")
-    negative <- ifelse(grepl(x.hex[!zero], pattern = "^-"), "-", "")
-    output[x.finite][!zero] <- paste0(negative, mantissa, " ", exponent[!zero])
+    # select mantissa (starting format is 0x1.[0-9a-f]+p[+-][0-9]+), remove the
+    # beginning through the decimal place, including the fact that exact powers
+    # of two will not have a decimal place.
+    # Remove the beginning through the decimal place (if it exists).
+    mask_decimal <- startsWith(x.hex, "0x1.")
+    start_character <- 4 + mask_decimal
+    # select required precision
+    stop_character <- pmin(nc_x - 3, start_character + digits.hex - 1)
+    mantissa <- substring(x.hex, start_character, stop_character)
+    # Drop trailing zeros
+    mantissa <- gsub(x=mantissa, pattern="0*$", replacement="")
+    output[x.finite] <- sprintf("%s%s %d", negative, mantissa, exponent)
     return(output)
 }
-
-

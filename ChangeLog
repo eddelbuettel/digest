@@ -1,3 +1,7 @@
+2019-11-11  Bill Denney <wdenney@humanpredictions.com>
+
+	* R/sha1.R: Increase efficiency of num2hex()
+
 2019-11-07  Bill Denney <wdenney@humanpredictions.com>
 
   * NAMESPACE: add sha1_digest() and sha1_attr_digest() Functions
@@ -85,7 +89,7 @@
 	* R/AES.R: Add support for CFB cipher mode
 	* man/AES.Rd: Add documentation
 	* inst/tinytest/test_aes.R: Add tests
-	
+
 2019-09-20  Matthew de Queljoe <matthew.dequeljoe@gmail.com>
 
 	* R/digest.R: refactor digest function
