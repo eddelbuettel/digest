@@ -1,9 +1,14 @@
+2019-11-23  Dirk Eddelbuettel  <edd@debian.org>
+
+	* inst/tinytest/test_new_matrix_behaviour.R: Split off tests affected
+	by new matrix/array behavior in R-devel (i.e. future R 4.0.0)
+
 2019-11-22  Dirk Eddelbuettel  <edd@debian.org>
 
         * DESCRIPTION (Version, Date): Release 0.6.23
 
 	* inst/tinytest/test_sha1.R: Uncomment several tests which failed
-	under r-devel on Linux at CRAN (and are so far irreproducible)
+	under r-devel on Linux at CRAN 
 
 2019-11-13  Dirk Eddelbuettel  <edd@debian.org>
 
