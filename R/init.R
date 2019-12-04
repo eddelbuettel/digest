@@ -1,7 +1,7 @@
 
 ##  digest -- hash digest functions for R
 ##
-##  Copyright (C) 2003 - 2017  Dirk Eddelbuettel <edd@debian.org>
+##  Copyright (C) 2003 - 2019  Dirk Eddelbuettel <edd@debian.org>
 ##
 ##  This file is part of digest.
 ##
@@ -22,12 +22,14 @@
 
 .onLoad <- function(libname, pkgname) {
     ## we set a default level of two, with a possible override
-    .pkgenv[["serializeVersion"]] <- getOption("serializeVersion", 2L)  # #nocov
+    .pkgenv[["serializeVersion"]] <- getOption("serializeVersion", 2L)  # #nocov start
     ## allow old crc32 behaviour
-    .pkgenv[["crc32Preference"]] <- getOption("digestOldCRC32Format", FALSE)  # #nocov
+    .pkgenv[["crc32Preference"]] <- getOption("digestOldCRC32Format", FALSE)
     ## allow version specific sha1 behaviour
-    .pkgenv[["sha1PackageVersion"]] <- getOption("sha1PackageVersion",  # #nocov
-                                                 packageVersion("digest"))  # #nocov
+    .pkgenv[["sha1PackageVersion"]] <- getOption("sha1PackageVersion",
+                                                 packageVersion("digest"))
+    ## cache if we are on Windows as the call is a little expensive (GH issue #137)
+    .pkgenv[["isWindows"]] <- Sys.info()[["sysname"]] == "Windows"
 }
 
 .getSerializeVersion <- function() {
@@ -48,4 +50,9 @@
     package_version(
         getOption("sha1PackageVersion", .pkgenv[["sha1PackageVersion"]])
     )
+}
+
+.isWindows <- function() {
+    ## return the cached value of Sys.info()[["sysname"]] == "Windows"
+    .pkgenv[["isWindows"]]
 }
