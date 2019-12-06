@@ -1,3 +1,10 @@
+2019-12-05  Will Landau  <will.landau@gmail.com>
+
+	* R/init.R (.onLoad): Cache nosharing state in base::serialize
+	(.hasNoSharing): Return cached value
+	* R/digest.R (digest): Use cached value accessor
+	* R/vdigest.R (non_streaming_digest): Use cached value accessor
+
 2019-12-04  Dirk Eddelbuettel  <edd@debian.org>
 
 	* R/init.R (.onLoad): Cache isWindows state

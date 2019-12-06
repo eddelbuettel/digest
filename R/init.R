@@ -30,6 +30,9 @@
                                                  packageVersion("digest"))
     ## cache if we are on Windows as the call is a little expensive (GH issue #137)
     .pkgenv[["isWindows"]] <- Sys.info()[["sysname"]] == "Windows"
+
+    ## cache if serialize() supports 'nosharing'
+    .pkgenv[["hasNoSharing"]] <- "nosharing" %in% names(formals(base::serialize))
 }
 
 .getSerializeVersion <- function() {
@@ -55,4 +58,9 @@
 .isWindows <- function() {
     ## return the cached value of Sys.info()[["sysname"]] == "Windows"
     .pkgenv[["isWindows"]]
+}
+
+.hasNoSharing <- function() {
+    ## return the cached value of "nosharing" %in% names(formals(base::serialize))
+    .pkgenv[["hasNoSharing"]]
 }
