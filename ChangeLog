@@ -1,5 +1,7 @@
 2019-12-09  Dirk Eddelbuettel  <edd@debian.org>
 
+	* DESCRIPTION (Version, Date): Roll minor version
+
 	* src/init.c: Do not register a .Call method for PMurHash
 
 2019-12-05  Will Landau  <will.landau@gmail.com>
