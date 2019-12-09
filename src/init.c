@@ -2,7 +2,7 @@
 
   init -- registering the c hash digest functions
 
-  Copyright (C) 2014  Wush Wu and Dirk Eddelbuettel
+  Copyright (C) 2014 - 2019  Wush Wu and Dirk Eddelbuettel
 
   This file is part of digest.
 
@@ -25,17 +25,13 @@
 #include "xxhash.h"
 #include "pmurhash.h"
 
-static const R_CallMethodDef callMethods [] = {
-    { "PMurHash32", (DL_FUNC) &PMurHash32, 3 },
-    { NULL, NULL, 0 }
-};
-
 void R_init_digest(DllInfo *info) {
     R_RegisterCCallable("digest", "PMurHash32", (DL_FUNC) &PMurHash32);
 
+    /* tools::package_native_routine_registration_skeleton() reports empty set */
     R_registerRoutines(info,
                        NULL,            /* slot for .C */
-                       callMethods,     /* slot for .Call */
+                       NULL,            /* slot for .Call */
                        NULL,            /* slot for .Fortran */
                        NULL);           /* slot for .External */
 
