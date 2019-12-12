@@ -42,6 +42,7 @@ expect_true(
                 apply(x.matrix.num, 2, digest:::num2hex),
                 ncol = ncol(x.matrix.num)
             )
+            z <- digest:::add_attributes(x.matrix.num, z)
             attr(z, "digest::sha1") <- list(
                 class = "matrix",
                 digits = 14L,
