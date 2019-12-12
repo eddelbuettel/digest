@@ -107,5 +107,5 @@ with \code{sha1(x, algo = "sha1")}, they will be different starting from digest
 
 Until version 0.6.22, \code{sha1} ignored the attributes of the object for
 some classes. This was fixed in version 0.6.23. Use
-\code{option(sha1PackageVersion = 0.6.22)} to get the old behaviour.
+\code{options(sha1PackageVersion = "0.6.22")} to get the old behaviour.
 }
