@@ -1,3 +1,11 @@
+2019-12-12  Thierry Onkelinx <thierry.onkelinx@inbo.be>
+
+	* DESCRIPTION (Version, Date): Roll minor version
+	* R/sha1.R: ignore the "srcref" attribute if set
+	* inst/tinytest/test_new_matrix_behaviour.R: update unit test
+	* inst/tinytest/test_sha1.R: update unit test
+	* man/sha1.Rd: update documentation
+
 2019-12-09  Dirk Eddelbuettel  <edd@debian.org>
 
 	* DESCRIPTION (Version, Date): Roll minor version
@@ -126,7 +134,7 @@
         * R/AES.R: Add support for CFB cipher mode
         * man/AES.Rd: Add documentation
         * inst/tinytest/test_aes.R: Add tests
-	
+
 2019-09-20  Matthew de Queljoe <matthew.dequeljoe@gmail.com>
 
         * R/digest.R: refactor digest function
