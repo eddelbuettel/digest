@@ -475,14 +475,22 @@ for (algo in c("md5", "sha1", "crc32", "sha256", "sha512", "xxhash32",
 expect_true(is.character(sha1(sessionInfo())))
 
 # check the effect of attributes from version 0.6.22.2
+options(sha1PackageVersion = utils::packageVersion("digest"))
 check_attribute_effect <- function(x) {
     y <- x
     attr(y, "test") <- "junk"
     expect_false(sha1(x) == sha1(y))
 }
-options(sha1PackageVersion = utils::packageVersion("digest"))
 test.element <- list(2 + 5i, x.array.num, Sys.Date(), Sys.time(), y ~ x)
 test.element <- c(test.element, list(x.dataframe), anova.list, function(x){x})
 for (z in test.element) {
     check_attribute_effect(z)
 }
+
+# check that sha1() on contributed functions maintain there hash after storing
+f <- tempfile(fileext = ".rds")
+x <- digest::sha1
+saveRDS(x, f)
+y <- readRDS(f)
+expect_identical(sha1(x), sha1(y))
+expect_identical(sha1(x, environment = FALSE), sha1(y, environment = FALSE))
