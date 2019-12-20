@@ -3,7 +3,7 @@
 \title{hash arbitrary string to integer}
 \description{
   The \code{digest2int} function calculates integer hash of an arbitrary string.
-  This is useful for radnomized experiments, feature hashing, etc.
+  This is useful for randomized experiments, feature hashing, etc.
 }
 \usage{
 digest2int(x, seed = 0L)
