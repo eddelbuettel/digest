@@ -167,7 +167,9 @@ check_file <- function(object, errormode){
         return(.errorhandler("The specified pathname is not a file: ",
                              object, mode=errormode))
     }
-    if (file.access(object, 4)) {
+    read_test <- NULL
+    try(read_test <- file(object, "rb"))
+    if(typeof(read_test) != "integer"){
         return(.errorhandler("The specified file is not readable: ",
                              object, mode=errormode))                  			# #nocov end
     }
