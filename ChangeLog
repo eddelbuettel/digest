@@ -2,6 +2,14 @@
 
 	* README.md: Add Debian badge
 
+2020-02-22  Dirk Eddelbuettel  <edd@debian.org>
+
+	* DESCRIPTION (Version, Date): Release 0.6.25
+
+2020-02-15  Kendon Bell  <bellk@landcareresearch.co.nz>
+
+	* R/digest.R: Complete call to spookyhash
+
 2020-02-12  Dirk Eddelbuettel  <edd@debian.org>
 
 	* DESCRIPTION (Version, Date): Release 0.6.24
