@@ -61,7 +61,7 @@ sha1_attr_digest(x, digits = 14, zapsmall = 7, ..., algo = "sha1")
 \item{x}{the object to calculate the SHA1}
 
 \item{digits}{the approximate number of significant digits in base 10. Will
-be converted to a base 16 equivalent. Defaults to \code{digits = 14}, expect for
+be converted to a base 16 equivalent. Defaults to \code{digits = 14}, except for
 sha1.anova where \code{digits = 4}}
 
 \item{zapsmall}{the approximate negative magnitude of the smallest relevant
