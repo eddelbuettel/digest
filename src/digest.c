@@ -36,6 +36,7 @@
 #include "zlib.h"
 #include "xxhash.h"
 #include "pmurhash.h"
+#include "blake3.h"
 
 #ifdef _WIN32
 #include <Windows.h>
@@ -212,6 +213,22 @@ SEXP digest(SEXP Txt, SEXP Algo, SEXP Length, SEXP Skip, SEXP Leave_raw, SEXP Se
     case 8: {     /* MurmurHash3 32 */
         unsigned int val = PMurHash32(seed, txt, nChar);
         sprintf(output, "%08x", val);
+        break;
+    }
+    case 10: {     /* blake3 */
+        output_length = BLAKE3_OUT_LEN;
+        blake3_hasher hasher;
+        blake3_hasher_init(&hasher);
+        blake3_hasher_update(&hasher, txt, nChar);
+        uint8_t val[BLAKE3_OUT_LEN];
+        blake3_hasher_finalize(&hasher, val, BLAKE3_OUT_LEN);
+        if (leaveRaw) {
+            memcpy(output, val, BLAKE3_OUT_LEN);
+        } else {
+            for (size_t i = 0; i < BLAKE3_OUT_LEN; i++) {
+                sprintf(output + i * 2, "%02x", val[i]);
+            }
+        }
         break;
     }
     case 101: {     /* md5 file case */
