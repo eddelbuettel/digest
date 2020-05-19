@@ -14,7 +14,8 @@
 }
 \usage{
 digest(object, algo=c("md5", "sha1", "crc32", "sha256", "sha512",
-       "xxhash32", "xxhash64", "murmur32", "spookyhash", "blake3"), serialize=TRUE, file=FALSE,
+                      "xxhash32", "xxhash64", "murmur32", "spookyhash",
+                      "blake3"), serialize=TRUE, file=FALSE,
        length=Inf, skip="auto", ascii=FALSE, raw=FALSE, seed=0,
        errormode=c("stop","warn","silent"),
        serializeVersion=.getSerializeVersion())
