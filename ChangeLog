@@ -1,3 +1,15 @@
+2020-05-19  Dirk Schumacher  <mail@dirk-schumacher.net>
+
+	* src/blake3.c: Add blake3 implementation
+	* src/blake3.h: Idem
+	* src/blake3_dispatch.c: Idem
+	* src/blake3_impl.h: Idem
+	* src/blake3_portable.c: Idem
+	* src/digest.c: Support blake3 call
+	* R/digest.R: Idem
+	* inst/tinytest/test_blake3.R: Add tests
+	* man/digest.Rd: Add documentation
+
 2020-03-05  Harris McGehee  <mcgehee.harris@gmail.com>
 
 	* man/sha1.Rd: Correct typo
