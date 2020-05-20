@@ -24,7 +24,8 @@
 ##  along with digest.  If not, see <http://www.gnu.org/licenses/>.
 
 digest <- function(object, algo=c("md5", "sha1", "crc32", "sha256", "sha512",
-                                  "xxhash32", "xxhash64", "murmur32", "spookyhash"),
+                                  "xxhash32", "xxhash64", "murmur32",
+                                  "spookyhash", "blake3"),
                    serialize=TRUE,
                    file=FALSE,
                    length=Inf,
@@ -49,7 +50,7 @@ digest <- function(object, algo=c("md5", "sha1", "crc32", "sha256", "sha512",
 
     streaming_algos <- c("spookyhash")
     non_streaming_algos <- c("md5", "sha1", "crc32", "sha256", "sha512",
-                             "xxhash32", "xxhash64", "murmur32")
+                             "xxhash32", "xxhash64", "murmur32", "blake3")
     if(algo %in% streaming_algos && !serialize){
         .errorhandler(paste0(algo, " algorithm is not available without serialization."),  # #nocov
                       mode=errormode)                                                      # #nocov
@@ -144,7 +145,8 @@ algo_int <- function(algo)
         xxhash32 = 6,
         xxhash64 = 7,
         murmur32 = 8,
-        spookyhash = 9
+        spookyhash = 9,
+        blake3 = 10
     )
 
 ## HB 14 Mar 2007:

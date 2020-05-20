@@ -4,14 +4,14 @@ Author: Dirk Eddelbuettel <edd@debian.org> with contributions
  Mario Frasca, Bryan Lewis, Murray Stokely, Hannes Muehleisen,
  Duncan Murdoch, Jim Hester, Wush Wu, Qiang Kou, Thierry Onkelinx, 
  Michel Lang, Viliam Simko, Kurt Hornik, Radford Neal, Kendon Bell,
- Matthew de Queljoe, Ion Suruceanu, and Bill Denney.
-Version: 0.6.25
-Date: 2020-02-22
+ Matthew de Queljoe, Ion Suruceanu, Bill Denney, and Dirk Schumacher.
+Version: 0.6.25.1
+Date: 2020-05-19
 Maintainer: Dirk Eddelbuettel <edd@debian.org>
 Title: Create Compact Hash Digests of R Objects
-Description: Implementation of a function 'digest()' for the creation 
- of hash digests of arbitrary R objects (using the 'md5', 'sha-1', 'sha-256', 
- 'crc32', 'xxhash', 'murmurhash' and 'spookyhash' algorithms) permitting easy
+Description: Implementation of a function 'digest()' for the creation of hash
+ digests of arbitrary R objects (using the 'md5', 'sha-1', 'sha-256', 'crc32',
+ 'xxhash', 'murmurhash', 'spookyhash' and 'blake3' algorithms) permitting easy
  comparison of R language objects, as well as functions such as'hmac()' to
  create hash-based message authentication code. Please note that this package
  is not meant to be deployed for cryptographic purposes for which more
