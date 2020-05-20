@@ -46,3 +46,14 @@ expect_equal(
   res,
   "dea2b412aa90f1b43a06ca5e8b8feafec45ae1357971322749480f4e1572eaa2"
 )
+
+# try another long text
+file <- tempfile()
+text <- paste0(rep(LETTERS, 1000), collapse = "-")
+writeLines(text, file)
+res <- digest(file = file, algo = "blake3")
+try(file.remove(file))
+expect_equal(
+  res,
+  "a84aef38d9a7ad55fa458d9d1857eb895832e358385e8b6466c6af54ea46eeaa"
+)
