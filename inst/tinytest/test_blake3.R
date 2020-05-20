@@ -35,3 +35,14 @@ for (i in seq(along = blake3Input)) {
     blake3Output[i]
   )
 }
+
+# test file
+# used the b3sum rust crate
+file <- tempfile()
+writeLines("test", file)
+res <- digest(file = file, algo = "blake3")
+try(file.remove(file))
+expect_equal(
+  res,
+  "dea2b412aa90f1b43a06ca5e8b8feafec45ae1357971322749480f4e1572eaa2"
+)

@@ -460,6 +460,34 @@ SEXP digest(SEXP Txt, SEXP Algo, SEXP Length, SEXP Skip, SEXP Leave_raw, SEXP Se
         sprintf(output, "%08x", val);
         break;
     }
+    case 110: {     /* blake3 file case */
+		output_length = BLAKE3_OUT_LEN;
+        unsigned char buf[BUF_SIZE];
+        uint8_t val[BLAKE3_OUT_LEN];
+        blake3_hasher hasher;
+        blake3_hasher_init(&hasher);
+
+        if (skip > 0) fseek(fp, skip, SEEK_SET);
+        if (length>=0) {
+            while ( ( nChar = fread( buf, 1, sizeof( buf ), fp ) ) > 0 && length>0) {
+                if (nChar>length) nChar=length;
+                blake3_hasher_update( &hasher, buf, nChar );
+                length -= nChar;
+            }
+        } else {
+            while ( ( nChar = fread( buf, 1, sizeof( buf ), fp ) ) > 0)
+                blake3_hasher_update( &hasher, buf, nChar );
+        }
+        blake3_hasher_finalize(&hasher, val, BLAKE3_OUT_LEN);
+        if (leaveRaw) {
+            memcpy(output, val, BLAKE3_OUT_LEN);
+        } else {
+            for (size_t i = 0; i < BLAKE3_OUT_LEN; i++) {
+                sprintf(output + i * 2, "%02x", val[i]);
+            }
+        }
+        break;
+    }
     default: {
         error("Unsupported algorithm code"); /* should not be reached due to test in R */ /* #nocov */
     }
