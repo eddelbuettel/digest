@@ -1,8 +1,9 @@
 /* blake3 license:
  * The C code is copyright Samuel Neves and Jack O'Connor, 2019-2020.
- * This work is released into the public domain with CC0 1.0. Alternatively, it is
- * licensed under the Apache License 2.0.
- * For full license see inst/black3_license
+ * This work is released into the public domain with CC0 1.0.
+ * Alternatively, it is licensed under the Apache License 2.0.
+ * For full license see
+ * https://raw.githubusercontent.com/BLAKE3-team/BLAKE3/master/LICENSE
  */
 
 #include <assert.h>
