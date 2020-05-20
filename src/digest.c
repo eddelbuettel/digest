@@ -461,7 +461,7 @@ SEXP digest(SEXP Txt, SEXP Algo, SEXP Length, SEXP Skip, SEXP Leave_raw, SEXP Se
         break;
     }
     case 110: {     /* blake3 file case */
-		output_length = BLAKE3_OUT_LEN;
+        output_length = BLAKE3_OUT_LEN;
         unsigned char buf[BUF_SIZE];
         uint8_t val[BLAKE3_OUT_LEN];
         blake3_hasher hasher;
