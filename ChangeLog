@@ -1,3 +1,8 @@
+2020-08-03  Dirk Eddelbuettel  <edd@debian.org>
+
+	* DESCRIPTION (Depends): Roll Depends: on to R (>= 3.3.0) due to use
+	of startsWith(), with thanks to Florian Pein
+
 2020-05-20  Dirk Eddelbuettel  <edd@debian.org>
 
 	* .travis.yml: Switch to bionic and R 4.0.0
