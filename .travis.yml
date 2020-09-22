@@ -6,15 +6,22 @@ dist: bionic
 
 jobs:
   include:
-    - name: r-4.0
-      env: R_VERSION="4.0"
+    - name: linux
+      os: linux
+    - name: macOS
+      os: osx
+
+env:
+  global:
+    - USE_BSPM="true"
+    - _R_CHECK_FORCE_SUGGESTS_="false"
 
 before_install:
   - curl -OLs https://eddelbuettel.github.io/r-travis/run.sh && chmod 0755 run.sh
   - ./run.sh bootstrap
 
 install:
-  - ./run.sh install_aptget r-cran-knitr r-cran-rmarkdown r-cran-tinytest
+  - ./run.sh install_all
 
 script:
   - ./run.sh run_tests
