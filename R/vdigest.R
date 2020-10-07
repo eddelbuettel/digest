@@ -21,8 +21,9 @@
 getVDigest <- function(algo = c("md5", "sha1", "crc32", "sha256", "sha512",
                                  "xxhash32", "xxhash64", "murmur32", "spookyhash"),
                         errormode=c("stop","warn","silent")){
-    algo <- match.arg(algo)
-    errormode <- match.arg(errormode)
+    algo <- match.arg(algo, c("md5", "sha1", "crc32", "sha256", "sha512",
+                              "xxhash32", "xxhash64", "murmur32", "spookyhash"))
+    errormode <- match.arg(errormode, c("stop","warn","silent"))
     algoint <- algo_int(algo)
     non_streaming_algos <- c("md5", "sha1", "crc32", "sha256", "sha512",
                              "xxhash32", "xxhash64", "murmur32")

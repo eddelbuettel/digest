@@ -36,8 +36,12 @@ digest <- function(object, algo=c("md5", "sha1", "crc32", "sha256", "sha512",
                    errormode=c("stop","warn","silent"),
                    serializeVersion=.getSerializeVersion()) {
 
-    algo <- match.arg(algo)
-    errormode <- match.arg(errormode)
+    # Explicitly specify choices; this is much faster than having match.arg()
+    # infer them from the function's formals.
+    algo <- match.arg(algo, c("md5", "sha1", "crc32", "sha256", "sha512",
+                              "xxhash32", "xxhash64", "murmur32",
+                              "spookyhash", "blake3"))
+    errormode <- match.arg(errormode, c("stop", "warn", "silent"))
 
     if (is.infinite(length)) {
         length <- -1               # internally we use -1 for infinite len
