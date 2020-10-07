@@ -50,7 +50,7 @@ non_streaming_digest <- function(algo, errormode, algoint){
         }
 
         if (serialize && !file) {
-            ## support the 'nosharing' option in pqR's base::serialize()
+            ## support the 'nosharing' option in pqR's serialize()
             object <- if (.hasNoSharing())
                 serialize_(
                     object,
@@ -170,6 +170,6 @@ streaming_digest <- function(algo, errormode, algoint){
 
 serialize_ <- function(object, ...){
     if (length(object))
-        return(lapply(object, base::serialize, ...))
-    base::serialize(object, ...)
+        return(lapply(object, serialize, ...))
+    serialize(object, ...)
 }
