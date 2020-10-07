@@ -52,16 +52,15 @@ digest <- function(object, algo=c("md5", "sha1", "crc32", "sha256", "sha512",
         file <- TRUE                  	# nocov
     }
 
-    streaming_algos <- c("spookyhash")
-    non_streaming_algos <- c("md5", "sha1", "crc32", "sha256", "sha512",
-                             "xxhash32", "xxhash64", "murmur32", "blake3")
-    if(algo %in% streaming_algos && !serialize){
+    is_streaming_algo <- algo == "spookyhash"
+
+    if (is_streaming_algo && !serialize) {
         .errorhandler(paste0(algo, " algorithm is not available without serialization."),  # #nocov
                       mode=errormode)                                                      # #nocov
     }
 
     if (serialize && !file) {
-        if(algo %in% non_streaming_algos){
+        if (!is_streaming_algo) {
             ## support the 'nosharing' option in pqR's serialize()
             object <- if (.hasNoSharing())
                 serialize (object, connection=NULL, ascii=ascii,
@@ -77,7 +76,7 @@ digest <- function(object, algo=c("md5", "sha1", "crc32", "sha256", "sha512",
             skip <- set_skip(object, ascii)
 
     } else if (!is.character(object) && !inherits(object,"raw") &&
-               algo %in% non_streaming_algos) {
+               !is_streaming_algo) {
         return(.errorhandler(paste("Argument object must be of type character",		    # #nocov
                                    "or raw vector if serialize is FALSE"), mode=errormode)) # #nocov
     }
@@ -85,7 +84,7 @@ digest <- function(object, algo=c("md5", "sha1", "crc32", "sha256", "sha512",
         return(.errorhandler("file=TRUE can only be used with a character object",          # #nocov
                              mode=errormode))                                               # #nocov
 
-    if (file && algo %in% streaming_algos)
+    if (file && is_streaming_algo)
         return(.errorhandler(paste0(algo, " algorithm can not be used with files."),        # #nocov
                              mode=errormode))                                               # #nocov
 
@@ -103,7 +102,7 @@ digest <- function(object, algo=c("md5", "sha1", "crc32", "sha256", "sha512",
     ## into 0 because auto should have been converted into a number earlier
     ## if it was valid [SU]
     if (is.character(skip)) skip <- 0
-    if (algo %in% non_streaming_algos) {
+    if (!is_streaming_algo) {
         val <- .Call(digest_impl,
                      object,
                      as.integer(algoint),
