@@ -297,3 +297,20 @@ expect_identical(getVDigest('spookyhash')(list(iris)),
 #expect_true(
 #  grepl("spookyhash algorithm is not available without serialization.", error.message)
 #)
+
+
+## Ensure that all values of algo are actually allowed (in case a new one is
+## added in the future). The call to match.arg() passes choices explicitly
+## because it is significantly faster to do it than to have it automatically
+## infer the possible choices from the function's formals.
+
+# Grab the possible values of algo, then call digest() for each one.
+algos <- eval(formals(digest)$algo)
+for (algo in algos) {
+  digest(123, algo = algo)
+}
+# Same for getVDigest
+algos <- eval(formals(getVDigest)$algo)
+for (algo in algos) {
+  getVDigest(algo = algo)
+}

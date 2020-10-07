@@ -32,7 +32,7 @@
     .pkgenv[["isWindows"]] <- Sys.info()[["sysname"]] == "Windows"
 
     ## cache if serialize() supports 'nosharing'
-    .pkgenv[["hasNoSharing"]] <- "nosharing" %in% names(formals(base::serialize))
+    .pkgenv[["hasNoSharing"]] <- "nosharing" %in% names(formals(serialize))
 }
 
 .getSerializeVersion <- function() {
@@ -61,6 +61,6 @@
 }
 
 .hasNoSharing <- function() {
-    ## return the cached value of "nosharing" %in% names(formals(base::serialize))
+    ## return the cached value of "nosharing" %in% names(formals(serialize))
     .pkgenv[["hasNoSharing"]]
 }
