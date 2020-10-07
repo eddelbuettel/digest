@@ -72,7 +72,7 @@ digest <- function(object, algo=c("md5", "sha1", "crc32", "sha256", "sha512",
         ## we support raw vectors, so no mangling of 'object' is necessary
         ## regardless of R version
         ## skip="auto" - skips the serialization header [SU]
-        if (any(!is.na(pmatch(skip,"auto"))))
+        if (is.character(skip) && skip == "auto")
             skip <- set_skip(object, ascii)
 
     } else if (!is.character(object) && !inherits(object,"raw") &&
