@@ -1,3 +1,15 @@
+2020-10-07  Dirk Eddelbuettel  <edd@debian.org>
+
+	* DESCRIPTION (Version, Date): Roll minor version
+
+2020-10-06  Winston Chang  <winston@stdout.org>
+
+	* R/digest.R: Speedup via explicit alternative values for
+	match.arg() and a direct call to serialize()
+	* R/vdigest.R: Idem
+	* R/init.R: Idem (for serialize())
+	* inst/tinytest/test_digest.R: New test ensuring all variants hit
+
 2020-09-21  Dirk Eddelbuettel  <edd@debian.org>
 
 	* .travis.yml: Updated to 'bionic', R 4.0, and BSPM
