@@ -6,8 +6,8 @@ Author: Dirk Eddelbuettel <edd@debian.org> with contributions
  Michel Lang, Viliam Simko, Kurt Hornik, Radford Neal, Kendon Bell,
  Matthew de Queljoe, Ion Suruceanu, Bill Denney, Dirk Schumacher,
  and Winston Chang.
-Version: 0.6.25.2
-Date: 2020-10-07
+Version: 0.6.25.3
+Date: 2020-10-14
 Maintainer: Dirk Eddelbuettel <edd@debian.org>
 Title: Create Compact Hash Digests of R Objects
 Description: Implementation of a function 'digest()' for the creation of hash
@@ -23,5 +23,5 @@ BugReports: https://github.com/eddelbuettel/digest/issues
 Depends: R (>= 3.3.0)
 Imports: utils
 License: GPL (>= 2)
-Suggests: tinytest, knitr, rmarkdown
+Suggests: tinytest, knitr, rmarkdown, minidown
 VignetteBuilder: knitr

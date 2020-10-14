@@ -1,5 +1,7 @@
 suppressMessages(library(digest))
 
+isWindows <- Sys.info()[["sysname"]] == "Windows"
+
 res <- digest(charToRaw("test"), "blake3", serialize = FALSE)
 
 # generated using the blake3 rust implementation
@@ -35,6 +37,8 @@ for (i in seq(along = blake3Input)) {
     blake3Output[i]
   )
 }
+
+if (isWindows) exit_file("Skipping remainder on Windows platform")
 
 # test file
 # used the b3sum rust crate

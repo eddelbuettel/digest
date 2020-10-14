@@ -2,12 +2,24 @@
 title: "Calculating SHA1 hashes with digest() and sha1()"
 author: "Thierry Onkelinx and Dirk Eddelbuettel"
 date: "`r Sys.Date()`"
-output: rmarkdown::html_vignette
+output:
+  minidown::mini_document:
+    framework: water
+    
 vignette: >
   %\VignetteIndexEntry{sha1() versus digest()}
   %\VignetteEngine{knitr::rmarkdown}
   %\VignetteEncoding{UTF-8}
 ---
+
+```{r include=FALSE}
+knitr::opts_chunk$set(collapse = TRUE,
+                      class.output = NULL,
+                      class.message = NULL,
+                      class.warning = NULL,
+                      class.error = NULL)
+```
+
 
 NB: This vignette is work-in-progress and not yet complete.
 
