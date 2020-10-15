@@ -103,7 +103,7 @@ digest(object, algo=c("md5", "sha1", "crc32", "sha256", "sha512",
   tested) libraries such as OpenSSL should be used. Also, it is known
   that crc32 is not collision-proof. For sha-1, recent results indicate
   certain cryptographic weaknesses as well. For more details, see for example
-  \url{http://www.schneier.com/blog/archives/2005/02/cryptanalysis_o.html}.
+  \url{https://www.schneier.com/blog/archives/2005/02/cryptanalysis_o.html}.
 }
 \section{Change Management}{
   Version 0.6.16 of digest corrects an error in which \code{crc32} was not
@@ -113,7 +113,7 @@ digest(object, algo=c("md5", "sha1", "crc32", "sha256", "sha512",
   consistent with prior version (but not be consistentnly eight characters).
 }
 \references{
-  MD5: \url{http://www.ietf.org/rfc/rfc1321.txt}.
+  MD5: \url{https://www.ietf.org/rfc/rfc1321.txt}.
 
   SHA-1: \url{https://en.wikipedia.org/wiki/SHA-1}.
   SHA-256: \url{https://csrc.nist.gov/publications/fips/fips180-2/fips180-2withchangenotice.pdf}.
@@ -122,7 +122,7 @@ digest(object, algo=c("md5", "sha1", "crc32", "sha256", "sha512",
   \url{https://en.wikipedia.org/wiki/Cyclic_redundancy_check} for
   general information on CRC algorithms.
 
-  \url{https://www.aarongifford.com/computers/sha.html} for the
+  \url{https://aarongifford.com/computers/sha.html} for the
   integrated C implementation of sha-512.
 
   The page for the code underlying the C functions used here for sha-1

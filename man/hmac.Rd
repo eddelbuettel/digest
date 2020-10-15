@@ -32,7 +32,7 @@ hmac(key, object,
   digest as specified in the RFC 2104.
 }
 \references{
-  MD5: \url{http://www.ietf.org/rfc/rfc1321.txt}. 
+  MD5: \url{https://www.ietf.org/rfc/rfc1321.txt}. 
 
   SHA-1: \url{https://en.wikipedia.org/wiki/SHA-1}.
   SHA-256: \url{https://csrc.nist.gov/publications/fips/fips180-2/fips180-2withchangenotice.pdf}.
@@ -41,7 +41,7 @@ hmac(key, object,
   \url{https://en.wikipedia.org/wiki/Cyclic_redundancy_check} for
   general information on CRC algorithms.
 
-  \url{https://www.aarongifford.com/computers/sha.html} for the 
+  \url{https://aarongifford.com/computers/sha.html} for the 
   integrated C implementation of sha-512.
 
   The page for the code underlying the C functions used here for sha-1
