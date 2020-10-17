@@ -1,0 +1,40 @@
+site_name: digest
+site_url: https://github.com/eddelbuettel/digest
+docs_dir: src
+site_dir: docs
+
+theme:
+  name: material
+  custom_dir: overrides
+  features:
+    - tabs
+  font:
+    text: Lato
+  favicon: assets/Rlogo.png
+  logo: assets/Rlogo.svg
+
+extra_css:
+  - assets/extra.css
+
+extra:
+  social:
+    - icon: fontawesome/brands/github
+      link: https://github.com/eddelbuettel/digest
+
+nav:
+  - Home:
+    - index.md
+  - Reference:
+    - man/digest.md
+    - man/AES.md
+    - man/digest2int.md
+    - man/hmac.md
+    - man/makeRaw.md
+    - man/sha1.md
+    - man/vdigest.md
+  # - Articles:
+  #   - Sha1 Vignette: vignette.md
+  # - News:
+  #   - news.md
+  - Changelog:
+    - changelog.md

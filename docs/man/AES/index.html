@@ -1,0 +1,920 @@
+
+
+
+<!doctype html>
+<html lang="en" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+      
+        <link rel="canonical" href="https://github.com/eddelbuettel/digest/man/AES/">
+      
+      
+      <link rel="shortcut icon" href="../../assets/Rlogo.png">
+      <meta name="generator" content="mkdocs-1.1.2, mkdocs-material-5.5.12">
+    
+    
+      
+        <title>AES - digest</title>
+      
+    
+    
+      <link rel="stylesheet" href="../../assets/stylesheets/main.4dd2dd8d.min.css">
+      
+      
+    
+    
+    
+      
+        <link href="https://fonts.gstatic.com" rel="preconnect" crossorigin>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Lato:300,400,400i,700%7C&display=fallback">
+        <style>body,input{font-family:"Lato",-apple-system,BlinkMacSystemFont,Helvetica,Arial,sans-serif}code,kbd,pre{font-family:"",SFMono-Regular,Consolas,Menlo,monospace}</style>
+      
+    
+    
+    
+      <link rel="stylesheet" href="../../assets/extra.css">
+    
+    
+      
+    
+    
+  </head>
+  
+  
+    <body dir="ltr">
+  
+    
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer"></label>
+    <div data-md-component="skip">
+      
+        
+        <a href="#create-aes-block-cipher-object" class="md-skip">
+          Skip to content
+        </a>
+      
+    </div>
+    <div data-md-component="announce">
+      
+    </div>
+    
+      <header class="md-header" data-md-component="header">
+  <nav class="md-header-nav md-grid" aria-label="Header">
+    <a href="https://github.com/eddelbuettel/digest" title="digest" class="md-header-nav__button md-logo" aria-label="digest">
+      
+  <img src="../../assets/Rlogo.svg" alt="logo">
+
+    </a>
+    <label class="md-header-nav__button md-icon" for="__drawer">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 6h18v2H3V6m0 5h18v2H3v-2m0 5h18v2H3v-2z"/></svg>
+    </label>
+    <div class="md-header-nav__title" data-md-component="header-title">
+      
+        <div class="md-header-nav__ellipsis">
+          <span class="md-header-nav__topic md-ellipsis">
+            digest
+          </span>
+          <span class="md-header-nav__topic md-ellipsis">
+            
+              AES
+            
+          </span>
+        </div>
+      
+    </div>
+    
+      <label class="md-header-nav__button md-icon" for="__search">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0116 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.516 6.516 0 019.5 16 6.5 6.5 0 013 9.5 6.5 6.5 0 019.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5z"/></svg>
+      </label>
+      
+<div class="md-search" data-md-component="search" role="dialog">
+  <label class="md-search__overlay" for="__search"></label>
+  <div class="md-search__inner" role="search">
+    <form class="md-search__form" name="search">
+      <input type="text" class="md-search__input" name="query" aria-label="Search" placeholder="Search" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="search-query" data-md-state="active">
+      <label class="md-search__icon md-icon" for="__search">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0116 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.516 6.516 0 019.5 16 6.5 6.5 0 013 9.5 6.5 6.5 0 019.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5z"/></svg>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11h12z"/></svg>
+      </label>
+      <button type="reset" class="md-search__icon md-icon" aria-label="Clear" data-md-component="search-reset" tabindex="-1">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 6.41L17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12 19 6.41z"/></svg>
+      </button>
+    </form>
+    <div class="md-search__output">
+      <div class="md-search__scrollwrap" data-md-scrollfix>
+        <div class="md-search-result" data-md-component="search-result">
+          <div class="md-search-result__meta">
+            Initializing search
+          </div>
+          <ol class="md-search-result__list"></ol>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+    
+    
+  </nav>
+</header>
+    
+    <div class="md-container" data-md-component="container">
+      
+        
+      
+      
+        
+          
+
+  
+
+<nav class="md-tabs md-tabs--active" aria-label="Tabs" data-md-component="tabs">
+  <div class="md-tabs__inner md-grid">
+    <ul class="md-tabs__list">
+      
+        
+  
+  
+    <li class="md-tabs__item">
+      
+        <a href="../.." class="md-tabs__link">
+          Home
+        </a>
+      
+    </li>
+  
+
+      
+        
+  
+  
+    <li class="md-tabs__item">
+      
+        <a href="../digest/" class="md-tabs__link md-tabs__link--active">
+          Reference
+        </a>
+      
+    </li>
+  
+
+      
+        
+  
+  
+    <li class="md-tabs__item">
+      
+        <a href="../../changelog/" class="md-tabs__link">
+          Changelog
+        </a>
+      
+    </li>
+  
+
+      
+    </ul>
+  </div>
+</nav>
+        
+      
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              <div class="md-sidebar md-sidebar--primary" data-md-component="navigation">
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    <nav class="md-nav md-nav--primary" aria-label="Navigation" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href="https://github.com/eddelbuettel/digest" title="digest" class="md-nav__button md-logo" aria-label="digest">
+      
+  <img src="../../assets/Rlogo.svg" alt="logo">
+
+    </a>
+    digest
+  </label>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+      
+
+
+  <li class="md-nav__item md-nav__item--nested">
+    
+      <input class="md-nav__toggle md-toggle" data-md-toggle="nav-1" type="checkbox" id="nav-1">
+    
+    <label class="md-nav__link" for="nav-1">
+      Home
+      <span class="md-nav__icon md-icon"></span>
+    </label>
+    <nav class="md-nav" aria-label="Home" data-md-level="1">
+      <label class="md-nav__title" for="nav-1">
+        <span class="md-nav__icon md-icon"></span>
+        Home
+      </label>
+      <ul class="md-nav__list" data-md-scrollfix>
+        
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../.." title="Index" class="md-nav__link">
+      Index
+    </a>
+  </li>
+
+        
+      </ul>
+    </nav>
+  </li>
+
+    
+      
+      
+      
+
+  
+
+
+  <li class="md-nav__item md-nav__item--active md-nav__item--nested">
+    
+      <input class="md-nav__toggle md-toggle" data-md-toggle="nav-2" type="checkbox" id="nav-2" checked>
+    
+    <label class="md-nav__link" for="nav-2">
+      Reference
+      <span class="md-nav__icon md-icon"></span>
+    </label>
+    <nav class="md-nav" aria-label="Reference" data-md-level="1">
+      <label class="md-nav__title" for="nav-2">
+        <span class="md-nav__icon md-icon"></span>
+        Reference
+      </label>
+      <ul class="md-nav__list" data-md-scrollfix>
+        
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../digest/" title="Digest" class="md-nav__link">
+      Digest
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+  
+
+
+  <li class="md-nav__item md-nav__item--active">
+    
+    <input class="md-nav__toggle md-toggle" data-md-toggle="toc" type="checkbox" id="__toc">
+    
+    
+      <label class="md-nav__link md-nav__link--active" for="__toc">
+        AES
+        <span class="md-nav__icon md-icon"></span>
+      </label>
+    
+    <a href="./" title="AES" class="md-nav__link md-nav__link--active">
+      AES
+    </a>
+    
+      
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#create-aes-block-cipher-object" class="md-nav__link">
+    Create AES block cipher object
+  </a>
+  
+    <nav class="md-nav" aria-label="Create AES block cipher object">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#description" class="md-nav__link">
+    Description
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#usage" class="md-nav__link">
+    Usage
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#arguments" class="md-nav__link">
+    Arguments
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#details" class="md-nav__link">
+    Details
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#value" class="md-nav__link">
+    Value
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#authors" class="md-nav__link">
+    Author(s)
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#references" class="md-nav__link">
+    References
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#examples" class="md-nav__link">
+    Examples
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+    
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../digest2int/" title="Digest2int" class="md-nav__link">
+      Digest2int
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../hmac/" title="Hmac" class="md-nav__link">
+      Hmac
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../makeRaw/" title="makeRaw" class="md-nav__link">
+      makeRaw
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../sha1/" title="Sha1" class="md-nav__link">
+      Sha1
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../vdigest/" title="Vdigest" class="md-nav__link">
+      Vdigest
+    </a>
+  </li>
+
+        
+      </ul>
+    </nav>
+  </li>
+
+    
+      
+      
+      
+
+
+  <li class="md-nav__item md-nav__item--nested">
+    
+      <input class="md-nav__toggle md-toggle" data-md-toggle="nav-3" type="checkbox" id="nav-3">
+    
+    <label class="md-nav__link" for="nav-3">
+      Changelog
+      <span class="md-nav__icon md-icon"></span>
+    </label>
+    <nav class="md-nav" aria-label="Changelog" data-md-level="1">
+      <label class="md-nav__title" for="nav-3">
+        <span class="md-nav__icon md-icon"></span>
+        Changelog
+      </label>
+      <ul class="md-nav__list" data-md-scrollfix>
+        
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../changelog/" title="Changelog" class="md-nav__link">
+      Changelog
+    </a>
+  </li>
+
+        
+      </ul>
+    </nav>
+  </li>
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="toc">
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#create-aes-block-cipher-object" class="md-nav__link">
+    Create AES block cipher object
+  </a>
+  
+    <nav class="md-nav" aria-label="Create AES block cipher object">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#description" class="md-nav__link">
+    Description
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#usage" class="md-nav__link">
+    Usage
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#arguments" class="md-nav__link">
+    Arguments
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#details" class="md-nav__link">
+    Details
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#value" class="md-nav__link">
+    Value
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#authors" class="md-nav__link">
+    Author(s)
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#references" class="md-nav__link">
+    References
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#examples" class="md-nav__link">
+    Examples
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+          
+          <div class="md-content">
+            <article class="md-content__inner md-typeset">
+              
+                
+                
+                  
+                
+                
+                  <h1>AES</h1>
+                
+                <h2 id="create-aes-block-cipher-object">Create AES block cipher object</h2>
+<h3 id="description">Description</h3>
+<p>This creates an object that can perform the Advanced Encryption Standard
+(AES) block cipher.</p>
+<h3 id="usage">Usage</h3>
+<pre><code>AES(key, mode=c("ECB", "CBC", "CFB", "CTR"), IV=NULL)
+</code></pre>
+<h3 id="arguments">Arguments</h3>
+<table>
+<thead>
+<tr>
+<th>Argument</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>key</code></td>
+<td>The key as a 16, 24 or 32 byte raw vector for AES-128, AES-192 or AES-256 respectively.</td>
+</tr>
+<tr>
+<td><code>mode</code></td>
+<td>The encryption mode to use. Currently only “electronic codebook” (ECB), “cipher-block chaining” (CBC), “cipher feedback” (CFB) and “counter” (CTR) modes are supported.</td>
+</tr>
+<tr>
+<td><code>IV</code></td>
+<td>The initial vector for CBC and CFB mode or initial counter for CTR mode.</td>
+</tr>
+</tbody>
+</table>
+<h3 id="details">Details</h3>
+<p>The standard NIST definition of CTR mode doesn't define how the counter
+is updated, it just requires that it be updated with each block and not
+repeat itself for a long time. This implementation treats it as a 128
+bit integer and adds 1 with each successive block.</p>
+<h3 id="value">Value</h3>
+<p>An object of class <code>"AES"</code>. This is a list containing the following
+component functions:</p>
+<table>
+<thead>
+<tr>
+<th></th>
+<th></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>encrypt(text)</code></td>
+<td>A function to encrypt a text vector. The text may be a single element character vector or a raw vector. It returns the ciphertext as a raw vector.</td>
+</tr>
+<tr>
+<td><code>decrypt(ciphertext, raw = FALSE)</code></td>
+<td>A function to decrypt the ciphertext. In ECB mode, the same AES object can be used for both encryption and decryption, but in CBC, CFB and CTR modes a new object needs to be created, using the same initial <code>key</code> and <code>IV</code> values.</td>
+</tr>
+<tr>
+<td><code>IV()</code></td>
+<td>Report on the current state of the initialization vector. As blocks are encrypted or decrypted in CBC, CFB or CTR mode, the initialization vector is updated, so both operations can be performed sequentially on subsets of the text or ciphertext.</td>
+</tr>
+<tr>
+<td><code>block_size(), key_size(), mode()</code></td>
+<td>Report on these aspects of the AES object.</td>
+</tr>
+</tbody>
+</table>
+<h3 id="authors">Author(s)</h3>
+<p>The R interface was written by Duncan Murdoch. The design is loosely
+based on the Python Crypto implementation. The underlying AES
+implementation is by Christophe Devine.</p>
+<h3 id="references">References</h3>
+<p>United States National Institute of Standards and Technology (2001).
+"Announcing the ADVANCED ENCRYPTION STANDARD (AES)". Federal Information
+Processing Standards Publication 197.
+<a href="https://csrc.nist.gov/publications/fips/fips197/fips-197.pdf">https://csrc.nist.gov/publications/fips/fips197/fips-197.pdf</a>.</p>
+<p>Morris Dworkin (2001). "Recommendation for Block Cipher Modes of
+Operation". NIST Special Publication 800-38A 2001 Edition.
+<a href="https://csrc.nist.gov/publications/nistpubs/800-38a/sp800-38a.pdf">https://csrc.nist.gov/publications/nistpubs/800-38a/sp800-38a.pdf</a>.</p>
+<h3 id="examples">Examples</h3>
+<pre><code># First in ECB mode: the repeated block is coded the same way each time
+msg &lt;- as.raw(c(1:16, 1:16))
+key &lt;- as.raw(1:16)
+aes &lt;- AES(key, mode="ECB")
+aes$encrypt(msg)
+aes$decrypt(aes$encrypt(msg), raw=TRUE)
+
+# Now in CBC mode:  each encoding is different
+iv &lt;- sample(0:255, 16, replace=TRUE)
+aes &lt;- AES(key, mode="CBC", iv)
+code &lt;- aes$encrypt(msg)
+code
+
+# Need a new object for decryption in CBC mode
+aes &lt;- AES(key, mode="CBC", iv)
+aes$decrypt(code, raw=TRUE)
+
+# CFB mode: IV must be the same length as the Block's block size
+# Two different instances of AES are required for encryption and decryption
+iv &lt;- sample(0:255, 16, replace=TRUE)
+aes &lt;- AES(key, mode="CFB", iv)
+code &lt;- aes$encrypt(msg)
+code
+#decrypt
+aes &lt;-  AES(key, mode="CFB", iv)
+aes$decrypt(code)
+
+
+# FIPS-197 examples
+
+hextextToRaw &lt;- function(text) {
+  vals &lt;- matrix(as.integer(as.hexmode(strsplit(text, "")[[1]])), ncol=2, byrow=TRUE)
+  vals &lt;- vals %*% c(16, 1)
+  as.raw(vals)
+}
+
+plaintext       &lt;- hextextToRaw("00112233445566778899aabbccddeeff")
+
+aes128key       &lt;- hextextToRaw("000102030405060708090a0b0c0d0e0f")
+aes128output    &lt;- hextextToRaw("69c4e0d86a7b0430d8cdb78070b4c55a")
+aes &lt;- AES(aes128key)
+aes128 &lt;- aes$encrypt(plaintext)
+stopifnot(identical(aes128, aes128output))
+stopifnot(identical(plaintext, aes$decrypt(aes128, raw=TRUE)))
+
+aes192key       &lt;- hextextToRaw("000102030405060708090a0b0c0d0e0f1011121314151617")
+aes192output    &lt;- hextextToRaw("dda97ca4864cdfe06eaf70a0ec0d7191")
+aes &lt;- AES(aes192key)
+aes192 &lt;- aes$encrypt(plaintext)
+stopifnot(identical(aes192, aes192output))
+stopifnot(identical(plaintext, aes$decrypt(aes192, raw=TRUE)))
+
+aes256key       &lt;- hextextToRaw("000102030405060708090a0b0c0d0e0f101112131415161718191a1b1c1d1e1f")
+aes256output     &lt;- hextextToRaw("8ea2b7ca516745bfeafc49904b496089")
+aes &lt;- AES(aes256key)
+aes256 &lt;- aes$encrypt(plaintext)
+stopifnot(identical(aes256, aes256output))
+stopifnot(identical(plaintext, aes$decrypt(aes256, raw=TRUE)))
+
+# SP800-38a examples
+
+plaintext &lt;- hextextToRaw(paste("6bc1bee22e409f96e93d7e117393172a",
+                                "ae2d8a571e03ac9c9eb76fac45af8e51",
+                                "30c81c46a35ce411e5fbc1191a0a52ef",
+                                "f69f2445df4f9b17ad2b417be66c3710",sep=""))
+key &lt;- hextextToRaw("2b7e151628aed2a6abf7158809cf4f3c")
+
+ecb128output &lt;- hextextToRaw(paste("3ad77bb40d7a3660a89ecaf32466ef97",
+                                   "f5d3d58503b9699de785895a96fdbaaf",
+                                   "43b1cd7f598ece23881b00e3ed030688",
+                                   "7b0c785e27e8ad3f8223207104725dd4",sep=""))
+aes &lt;- AES(key)
+ecb128 &lt;- aes$encrypt(plaintext)
+stopifnot(identical(ecb128, ecb128output))
+stopifnot(identical(plaintext, aes$decrypt(ecb128, raw=TRUE)))
+
+cbc128output &lt;- hextextToRaw(paste("7649abac8119b246cee98e9b12e9197d",
+                                   "5086cb9b507219ee95db113a917678b2",
+                                   "73bed6b8e3c1743b7116e69e22229516",
+                                   "3ff1caa1681fac09120eca307586e1a7",sep=""))
+iv &lt;- hextextToRaw("000102030405060708090a0b0c0d0e0f")
+aes &lt;- AES(key, mode="CBC", IV=iv)
+cbc128 &lt;- aes$encrypt(plaintext)
+stopifnot(identical(cbc128, cbc128output))
+aes &lt;- AES(key, mode="CBC", IV=iv)
+stopifnot(identical(plaintext, aes$decrypt(cbc128, raw=TRUE)))
+
+
+cfb128output &lt;- hextextToRaw(paste("3b3fd92eb72dad20333449f8e83cfb4a",
+                                   "c8a64537a0b3a93fcde3cdad9f1ce58b",
+                                   "26751f67a3cbb140b1808cf187a4f4df",
+                                   "c04b05357c5d1c0eeac4c66f9ff7f2e6",sep=""))
+aes &lt;- AES(key, mode="CFB", IV=iv)
+cfb128 &lt;- aes$encrypt(plaintext)
+stopifnot(identical(cfb128, cfb128output))
+aes &lt;- AES(key, mode="CFB", IV=iv)
+stopifnot(identical(plaintext, aes$decrypt(cfb128, raw=TRUE)))
+
+
+ctr128output &lt;- hextextToRaw(paste("874d6191b620e3261bef6864990db6ce",
+                                   "9806f66b7970fdff8617187bb9fffdff",
+                                   "5ae4df3edbd5d35e5b4f09020db03eab",
+                                   "1e031dda2fbe03d1792170a0f3009cee",sep=""))
+iv &lt;- hextextToRaw("f0f1f2f3f4f5f6f7f8f9fafbfcfdfeff")
+aes &lt;- AES(key, mode="CTR", IV=iv)
+ctr128 &lt;- aes$encrypt(plaintext)
+stopifnot(identical(ctr128, ctr128output))
+aes &lt;- AES(key, mode="CTR", IV=iv)
+stopifnot(identical(plaintext, aes$decrypt(ctr128, raw=TRUE)))
+</code></pre>
+                
+              
+              
+                
+
+
+              
+            </article>
+          </div>
+        </div>
+      </main>
+      
+        <!--
+  Copyright (c) 2016-2020 Martin Donath <martin.donath@squidfunk.com>
+  Permission is hereby granted, free of charge, to any person obtaining a copy
+  of this software and associated documentation files (the "Software"), to
+  deal in the Software without restriction, including without limitation the
+  rights to use, copy, modify, merge, publish, distribute, sublicense, and/or
+  sell copies of the Software, and to permit persons to whom the Software is
+  furnished to do so, subject to the following conditions:
+  The above copyright notice and this permission notice shall be included in
+  all copies or substantial portions of the Software.
+  THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+  IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+  FITNESS FOR A PARTICULAR PURPOSE AND NON-INFRINGEMENT. IN NO EVENT SHALL THE
+  AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+  LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING
+  FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS
+  IN THE SOFTWARE.
+-->
+
+
+
+<!-- Application footer -->
+<footer class="md-footer">
+
+  <!-- Link to previous and/or next page -->
+  
+    <div class="md-footer-nav">
+      <nav
+        class="md-footer-nav__inner md-grid"
+        aria-label="Footer"
+      >
+
+        <!-- Link to previous page -->
+        
+          <a
+            href="../digest/"
+            title="Digest"
+            class="md-footer-nav__link md-footer-nav__link--prev"
+            rel="prev"
+          >
+            <div class="md-footer-nav__button md-icon">
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11h12z"/></svg>
+            </div>
+            <div class="md-footer-nav__title">
+              <div class="md-ellipsis">
+                <span class="md-footer-nav__direction">
+                  Previous
+                </span>
+                Digest
+              </div>
+            </div>
+          </a>
+        
+
+        <!-- Link to next page -->
+        
+          <a
+            href="../digest2int/"
+            title="Digest2int"
+            class="md-footer-nav__link md-footer-nav__link--next"
+            rel="next"
+          >
+            <div class="md-footer-nav__title">
+              <div class="md-ellipsis">
+                <span class="md-footer-nav__direction">
+                  Next
+                </span>
+                Digest2int
+              </div>
+            </div>
+            <div class="md-footer-nav__button md-icon">
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M4 11v2h12l-5.5 5.5 1.42 1.42L19.84 12l-7.92-7.92L10.5 5.5 16 11H4z"/></svg>
+            </div>
+          </a>
+        
+      </nav>
+    </div>
+  
+
+  <!-- Further information -->
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+
+      <!-- Copyright and theme information -->
+      <div class="md-footer-copyright">
+        
+          Documentation for <a href="https://github.com/eddelbuettel/digest">digest</a>
+          made by <a href="https://dirk.eddelbuettel.com">Dirk Eddelbuettel</a>
+          using some <a href="https://www.R-Project.org">R</a> scripts and
+          <a href="https://squidfunk.github.io/mkdocs-material/" target="_blank" rel="noopener">Material for MkDocs </a>
+      </div>
+
+      <!-- Social links -->
+      
+  <div class="md-footer-social">
+    
+      
+      
+        
+        
+      
+      <a href="https://github.com/eddelbuettel/digest" target="_blank" rel="noopener" title="github.com" class="md-footer-social__link">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 496 512"><path d="M165.9 397.4c0 2-2.3 3.6-5.2 3.6-3.3.3-5.6-1.3-5.6-3.6 0-2 2.3-3.6 5.2-3.6 3-.3 5.6 1.3 5.6 3.6zm-31.1-4.5c-.7 2 1.3 4.3 4.3 4.9 2.6 1 5.6 0 6.2-2s-1.3-4.3-4.3-5.2c-2.6-.7-5.5.3-6.2 2.3zm44.2-1.7c-2.9.7-4.9 2.6-4.6 4.9.3 2 2.9 3.3 5.9 2.6 2.9-.7 4.9-2.6 4.6-4.6-.3-1.9-3-3.2-5.9-2.9zM244.8 8C106.1 8 0 113.3 0 252c0 110.9 69.8 205.8 169.5 239.2 12.8 2.3 17.3-5.6 17.3-12.1 0-6.2-.3-40.4-.3-61.4 0 0-70 15-84.7-29.8 0 0-11.4-29.1-27.8-36.6 0 0-22.9-15.7 1.6-15.4 0 0 24.9 2 38.6 25.8 21.9 38.6 58.6 27.5 72.9 20.9 2.3-16 8.8-27.1 16-33.7-55.9-6.2-112.3-14.3-112.3-110.5 0-27.5 7.6-41.3 23.6-58.9-2.6-6.5-11.1-33.3 2.6-67.9 20.9-6.5 69 27 69 27 20-5.6 41.5-8.5 62.8-8.5s42.8 2.9 62.8 8.5c0 0 48.1-33.6 69-27 13.7 34.7 5.2 61.4 2.6 67.9 16 17.7 25.8 31.5 25.8 58.9 0 96.5-58.9 104.2-114.8 110.5 9.2 7.9 17 22.9 17 46.4 0 33.7-.3 75.4-.3 83.6 0 6.5 4.6 14.4 17.3 12.1C428.2 457.8 496 362.9 496 252 496 113.3 383.5 8 244.8 8zM97.2 352.9c-1.3 1-1 3.3.7 5.2 1.6 1.6 3.9 2.3 5.2 1 1.3-1 1-3.3-.7-5.2-1.6-1.6-3.9-2.3-5.2-1zm-10.8-8.1c-.7 1.3.3 2.9 2.3 3.9 1.6 1 3.6.7 4.3-.7.7-1.3-.3-2.9-2.3-3.9-2-.6-3.6-.3-4.3.7zm32.4 35.6c-1.6 1.3-1 4.3 1.3 6.2 2.3 2.3 5.2 2.6 6.5 1 1.3-1.3.7-4.3-1.3-6.2-2.2-2.3-5.2-2.6-6.5-1zm-11.4-14.7c-1.6 1-1.6 3.6 0 5.9 1.6 2.3 4.3 3.3 5.6 2.3 1.6-1.3 1.6-3.9 0-6.2-1.4-2.3-4-3.3-5.6-2z"/></svg>
+      </a>
+    
+  </div>
+
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    
+      <script src="../../assets/javascripts/vendor.3636a4ec.min.js"></script>
+      <script src="../../assets/javascripts/bundle.e9fe3281.min.js"></script><script id="__lang" type="application/json">{"clipboard.copy": "Copy to clipboard", "clipboard.copied": "Copied to clipboard", "search.config.lang": "en", "search.config.pipeline": "trimmer, stopWordFilter", "search.config.separator": "[\\s\\-]+", "search.result.placeholder": "Type to start searching", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents"}</script>
+      
+      <script>
+        app = initialize({
+          base: "../..",
+          features: ["tabs"],
+          search: Object.assign({
+            worker: "../../assets/javascripts/worker/search.5eca75d3.min.js"
+          }, typeof search !== "undefined" && search)
+        })
+      </script>
+      
+    
+  </body>
+</html>

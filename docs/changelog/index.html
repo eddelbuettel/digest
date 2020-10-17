@@ -1,0 +1,1785 @@
+
+
+
+<!doctype html>
+<html lang="en" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+      
+        <link rel="canonical" href="https://github.com/eddelbuettel/digest/changelog/">
+      
+      
+      <link rel="shortcut icon" href="../assets/Rlogo.png">
+      <meta name="generator" content="mkdocs-1.1.2, mkdocs-material-5.5.12">
+    
+    
+      
+        <title>Changelog - digest</title>
+      
+    
+    
+      <link rel="stylesheet" href="../assets/stylesheets/main.4dd2dd8d.min.css">
+      
+      
+    
+    
+    
+      
+        <link href="https://fonts.gstatic.com" rel="preconnect" crossorigin>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Lato:300,400,400i,700%7C&display=fallback">
+        <style>body,input{font-family:"Lato",-apple-system,BlinkMacSystemFont,Helvetica,Arial,sans-serif}code,kbd,pre{font-family:"",SFMono-Regular,Consolas,Menlo,monospace}</style>
+      
+    
+    
+    
+      <link rel="stylesheet" href="../assets/extra.css">
+    
+    
+      
+    
+    
+  </head>
+  
+  
+    <body dir="ltr">
+  
+    
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer"></label>
+    <div data-md-component="skip">
+      
+        
+        <a href="#2020" class="md-skip">
+          Skip to content
+        </a>
+      
+    </div>
+    <div data-md-component="announce">
+      
+    </div>
+    
+      <header class="md-header" data-md-component="header">
+  <nav class="md-header-nav md-grid" aria-label="Header">
+    <a href="https://github.com/eddelbuettel/digest" title="digest" class="md-header-nav__button md-logo" aria-label="digest">
+      
+  <img src="../assets/Rlogo.svg" alt="logo">
+
+    </a>
+    <label class="md-header-nav__button md-icon" for="__drawer">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 6h18v2H3V6m0 5h18v2H3v-2m0 5h18v2H3v-2z"/></svg>
+    </label>
+    <div class="md-header-nav__title" data-md-component="header-title">
+      
+        <div class="md-header-nav__ellipsis">
+          <span class="md-header-nav__topic md-ellipsis">
+            digest
+          </span>
+          <span class="md-header-nav__topic md-ellipsis">
+            
+              Changelog
+            
+          </span>
+        </div>
+      
+    </div>
+    
+      <label class="md-header-nav__button md-icon" for="__search">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0116 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.516 6.516 0 019.5 16 6.5 6.5 0 013 9.5 6.5 6.5 0 019.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5z"/></svg>
+      </label>
+      
+<div class="md-search" data-md-component="search" role="dialog">
+  <label class="md-search__overlay" for="__search"></label>
+  <div class="md-search__inner" role="search">
+    <form class="md-search__form" name="search">
+      <input type="text" class="md-search__input" name="query" aria-label="Search" placeholder="Search" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="search-query" data-md-state="active">
+      <label class="md-search__icon md-icon" for="__search">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0116 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.516 6.516 0 019.5 16 6.5 6.5 0 013 9.5 6.5 6.5 0 019.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5z"/></svg>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11h12z"/></svg>
+      </label>
+      <button type="reset" class="md-search__icon md-icon" aria-label="Clear" data-md-component="search-reset" tabindex="-1">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 6.41L17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12 19 6.41z"/></svg>
+      </button>
+    </form>
+    <div class="md-search__output">
+      <div class="md-search__scrollwrap" data-md-scrollfix>
+        <div class="md-search-result" data-md-component="search-result">
+          <div class="md-search-result__meta">
+            Initializing search
+          </div>
+          <ol class="md-search-result__list"></ol>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+    
+    
+  </nav>
+</header>
+    
+    <div class="md-container" data-md-component="container">
+      
+        
+      
+      
+        
+          
+
+  
+
+<nav class="md-tabs md-tabs--active" aria-label="Tabs" data-md-component="tabs">
+  <div class="md-tabs__inner md-grid">
+    <ul class="md-tabs__list">
+      
+        
+  
+  
+    <li class="md-tabs__item">
+      
+        <a href=".." class="md-tabs__link">
+          Home
+        </a>
+      
+    </li>
+  
+
+      
+        
+  
+  
+    <li class="md-tabs__item">
+      
+        <a href="../man/digest/" class="md-tabs__link">
+          Reference
+        </a>
+      
+    </li>
+  
+
+      
+        
+  
+  
+    <li class="md-tabs__item">
+      
+        <a href="./" class="md-tabs__link md-tabs__link--active">
+          Changelog
+        </a>
+      
+    </li>
+  
+
+      
+    </ul>
+  </div>
+</nav>
+        
+      
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              <div class="md-sidebar md-sidebar--primary" data-md-component="navigation">
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    <nav class="md-nav md-nav--primary" aria-label="Navigation" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href="https://github.com/eddelbuettel/digest" title="digest" class="md-nav__button md-logo" aria-label="digest">
+      
+  <img src="../assets/Rlogo.svg" alt="logo">
+
+    </a>
+    digest
+  </label>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+      
+
+
+  <li class="md-nav__item md-nav__item--nested">
+    
+      <input class="md-nav__toggle md-toggle" data-md-toggle="nav-1" type="checkbox" id="nav-1">
+    
+    <label class="md-nav__link" for="nav-1">
+      Home
+      <span class="md-nav__icon md-icon"></span>
+    </label>
+    <nav class="md-nav" aria-label="Home" data-md-level="1">
+      <label class="md-nav__title" for="nav-1">
+        <span class="md-nav__icon md-icon"></span>
+        Home
+      </label>
+      <ul class="md-nav__list" data-md-scrollfix>
+        
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href=".." title="Index" class="md-nav__link">
+      Index
+    </a>
+  </li>
+
+        
+      </ul>
+    </nav>
+  </li>
+
+    
+      
+      
+      
+
+
+  <li class="md-nav__item md-nav__item--nested">
+    
+      <input class="md-nav__toggle md-toggle" data-md-toggle="nav-2" type="checkbox" id="nav-2">
+    
+    <label class="md-nav__link" for="nav-2">
+      Reference
+      <span class="md-nav__icon md-icon"></span>
+    </label>
+    <nav class="md-nav" aria-label="Reference" data-md-level="1">
+      <label class="md-nav__title" for="nav-2">
+        <span class="md-nav__icon md-icon"></span>
+        Reference
+      </label>
+      <ul class="md-nav__list" data-md-scrollfix>
+        
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../man/digest/" title="Digest" class="md-nav__link">
+      Digest
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../man/AES/" title="AES" class="md-nav__link">
+      AES
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../man/digest2int/" title="Digest2int" class="md-nav__link">
+      Digest2int
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../man/hmac/" title="Hmac" class="md-nav__link">
+      Hmac
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../man/makeRaw/" title="makeRaw" class="md-nav__link">
+      makeRaw
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../man/sha1/" title="Sha1" class="md-nav__link">
+      Sha1
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../man/vdigest/" title="Vdigest" class="md-nav__link">
+      Vdigest
+    </a>
+  </li>
+
+        
+      </ul>
+    </nav>
+  </li>
+
+    
+      
+      
+      
+
+  
+
+
+  <li class="md-nav__item md-nav__item--active md-nav__item--nested">
+    
+      <input class="md-nav__toggle md-toggle" data-md-toggle="nav-3" type="checkbox" id="nav-3" checked>
+    
+    <label class="md-nav__link" for="nav-3">
+      Changelog
+      <span class="md-nav__icon md-icon"></span>
+    </label>
+    <nav class="md-nav" aria-label="Changelog" data-md-level="1">
+      <label class="md-nav__title" for="nav-3">
+        <span class="md-nav__icon md-icon"></span>
+        Changelog
+      </label>
+      <ul class="md-nav__list" data-md-scrollfix>
+        
+        
+          
+          
+          
+
+  
+
+
+  <li class="md-nav__item md-nav__item--active">
+    
+    <input class="md-nav__toggle md-toggle" data-md-toggle="toc" type="checkbox" id="__toc">
+    
+    
+      <label class="md-nav__link md-nav__link--active" for="__toc">
+        Changelog
+        <span class="md-nav__icon md-icon"></span>
+      </label>
+    
+    <a href="./" title="Changelog" class="md-nav__link md-nav__link--active">
+      Changelog
+    </a>
+    
+      
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#2020" class="md-nav__link">
+    2020
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#2019" class="md-nav__link">
+    2019
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#2018" class="md-nav__link">
+    2018
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#2017" class="md-nav__link">
+    2017
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#2016" class="md-nav__link">
+    2016
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#2015" class="md-nav__link">
+    2015
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#2014" class="md-nav__link">
+    2014
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#2013" class="md-nav__link">
+    2013
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#2012" class="md-nav__link">
+    2012
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#2011" class="md-nav__link">
+    2011
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#2009" class="md-nav__link">
+    2009
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#2007" class="md-nav__link">
+    2007
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#2006" class="md-nav__link">
+    2006
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#2005" class="md-nav__link">
+    2005
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#2004" class="md-nav__link">
+    2004
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#2003" class="md-nav__link">
+    2003
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+    
+  </li>
+
+        
+      </ul>
+    </nav>
+  </li>
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="toc">
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#2020" class="md-nav__link">
+    2020
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#2019" class="md-nav__link">
+    2019
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#2018" class="md-nav__link">
+    2018
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#2017" class="md-nav__link">
+    2017
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#2016" class="md-nav__link">
+    2016
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#2015" class="md-nav__link">
+    2015
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#2014" class="md-nav__link">
+    2014
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#2013" class="md-nav__link">
+    2013
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#2012" class="md-nav__link">
+    2012
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#2011" class="md-nav__link">
+    2011
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#2009" class="md-nav__link">
+    2009
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#2007" class="md-nav__link">
+    2007
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#2006" class="md-nav__link">
+    2006
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#2005" class="md-nav__link">
+    2005
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#2004" class="md-nav__link">
+    2004
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#2003" class="md-nav__link">
+    2003
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+          
+          <div class="md-content">
+            <article class="md-content__inner md-typeset">
+              
+                
+                
+                  
+                
+                
+                  <h1>Changelog</h1>
+                
+                <h3 id="2020">2020</h3>
+<p>2020-10-17  Dirk Eddelbuettel  <a href="&#109;&#97;&#105;&#108;&#116;&#111;&#58;&#101;&#100;&#100;&#64;&#100;&#101;&#98;&#105;&#97;&#110;&#46;&#111;&#114;&#103;">&#101;&#100;&#100;&#64;&#100;&#101;&#98;&#105;&#97;&#110;&#46;&#111;&#114;&#103;</a> </p>
+<pre><code>    * DESCRIPTION (Version, Date): Release 0.6.26
+
+    * docs/: Added package website 
+    * docs-src/: Added package website inputs
+</code></pre>
+<p>2020-10-15  Dirk Eddelbuettel  <a href="&#109;&#97;&#105;&#108;&#116;&#111;&#58;&#101;&#100;&#100;&#64;&#100;&#101;&#98;&#105;&#97;&#110;&#46;&#111;&#114;&#103;">&#101;&#100;&#100;&#64;&#100;&#101;&#98;&#105;&#97;&#110;&#46;&#111;&#114;&#103;</a> </p>
+<pre><code>    * README.md: Update URLs 
+    * man/digest.Rd: Ditto 
+    * man/hmac.Rd: Ditto
+</code></pre>
+<p>2020-10-14  Dirk Eddelbuettel  <a href="&#109;&#97;&#105;&#108;&#116;&#111;&#58;&#101;&#100;&#100;&#64;&#100;&#101;&#98;&#105;&#97;&#110;&#46;&#111;&#114;&#103;">&#101;&#100;&#100;&#64;&#100;&#101;&#98;&#105;&#97;&#110;&#46;&#111;&#114;&#103;</a> </p>
+<pre><code>    * DESCRIPTION (Version, Date): Roll minor version
+
+    * inst/tinytest/test_blake3.R: Skip file-based blake3 tests on Windows
+
+    * vignettes/sha1.Rmd: Switch to minidown and 'framework: water' 
+    * DESCRIPTION (Suggests): Add minidown
+</code></pre>
+<p>2020-10-07  Dirk Eddelbuettel  <a href="&#109;&#97;&#105;&#108;&#116;&#111;&#58;&#101;&#100;&#100;&#64;&#100;&#101;&#98;&#105;&#97;&#110;&#46;&#111;&#114;&#103;">&#101;&#100;&#100;&#64;&#100;&#101;&#98;&#105;&#97;&#110;&#46;&#111;&#114;&#103;</a> </p>
+<pre><code>    * DESCRIPTION (Version, Date): Roll minor version
+</code></pre>
+<p>2020-10-06  Winston Chang  <a href="&#109;&#97;&#105;&#108;&#116;&#111;&#58;&#119;&#105;&#110;&#115;&#116;&#111;&#110;&#64;&#115;&#116;&#100;&#111;&#117;&#116;&#46;&#111;&#114;&#103;">&#119;&#105;&#110;&#115;&#116;&#111;&#110;&#64;&#115;&#116;&#100;&#111;&#117;&#116;&#46;&#111;&#114;&#103;</a> </p>
+<pre><code>    * R/digest.R: Speedup via explicit alternative values for 
+    match.arg() and a direct call to serialize() 
+    * R/vdigest.R: Idem 
+    * R/init.R: Idem (for serialize()) 
+    * inst/tinytest/test_digest.R: New test ensuring all variants hit
+</code></pre>
+<p>2020-09-21  Dirk Eddelbuettel  <a href="&#109;&#97;&#105;&#108;&#116;&#111;&#58;&#101;&#100;&#100;&#64;&#100;&#101;&#98;&#105;&#97;&#110;&#46;&#111;&#114;&#103;">&#101;&#100;&#100;&#64;&#100;&#101;&#98;&#105;&#97;&#110;&#46;&#111;&#114;&#103;</a> </p>
+<pre><code>    * .travis.yml: Updated to 'bionic', R 4.0, and BSPM
+</code></pre>
+<p>2020-08-03  Dirk Eddelbuettel  <a href="&#109;&#97;&#105;&#108;&#116;&#111;&#58;&#101;&#100;&#100;&#64;&#100;&#101;&#98;&#105;&#97;&#110;&#46;&#111;&#114;&#103;">&#101;&#100;&#100;&#64;&#100;&#101;&#98;&#105;&#97;&#110;&#46;&#111;&#114;&#103;</a> </p>
+<pre><code>    * DESCRIPTION (Depends): Roll Depends: on to R (&gt;= 3.3.0) due to use 
+    of startsWith(), with thanks to Florian Pein
+</code></pre>
+<p>2020-05-20  Dirk Eddelbuettel  <a href="&#109;&#97;&#105;&#108;&#116;&#111;&#58;&#101;&#100;&#100;&#64;&#100;&#101;&#98;&#105;&#97;&#110;&#46;&#111;&#114;&#103;">&#101;&#100;&#100;&#64;&#100;&#101;&#98;&#105;&#97;&#110;&#46;&#111;&#114;&#103;</a> </p>
+<pre><code>    * .travis.yml: Switch to bionic and R 4.0.0
+</code></pre>
+<p>2020-05-19  Dirk Schumacher  <a href="&#109;&#97;&#105;&#108;&#116;&#111;&#58;&#109;&#97;&#105;&#108;&#64;&#100;&#105;&#114;&#107;&#45;&#115;&#99;&#104;&#117;&#109;&#97;&#99;&#104;&#101;&#114;&#46;&#110;&#101;&#116;">&#109;&#97;&#105;&#108;&#64;&#100;&#105;&#114;&#107;&#45;&#115;&#99;&#104;&#117;&#109;&#97;&#99;&#104;&#101;&#114;&#46;&#110;&#101;&#116;</a> </p>
+<pre><code>    * src/digest.c: Support file operation 
+    * inst/tinytest/test_blake3.R: Update test
+</code></pre>
+<p>2020-05-19  Dirk Eddelbuettel  <a href="&#109;&#97;&#105;&#108;&#116;&#111;&#58;&#101;&#100;&#100;&#64;&#100;&#101;&#98;&#105;&#97;&#110;&#46;&#111;&#114;&#103;">&#101;&#100;&#100;&#64;&#100;&#101;&#98;&#105;&#97;&#110;&#46;&#111;&#114;&#103;</a> </p>
+<pre><code>    * DESCRIPTION (Version): Roll minor version and date
+</code></pre>
+<p>2020-05-19  Dirk Schumacher  <a href="&#109;&#97;&#105;&#108;&#116;&#111;&#58;&#109;&#97;&#105;&#108;&#64;&#100;&#105;&#114;&#107;&#45;&#115;&#99;&#104;&#117;&#109;&#97;&#99;&#104;&#101;&#114;&#46;&#110;&#101;&#116;">&#109;&#97;&#105;&#108;&#64;&#100;&#105;&#114;&#107;&#45;&#115;&#99;&#104;&#117;&#109;&#97;&#99;&#104;&#101;&#114;&#46;&#110;&#101;&#116;</a> </p>
+<pre><code>    * src/blake3.c: Add blake3 implementation 
+    * src/blake3.h: Idem 
+    * src/blake3_dispatch.c: Idem 
+    * src/blake3_impl.h: Idem 
+    * src/blake3_portable.c: Idem 
+    * src/digest.c: Support blake3 call 
+    * R/digest.R: Idem 
+    * inst/tinytest/test_blake3.R: Add tests 
+    * man/digest.Rd: Add documentation
+</code></pre>
+<p>2020-03-05  Harris McGehee  <a href="&#109;&#97;&#105;&#108;&#116;&#111;&#58;&#109;&#99;&#103;&#101;&#104;&#101;&#101;&#46;&#104;&#97;&#114;&#114;&#105;&#115;&#64;&#103;&#109;&#97;&#105;&#108;&#46;&#99;&#111;&#109;">&#109;&#99;&#103;&#101;&#104;&#101;&#101;&#46;&#104;&#97;&#114;&#114;&#105;&#115;&#64;&#103;&#109;&#97;&#105;&#108;&#46;&#99;&#111;&#109;</a> </p>
+<pre><code>    * man/sha1.Rd: Correct typo
+</code></pre>
+<p>2020-02-26  Dirk Eddelbuettel  <a href="&#109;&#97;&#105;&#108;&#116;&#111;&#58;&#101;&#100;&#100;&#64;&#100;&#101;&#98;&#105;&#97;&#110;&#46;&#111;&#114;&#103;">&#101;&#100;&#100;&#64;&#100;&#101;&#98;&#105;&#97;&#110;&#46;&#111;&#114;&#103;</a> </p>
+<pre><code>    * README.md: Add Debian badge
+</code></pre>
+<p>2020-02-22  Dirk Eddelbuettel  <a href="&#109;&#97;&#105;&#108;&#116;&#111;&#58;&#101;&#100;&#100;&#64;&#100;&#101;&#98;&#105;&#97;&#110;&#46;&#111;&#114;&#103;">&#101;&#100;&#100;&#64;&#100;&#101;&#98;&#105;&#97;&#110;&#46;&#111;&#114;&#103;</a> </p>
+<pre><code>    * DESCRIPTION (Version, Date): Release 0.6.25
+</code></pre>
+<p>2020-02-15  Kendon Bell  <a href="&#109;&#97;&#105;&#108;&#116;&#111;&#58;&#98;&#101;&#108;&#108;&#107;&#64;&#108;&#97;&#110;&#100;&#99;&#97;&#114;&#101;&#114;&#101;&#115;&#101;&#97;&#114;&#99;&#104;&#46;&#99;&#111;&#46;&#110;&#122;">&#98;&#101;&#108;&#108;&#107;&#64;&#108;&#97;&#110;&#100;&#99;&#97;&#114;&#101;&#114;&#101;&#115;&#101;&#97;&#114;&#99;&#104;&#46;&#99;&#111;&#46;&#110;&#122;</a> </p>
+<pre><code>    * R/digest.R: Complete call to spookyhash
+</code></pre>
+<p>2020-02-12  Dirk Eddelbuettel  <a href="&#109;&#97;&#105;&#108;&#116;&#111;&#58;&#101;&#100;&#100;&#64;&#100;&#101;&#98;&#105;&#97;&#110;&#46;&#111;&#114;&#103;">&#101;&#100;&#100;&#64;&#100;&#101;&#98;&#105;&#97;&#110;&#46;&#111;&#114;&#103;</a> </p>
+<pre><code>    * DESCRIPTION (Version, Date): Release 0.6.24
+</code></pre>
+<h3 id="2019">2019</h3>
+<p>2019-12-12  Thierry Onkelinx <a href="&#109;&#97;&#105;&#108;&#116;&#111;&#58;&#116;&#104;&#105;&#101;&#114;&#114;&#121;&#46;&#111;&#110;&#107;&#101;&#108;&#105;&#110;&#120;&#64;&#105;&#110;&#98;&#111;&#46;&#98;&#101;">&#116;&#104;&#105;&#101;&#114;&#114;&#121;&#46;&#111;&#110;&#107;&#101;&#108;&#105;&#110;&#120;&#64;&#105;&#110;&#98;&#111;&#46;&#98;&#101;</a> </p>
+<pre><code>    * DESCRIPTION (Version, Date): Roll minor version 
+    * R/sha1.R: ignore the "srcref" attribute if set 
+    * inst/tinytest/test_new_matrix_behaviour.R: update unit test 
+    * inst/tinytest/test_sha1.R: update unit test 
+    * man/sha1.Rd: update documentation
+</code></pre>
+<p>2019-12-09  Dirk Eddelbuettel  <a href="&#109;&#97;&#105;&#108;&#116;&#111;&#58;&#101;&#100;&#100;&#64;&#100;&#101;&#98;&#105;&#97;&#110;&#46;&#111;&#114;&#103;">&#101;&#100;&#100;&#64;&#100;&#101;&#98;&#105;&#97;&#110;&#46;&#111;&#114;&#103;</a> </p>
+<pre><code>    * DESCRIPTION (Version, Date): Roll minor version
+
+    * src/init.c: Do not register a .Call method for PMurHash
+</code></pre>
+<p>2019-12-05  Will Landau  <a href="&#109;&#97;&#105;&#108;&#116;&#111;&#58;&#119;&#105;&#108;&#108;&#46;&#108;&#97;&#110;&#100;&#97;&#117;&#64;&#103;&#109;&#97;&#105;&#108;&#46;&#99;&#111;&#109;">&#119;&#105;&#108;&#108;&#46;&#108;&#97;&#110;&#100;&#97;&#117;&#64;&#103;&#109;&#97;&#105;&#108;&#46;&#99;&#111;&#109;</a> </p>
+<pre><code>    * R/init.R (.onLoad): Cache nosharing state in base::serialize 
+    (.hasNoSharing): Return cached value 
+    * R/digest.R (digest): Use cached value accessor 
+    * R/vdigest.R (non_streaming_digest): Use cached value accessor
+</code></pre>
+<p>2019-12-04  Dirk Eddelbuettel  <a href="&#109;&#97;&#105;&#108;&#116;&#111;&#58;&#101;&#100;&#100;&#64;&#100;&#101;&#98;&#105;&#97;&#110;&#46;&#111;&#114;&#103;">&#101;&#100;&#100;&#64;&#100;&#101;&#98;&#105;&#97;&#110;&#46;&#111;&#114;&#103;</a> </p>
+<pre><code>    * R/init.R (.onLoad): Cache isWindows state 
+    (.isWindows): Return cached value 
+    * R/digest.R (digest): Use cached value accessor
+</code></pre>
+<p>2019-11-23  Dirk Eddelbuettel  <a href="&#109;&#97;&#105;&#108;&#116;&#111;&#58;&#101;&#100;&#100;&#64;&#100;&#101;&#98;&#105;&#97;&#110;&#46;&#111;&#114;&#103;">&#101;&#100;&#100;&#64;&#100;&#101;&#98;&#105;&#97;&#110;&#46;&#111;&#114;&#103;</a> </p>
+<pre><code>    * inst/tinytest/test_new_matrix_behaviour.R: Split off tests affected 
+    by new matrix/array behavior in R-devel (i.e. future R 4.0.0)
+</code></pre>
+<p>2019-11-22  Dirk Eddelbuettel  <a href="&#109;&#97;&#105;&#108;&#116;&#111;&#58;&#101;&#100;&#100;&#64;&#100;&#101;&#98;&#105;&#97;&#110;&#46;&#111;&#114;&#103;">&#101;&#100;&#100;&#64;&#100;&#101;&#98;&#105;&#97;&#110;&#46;&#111;&#114;&#103;</a> </p>
+<pre><code>    * DESCRIPTION (Version, Date): Release 0.6.23
+
+    * inst/tinytest/test_sha1.R: Uncomment several tests which failed 
+    under r-devel on Linux at CRAN
+</code></pre>
+<p>2019-11-13  Dirk Eddelbuettel  <a href="&#109;&#97;&#105;&#108;&#116;&#111;&#58;&#101;&#100;&#100;&#64;&#100;&#101;&#98;&#105;&#97;&#110;&#46;&#111;&#114;&#103;">&#101;&#100;&#100;&#64;&#100;&#101;&#98;&#105;&#97;&#110;&#46;&#111;&#114;&#103;</a> </p>
+<pre><code>    * DESCRIPTION (Version, Date): Roll minor version
+</code></pre>
+<p>2019-11-11  Bill Denney  <a href="&#109;&#97;&#105;&#108;&#116;&#111;&#58;&#119;&#100;&#101;&#110;&#110;&#101;&#121;&#64;&#104;&#117;&#109;&#97;&#110;&#112;&#114;&#101;&#100;&#105;&#99;&#116;&#105;&#111;&#110;&#115;&#46;&#99;&#111;&#109;">&#119;&#100;&#101;&#110;&#110;&#101;&#121;&#64;&#104;&#117;&#109;&#97;&#110;&#112;&#114;&#101;&#100;&#105;&#99;&#116;&#105;&#111;&#110;&#115;&#46;&#99;&#111;&#109;</a> </p>
+<pre><code>    * R/sha1.R: Increase efficiency of num2hex()
+</code></pre>
+<p>2019-11-07  Bill Denney  <a href="&#109;&#97;&#105;&#108;&#116;&#111;&#58;&#119;&#100;&#101;&#110;&#110;&#101;&#121;&#64;&#104;&#117;&#109;&#97;&#110;&#112;&#114;&#101;&#100;&#105;&#99;&#116;&#105;&#111;&#110;&#115;&#46;&#99;&#111;&#109;">&#119;&#100;&#101;&#110;&#110;&#101;&#121;&#64;&#104;&#117;&#109;&#97;&#110;&#112;&#114;&#101;&#100;&#105;&#99;&#116;&#105;&#111;&#110;&#115;&#46;&#99;&#111;&#109;</a> </p>
+<pre><code>    * NAMESPACE: add sha1_digest() and sha1_attr_digest() functions 
+    * R/sha1.R: Idem 
+    * man/sha1.Rd: Idem 
+    * Also, renamed sha1.rd to sha1.Rd
+</code></pre>
+<p>2019-11-03  Bill Denney  <a href="&#109;&#97;&#105;&#108;&#116;&#111;&#58;&#119;&#100;&#101;&#110;&#110;&#101;&#121;&#64;&#112;&#114;&#101;&#100;&#105;&#99;&#116;&#105;&#111;&#110;&#115;&#46;&#99;&#111;&#109;">&#119;&#100;&#101;&#110;&#110;&#101;&#121;&#64;&#112;&#114;&#101;&#100;&#105;&#99;&#116;&#105;&#111;&#110;&#115;&#46;&#99;&#111;&#109;</a> </p>
+<pre><code>    * R/sha1.R: Add support for the "(" class used in some formulae 
+    * NAMESPACE: Idem 
+    * man/sha1.Rd: Idem; also corrected typo for old version behavior 
+    * inst.tinytest/test_sha1.R: Add tests for the "(" class
+</code></pre>
+<p>2019-10-27  Thierry Onkelinx  <a href="&#109;&#97;&#105;&#108;&#116;&#111;&#58;&#116;&#104;&#105;&#101;&#114;&#114;&#121;&#46;&#111;&#110;&#107;&#101;&#108;&#105;&#110;&#120;&#64;&#105;&#110;&#98;&#111;&#46;&#98;&#101;">&#116;&#104;&#105;&#101;&#114;&#114;&#121;&#46;&#111;&#110;&#107;&#101;&#108;&#105;&#110;&#120;&#64;&#105;&#110;&#98;&#111;&#46;&#98;&#101;</a> </p>
+<pre><code>    * DESCRIPTION (Version, Date): Roll minor version
+
+    * R/sha1.R: consider object attributes when calculating the hash 
+    * man/sha1.Rd: update documentation 
+    * R/init.R: add "sha1PackageVersion" option 
+    * inst.tinytest/test_sha1.R: add units tests for new functionality
+
+    * NAMESPACE:  import utils::packageVersion
+</code></pre>
+<p>2019-10-26  Dirk Eddelbuettel  <a href="&#109;&#97;&#105;&#108;&#116;&#111;&#58;&#101;&#100;&#100;&#64;&#100;&#101;&#98;&#105;&#97;&#110;&#46;&#111;&#114;&#103;">&#101;&#100;&#100;&#64;&#100;&#101;&#98;&#105;&#97;&#110;&#46;&#111;&#114;&#103;</a> </p>
+<pre><code>    * DESCRIPTION (Version, Date): Roll minor version
+
+    * R/digest.R (digest): Call enc2utf8() only on Windows; add internal 
+    one-liner function to test for being on Windows
+</code></pre>
+<p>2019-10-23  Dirk Eddelbuettel  <a href="&#109;&#97;&#105;&#108;&#116;&#111;&#58;&#101;&#100;&#100;&#64;&#100;&#101;&#98;&#105;&#97;&#110;&#46;&#111;&#114;&#103;">&#101;&#100;&#100;&#64;&#100;&#101;&#98;&#105;&#97;&#110;&#46;&#111;&#114;&#103;</a> </p>
+<pre><code>    * inst/tinytest/test_encoding.R: Skip test unless on Windows
+</code></pre>
+<p>2019-10-21  Dirk Eddelbuettel  <a href="&#109;&#97;&#105;&#108;&#116;&#111;&#58;&#101;&#100;&#100;&#64;&#100;&#101;&#98;&#105;&#97;&#110;&#46;&#111;&#114;&#103;">&#101;&#100;&#100;&#64;&#100;&#101;&#98;&#105;&#97;&#110;&#46;&#111;&#114;&#103;</a> </p>
+<pre><code>    * DESCRIPTION (Version, Date): Release 0.6.22
+</code></pre>
+<p>2019-10-20  Dirk Eddelbuettel  <a href="&#109;&#97;&#105;&#108;&#116;&#111;&#58;&#101;&#100;&#100;&#64;&#100;&#101;&#98;&#105;&#97;&#110;&#46;&#111;&#114;&#103;">&#101;&#100;&#100;&#64;&#100;&#101;&#98;&#105;&#97;&#110;&#46;&#111;&#114;&#103;</a> </p>
+<pre><code>    * DESCRIPTION (Version, Date): Roll minor version
+
+    * inst/tinytest/test_misc.R: File split off test_digest.R
+</code></pre>
+<p>2019-10-19  Dirk Eddelbuettel  <a href="&#109;&#97;&#105;&#108;&#116;&#111;&#58;&#101;&#100;&#100;&#64;&#100;&#101;&#98;&#105;&#97;&#110;&#46;&#111;&#114;&#103;">&#101;&#100;&#100;&#64;&#100;&#101;&#98;&#105;&#97;&#110;&#46;&#111;&#114;&#103;</a> </p>
+<pre><code>    * DESCRIPTION: Add Ion and Bill to Authors 
+    * README.md: Idem
+</code></pre>
+<p>2019-10-13  Jim Hester <a href="&#109;&#97;&#105;&#108;&#116;&#111;&#58;&#106;&#97;&#109;&#101;&#115;&#46;&#102;&#46;&#104;&#101;&#115;&#116;&#101;&#114;&#64;&#103;&#109;&#97;&#105;&#108;&#46;&#99;&#111;&#109;">&#106;&#97;&#109;&#101;&#115;&#46;&#102;&#46;&#104;&#101;&#115;&#116;&#101;&#114;&#64;&#103;&#109;&#97;&#105;&#108;&#46;&#99;&#111;&#109;</a> </p>
+<pre><code>    * src/digest.c: Add support for UTF-8 file paths on Windows 
+    * R/digest.R: Idem 
+    * inst/tinytest/test_encoding.R: Add tests for UTF-8 file paths.
+</code></pre>
+<p>2019-10-13  Bill Denney <a href="&#109;&#97;&#105;&#108;&#116;&#111;&#58;&#119;&#100;&#101;&#110;&#110;&#101;&#121;&#64;&#104;&#117;&#109;&#97;&#110;&#112;&#114;&#101;&#100;&#105;&#99;&#116;&#105;&#111;&#110;&#115;&#46;&#99;&#111;&#109;">&#119;&#100;&#101;&#110;&#110;&#101;&#121;&#64;&#104;&#117;&#109;&#97;&#110;&#112;&#114;&#101;&#100;&#105;&#99;&#116;&#105;&#111;&#110;&#115;&#46;&#99;&#111;&#109;</a> </p>
+<pre><code>    * R/sha1.R: Add sha1.formula() 
+    * NAMESPACE: Idem 
+    * man/sha1.rd: Idem 
+    * inst/tinytest/test_sha1.R: Add tests for sha1.formula()
+</code></pre>
+<p>2019-10-12  Bill Denney <a href="&#109;&#97;&#105;&#108;&#116;&#111;&#58;&#119;&#100;&#101;&#110;&#110;&#101;&#121;&#64;&#104;&#117;&#109;&#97;&#110;&#112;&#114;&#101;&#100;&#105;&#99;&#116;&#105;&#111;&#110;&#115;&#46;&#99;&#111;&#109;">&#119;&#100;&#101;&#110;&#110;&#101;&#121;&#64;&#104;&#117;&#109;&#97;&#110;&#112;&#114;&#101;&#100;&#105;&#99;&#116;&#105;&#111;&#110;&#115;&#46;&#99;&#111;&#109;</a> </p>
+<pre><code>    * R/sha1.R: Fix issue with num2hex() and input of Inf 
+    * inst/tinytest/test_sha1.R: Add Inf to the tests
+</code></pre>
+<p>2019-10-05  Dirk Eddelbuettel  <a href="&#109;&#97;&#105;&#108;&#116;&#111;&#58;&#101;&#100;&#100;&#64;&#100;&#101;&#98;&#105;&#97;&#110;&#46;&#111;&#114;&#103;">&#101;&#100;&#100;&#64;&#100;&#101;&#98;&#105;&#97;&#110;&#46;&#111;&#114;&#103;</a> </p>
+<pre><code>    * DESCRIPTION (Version, Date): Roll minor version
+
+    * man/digest.Rd: Change three URL references to https 
+    * man/hmac.Rd: Ditto
+
+    * R/utils.R: Move back functions used by digest() + makeVDigest()
+
+    * R/AES.R: Added copyright header 
+    * R/digest.R: Idem 
+    * R/hmac.R: Idem 
+    * R/sha1.R: Idem 
+    * R/vdigest.R: Idem
+</code></pre>
+<p>2019-10-02  Ion Suruceanu  <a href="&#109;&#97;&#105;&#108;&#116;&#111;&#58;&#105;&#111;&#110;&#46;&#115;&#117;&#114;&#117;&#99;&#101;&#97;&#110;&#117;&#64;&#103;&#97;&#112;&#115;&#113;&#117;&#97;&#114;&#101;&#46;&#99;&#111;&#109;">&#105;&#111;&#110;&#46;&#115;&#117;&#114;&#117;&#99;&#101;&#97;&#110;&#117;&#64;&#103;&#97;&#112;&#115;&#113;&#117;&#97;&#114;&#101;&#46;&#99;&#111;&#109;</a> </p>
+<pre><code>    * R/AES.R: Add support for CFB cipher mode 
+    * man/AES.Rd: Add documentation 
+    * inst/tinytest/test_aes.R: Add tests
+</code></pre>
+<p>2019-09-20  Matthew de Queljoe <a href="&#109;&#97;&#105;&#108;&#116;&#111;&#58;&#109;&#97;&#116;&#116;&#104;&#101;&#119;&#46;&#100;&#101;&#113;&#117;&#101;&#108;&#106;&#111;&#101;&#64;&#103;&#109;&#97;&#105;&#108;&#46;&#99;&#111;&#109;">&#109;&#97;&#116;&#116;&#104;&#101;&#119;&#46;&#100;&#101;&#113;&#117;&#101;&#108;&#106;&#111;&#101;&#64;&#103;&#109;&#97;&#105;&#108;&#46;&#99;&#111;&#109;</a> </p>
+<pre><code>    * R/digest.R: refactor digest function 
+    * R/vdigest.R: remove helper functions from file 
+    * R/utils.R: new file to hold helper functions
+</code></pre>
+<p>2019-09-19  Dirk Eddelbuettel  <a href="&#109;&#97;&#105;&#108;&#116;&#111;&#58;&#101;&#100;&#100;&#64;&#100;&#101;&#98;&#105;&#97;&#110;&#46;&#111;&#114;&#103;">&#101;&#100;&#100;&#64;&#100;&#101;&#98;&#105;&#97;&#110;&#46;&#111;&#114;&#103;</a> </p>
+<pre><code>    * DESCRIPTION (Version, Date): Release 0.6.21
+</code></pre>
+<p>2019-09-18  Dirk Eddelbuettel  <a href="&#109;&#97;&#105;&#108;&#116;&#111;&#58;&#101;&#100;&#100;&#64;&#100;&#101;&#98;&#105;&#97;&#110;&#46;&#111;&#114;&#103;">&#101;&#100;&#100;&#64;&#100;&#101;&#98;&#105;&#97;&#110;&#46;&#111;&#114;&#103;</a> </p>
+<pre><code>    * DESCRIPTION (Version, Date): Roll minor version
+
+    * DESCRIPTION (Author): Add Matthew 
+    * README.md (Author): Ditto
+
+    * demo/vectorised.R: Add demo (based on Matthew's PR)
+
+    * R/vdigest.R: Added a handful of #nocov tags 
+    * man/vdigest.Rd: Break up two long lines
+</code></pre>
+<p>2019-09-17  Matthew de Queljoe <a href="&#109;&#97;&#105;&#108;&#116;&#111;&#58;&#109;&#97;&#116;&#116;&#104;&#101;&#119;&#46;&#100;&#101;&#113;&#117;&#101;&#108;&#106;&#111;&#101;&#64;&#103;&#109;&#97;&#105;&#108;&#46;&#99;&#111;&#109;">&#109;&#97;&#116;&#116;&#104;&#101;&#119;&#46;&#100;&#101;&#113;&#117;&#101;&#108;&#106;&#111;&#101;&#64;&#103;&#109;&#97;&#105;&#108;&#46;&#99;&#111;&#109;</a> </p>
+<pre><code>    * src/digest.c: Add vectorised digest function 
+    * R/vdigest.R: Add vectorised digest function factory 
+    * man/vdigest.Rd: Add documentation 
+    * NAMESPACE: Export new function getVDigest 
+    * inst/tinytest/test_digest.R: Add tests
+</code></pre>
+<p>2019-07-04  Dirk Eddelbuettel  <a href="&#109;&#97;&#105;&#108;&#116;&#111;&#58;&#101;&#100;&#100;&#64;&#100;&#101;&#98;&#105;&#97;&#110;&#46;&#111;&#114;&#103;">&#101;&#100;&#100;&#64;&#100;&#101;&#98;&#105;&#97;&#110;&#46;&#111;&#114;&#103;</a> </p>
+<pre><code>    * DESCRIPTION (Version, Date): Release 0.6.20
+</code></pre>
+<p>2019-06-29  Dirk Eddelbuettel  <a href="&#109;&#97;&#105;&#108;&#116;&#111;&#58;&#101;&#100;&#100;&#64;&#100;&#101;&#98;&#105;&#97;&#110;&#46;&#111;&#114;&#103;">&#101;&#100;&#100;&#64;&#100;&#101;&#98;&#105;&#97;&#110;&#46;&#111;&#114;&#103;</a> </p>
+<pre><code>    * README.md: Add installation and continues testing sections
+
+    * .travis.yml (install): Use r-cran-tinytest from PPA
+</code></pre>
+<p>2019-06-23  Dirk Eddelbuettel  <a href="&#109;&#97;&#105;&#108;&#116;&#111;&#58;&#101;&#100;&#100;&#64;&#100;&#101;&#98;&#105;&#97;&#110;&#46;&#111;&#114;&#103;">&#101;&#100;&#100;&#64;&#100;&#101;&#98;&#105;&#97;&#110;&#46;&#111;&#114;&#103;</a> </p>
+<pre><code>    * DESCRIPTION (Version, Date): Roll minor version
+
+    * inst/tinytest/test_num2hex.R: Quieter with sapply
+
+    * test/tinytest/test_aes.R: renamed from testAES.R 
+    * test/tinytest/test_crc32.R: renamed from testCRC32.R 
+    * test/tinytest/test_digest.R: renamed from testDigest.R 
+    * test/tinytest/test_digest2int.R: from testDigest2Int.R 
+    * test/tinytest/test_hmac.R: renamed from testHMAC.R 
+    * test/tinytest/test_num2hex.R: renamed from testNum2Hex.R 
+    * test/tinytest/test_raw.R: renamed from testRaw.R 
+    * test/tinytest/test_sha1.R: renamed from testSHA1.R
+</code></pre>
+<p>2019-06-10  Dirk Eddelbuettel  <a href="&#109;&#97;&#105;&#108;&#116;&#111;&#58;&#101;&#100;&#100;&#64;&#100;&#101;&#98;&#105;&#97;&#110;&#46;&#111;&#114;&#103;">&#101;&#100;&#100;&#64;&#100;&#101;&#98;&#105;&#97;&#110;&#46;&#111;&#114;&#103;</a> </p>
+<pre><code>    * inst/tinytest/testCRC32.R: Use expcect_* functions 
+    * inst/tinytest/testDigest2Int.R: Idem 
+    * inst/tinytest/testNum2Hex.R: Idem 
+    * inst/tinytest/testRaw.R: Idem
+</code></pre>
+<p>2019-05-26  Dirk Eddelbuettel  <a href="&#109;&#97;&#105;&#108;&#116;&#111;&#58;&#101;&#100;&#100;&#64;&#100;&#101;&#98;&#105;&#97;&#110;&#46;&#111;&#114;&#103;">&#101;&#100;&#100;&#64;&#100;&#101;&#98;&#105;&#97;&#110;&#46;&#111;&#114;&#103;</a> </p>
+<pre><code>    * tests/tinytest.R: New test driver using tinytest 
+    * DESCRIPTION (Suggests): Added tinytest 
+    * .travis.yml (install): Install tinytest
+
+    * inst/tinytest/testRaw.R: Converted from tests/raw.R 
+    * inst/tinytest/testCRC32.R: Converted from tests/crc32.R 
+    * inst/tinytest/testDigest2Int.R: From tests/digest2int.R 
+    * inst/tinytest/testNum2Hex.R: From tests/num2hexTest.R 
+    * inst/tinytest/testSHA1.R: Converted from tests/sha1Test.R 
+    * inst/tinytest/testHMAC.R: Converted from tests/hmacTest.R 
+    * inst/tinytest/testAES.R: Converted from tests/aesTest.R 
+    * inst/tinytest/testDigest.R: From tests/digestTest.R
+
+    * R/AES.R: Additional #nocov tags 
+    * R/digest.R: Idem 
+    * R/hmac.R: Idem 
+    * R/sha1.R: Idem
+</code></pre>
+<p>2019-05-19  Dirk Eddelbuettel  <a href="&#109;&#97;&#105;&#108;&#116;&#111;&#58;&#101;&#100;&#100;&#64;&#100;&#101;&#98;&#105;&#97;&#110;&#46;&#111;&#114;&#103;">&#101;&#100;&#100;&#64;&#100;&#101;&#98;&#105;&#97;&#110;&#46;&#111;&#114;&#103;</a> </p>
+<pre><code>    * DESCRIPTION (Version, Date): Release 0.6.19
+
+    * src/SpookyV2.cpp: Add some #nocov tags
+</code></pre>
+<p>2019-05-18  Dirk Eddelbuettel  <a href="&#109;&#97;&#105;&#108;&#116;&#111;&#58;&#101;&#100;&#100;&#64;&#100;&#101;&#98;&#105;&#97;&#110;&#46;&#111;&#114;&#103;">&#101;&#100;&#100;&#64;&#100;&#101;&#98;&#105;&#97;&#110;&#46;&#111;&#114;&#103;</a> </p>
+<pre><code>    * DESCRIPTION (Version, Date): New minor version
+
+    * tests/digestTest.Rout.save: Updated reference output
+</code></pre>
+<p>2019-05-12  Kendon Bell  <a href="&#109;&#97;&#105;&#108;&#116;&#111;&#58;&#98;&#101;&#108;&#108;&#107;&#64;&#108;&#97;&#110;&#100;&#99;&#97;&#114;&#101;&#114;&#101;&#115;&#101;&#97;&#114;&#99;&#104;&#46;&#99;&#111;&#46;&#110;&#122;">&#98;&#101;&#108;&#108;&#107;&#64;&#108;&#97;&#110;&#100;&#99;&#97;&#114;&#101;&#114;&#101;&#115;&#101;&#97;&#114;&#99;&#104;&#46;&#99;&#111;&#46;&#110;&#122;</a> </p>
+<pre><code>    * R/digest.R: Account for 'skip' bytes for streaming algos 
+    * tests/digestTest.R: Adjust test for streaming_algos
+</code></pre>
+<p>2019-05-09  Dirk Eddelbuettel  <a href="&#109;&#97;&#105;&#108;&#116;&#111;&#58;&#101;&#100;&#100;&#64;&#100;&#101;&#98;&#105;&#97;&#110;&#46;&#111;&#114;&#103;">&#101;&#100;&#100;&#64;&#100;&#101;&#98;&#105;&#97;&#110;&#46;&#111;&#114;&#103;</a> </p>
+<pre><code>    * src/Makevars: Added to ensure C++11 compilation standard 
+    * cleanup: Do not delete src/Makevars now that we have one 
+    * tests/digestTest.Rout.save: Updated reference output
+</code></pre>
+<p>2019-05-06  Dirk Eddelbuettel  <a href="&#109;&#97;&#105;&#108;&#116;&#111;&#58;&#101;&#100;&#100;&#64;&#100;&#101;&#98;&#105;&#97;&#110;&#46;&#111;&#114;&#103;">&#101;&#100;&#100;&#64;&#100;&#101;&#98;&#105;&#97;&#110;&#46;&#111;&#114;&#103;</a> </p>
+<pre><code>    * README.md: Mention spookyhash and Kendon 
+    * DESCRIPTION (Description): Mention spookyhash
+</code></pre>
+<p>2019-05-04  Kendon Bell  <a href="&#109;&#97;&#105;&#108;&#116;&#111;&#58;&#98;&#101;&#108;&#108;&#107;&#64;&#108;&#97;&#110;&#100;&#99;&#97;&#114;&#101;&#114;&#101;&#115;&#101;&#97;&#114;&#99;&#104;&#46;&#99;&#111;&#46;&#110;&#122;">&#98;&#101;&#108;&#108;&#107;&#64;&#108;&#97;&#110;&#100;&#99;&#97;&#114;&#101;&#114;&#101;&#115;&#101;&#97;&#114;&#99;&#104;&#46;&#99;&#111;&#46;&#110;&#122;</a> </p>
+<pre><code>    * tests/digestTest.R: Added more tests 
+    * src/spooky_serialize.cpp: Added copyright header
+</code></pre>
+<p>2019-05-04  Dirk Eddelbuettel  <a href="&#109;&#97;&#105;&#108;&#116;&#111;&#58;&#101;&#100;&#100;&#64;&#100;&#101;&#98;&#105;&#97;&#110;&#46;&#111;&#114;&#103;">&#101;&#100;&#100;&#64;&#100;&#101;&#98;&#105;&#97;&#110;&#46;&#111;&#114;&#103;</a> </p>
+<pre><code>    * R/digest.R: Add some #nocov tags 
+    * src/SpookyV2.h: Idem 
+    * src/SpookyV2.cpp: Idem 
+    * src/spooky_serialize.cpp: Idem
+</code></pre>
+<p>2019-05-03  Dirk Eddelbuettel  <a href="&#109;&#97;&#105;&#108;&#116;&#111;&#58;&#101;&#100;&#100;&#64;&#100;&#101;&#98;&#105;&#97;&#110;&#46;&#111;&#114;&#103;">&#101;&#100;&#100;&#64;&#100;&#101;&#98;&#105;&#97;&#110;&#46;&#111;&#114;&#103;</a> </p>
+<pre><code>    * tests/digestTest.Rout.save: Updated reference output
+</code></pre>
+<p>2019-04-30  Kendon Bell  <a href="&#109;&#97;&#105;&#108;&#116;&#111;&#58;&#98;&#101;&#108;&#108;&#107;&#64;&#108;&#97;&#110;&#100;&#99;&#97;&#114;&#101;&#114;&#101;&#115;&#101;&#97;&#114;&#99;&#104;&#46;&#99;&#111;&#46;&#110;&#122;">&#98;&#101;&#108;&#108;&#107;&#64;&#108;&#97;&#110;&#100;&#99;&#97;&#114;&#101;&#114;&#101;&#115;&#101;&#97;&#114;&#99;&#104;&#46;&#99;&#111;&#46;&#110;&#122;</a> </p>
+<pre><code>    * digest.R: Support spookyhash 
+    * src/SpookyV2.h: Idem 
+    * src/SpookyV2.cpp: Idem 
+    * src/spooky_serialize.cpp: Idem 
+    * man/digest.Rd: Document spookyhash
+</code></pre>
+<p>2019-04-23  Kendon Bell  <a href="&#109;&#97;&#105;&#108;&#116;&#111;&#58;&#98;&#101;&#108;&#108;&#107;&#64;&#108;&#97;&#110;&#100;&#99;&#97;&#114;&#101;&#114;&#101;&#115;&#101;&#97;&#114;&#99;&#104;&#46;&#99;&#111;&#46;&#110;&#122;">&#98;&#101;&#108;&#108;&#107;&#64;&#108;&#97;&#110;&#100;&#99;&#97;&#114;&#101;&#114;&#101;&#115;&#101;&#97;&#114;&#99;&#104;&#46;&#99;&#111;&#46;&#110;&#122;</a> </p>
+<pre><code>    * src/digest.c: Switch length counter to R_xlen_t
+</code></pre>
+<h3 id="2018">2018</h3>
+<p>2018-12-23  Dirk Eddelbuettel  <a href="&#109;&#97;&#105;&#108;&#116;&#111;&#58;&#101;&#100;&#100;&#64;&#100;&#101;&#98;&#105;&#97;&#110;&#46;&#111;&#114;&#103;">&#101;&#100;&#100;&#64;&#100;&#101;&#98;&#105;&#97;&#110;&#46;&#111;&#114;&#103;</a> </p>
+<pre><code>    * NAMESPACE: Add .registration=TRUE to useDynLib()
+</code></pre>
+<p>2018-11-10  Dirk Eddelbuettel  <a href="&#109;&#97;&#105;&#108;&#116;&#111;&#58;&#101;&#100;&#100;&#64;&#100;&#101;&#98;&#105;&#97;&#110;&#46;&#111;&#114;&#103;">&#101;&#100;&#100;&#64;&#100;&#101;&#98;&#105;&#97;&#110;&#46;&#111;&#114;&#103;</a> </p>
+<pre><code>    * DESCRIPTION (Version, Date): Roll minor version
+</code></pre>
+<p>2018-11-08  Dmitriy Selivanov  <a href="&#109;&#97;&#105;&#108;&#116;&#111;&#58;&#115;&#101;&#108;&#105;&#118;&#97;&#110;&#111;&#118;&#46;&#100;&#109;&#105;&#116;&#114;&#105;&#121;&#64;&#103;&#109;&#97;&#105;&#108;&#46;&#99;&#111;&#109;">&#115;&#101;&#108;&#105;&#118;&#97;&#110;&#111;&#118;&#46;&#100;&#109;&#105;&#116;&#114;&#105;&#121;&#64;&#103;&#109;&#97;&#105;&#108;&#46;&#99;&#111;&#109;</a> </p>
+<pre><code>    * src/digest2int.c: Removed (bad) redefinition of uint32_t 
+    * tests/digest2intTest.R: Additional test
+</code></pre>
+<p>2018-10-29  Dmitriy Selivanov  <a href="&#109;&#97;&#105;&#108;&#116;&#111;&#58;&#115;&#101;&#108;&#105;&#118;&#97;&#110;&#111;&#118;&#46;&#100;&#109;&#105;&#116;&#114;&#105;&#121;&#64;&#103;&#109;&#97;&#105;&#108;&#46;&#99;&#111;&#109;">&#115;&#101;&#108;&#105;&#118;&#97;&#110;&#111;&#118;&#46;&#100;&#109;&#105;&#116;&#114;&#105;&#121;&#64;&#103;&#109;&#97;&#105;&#108;&#46;&#99;&#111;&#109;</a> </p>
+<pre><code>    * DESCRIPTION (Version, Date):  minor version 
+    * digest2int.R (digest2int): added digest2int 
+    * src/digest2int.c (digest2int): added Bob Jenkins `one_at_a_time` 
+    function for hashing arbitrary character vectors to integer vectors
+</code></pre>
+<p>2018-10-18  Dirk Eddelbuettel  <a href="&#109;&#97;&#105;&#108;&#116;&#111;&#58;&#101;&#100;&#100;&#64;&#100;&#101;&#98;&#105;&#97;&#110;&#46;&#111;&#114;&#103;">&#101;&#100;&#100;&#64;&#100;&#101;&#98;&#105;&#97;&#110;&#46;&#111;&#114;&#103;</a> </p>
+<pre><code>    * README.md: Added dependencies badge
+</code></pre>
+<p>2018-10-10  Dirk Eddelbuettel  <a href="&#109;&#97;&#105;&#108;&#116;&#111;&#58;&#101;&#100;&#100;&#64;&#100;&#101;&#98;&#105;&#97;&#110;&#46;&#111;&#114;&#103;">&#101;&#100;&#100;&#64;&#100;&#101;&#98;&#105;&#97;&#110;&#46;&#111;&#114;&#103;</a> </p>
+<pre><code>    * DESCRIPTION (Date, Version): Release 0.6.18
+</code></pre>
+<p>2018-09-16  Dirk Eddelbuettel  <a href="&#109;&#97;&#105;&#108;&#116;&#111;&#58;&#101;&#100;&#100;&#64;&#100;&#101;&#98;&#105;&#97;&#110;&#46;&#111;&#114;&#103;">&#101;&#100;&#100;&#64;&#100;&#101;&#98;&#105;&#97;&#110;&#46;&#111;&#114;&#103;</a> </p>
+<pre><code>    * src/digest.c (digest): Six more #nocov tags
+
+    * README.md: Small edits
+</code></pre>
+<p>2018-09-14  Dirk Eddelbuettel  <a href="&#109;&#97;&#105;&#108;&#116;&#111;&#58;&#101;&#100;&#100;&#64;&#100;&#101;&#98;&#105;&#97;&#110;&#46;&#111;&#114;&#103;">&#101;&#100;&#100;&#64;&#100;&#101;&#98;&#105;&#97;&#110;&#46;&#111;&#114;&#103;</a> </p>
+<pre><code>    * DESCRIPTION (Version, Date): Roll minor version
+
+    * src/sha2.c: Explicitly #undef SHA256_ and SHA384_ functions not 
+    used from this file
+</code></pre>
+<p>2018-09-13  Radford Neal  <a href="&#109;&#97;&#105;&#108;&#116;&#111;&#58;&#114;&#97;&#100;&#102;&#111;&#114;&#100;&#110;&#101;&#97;&#108;&#64;&#103;&#109;&#97;&#105;&#108;&#46;&#99;&#111;&#109;">&#114;&#97;&#100;&#102;&#111;&#114;&#100;&#110;&#101;&#97;&#108;&#64;&#103;&#109;&#97;&#105;&#108;&#46;&#99;&#111;&#109;</a> </p>
+<pre><code>    * src/pmurhash.c (DOBYTES): Explicit cast to uint32_t avoids UBSAN
+</code></pre>
+<p>2018-09-13  Jim Hester  <a href="&#109;&#97;&#105;&#108;&#116;&#111;&#58;&#106;&#97;&#109;&#101;&#115;&#46;&#102;&#46;&#104;&#101;&#115;&#116;&#101;&#114;&#64;&#103;&#109;&#97;&#105;&#108;&#46;&#99;&#111;&#109;">&#106;&#97;&#109;&#101;&#115;&#46;&#102;&#46;&#104;&#101;&#115;&#116;&#101;&#114;&#64;&#103;&#109;&#97;&#105;&#108;&#46;&#99;&#111;&#109;</a> </p>
+<pre><code>    * src/xxhash.c: Updated to use xxHash v0.6.5 
+    * src/xxhash.h: Ditto 
+    * src/digest.c: Ditto
+</code></pre>
+<p>2018-09-11  Dirk Eddelbuettel  <a href="&#109;&#97;&#105;&#108;&#116;&#111;&#58;&#101;&#100;&#100;&#64;&#100;&#101;&#98;&#105;&#97;&#110;&#46;&#111;&#114;&#103;">&#101;&#100;&#100;&#64;&#100;&#101;&#98;&#105;&#97;&#110;&#46;&#111;&#114;&#103;</a> </p>
+<pre><code>    * DESCRIPTION (Date, Version): Release 0.6.17
+</code></pre>
+<p>2018-09-02  Dirk Eddelbuettel  <a href="&#109;&#97;&#105;&#108;&#116;&#111;&#58;&#101;&#100;&#100;&#64;&#100;&#101;&#98;&#105;&#97;&#110;&#46;&#111;&#114;&#103;">&#101;&#100;&#100;&#64;&#100;&#101;&#98;&#105;&#97;&#110;&#46;&#111;&#114;&#103;</a> </p>
+<pre><code>    * .travis.yml: Simplified as covr can be installed from c2d4u
+</code></pre>
+<p>2018-08-30  Radford Neal  <a href="&#109;&#97;&#105;&#108;&#116;&#111;&#58;&#114;&#97;&#100;&#102;&#111;&#114;&#100;&#110;&#101;&#97;&#108;&#64;&#103;&#109;&#97;&#105;&#108;&#46;&#99;&#111;&#109;">&#114;&#97;&#100;&#102;&#111;&#114;&#100;&#110;&#101;&#97;&#108;&#64;&#103;&#109;&#97;&#105;&#108;&#46;&#99;&#111;&#109;</a> </p>
+<pre><code>    * src/sha2.c: Memory alignment changes motivated by 32bit sparc 
+    * src/sha2.h: Ditto
+</code></pre>
+<p>2018-08-21  Dirk Eddelbuettel  <a href="&#109;&#97;&#105;&#108;&#116;&#111;&#58;&#101;&#100;&#100;&#64;&#100;&#101;&#98;&#105;&#97;&#110;&#46;&#111;&#114;&#103;">&#101;&#100;&#100;&#64;&#100;&#101;&#98;&#105;&#97;&#110;&#46;&#111;&#114;&#103;</a> </p>
+<pre><code>    * DESCRIPTION (Date, Version): Release 0.6.16
+</code></pre>
+<p>2018-08-20  Dirk Eddelbuettel  <a href="&#109;&#97;&#105;&#108;&#116;&#111;&#58;&#101;&#100;&#100;&#64;&#100;&#101;&#98;&#105;&#97;&#110;&#46;&#111;&#114;&#103;">&#101;&#100;&#100;&#64;&#100;&#101;&#98;&#105;&#97;&#110;&#46;&#111;&#114;&#103;</a> </p>
+<pre><code>    * tests/digestTest.Rout: Skip one test which creates different 
+    results across versions and operating systems 
+    * tests/digestTest.Rout.save: Ditto
+</code></pre>
+<p>2018-08-19  Dirk Eddelbuettel  <a href="&#109;&#97;&#105;&#108;&#116;&#111;&#58;&#101;&#100;&#100;&#64;&#100;&#101;&#98;&#105;&#97;&#110;&#46;&#111;&#114;&#103;">&#101;&#100;&#100;&#64;&#100;&#101;&#98;&#105;&#97;&#110;&#46;&#111;&#114;&#103;</a> </p>
+<pre><code>    * tests/hmacTest.R: Added raw test 
+    * tests/hmacTest.Rout.save: Updated reference output accordingly
+
+    * tests/raw.R: Added test for 'raw' vector input to sha1()
+
+    * R/sha1.R: Removed no longer needed #nocov tags
+</code></pre>
+<p>2018-07-21  Henrik Bengtsson  <a href="&#109;&#97;&#105;&#108;&#116;&#111;&#58;&#104;&#98;&#64;&#97;&#114;&#111;&#109;&#97;&#45;&#112;&#114;&#111;&#106;&#101;&#99;&#116;&#46;&#111;&#114;&#103;">&#104;&#98;&#64;&#97;&#114;&#111;&#109;&#97;&#45;&#112;&#114;&#111;&#106;&#101;&#99;&#116;&#46;&#111;&#114;&#103;</a> </p>
+<pre><code>    * DESCRIPTION: digest (&gt;= 0.6.14) requires R (&gt;= 3.0.3)
+</code></pre>
+<p>2018-06-30  Dirk Eddelbuettel  <a href="&#109;&#97;&#105;&#108;&#116;&#111;&#58;&#101;&#100;&#100;&#64;&#100;&#101;&#98;&#105;&#97;&#110;&#46;&#111;&#114;&#103;">&#101;&#100;&#100;&#64;&#100;&#101;&#98;&#105;&#97;&#110;&#46;&#111;&#114;&#103;</a> </p>
+<pre><code>    * tests/crc32.R: Added test for crc32 and old versus new formats 
+    * tests/raw.R: Added small test file for raw tests
+</code></pre>
+<p>2018-06-29  Dirk Eddelbuettel  <a href="&#109;&#97;&#105;&#108;&#116;&#111;&#58;&#101;&#100;&#100;&#64;&#100;&#101;&#98;&#105;&#97;&#110;&#46;&#111;&#114;&#103;">&#101;&#100;&#100;&#64;&#100;&#101;&#98;&#105;&#97;&#110;&#46;&#111;&#114;&#103;</a> </p>
+<pre><code>    * R/init.R: Provide option 'digestOldCRC32Format' which if TRUE 
+    returns without zero padding which can be shorter than eight bytes 
+    * R/digest.R: If crc32 selected and option set, return in old format 
+    * man/digest.Rd: Document new option
+</code></pre>
+<p>2018-06-28  Dirk Eddelbuettel  <a href="&#109;&#97;&#105;&#108;&#116;&#111;&#58;&#101;&#100;&#100;&#64;&#100;&#101;&#98;&#105;&#97;&#110;&#46;&#111;&#114;&#103;">&#101;&#100;&#100;&#64;&#100;&#101;&#98;&#105;&#97;&#110;&#46;&#111;&#114;&#103;</a> </p>
+<pre><code>    * src/digest.c (digest): Change print format for crc32 to always 
+    return eight characters and no longer drop leading zeros (thanks to 
+    Henrik Bengtsson for the heads-up)
+</code></pre>
+<p>2018-06-21  Dirk Eddelbuettel  <a href="&#109;&#97;&#105;&#108;&#116;&#111;&#58;&#101;&#100;&#100;&#64;&#100;&#101;&#98;&#105;&#97;&#110;&#46;&#111;&#114;&#103;">&#101;&#100;&#100;&#64;&#100;&#101;&#98;&#105;&#97;&#110;&#46;&#111;&#114;&#103;</a> </p>
+<pre><code>    * tests/sha1Test.R: Do not run test using serialize() as its output 
+    always reflects the R version used (thanks, Radford Neal)
+</code></pre>
+<p>2018-01-29  Dirk Eddelbuettel  <a href="&#109;&#97;&#105;&#108;&#116;&#111;&#58;&#101;&#100;&#100;&#64;&#100;&#101;&#98;&#105;&#97;&#110;&#46;&#111;&#114;&#103;">&#101;&#100;&#100;&#64;&#100;&#101;&#98;&#105;&#97;&#110;&#46;&#111;&#114;&#103;</a> </p>
+<pre><code>    * src/sha2.c: Comment-out three unused 'const static' variables
+</code></pre>
+<p>2018-01-28  Dirk Eddelbuettel  <a href="&#109;&#97;&#105;&#108;&#116;&#111;&#58;&#101;&#100;&#100;&#64;&#100;&#101;&#98;&#105;&#97;&#110;&#46;&#111;&#114;&#103;">&#101;&#100;&#100;&#64;&#100;&#101;&#98;&#105;&#97;&#110;&#46;&#111;&#114;&#103;</a> </p>
+<pre><code>    * DESCRIPTION (Date, Version): Release 0.6.15
+
+    * R/sha1.R (sha1.POSIXlt): Unclass POSIXlt objects as suggested by 
+    Kurt Hornik to accomodate R-devel changes
+
+    * tests/sha1Test.R: Condition one sha1 test seemingly affected by 
+    R-devel serialization changes to run only with R &lt; 3.5.0
+</code></pre>
+<p>2018-01-21  Thierry Onkelinx  <a href="&#109;&#97;&#105;&#108;&#116;&#111;&#58;&#116;&#104;&#105;&#101;&#114;&#114;&#121;&#46;&#111;&#110;&#107;&#101;&#108;&#105;&#110;&#120;&#64;&#105;&#110;&#98;&#111;&#46;&#98;&#101;">&#116;&#104;&#105;&#101;&#114;&#114;&#121;&#46;&#111;&#110;&#107;&#101;&#108;&#105;&#110;&#120;&#64;&#105;&#110;&#98;&#111;&#46;&#98;&#101;</a> </p>
+<pre><code>    * sha1() gains an `algo` argument 
+    * sha1() handles raw class
+</code></pre>
+<p>2018-01-14  Dirk Eddelbuettel  <a href="&#109;&#97;&#105;&#108;&#116;&#111;&#58;&#101;&#100;&#100;&#64;&#100;&#101;&#98;&#105;&#97;&#110;&#46;&#111;&#114;&#103;">&#101;&#100;&#100;&#64;&#100;&#101;&#98;&#105;&#97;&#110;&#46;&#111;&#114;&#103;</a> </p>
+<pre><code>    * DESCRIPTION (Date, Version): Release 0.6.14
+
+    * man/AES.Rd: Use https for nist.gov reference 
+    * man/digest.Rd: Idem 
+    * man/hmac.Rd: Idem
+
+    * man/digest.Rd: Use Wikiepedia page as reference for SHA1 as the 
+    reference page at NIST has (long) vanished. 
+    * man/hmac.Rd: Idem
+</code></pre>
+<p>2018-01-12  Thierry Onkelinx  <a href="&#109;&#97;&#105;&#108;&#116;&#111;&#58;&#116;&#104;&#105;&#101;&#114;&#114;&#121;&#46;&#111;&#110;&#107;&#101;&#108;&#105;&#110;&#120;&#64;&#105;&#110;&#98;&#111;&#46;&#98;&#101;">&#116;&#104;&#105;&#101;&#114;&#114;&#121;&#46;&#111;&#110;&#107;&#101;&#108;&#105;&#110;&#120;&#64;&#105;&#110;&#98;&#111;&#46;&#98;&#101;</a> </p>
+<pre><code>    * sha1() handles empty matrices
+</code></pre>
+<h3 id="2017">2017</h3>
+<p>2017-12-20  Dirk Eddelbuettel  <a href="&#109;&#97;&#105;&#108;&#116;&#111;&#58;&#101;&#100;&#100;&#64;&#100;&#101;&#98;&#105;&#97;&#110;&#46;&#111;&#114;&#103;">&#101;&#100;&#100;&#64;&#100;&#101;&#98;&#105;&#97;&#110;&#46;&#111;&#114;&#103;</a> </p>
+<pre><code>    * src/raes.c (AESencryptECB,AESdecryptECD): Replace two uses of NAMED 
+    with MAYBE_REFERENCED
+</code></pre>
+<p>2017-12-13  Dirk Eddelbuettel  <a href="&#109;&#97;&#105;&#108;&#116;&#111;&#58;&#101;&#100;&#100;&#64;&#100;&#101;&#98;&#105;&#97;&#110;&#46;&#111;&#114;&#103;">&#101;&#100;&#100;&#64;&#100;&#101;&#98;&#105;&#97;&#110;&#46;&#111;&#114;&#103;</a> </p>
+<pre><code>    * DESCRIPTION (Date, Version): Release 0.6.13
+</code></pre>
+<p>2017-12-12  Dirk Eddelbuettel  <a href="&#109;&#97;&#105;&#108;&#116;&#111;&#58;&#101;&#100;&#100;&#64;&#100;&#101;&#98;&#105;&#97;&#110;&#46;&#111;&#114;&#103;">&#101;&#100;&#100;&#64;&#100;&#101;&#98;&#105;&#97;&#110;&#46;&#111;&#114;&#103;</a> </p>
+<pre><code>    * DESCRIPTION (Version, Date): New minor version
+
+    * R/digest.R: Support serializeVersion format 
+    * man/digest.Rd: Document new option
+
+    * R/init.R: Set a default version, and internal getter function
+</code></pre>
+<p>2017-10-12  Chris Muir  <a href="&#109;&#97;&#105;&#108;&#116;&#111;&#58;&#99;&#104;&#114;&#105;&#115;&#109;&#117;&#105;&#114;&#82;&#86;&#65;&#64;&#103;&#109;&#97;&#105;&#108;&#46;&#99;&#111;&#109;">&#99;&#104;&#114;&#105;&#115;&#109;&#117;&#105;&#114;&#82;&#86;&#65;&#64;&#103;&#109;&#97;&#105;&#108;&#46;&#99;&#111;&#109;</a> </p>
+<pre><code>    * vignette/sha1.Rmd: Correct simple typo
+</code></pre>
+<p>2017-11-16  Moritz Beller  <a href="&#109;&#97;&#105;&#108;&#116;&#111;&#58;&#73;&#110;&#118;&#101;&#110;&#116;&#105;&#116;&#101;&#99;&#104;&#64;&#117;&#115;&#101;&#114;&#115;&#46;&#110;&#111;&#114;&#101;&#112;&#108;&#121;&#46;&#103;&#105;&#116;&#104;&#117;&#98;&#46;&#99;&#111;&#109;">&#73;&#110;&#118;&#101;&#110;&#116;&#105;&#116;&#101;&#99;&#104;&#64;&#117;&#115;&#101;&#114;&#115;&#46;&#110;&#111;&#114;&#101;&#112;&#108;&#121;&#46;&#103;&#105;&#116;&#104;&#117;&#98;&#46;&#99;&#111;&#109;</a> </p>
+<pre><code>    * man/digest.Rd: Replace old Google Code URLs with GitHub ones
+</code></pre>
+<p>2017-02-20  Dirk Eddelbuettel  <a href="&#109;&#97;&#105;&#108;&#116;&#111;&#58;&#101;&#100;&#100;&#64;&#100;&#101;&#98;&#105;&#97;&#110;&#46;&#111;&#114;&#103;">&#101;&#100;&#100;&#64;&#100;&#101;&#98;&#105;&#97;&#110;&#46;&#111;&#114;&#103;</a> </p>
+<pre><code>    * man/digest.Rd: Expand example section with a Vectorize() use
+</code></pre>
+<p>2017-01-29  Dirk Eddelbuettel  <a href="&#109;&#97;&#105;&#108;&#116;&#111;&#58;&#101;&#100;&#100;&#64;&#100;&#101;&#98;&#105;&#97;&#110;&#46;&#111;&#114;&#103;">&#101;&#100;&#100;&#64;&#100;&#101;&#98;&#105;&#97;&#110;&#46;&#111;&#114;&#103;</a> </p>
+<pre><code>    * DESCRIPTION (Version, Date): Roll minor version
+
+    * man/digest.Rd: Note that support for 'raw' is not available for all 
+    hashing algorithms
+
+    * .travis.yml (before_install): Use https for curl fetch
+</code></pre>
+<p>2017-01-26  Dirk Eddelbuettel  <a href="&#109;&#97;&#105;&#108;&#116;&#111;&#58;&#101;&#100;&#100;&#64;&#100;&#101;&#98;&#105;&#97;&#110;&#46;&#111;&#114;&#103;">&#101;&#100;&#100;&#64;&#100;&#101;&#98;&#105;&#97;&#110;&#46;&#111;&#114;&#103;</a> </p>
+<pre><code>    * DESCRIPTION (Version, Date): Release 0.6.12
+</code></pre>
+<p>2017-01-23  Thierry Onkelinx <a href="&#109;&#97;&#105;&#108;&#116;&#111;&#58;&#116;&#104;&#105;&#101;&#114;&#114;&#121;&#46;&#111;&#110;&#107;&#101;&#108;&#105;&#110;&#120;&#64;&#105;&#110;&#98;&#111;&#46;&#98;&#101;">&#116;&#104;&#105;&#101;&#114;&#114;&#121;&#46;&#111;&#110;&#107;&#101;&#108;&#105;&#110;&#120;&#64;&#105;&#110;&#98;&#111;&#46;&#98;&#101;</a> </p>
+<pre><code>    * NAMESPACE: export sha1.function() and sha1.call()
+
+    * R/sha1.R: 
+      - sha1() gains methods for the class "function" and "call" 
+      - sha1() gains a ... argument, currently only relevant for 
+        "function" 
+      - sha1() takes arguments into account for hash for complex, 
+        Date and array. Note that this will lead to different 
+        hasheS for these classes and for objects containing 
+        these classes
+
+    * man/sha1.rd: update helppage for sha1()
+
+    * tests/sha1Test.R: update unit tests for sha1()
+</code></pre>
+<p>2017-01-01  Dirk Eddelbuettel  <a href="&#109;&#97;&#105;&#108;&#116;&#111;&#58;&#101;&#100;&#100;&#64;&#100;&#101;&#98;&#105;&#97;&#110;&#46;&#111;&#114;&#103;">&#101;&#100;&#100;&#64;&#100;&#101;&#98;&#105;&#97;&#110;&#46;&#111;&#114;&#103;</a> </p>
+<pre><code>    * DESCRIPTION (Version, Date): Release 0.6.11
+
+    * R/sha1.R (sha1.anova): Added more #nocov marks 
+    * src/sha2.c (SHA256_Transform): Idem
+
+    * tests/AESTest.R (hextextToRaw): Print AES object 
+    * tests/AESTest.Rout.save: Updated
+</code></pre>
+<h3 id="2016">2016</h3>
+<p>2016-12-08  Dirk Eddelbuettel  <a href="&#109;&#97;&#105;&#108;&#116;&#111;&#58;&#101;&#100;&#100;&#64;&#100;&#101;&#98;&#105;&#97;&#110;&#46;&#111;&#114;&#103;">&#101;&#100;&#100;&#64;&#100;&#101;&#98;&#105;&#97;&#110;&#46;&#111;&#114;&#103;</a> </p>
+<pre><code>    * NAMESPACE: Register (and exported) makeRaw S3 methods
+
+    * man/makeRaw.Rd: New manual page
+
+    * tests/hmacTest.R: Direct call to makeRaw() 
+    * tests/hmacTest.Rout.save: Ditto
+
+    * src/digest.c: Additional #nocov tags 
+    * src/xxhash.c: Ditto
+</code></pre>
+<p>2016-12-07  Dirk Eddelbuettel  <a href="&#109;&#97;&#105;&#108;&#116;&#111;&#58;&#101;&#100;&#100;&#64;&#100;&#101;&#98;&#105;&#97;&#110;&#46;&#111;&#114;&#103;">&#101;&#100;&#100;&#64;&#100;&#101;&#98;&#105;&#97;&#110;&#46;&#111;&#114;&#103;</a> </p>
+<pre><code>    * DESCRIPTION (Version, Date): Rolled minor version
+
+    * README.md: Use shields.io badge for codecov
+
+    * R/digest.R: Additional #nocov tags 
+    * src/sha2.c: Ditto 
+    * src/raes.c: Ditto
+
+    * tests/hmacTest.R: Additional tests 
+    * tests/hmacTest.Rout.save: Ditto
+</code></pre>
+<p>2016-11-30  Dirk Eddelbuettel  <a href="&#109;&#97;&#105;&#108;&#116;&#111;&#58;&#101;&#100;&#100;&#64;&#100;&#101;&#98;&#105;&#97;&#110;&#46;&#111;&#114;&#103;">&#101;&#100;&#100;&#64;&#100;&#101;&#98;&#105;&#97;&#110;&#46;&#111;&#114;&#103;</a> </p>
+<pre><code>    * .travis.yml (before_install): Activate PPA as we (currently) 
+    need an updated version of (r-cran)-covr to run coverage 
+    * tests/load-unload.R: Comment-out for now as it upsets coverage
+
+    * tests/digestTest.R: Test two more algorithms 
+    * tests/digestTest.Rout.save: Updated reference output
+
+    * R/digest.R: Added #nocov tags 
+    * R/zzz.R (.onUnload): Ditto 
+    * src/crc32.c: Ditto 
+    * src/pmurhash.c: Ditto 
+    * src/raes.c: Ditto 
+    * src/sha2.c: Ditto 
+    * src/xxhash.c: Ditto
+</code></pre>
+<p>2016-11-26  Dirk Eddelbuettel  <a href="&#109;&#97;&#105;&#108;&#116;&#111;&#58;&#101;&#100;&#100;&#64;&#100;&#101;&#98;&#105;&#97;&#110;&#46;&#111;&#114;&#103;">&#101;&#100;&#100;&#64;&#100;&#101;&#98;&#105;&#97;&#110;&#46;&#111;&#114;&#103;</a> </p>
+<pre><code>    * .travis.yml (after_success): Integrated Jim Hester's suggestion of 
+    activating code coverage sent many moons ago (in PR #12) 
+    * .codecov.yml (comment): Added 
+    * .Rbuildignore: Exclude .codecov.yml 
+    * README.md: Added code coverage badge
+</code></pre>
+<p>2016-10-16  Dirk Eddelbuettel  <a href="&#109;&#97;&#105;&#108;&#116;&#111;&#58;&#101;&#100;&#100;&#64;&#100;&#101;&#98;&#105;&#97;&#110;&#46;&#111;&#114;&#103;">&#101;&#100;&#100;&#64;&#100;&#101;&#98;&#105;&#97;&#110;&#46;&#111;&#114;&#103;</a> </p>
+<pre><code>    * R/digest.R (digest): Support 'nosharing' option of base::serialize 
+    as suggested by Radford Neal whose pqR uses this
+</code></pre>
+<p>2016-08-02  Dirk Eddelbuettel  <a href="&#109;&#97;&#105;&#108;&#116;&#111;&#58;&#101;&#100;&#100;&#64;&#100;&#101;&#98;&#105;&#97;&#110;&#46;&#111;&#114;&#103;">&#101;&#100;&#100;&#64;&#100;&#101;&#98;&#105;&#97;&#110;&#46;&#111;&#114;&#103;</a> </p>
+<pre><code>    * DESCRIPTION (License): Now GPL (&gt;= 2), cf issue 36 on GH
+
+    * README.md: Updated badge accordingly
+</code></pre>
+<p>2016-08-02  Dirk Eddelbuettel  <a href="&#109;&#97;&#105;&#108;&#116;&#111;&#58;&#101;&#100;&#100;&#64;&#100;&#101;&#98;&#105;&#97;&#110;&#46;&#111;&#114;&#103;">&#101;&#100;&#100;&#64;&#100;&#101;&#98;&#105;&#97;&#110;&#46;&#111;&#114;&#103;</a> </p>
+<pre><code>    * DESCRIPTION (Version): Release 0.6.10
+
+    * DESCRIPTION (Description): Shortened to one paragraph 
+    * DESCRIPTION (BugReports): URL to GH issues added
+
+    * .travis.yml: Rewritten for run.sh from forked r-travis
+</code></pre>
+<p>2016-07-12  Henrik Bengtsson  <a href="&#109;&#97;&#105;&#108;&#116;&#111;&#58;&#104;&#98;&#64;&#97;&#114;&#111;&#109;&#97;&#45;&#112;&#114;&#111;&#106;&#101;&#99;&#116;&#46;&#111;&#114;&#103;">&#104;&#98;&#64;&#97;&#114;&#111;&#109;&#97;&#45;&#112;&#114;&#111;&#106;&#101;&#99;&#116;&#46;&#111;&#114;&#103;</a> </p>
+<pre><code>    * src/digest.c: Correct bug with skip and file parameter interaction 
+    * tests/digestTest.R: Test code 
+    * tests/digestTest.Rout.save: Test reference output
+
+    * R/zzz.R: Allow for unloading of shared library 
+    * tests/load-unload.R: Test code
+
+    * DESCRIPTION: Rolled minor Version and Date
+</code></pre>
+<p>2016-05-25 Thierry Onkelinx <a href="&#109;&#97;&#105;&#108;&#116;&#111;&#58;&#116;&#104;&#105;&#101;&#114;&#114;&#121;&#46;&#111;&#110;&#107;&#101;&#108;&#105;&#110;&#120;&#64;&#105;&#110;&#98;&#111;&#46;&#98;&#101;">&#116;&#104;&#105;&#101;&#114;&#114;&#121;&#46;&#111;&#110;&#107;&#101;&#108;&#105;&#110;&#120;&#64;&#105;&#110;&#98;&#111;&#46;&#98;&#101;</a> </p>
+<pre><code>    * R/sha1.R: Support for pairlist and name 
+    * tests/sha1Test.R: Support for pairlist and name 
+    * man/sha1.Rd: Support for pairlist, name, complex, array and Date 
+    * NAMESPACE: Support for pairlist, name and array 
+    * DESCRIPTION: bump version number and date
+</code></pre>
+<p>2016-05-01  Viliam Simko  <a href="&#109;&#97;&#105;&#108;&#116;&#111;&#58;&#118;&#105;&#108;&#105;&#97;&#109;&#46;&#115;&#105;&#109;&#107;&#111;&#64;&#103;&#109;&#97;&#105;&#108;&#46;&#99;&#111;&#109;">&#118;&#105;&#108;&#105;&#97;&#109;&#46;&#115;&#105;&#109;&#107;&#111;&#64;&#103;&#109;&#97;&#105;&#108;&#46;&#99;&#111;&#109;</a> </p>
+<pre><code>    * R/sha1.R: Support for complex, Date and array 
+    * tests/sha1Test.R: Ditto 
+    * NAMESPACE: Ditto
+</code></pre>
+<p>2016-04-27  Dirk Eddelbuettel  <a href="&#109;&#97;&#105;&#108;&#116;&#111;&#58;&#101;&#100;&#100;&#64;&#100;&#101;&#98;&#105;&#97;&#110;&#46;&#111;&#114;&#103;">&#101;&#100;&#100;&#64;&#100;&#101;&#98;&#105;&#97;&#110;&#46;&#111;&#114;&#103;</a> </p>
+<pre><code>    * DESCRIPTION (Author): Add Qiang Kou to Authors 
+    * README.md: Ditto
+</code></pre>
+<p>2016-01-25  Dirk Eddelbuettel  <a href="&#109;&#97;&#105;&#108;&#116;&#111;&#58;&#101;&#100;&#100;&#64;&#100;&#101;&#98;&#105;&#97;&#110;&#46;&#111;&#114;&#103;">&#101;&#100;&#100;&#64;&#100;&#101;&#98;&#105;&#97;&#110;&#46;&#111;&#114;&#103;</a> </p>
+<pre><code>    * src/digest.c (digest): Use XLENGTH if R &gt;= 3.0.0 (issue #29)
+</code></pre>
+<p>2016-01-11 Thierry Onkelinx  <a href="&#109;&#97;&#105;&#108;&#116;&#111;&#58;&#116;&#104;&#105;&#101;&#114;&#114;&#121;&#46;&#111;&#110;&#107;&#101;&#108;&#105;&#110;&#120;&#64;&#105;&#110;&#98;&#111;&#46;&#98;&#101;">&#116;&#104;&#105;&#101;&#114;&#114;&#121;&#46;&#111;&#110;&#107;&#101;&#108;&#105;&#110;&#120;&#64;&#105;&#110;&#98;&#111;&#46;&#98;&#101;</a> </p>
+<pre><code>    * R/sha1.R: handle empty list and empty dataframe (#issue 27); 
+    take the object class, digits and zapsmall into account (#PR 28)
+
+    * vignettes/sha1.Rmd: Small edits to reflect changes is sha1()
+</code></pre>
+<p>2016-01-09 Michel Lang  <a href="&#109;&#97;&#105;&#108;&#116;&#111;&#58;&#109;&#105;&#99;&#104;&#101;&#108;&#108;&#97;&#110;&#103;&#64;&#103;&#109;&#97;&#105;&#108;&#46;&#99;&#111;&#109;">&#109;&#105;&#99;&#104;&#101;&#108;&#108;&#97;&#110;&#103;&#64;&#103;&#109;&#97;&#105;&#108;&#46;&#99;&#111;&#109;</a> </p>
+<pre><code>    * R/sha1.R: Add a length check to sha1(), use vapply()
+</code></pre>
+<p>2016-01-07  Dirk Eddelbuettel  <a href="&#109;&#97;&#105;&#108;&#116;&#111;&#58;&#101;&#100;&#100;&#64;&#100;&#101;&#98;&#105;&#97;&#110;&#46;&#111;&#114;&#103;">&#101;&#100;&#100;&#64;&#100;&#101;&#98;&#105;&#97;&#110;&#46;&#111;&#114;&#103;</a> </p>
+<pre><code>    * DESCRIPTION (Version): Version 0.6.9
+
+    * DESCRIPTION (Date): Bumped Date: to current date
+</code></pre>
+<p>2016-01-06  Dirk Eddelbuettel  <a href="&#109;&#97;&#105;&#108;&#116;&#111;&#58;&#101;&#100;&#100;&#64;&#100;&#101;&#98;&#105;&#97;&#110;&#46;&#111;&#114;&#103;">&#101;&#100;&#100;&#64;&#100;&#101;&#98;&#105;&#97;&#110;&#46;&#111;&#114;&#103;</a> </p>
+<pre><code>    * vignettes/sha1.Rmd: Small edits
+</code></pre>
+<p>2016-01-06  Thierry Onkelinx <a href="&#109;&#97;&#105;&#108;&#116;&#111;&#58;&#116;&#104;&#105;&#101;&#114;&#114;&#121;&#46;&#111;&#110;&#107;&#101;&#108;&#105;&#110;&#120;&#64;&#105;&#110;&#98;&#111;&#46;&#98;&#101;">&#116;&#104;&#105;&#101;&#114;&#114;&#121;&#46;&#111;&#110;&#107;&#101;&#108;&#105;&#110;&#120;&#64;&#105;&#110;&#98;&#111;&#46;&#98;&#101;</a> </p>
+<pre><code>    * R/sha1.R: Add functions to calculate stable SHA1 with floating points 
+    * man/sha1.Rd: Add helpfile for sha1()
+
+    * tests/num2hexTest.R: unit tests for num2hex() (non exported function) 
+    * tests/sha1Test.R: unit tests for sha1()
+
+    * NAMESPACE: Export sha1 and its methods
+
+    * DESCRIPTION: Add Thierry Onkelinx as contributor, bump Version and Date 
+    * README.md: Add Thierry Onkelinx as contributor
+
+    * vignette/sha1.Rmd: Added
+
+    * .travis.yml: Added 'sudo: required' per recent Travis changes
+</code></pre>
+<h3 id="2015">2015</h3>
+<p>2015-10-14  Dirk Eddelbuettel  <a href="&#109;&#97;&#105;&#108;&#116;&#111;&#58;&#101;&#100;&#100;&#64;&#100;&#101;&#98;&#105;&#97;&#110;&#46;&#111;&#114;&#103;">&#101;&#100;&#100;&#64;&#100;&#101;&#98;&#105;&#97;&#110;&#46;&#111;&#114;&#103;</a> </p>
+<pre><code>    * man/digest.Rd: Remove references to inaccessible web pages 
+    * man/hmac.Rd: Ditto
+</code></pre>
+<p>2015-10-13  Dirk Eddelbuettel  <a href="&#109;&#97;&#105;&#108;&#116;&#111;&#58;&#101;&#100;&#100;&#64;&#100;&#101;&#98;&#105;&#97;&#110;&#46;&#111;&#114;&#103;">&#101;&#100;&#100;&#64;&#100;&#101;&#98;&#105;&#97;&#110;&#46;&#111;&#114;&#103;</a> </p>
+<pre><code>    * src/digest.c: Use uint32_t instead of int for nchar
+</code></pre>
+<p>2015-10-12  Qiang Kou <a href="&#109;&#97;&#105;&#108;&#116;&#111;&#58;&#113;&#107;&#111;&#117;&#64;&#117;&#109;&#97;&#105;&#108;&#46;&#105;&#117;&#46;&#101;&#100;&#117;">&#113;&#107;&#111;&#117;&#64;&#117;&#109;&#97;&#105;&#108;&#46;&#105;&#117;&#46;&#101;&#100;&#117;</a> </p>
+<pre><code>    * src/digest.c: Use XLENGTH instead of LENGTH (PR #17, issue #16)
+</code></pre>
+<p>2015-08-06  Dirk Eddelbuettel  <a href="&#109;&#97;&#105;&#108;&#116;&#111;&#58;&#101;&#100;&#100;&#64;&#100;&#101;&#98;&#105;&#97;&#110;&#46;&#111;&#114;&#103;">&#101;&#100;&#100;&#64;&#100;&#101;&#98;&#105;&#97;&#110;&#46;&#111;&#114;&#103;</a> </p>
+<pre><code>    * DESCRIPTION (Title): Updated now stressing 'compact' over 'crypto'
+</code></pre>
+<h3 id="2014">2014</h3>
+<p>2014-12-30  Dirk Eddelbuettel  <a href="&#109;&#97;&#105;&#108;&#116;&#111;&#58;&#101;&#100;&#100;&#64;&#100;&#101;&#98;&#105;&#97;&#110;&#46;&#111;&#114;&#103;">&#101;&#100;&#100;&#64;&#100;&#101;&#98;&#105;&#97;&#110;&#46;&#111;&#114;&#103;</a> </p>
+<pre><code>    * DESCRIPTION (Version): Version 0.6.8
+
+    * DESCRIPTION (Date): Bumped Date: to current date
+</code></pre>
+<p>2014-12-29  Dirk Eddelbuettel  <a href="&#109;&#97;&#105;&#108;&#116;&#111;&#58;&#101;&#100;&#100;&#64;&#100;&#101;&#98;&#105;&#97;&#110;&#46;&#111;&#114;&#103;">&#101;&#100;&#100;&#64;&#100;&#101;&#98;&#105;&#97;&#110;&#46;&#111;&#114;&#103;</a> </p>
+<pre><code>    * inst/include/pmurhashAPI.h: Added HOWTO comment to top of file
+</code></pre>
+<p>2014-12-26  Dirk Eddelbuettel  <a href="&#109;&#97;&#105;&#108;&#116;&#111;&#58;&#101;&#100;&#100;&#64;&#100;&#101;&#98;&#105;&#97;&#110;&#46;&#111;&#114;&#103;">&#101;&#100;&#100;&#64;&#100;&#101;&#98;&#105;&#97;&#110;&#46;&#111;&#114;&#103;</a> </p>
+<pre><code>    * src/pmurhash.c: Protect against _BIG_ENDIAN defined but empty
+
+    * inst/include/pmurhash.h: Consistent four space indentation
+</code></pre>
+<p>2014-12-25  Dirk Eddelbuettel  <a href="&#109;&#97;&#105;&#108;&#116;&#111;&#58;&#101;&#100;&#100;&#64;&#100;&#101;&#98;&#105;&#97;&#110;&#46;&#111;&#114;&#103;">&#101;&#100;&#100;&#64;&#100;&#101;&#98;&#105;&#97;&#110;&#46;&#111;&#114;&#103;</a> </p>
+<pre><code>    * DESCRIPTION: Bump Date: and Version:
+
+    * src/init.c: Minor edit and removal of unused headers
+</code></pre>
+<p>2014-12-25  Wush Wu  <a href="&#109;&#97;&#105;&#108;&#116;&#111;&#58;&#119;&#117;&#115;&#104;&#57;&#55;&#56;&#64;&#103;&#109;&#97;&#105;&#108;&#46;&#99;&#111;&#109;">&#119;&#117;&#115;&#104;&#57;&#55;&#56;&#64;&#103;&#109;&#97;&#105;&#108;&#46;&#99;&#111;&#109;</a> </p>
+<pre><code>    * inst/include/pmurhash.h: Export function 
+    * src/init.c: Register function for use by other packages
+</code></pre>
+<p>2014-12-20  Dirk Eddelbuettel  <a href="&#109;&#97;&#105;&#108;&#116;&#111;&#58;&#101;&#100;&#100;&#64;&#100;&#101;&#98;&#105;&#97;&#110;&#46;&#111;&#114;&#103;">&#101;&#100;&#100;&#64;&#100;&#101;&#98;&#105;&#97;&#110;&#46;&#111;&#114;&#103;</a> </p>
+<pre><code>    * DESCRIPTION (Version): Version 0.6.7
+
+    * DESCRIPTION (Date): Bumped Date: to current date
+</code></pre>
+<p>2014-12-19  Dirk Eddelbuettel  <a href="&#109;&#97;&#105;&#108;&#116;&#111;&#58;&#101;&#100;&#100;&#64;&#100;&#101;&#98;&#105;&#97;&#110;&#46;&#111;&#114;&#103;">&#101;&#100;&#100;&#64;&#100;&#101;&#98;&#105;&#97;&#110;&#46;&#111;&#114;&#103;</a> </p>
+<pre><code>    * cleanup: Also remove src/symbols.rds
+
+    * src/sha2.c: Apply (slightly edited) patch from 
+    https://www.nlnetlabs.nl/bugs-script/attachment.cgi?id=220&amp;action=diff 
+    to overcome the strict-aliasing warning
+
+    * src/digest.c: Use inttypes.h macro PRIx64 only on Windows
+</code></pre>
+<p>2014-12-16  Dirk Eddelbuettel  <a href="&#109;&#97;&#105;&#108;&#116;&#111;&#58;&#101;&#100;&#100;&#64;&#100;&#101;&#98;&#105;&#97;&#110;&#46;&#111;&#114;&#103;">&#101;&#100;&#100;&#64;&#100;&#101;&#98;&#105;&#97;&#110;&#46;&#111;&#114;&#103;</a> </p>
+<pre><code>    * src/xxhash.c: Remove two semicolons to make gcc -pedantic happy 
+    * tests/digestTest.Rout.save: Updated reflecting murmurHash test 
+    * src/pmurhash.c: Renamed from PMurHash.c for naming consistency 
+    * src/pmurhash.h: Renamed from PMurHash.h for naming consistency
+</code></pre>
+<p>2014-12-16  Jim Hester <a href="&#109;&#97;&#105;&#108;&#116;&#111;&#58;&#106;&#97;&#109;&#101;&#115;&#46;&#102;&#46;&#104;&#101;&#115;&#116;&#101;&#114;&#64;&#103;&#109;&#97;&#105;&#108;&#46;&#99;&#111;&#109;">&#106;&#97;&#109;&#101;&#115;&#46;&#102;&#46;&#104;&#101;&#115;&#116;&#101;&#114;&#64;&#103;&#109;&#97;&#105;&#108;&#46;&#99;&#111;&#109;</a> </p>
+<pre><code>    * src/digest.c: murmurHash implementation 
+    * tests/digestTest.R: murmurHash implementation 
+    * R/digest.R: murmurHash implementation 
+    * src/PMurHash.c: murmurHash implementation 
+    * src/PMurHash.h: murmurHash implementation
+</code></pre>
+<p>2014-12-10  Dirk Eddelbuettel  <a href="&#109;&#97;&#105;&#108;&#116;&#111;&#58;&#101;&#100;&#100;&#64;&#100;&#101;&#98;&#105;&#97;&#110;&#46;&#111;&#114;&#103;">&#101;&#100;&#100;&#64;&#100;&#101;&#98;&#105;&#97;&#110;&#46;&#111;&#114;&#103;</a> </p>
+<pre><code>    * src/xxhash.c: Applied pull request #6 by Jim Hester with updated 
+    upstream code and already corrected UBSAN issue identified by CRAN
+</code></pre>
+<p>2014-12-09  Dirk Eddelbuettel  <a href="&#109;&#97;&#105;&#108;&#116;&#111;&#58;&#101;&#100;&#100;&#64;&#100;&#101;&#98;&#105;&#97;&#110;&#46;&#111;&#114;&#103;">&#101;&#100;&#100;&#64;&#100;&#101;&#98;&#105;&#97;&#110;&#46;&#111;&#114;&#103;</a> </p>
+<pre><code>    * DESCRIPTION (Version): Version 0.6.6
+
+    * DESCRIPTION (Date): Bumped Date: to current date
+
+    * src/digest.c: Applied pull request #5 by Jim Hester providing 
+    portable integer printing inttypes.h header
+</code></pre>
+<p>2014-12-08  Dirk Eddelbuettel  <a href="&#109;&#97;&#105;&#108;&#116;&#111;&#58;&#101;&#100;&#100;&#64;&#100;&#101;&#98;&#105;&#97;&#110;&#46;&#111;&#114;&#103;">&#101;&#100;&#100;&#64;&#100;&#101;&#98;&#105;&#97;&#110;&#46;&#111;&#114;&#103;</a> </p>
+<pre><code>    * DESCRIPTION (Version): Version 0.6.5
+
+    * DESCRIPTION (Date): Bumped Date: to current date
+
+    * NAMESPACE: Expanded useDynLib() declaring C level symbols, in 
+    particular using digest_impl to for the C-level digest
+
+    * R/AES.R: Use R symbols from NAMESPACE declaration in .Call() 
+    * R/digest.R: Use R symbol digest_impl to load C level digest
+</code></pre>
+<p>2014-12-07  Dirk Eddelbuettel  <a href="&#109;&#97;&#105;&#108;&#116;&#111;&#58;&#101;&#100;&#100;&#64;&#100;&#101;&#98;&#105;&#97;&#110;&#46;&#111;&#114;&#103;">&#101;&#100;&#100;&#64;&#100;&#101;&#98;&#105;&#97;&#110;&#46;&#111;&#114;&#103;</a> </p>
+<pre><code>    * DESCRIPTION: Edited Title and Description
+
+    * R/digest.R: Added GPL copyright header, reindented to four spaces
+
+    * src/digest.c: Reindented to four spaces
+
+    * R/AES.R: Reindented to four spaces 
+    * R/hmac.R: Reindented to four spaces
+</code></pre>
+<p>2014-12-06  Dirk Eddelbuettel  <a href="&#109;&#97;&#105;&#108;&#116;&#111;&#58;&#101;&#100;&#100;&#64;&#100;&#101;&#98;&#105;&#97;&#110;&#46;&#111;&#114;&#103;">&#101;&#100;&#100;&#64;&#100;&#101;&#98;&#105;&#97;&#110;&#46;&#111;&#114;&#103;</a> </p>
+<pre><code>    * src/digest.c: Updated GPL copyright header
+
+    * src/xxhash.c: Removed two spurious ';'
+
+    * man/digest.Rd: Document 'seed' argument in \usage
+
+    * tests/digest.Rout.save: Updated for expanded tests
+
+    * DESCRIPTION: Add Jim Hester to list of Authors
+</code></pre>
+<p>2014-12-05  Dirk Eddelbuettel  <a href="&#109;&#97;&#105;&#108;&#116;&#111;&#58;&#101;&#100;&#100;&#64;&#100;&#101;&#98;&#105;&#97;&#110;&#46;&#111;&#114;&#103;">&#101;&#100;&#100;&#64;&#100;&#101;&#98;&#105;&#97;&#110;&#46;&#111;&#114;&#103;</a> </p>
+<pre><code>    * R/digest.R: Applied pull request #3 by Jim Hester with support for 
+    xxHash (https://code.google.com/p/xxhash/) 
+    * src/digest.c: Ditto
+
+    * src/xxhash.c: xxHash implementation supplied as part of #3 
+    * src/xxhash.h: xxHash implementation supplied as part of #3
+
+    * R/digest.R: Applied pull request #4 by Jim Hester with expanded 
+    support for xxHash providing xxhash32 and xxhash64 
+    * src/digest.c: Ditto 
+    * man/digest.Rd: Added documentation for xxHash, corrected typos 
+    * src/digest.R: New support for a seed parameter used by xxHash 
+    * tests/digestTest.R: Added tests for xxHash
+</code></pre>
+<p>2014-08-15  Dirk Eddelbuettel  <a href="&#109;&#97;&#105;&#108;&#116;&#111;&#58;&#101;&#100;&#100;&#64;&#100;&#101;&#98;&#105;&#97;&#110;&#46;&#111;&#114;&#103;">&#101;&#100;&#100;&#64;&#100;&#101;&#98;&#105;&#97;&#110;&#46;&#111;&#114;&#103;</a> </p>
+<pre><code>    * R/hmac.R: Applied (slightly edited) patch for crc32 computation of 
+    hmac kindly supplied by Suchen Jin
+</code></pre>
+<h3 id="2013">2013</h3>
+<p>2013-12-02  Dirk Eddelbuettel  <a href="&#109;&#97;&#105;&#108;&#116;&#111;&#58;&#101;&#100;&#100;&#64;&#100;&#101;&#98;&#105;&#97;&#110;&#46;&#111;&#114;&#103;">&#101;&#100;&#100;&#64;&#100;&#101;&#98;&#105;&#97;&#110;&#46;&#111;&#114;&#103;</a> </p>
+<pre><code>    * DESCRIPTION (Version): Version 0.6.4
+
+    * src/sha2.h (BYTE_ORDER): Define BYTE_ORDER unless already defined, 
+    rely on Rconfig.h which itself goes back to an R compile-time test
+</code></pre>
+<p>2013-02-16  Dirk Eddelbuettel  <a href="&#109;&#97;&#105;&#108;&#116;&#111;&#58;&#101;&#100;&#100;&#64;&#100;&#101;&#98;&#105;&#97;&#110;&#46;&#111;&#114;&#103;">&#101;&#100;&#100;&#64;&#100;&#101;&#98;&#105;&#97;&#110;&#46;&#111;&#114;&#103;</a> </p>
+<pre><code>    * DESCRIPTION (Version): Version 0.6.3
+</code></pre>
+<p>2013-02-06  Hannes Mühleisen  <a href="&#109;&#97;&#105;&#108;&#116;&#111;&#58;&#104;&#97;&#110;&#110;&#101;&#115;&#64;&#99;&#119;&#105;&#46;&#110;&#108;">&#104;&#97;&#110;&#110;&#101;&#115;&#64;&#99;&#119;&#105;&#46;&#110;&#108;</a> </p>
+<pre><code>    * R/hmac.R: Fixed hmac for sha512 hashes 
+    * tests/hmacTest.R: Added test cases for hmac with sha512 
+    * tests/hmacTest.Rout.save: Updated accordingly
+</code></pre>
+<p>2013-01-25  Dirk Eddelbuettel  <a href="&#109;&#97;&#105;&#108;&#116;&#111;&#58;&#101;&#100;&#100;&#64;&#100;&#101;&#98;&#105;&#97;&#110;&#46;&#111;&#114;&#103;">&#101;&#100;&#100;&#64;&#100;&#101;&#98;&#105;&#97;&#110;&#46;&#111;&#114;&#103;</a> </p>
+<pre><code>    * DESCRIPTION (Version): Version 0.6.2
+
+    * man/AES.Rd: Switch from paste0() to paste() to permit use on 
+    R-oldrelease as per email by Uwe Ligges
+
+    * tests/AESTest.R: Idem 
+    * tests/AESTest.Rout.save: Updated accordingly
+</code></pre>
+<p>2013-01-21  Dirk Eddelbuettel  <a href="&#109;&#97;&#105;&#108;&#116;&#111;&#58;&#101;&#100;&#100;&#64;&#100;&#101;&#98;&#105;&#97;&#110;&#46;&#111;&#114;&#103;">&#101;&#100;&#100;&#64;&#100;&#101;&#98;&#105;&#97;&#110;&#46;&#111;&#114;&#103;</a> </p>
+<pre><code>    * DESCRIPTION (Version): Version 0.6.1
+
+    * inst/GPL-2: Added as a fixed reference input for regression tests 
+    via the scripts in tests/ as the versions installed by R differ 
+    across OS and installations
+
+    * tests/digestTest.R: No longer rely on file.path(R.home(),"COPYING") 
+    but rather use our own copy of GPL-2; ensure final test does not print 
+    * tests/digestTest.Rout.save: Updated accordingly
+</code></pre>
+<p>2013-01-19  Dirk Eddelbuettel  <a href="&#109;&#97;&#105;&#108;&#116;&#111;&#58;&#101;&#100;&#100;&#64;&#100;&#101;&#98;&#105;&#97;&#110;&#46;&#111;&#114;&#103;">&#101;&#100;&#100;&#64;&#100;&#101;&#98;&#105;&#97;&#110;&#46;&#111;&#114;&#103;</a> </p>
+<pre><code>    * DESCRIPTION (Authors): Added Duncan Murdoch
+</code></pre>
+<p>2013-01-19  Duncan Murdoch <a href="&#109;&#97;&#105;&#108;&#116;&#111;&#58;&#109;&#117;&#114;&#100;&#111;&#99;&#104;&#46;&#100;&#117;&#110;&#99;&#97;&#110;&#64;&#103;&#109;&#97;&#105;&#108;&#46;&#99;&#111;&#109;">&#109;&#117;&#114;&#100;&#111;&#99;&#104;&#46;&#100;&#117;&#110;&#99;&#97;&#110;&#64;&#103;&#109;&#97;&#105;&#108;&#46;&#99;&#111;&#109;</a> </p>
+<pre><code>    * src/aes.c: Devine's AES implementation added 
+    * src/aes.h: header for AES implementation 
+    * src/raes.c: interface to it 
+    * R/AES.R: Add AES object to do AES encryption 
+    * tests/AESTest.R: tests from the standards documents 
+    * man/AES.Rd: document AES object 
+    * NAMESPACE: export AES constructor and print method
+</code></pre>
+<h3 id="2012">2012</h3>
+<p>2012-11-25  Dirk Eddelbuettel  <a href="&#109;&#97;&#105;&#108;&#116;&#111;&#58;&#101;&#100;&#100;&#64;&#100;&#101;&#98;&#105;&#97;&#110;&#46;&#111;&#114;&#103;">&#101;&#100;&#100;&#64;&#100;&#101;&#98;&#105;&#97;&#110;&#46;&#111;&#114;&#103;</a> </p>
+<pre><code>    * Release 0.6.0
+
+    * src/sha2.h: In order to build on Windows: 
+      - Include the newer header file stdint.h 
+      - Enforce standard integer types by defining SHA2_USE_INTTYPES_H 
+      - Define BYTE_ORDER and default to LITTLE_ENDIAN
+
+    * src/digest.c: Use uint8_t from stdint.h for sha256
+</code></pre>
+<p>2012-11-24  Dirk Eddelbuettel  <a href="&#109;&#97;&#105;&#108;&#116;&#111;&#58;&#101;&#100;&#100;&#64;&#100;&#101;&#98;&#105;&#97;&#110;&#46;&#111;&#114;&#103;">&#101;&#100;&#100;&#64;&#100;&#101;&#98;&#105;&#97;&#110;&#46;&#111;&#114;&#103;</a> </p>
+<pre><code>    * src/digest.c: Allow for extra null character in output[] vector
+
+    * tests/digestTest.Rout.save: Update/Revert a change by Hannes; 
+    Naturally we do not get a single set that works for R-release and 
+    R-devel. Sigh.
+</code></pre>
+<p>2012-11-24  Hannes Mühleisen  <a href="&#109;&#97;&#105;&#108;&#116;&#111;&#58;&#104;&#97;&#110;&#110;&#101;&#115;&#64;&#99;&#119;&#105;&#46;&#110;&#108;">&#104;&#97;&#110;&#110;&#101;&#115;&#64;&#99;&#119;&#105;&#46;&#110;&#108;</a> </p>
+<pre><code>    * src/digest.c: sha-512 integration 
+    * src/sha2.h: Header file for Aaron Gifford's SHA2 implementation 
+    * src/sha2.c: Aaron Gifford's sha2 implementation 
+    * R/digest.R: enabled new sha-512 algorithm parameter 
+    * R/hmac.R: enabled new sha-512 algorithm parameter 
+    * man/digest.Rd: documented new sha-512 algorithm parameter 
+    * man/hmac.Rd: documented new sha-512 algorithm parameter 
+    * tests/digestTest.R: Added sha-512 test cases
+</code></pre>
+<p>2012-03-14  Dirk Eddelbuettel  <a href="&#109;&#97;&#105;&#108;&#116;&#111;&#58;&#101;&#100;&#100;&#64;&#100;&#101;&#98;&#105;&#97;&#110;&#46;&#111;&#114;&#103;">&#101;&#100;&#100;&#64;&#100;&#101;&#98;&#105;&#97;&#110;&#46;&#111;&#114;&#103;</a> </p>
+<pre><code>    * Release 0.5.2
+
+    * Applied patch by Murray Stokely: 
+      - R/digest.R: Additional test for file accessibility; segfault can 
+        happen if inaccesible file passed down 
+      - tests/digestTest.R: New test which leads to segfault in unpatched 
+        package, and passes with these changes 
+      - src/digest.c: Simpler use of error() via format string
+
+    * DESCRIPTION: Fixed one typo in extended description
+
+    * tests/digest.Rout.save: Updated to current output; version 0.5.1 
+    created the same difference so it is presumably once again something 
+    that changed in R's serialization. Oh, and R-devel changes it again.
+</code></pre>
+<h3 id="2011">2011</h3>
+<p>2011-09-20  Dirk Eddelbuettel  <a href="&#109;&#97;&#105;&#108;&#116;&#111;&#58;&#101;&#100;&#100;&#64;&#100;&#101;&#98;&#105;&#97;&#110;&#46;&#111;&#114;&#103;">&#101;&#100;&#100;&#64;&#100;&#101;&#98;&#105;&#97;&#110;&#46;&#111;&#114;&#103;</a> </p>
+<pre><code>    * Release 0.5.1
+
+    * tests/digestTest.Rout.save: Updated reference output too
+</code></pre>
+<p>2011-09-18  Bryan Lewis  <a href="&#109;&#97;&#105;&#108;&#116;&#111;&#58;&#98;&#108;&#101;&#119;&#105;&#115;&#64;&#105;&#108;&#108;&#112;&#111;&#115;&#101;&#100;&#46;&#110;&#101;&#116;">&#98;&#108;&#101;&#119;&#105;&#115;&#64;&#105;&#108;&#108;&#112;&#111;&#115;&#101;&#100;&#46;&#110;&#101;&#116;</a> </p>
+<pre><code>    * tests/digestTest.R: Added basic raw output md5 and sha1 tests
+</code></pre>
+<p>2011-09-14  Dirk Eddelbuettel  <a href="&#109;&#97;&#105;&#108;&#116;&#111;&#58;&#101;&#100;&#100;&#64;&#100;&#101;&#98;&#105;&#97;&#110;&#46;&#111;&#114;&#103;">&#101;&#100;&#100;&#64;&#100;&#101;&#98;&#105;&#97;&#110;&#46;&#111;&#114;&#103;</a> </p>
+<pre><code>    * src/digest.c: Applied patch contributed by Bryan Lewis which 
+    supports output of unmodified raw binary output if a new function 
+    parameter 'raw' (which defaults to FALSE) is set to TRUE 
+    * R/digest.R: Support new parameter 'raw' 
+    * man/digest.Rd: Document new parameter 'raw'
+</code></pre>
+<p>2011-05-29  Dirk Eddelbuettel  <a href="&#109;&#97;&#105;&#108;&#116;&#111;&#58;&#101;&#100;&#100;&#64;&#100;&#101;&#98;&#105;&#97;&#110;&#46;&#111;&#114;&#103;">&#101;&#100;&#100;&#64;&#100;&#101;&#98;&#105;&#97;&#110;&#46;&#111;&#114;&#103;</a> </p>
+<pre><code>    * Release 0.5.0
+</code></pre>
+<p>2011-05-26  Dirk Eddelbuettel  <a href="&#109;&#97;&#105;&#108;&#116;&#111;&#58;&#101;&#100;&#100;&#64;&#100;&#101;&#98;&#105;&#97;&#110;&#46;&#111;&#114;&#103;">&#101;&#100;&#100;&#64;&#100;&#101;&#98;&#105;&#97;&#110;&#46;&#111;&#114;&#103;</a> </p>
+<pre><code>    * R/hmac.R: Switched to camelCase identifiers after discussion with 
+      Henrik and Mario
+</code></pre>
+<p>2011-05-25  Dirk Eddelbuettel  <a href="&#109;&#97;&#105;&#108;&#116;&#111;&#58;&#101;&#100;&#100;&#64;&#100;&#101;&#98;&#105;&#97;&#110;&#46;&#111;&#114;&#103;">&#101;&#100;&#100;&#64;&#100;&#101;&#98;&#105;&#97;&#110;&#46;&#111;&#114;&#103;</a> </p>
+<pre><code>    * R/hmac.R: New hmac() function contributed by Mario Frasca 
+    * man/hmac.Rd: Documentation contributed by Mario Frasca
+
+    * tests/hmacTest.R: Added a new regression test file for hmac() 
+    * tests/hmacTest.Rout.save: Added new reference output
+
+    * tests/digestTest.Rout.save: Updated reference digest output 
+      for simple R structure to match what R 2.13.0 yields
+
+    * inst/ChangeLog: moved to ChangeLog (in top-level directory)
+
+    * INDEX: removed, as no longer needed
+</code></pre>
+<h3 id="2009">2009</h3>
+<p>2009-12-03  Henrik Bengtsson  <a href="&#109;&#97;&#105;&#108;&#116;&#111;&#58;&#104;&#101;&#110;&#114;&#105;&#107;&#98;&#64;&#98;&#114;&#97;&#106;&#117;&#46;&#99;&#111;&#109;">&#104;&#101;&#110;&#114;&#105;&#107;&#98;&#64;&#98;&#114;&#97;&#106;&#117;&#46;&#99;&#111;&#109;</a> </p>
+<pre><code>    * Release 0.4.2
+
+    * R/digest.R: Bug fix - digest(object, file=TRUE) where object 
+      is a directory would cause R to crash.  Now it gives an error.
+</code></pre>
+<p>2009-10-06  Dirk Eddelbuettel  <a href="&#109;&#97;&#105;&#108;&#116;&#111;&#58;&#101;&#100;&#100;&#64;&#100;&#101;&#98;&#105;&#97;&#110;&#46;&#111;&#114;&#103;">&#101;&#100;&#100;&#64;&#100;&#101;&#98;&#105;&#97;&#110;&#46;&#111;&#114;&#103;</a> </p>
+<pre><code>    * DESCRIPTION: set SVN properties Date and Id, fix indentation
+</code></pre>
+<p>2009-09-24  Dirk Eddelbuettel  <a href="&#109;&#97;&#105;&#108;&#116;&#111;&#58;&#101;&#100;&#100;&#64;&#100;&#101;&#98;&#105;&#97;&#110;&#46;&#111;&#114;&#103;">&#101;&#100;&#100;&#64;&#100;&#101;&#98;&#105;&#97;&#110;&#46;&#111;&#114;&#103;</a> </p>
+<pre><code>    * Release 0.4.1
+
+    * src/Makefile.win: Removed as package builds on Windows without it 
+      but not with it being present
+
+    * src/digest.c: Updated Copyright years, set SVN properties Date and Id 
+    * R/digest.R: Idem 
+    * man/digest.Rd: Idem
+</code></pre>
+<p>2009-09-23  Dirk Eddelbuettel  <a href="&#109;&#97;&#105;&#108;&#116;&#111;&#58;&#101;&#100;&#100;&#64;&#100;&#101;&#98;&#105;&#97;&#110;&#46;&#111;&#114;&#103;">&#101;&#100;&#100;&#64;&#100;&#101;&#98;&#105;&#97;&#110;&#46;&#111;&#114;&#103;</a> </p>
+<pre><code>    * Release 0.4.0
+
+    * src/sha256.c: Added sha-256 implementation by Christophe Devine 
+      as found (via Google Code Search) in a number of Open Source 
+      projects such as mushclient, aescrypt2, scrypt, and ipanon 
+    * src/sha256.h: Idem
+
+    * src/digest.c: Modified to support SHA-256 
+    * R/digest.R: Idem 
+    * man/digest.Rd: Idem, also added more references
+
+    * src/Makefile.win: Updated for SHA-256, and generally spruced up
+</code></pre>
+<h3 id="2007">2007</h3>
+<p>2007-09-28  Dirk Eddelbuettel  <a href="&#109;&#97;&#105;&#108;&#116;&#111;&#58;&#101;&#100;&#100;&#64;&#100;&#101;&#98;&#105;&#97;&#110;&#46;&#111;&#114;&#103;">&#101;&#100;&#100;&#64;&#100;&#101;&#98;&#105;&#97;&#110;&#46;&#111;&#114;&#103;</a> </p>
+<pre><code>    * Release 0.3.1
+
+    * DESCRIPTION: Switched to standardised form 'GPL-2' for License:
+
+    * src/digest.c: Added one explicit (char *) cast
+</code></pre>
+<p>2007-04-27  Dirk Eddelbuettel  <a href="&#109;&#97;&#105;&#108;&#116;&#111;&#58;&#101;&#100;&#100;&#64;&#100;&#101;&#98;&#105;&#97;&#110;&#46;&#111;&#114;&#103;">&#101;&#100;&#100;&#64;&#100;&#101;&#98;&#105;&#97;&#110;&#46;&#111;&#114;&#103;</a> </p>
+<pre><code>    * Release 0.3.0 
+    * R/digest.R: Adopted two more changes suggested by Henrik
+</code></pre>
+<p>2007-03-12  Dirk Eddelbuettel  <a href="&#109;&#97;&#105;&#108;&#116;&#111;&#58;&#101;&#100;&#100;&#64;&#100;&#101;&#98;&#105;&#97;&#110;&#46;&#111;&#114;&#103;">&#101;&#100;&#100;&#64;&#100;&#101;&#98;&#105;&#97;&#110;&#46;&#111;&#114;&#103;</a> </p>
+<pre><code>    * R/digest.R: Adopted a few changes suggested by Henrik
+</code></pre>
+<p>2007-03-09  Dirk Eddelbuettel  <a href="&#109;&#97;&#105;&#108;&#116;&#111;&#58;&#101;&#100;&#100;&#64;&#100;&#101;&#98;&#105;&#97;&#110;&#46;&#111;&#114;&#103;">&#101;&#100;&#100;&#64;&#100;&#101;&#98;&#105;&#97;&#110;&#46;&#111;&#114;&#103;</a> </p>
+<pre><code>    - R/digest.R, man/digest.Rd, Applied two more patches by 
+      Simon Urbanek that clean object mangling (for better comparison 
+      across R versions, adds an ascii flag, adds skip="auto" support 
+      to by pass the version header info, and clean the file option 
+      interface. This effectively replaces Henrik's patch relative to 
+      the 0.2.3 release.  Thanks for the patches, Simon! 
+    - tests/digestTest.Rout.save: New reference output; one line changed
+</code></pre>
+<p>2007-03-08  Dirk Eddelbuettel  <a href="&#109;&#97;&#105;&#108;&#116;&#111;&#58;&#101;&#100;&#100;&#64;&#100;&#101;&#98;&#105;&#97;&#110;&#46;&#111;&#114;&#103;">&#101;&#100;&#100;&#64;&#100;&#101;&#98;&#105;&#97;&#110;&#46;&#111;&#114;&#103;</a> </p>
+<pre><code>    - R/digest.R, man/digest.Rd, src/digest.C: Applied two 
+      patches by Simon Urbanek to help improve consistence 
+      of digest output across different R versions by allowing 
+      digest to 'skip' a certain number of bytes; and by adding 
+      support for 'raw' serialization input
+</code></pre>
+<p>2007-01-08  Dirk Eddelbuettel  <a href="&#109;&#97;&#105;&#108;&#116;&#111;&#58;&#101;&#100;&#100;&#64;&#100;&#101;&#98;&#105;&#97;&#110;&#46;&#111;&#114;&#103;">&#101;&#100;&#100;&#64;&#100;&#101;&#98;&#105;&#97;&#110;&#46;&#111;&#114;&#103;</a> </p>
+<pre><code>    - R/digest.R: Added improvement suggested by Henrik
+</code></pre>
+<h3 id="2006">2006</h3>
+<p>2006-12-30  Dirk Eddelbuettel  <a href="&#109;&#97;&#105;&#108;&#116;&#111;&#58;&#101;&#100;&#100;&#64;&#100;&#101;&#98;&#105;&#97;&#110;&#46;&#111;&#114;&#103;">&#101;&#100;&#100;&#64;&#100;&#101;&#98;&#105;&#97;&#110;&#46;&#111;&#114;&#103;</a> </p>
+<pre><code>    * Release 0.2.3 
+    - R/digest.R: Added file.expand() around filename
+</code></pre>
+<p>2006-07-28  Dirk Eddelbuettel  <a href="&#109;&#97;&#105;&#108;&#116;&#111;&#58;&#101;&#100;&#100;&#64;&#100;&#101;&#98;&#105;&#97;&#110;&#46;&#111;&#114;&#103;">&#101;&#100;&#100;&#64;&#100;&#101;&#98;&#105;&#97;&#110;&#46;&#111;&#114;&#103;</a> </p>
+<pre><code>    * Release 0.2.2 
+    - R/digest.R: Added patch for R 2.4.0 by Henrik Bengtsson 
+    - tests/: Added simple unit tests
+</code></pre>
+<h3 id="2005">2005</h3>
+<p>2005-11-02  Dirk Eddelbuettel  <a href="&#109;&#97;&#105;&#108;&#116;&#111;&#58;&#100;&#101;&#100;&#100;&#101;&#108;&#98;&#117;&#64;&#108;&#120;&#45;&#99;&#104;&#112;&#114;&#100;&#57;&#55;&#46;&#119;&#102;&#103;&#46;&#99;&#111;&#109;">&#100;&#101;&#100;&#100;&#101;&#108;&#98;&#117;&#64;&#108;&#120;&#45;&#99;&#104;&#112;&#114;&#100;&#57;&#55;&#46;&#119;&#102;&#103;&#46;&#99;&#111;&#109;</a> </p>
+<pre><code>    * Release 0.2.1 
+    - R/digest.R, src/digest.c, man/digest.Rd: add support for file 
+      mode based on a complete set of patches by Jarek Tuszynski
+</code></pre>
+<p>2005-04-06  Dirk Eddelbuettel  <a href="&#109;&#97;&#105;&#108;&#116;&#111;&#58;&#101;&#100;&#100;&#64;&#100;&#101;&#98;&#105;&#97;&#110;&#46;&#111;&#114;&#103;">&#101;&#100;&#100;&#64;&#100;&#101;&#98;&#105;&#97;&#110;&#46;&#111;&#114;&#103;</a> </p>
+<pre><code>    * Release 0.2.0 
+    - R/digest.R, src/digest.c, man/digest.Rd: add support for crc32 
+      digests based on a complete set of patches by Antoine Lucas 
+    - src/{crc32.c,crc32.h,zlib.h,zutil.h,zconf.h}: From zlib
+</code></pre>
+<h3 id="2004">2004</h3>
+<p>2004-05-26  Dirk Eddelbuettel  <a href="&#109;&#97;&#105;&#108;&#116;&#111;&#58;&#101;&#100;&#100;&#64;&#100;&#101;&#98;&#105;&#97;&#110;&#46;&#111;&#114;&#103;">&#101;&#100;&#100;&#64;&#100;&#101;&#98;&#105;&#97;&#110;&#46;&#111;&#114;&#103;</a> </p>
+<pre><code>    * Release 0.1.2 
+    - R/zzz.R: remove test for R &lt; 1.8.0 and load of serialize package 
+      (as serialize has been removed from CRAN with serialize() in R)
+</code></pre>
+<h3 id="2003">2003</h3>
+<p>2003-11-29  Dirk Eddelbuettel  <a href="&#109;&#97;&#105;&#108;&#116;&#111;&#58;&#101;&#100;&#100;&#64;&#100;&#101;&#98;&#105;&#97;&#110;&#46;&#111;&#114;&#103;">&#101;&#100;&#100;&#64;&#100;&#101;&#98;&#105;&#97;&#110;&#46;&#111;&#114;&#103;</a> </p>
+<pre><code>    * Release 0.1.1 
+    - DESCRIPTION: added to RCS, $Date$ is now filled 
+    - DESCRIPTION: small rewording in Description field 
+    - corrected minor packaging error by removing spurious tarball
+</code></pre>
+<p>2003-11-28  Dirk Eddelbuettel  <a href="&#109;&#97;&#105;&#108;&#116;&#111;&#58;&#101;&#100;&#100;&#64;&#100;&#101;&#98;&#105;&#97;&#110;&#46;&#111;&#114;&#103;">&#101;&#100;&#100;&#64;&#100;&#101;&#98;&#105;&#97;&#110;&#46;&#111;&#114;&#103;</a> </p>
+<pre><code>    * Release 0.1.0 
+    - DESCRIPTION: added extended Description 
+    - inst/ChangeLog: added 
+    - man/digest.Rd: added complete test vectors for md5 and sha-1 
+      in example code, values taken from the examples of the C code
+</code></pre>
+<p>2003-10-23  Dirk Eddelbuettel  <a href="&#109;&#97;&#105;&#108;&#116;&#111;&#58;&#101;&#100;&#100;&#64;&#100;&#101;&#98;&#105;&#97;&#110;&#46;&#111;&#114;&#103;">&#101;&#100;&#100;&#64;&#100;&#101;&#98;&#105;&#97;&#110;&#46;&#111;&#114;&#103;</a> </p>
+<pre><code>    * Release 0.0.1 
+    - initial version
+</code></pre>
+                
+              
+              
+                
+
+
+              
+            </article>
+          </div>
+        </div>
+      </main>
+      
+        <!--
+  Copyright (c) 2016-2020 Martin Donath <martin.donath@squidfunk.com>
+  Permission is hereby granted, free of charge, to any person obtaining a copy
+  of this software and associated documentation files (the "Software"), to
+  deal in the Software without restriction, including without limitation the
+  rights to use, copy, modify, merge, publish, distribute, sublicense, and/or
+  sell copies of the Software, and to permit persons to whom the Software is
+  furnished to do so, subject to the following conditions:
+  The above copyright notice and this permission notice shall be included in
+  all copies or substantial portions of the Software.
+  THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+  IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+  FITNESS FOR A PARTICULAR PURPOSE AND NON-INFRINGEMENT. IN NO EVENT SHALL THE
+  AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+  LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING
+  FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS
+  IN THE SOFTWARE.
+-->
+
+
+
+<!-- Application footer -->
+<footer class="md-footer">
+
+  <!-- Link to previous and/or next page -->
+  
+    <div class="md-footer-nav">
+      <nav
+        class="md-footer-nav__inner md-grid"
+        aria-label="Footer"
+      >
+
+        <!-- Link to previous page -->
+        
+          <a
+            href="../man/vdigest/"
+            title="Vdigest"
+            class="md-footer-nav__link md-footer-nav__link--prev"
+            rel="prev"
+          >
+            <div class="md-footer-nav__button md-icon">
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11h12z"/></svg>
+            </div>
+            <div class="md-footer-nav__title">
+              <div class="md-ellipsis">
+                <span class="md-footer-nav__direction">
+                  Previous
+                </span>
+                Vdigest
+              </div>
+            </div>
+          </a>
+        
+
+        <!-- Link to next page -->
+        
+      </nav>
+    </div>
+  
+
+  <!-- Further information -->
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+
+      <!-- Copyright and theme information -->
+      <div class="md-footer-copyright">
+        
+          Documentation for <a href="https://github.com/eddelbuettel/digest">digest</a>
+          made by <a href="https://dirk.eddelbuettel.com">Dirk Eddelbuettel</a>
+          using some <a href="https://www.R-Project.org">R</a> scripts and
+          <a href="https://squidfunk.github.io/mkdocs-material/" target="_blank" rel="noopener">Material for MkDocs </a>
+      </div>
+
+      <!-- Social links -->
+      
+  <div class="md-footer-social">
+    
+      
+      
+        
+        
+      
+      <a href="https://github.com/eddelbuettel/digest" target="_blank" rel="noopener" title="github.com" class="md-footer-social__link">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 496 512"><path d="M165.9 397.4c0 2-2.3 3.6-5.2 3.6-3.3.3-5.6-1.3-5.6-3.6 0-2 2.3-3.6 5.2-3.6 3-.3 5.6 1.3 5.6 3.6zm-31.1-4.5c-.7 2 1.3 4.3 4.3 4.9 2.6 1 5.6 0 6.2-2s-1.3-4.3-4.3-5.2c-2.6-.7-5.5.3-6.2 2.3zm44.2-1.7c-2.9.7-4.9 2.6-4.6 4.9.3 2 2.9 3.3 5.9 2.6 2.9-.7 4.9-2.6 4.6-4.6-.3-1.9-3-3.2-5.9-2.9zM244.8 8C106.1 8 0 113.3 0 252c0 110.9 69.8 205.8 169.5 239.2 12.8 2.3 17.3-5.6 17.3-12.1 0-6.2-.3-40.4-.3-61.4 0 0-70 15-84.7-29.8 0 0-11.4-29.1-27.8-36.6 0 0-22.9-15.7 1.6-15.4 0 0 24.9 2 38.6 25.8 21.9 38.6 58.6 27.5 72.9 20.9 2.3-16 8.8-27.1 16-33.7-55.9-6.2-112.3-14.3-112.3-110.5 0-27.5 7.6-41.3 23.6-58.9-2.6-6.5-11.1-33.3 2.6-67.9 20.9-6.5 69 27 69 27 20-5.6 41.5-8.5 62.8-8.5s42.8 2.9 62.8 8.5c0 0 48.1-33.6 69-27 13.7 34.7 5.2 61.4 2.6 67.9 16 17.7 25.8 31.5 25.8 58.9 0 96.5-58.9 104.2-114.8 110.5 9.2 7.9 17 22.9 17 46.4 0 33.7-.3 75.4-.3 83.6 0 6.5 4.6 14.4 17.3 12.1C428.2 457.8 496 362.9 496 252 496 113.3 383.5 8 244.8 8zM97.2 352.9c-1.3 1-1 3.3.7 5.2 1.6 1.6 3.9 2.3 5.2 1 1.3-1 1-3.3-.7-5.2-1.6-1.6-3.9-2.3-5.2-1zm-10.8-8.1c-.7 1.3.3 2.9 2.3 3.9 1.6 1 3.6.7 4.3-.7.7-1.3-.3-2.9-2.3-3.9-2-.6-3.6-.3-4.3.7zm32.4 35.6c-1.6 1.3-1 4.3 1.3 6.2 2.3 2.3 5.2 2.6 6.5 1 1.3-1.3.7-4.3-1.3-6.2-2.2-2.3-5.2-2.6-6.5-1zm-11.4-14.7c-1.6 1-1.6 3.6 0 5.9 1.6 2.3 4.3 3.3 5.6 2.3 1.6-1.3 1.6-3.9 0-6.2-1.4-2.3-4-3.3-5.6-2z"/></svg>
+      </a>
+    
+  </div>
+
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    
+      <script src="../assets/javascripts/vendor.3636a4ec.min.js"></script>
+      <script src="../assets/javascripts/bundle.e9fe3281.min.js"></script><script id="__lang" type="application/json">{"clipboard.copy": "Copy to clipboard", "clipboard.copied": "Copied to clipboard", "search.config.lang": "en", "search.config.pipeline": "trimmer, stopWordFilter", "search.config.separator": "[\\s\\-]+", "search.result.placeholder": "Type to start searching", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents"}</script>
+      
+      <script>
+        app = initialize({
+          base: "..",
+          features: ["tabs"],
+          search: Object.assign({
+            worker: "../assets/javascripts/worker/search.5eca75d3.min.js"
+          }, typeof search !== "undefined" && search)
+        })
+      </script>
+      
+    
+  </body>
+</html>

@@ -1,0 +1,1100 @@
+
+
+
+<!doctype html>
+<html lang="en" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+      
+        <link rel="canonical" href="https://github.com/eddelbuettel/digest/man/digest/">
+      
+      
+      <link rel="shortcut icon" href="../../assets/Rlogo.png">
+      <meta name="generator" content="mkdocs-1.1.2, mkdocs-material-5.5.12">
+    
+    
+      
+        <title>Digest - digest</title>
+      
+    
+    
+      <link rel="stylesheet" href="../../assets/stylesheets/main.4dd2dd8d.min.css">
+      
+      
+    
+    
+    
+      
+        <link href="https://fonts.gstatic.com" rel="preconnect" crossorigin>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Lato:300,400,400i,700%7C&display=fallback">
+        <style>body,input{font-family:"Lato",-apple-system,BlinkMacSystemFont,Helvetica,Arial,sans-serif}code,kbd,pre{font-family:"",SFMono-Regular,Consolas,Menlo,monospace}</style>
+      
+    
+    
+    
+      <link rel="stylesheet" href="../../assets/extra.css">
+    
+    
+      
+    
+    
+  </head>
+  
+  
+    <body dir="ltr">
+  
+    
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer"></label>
+    <div data-md-component="skip">
+      
+        
+        <a href="#create-hash-function-digests-for-arbitrary-r-objects" class="md-skip">
+          Skip to content
+        </a>
+      
+    </div>
+    <div data-md-component="announce">
+      
+    </div>
+    
+      <header class="md-header" data-md-component="header">
+  <nav class="md-header-nav md-grid" aria-label="Header">
+    <a href="https://github.com/eddelbuettel/digest" title="digest" class="md-header-nav__button md-logo" aria-label="digest">
+      
+  <img src="../../assets/Rlogo.svg" alt="logo">
+
+    </a>
+    <label class="md-header-nav__button md-icon" for="__drawer">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 6h18v2H3V6m0 5h18v2H3v-2m0 5h18v2H3v-2z"/></svg>
+    </label>
+    <div class="md-header-nav__title" data-md-component="header-title">
+      
+        <div class="md-header-nav__ellipsis">
+          <span class="md-header-nav__topic md-ellipsis">
+            digest
+          </span>
+          <span class="md-header-nav__topic md-ellipsis">
+            
+              Digest
+            
+          </span>
+        </div>
+      
+    </div>
+    
+      <label class="md-header-nav__button md-icon" for="__search">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0116 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.516 6.516 0 019.5 16 6.5 6.5 0 013 9.5 6.5 6.5 0 019.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5z"/></svg>
+      </label>
+      
+<div class="md-search" data-md-component="search" role="dialog">
+  <label class="md-search__overlay" for="__search"></label>
+  <div class="md-search__inner" role="search">
+    <form class="md-search__form" name="search">
+      <input type="text" class="md-search__input" name="query" aria-label="Search" placeholder="Search" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="search-query" data-md-state="active">
+      <label class="md-search__icon md-icon" for="__search">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0116 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.516 6.516 0 019.5 16 6.5 6.5 0 013 9.5 6.5 6.5 0 019.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5z"/></svg>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11h12z"/></svg>
+      </label>
+      <button type="reset" class="md-search__icon md-icon" aria-label="Clear" data-md-component="search-reset" tabindex="-1">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 6.41L17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12 19 6.41z"/></svg>
+      </button>
+    </form>
+    <div class="md-search__output">
+      <div class="md-search__scrollwrap" data-md-scrollfix>
+        <div class="md-search-result" data-md-component="search-result">
+          <div class="md-search-result__meta">
+            Initializing search
+          </div>
+          <ol class="md-search-result__list"></ol>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+    
+    
+  </nav>
+</header>
+    
+    <div class="md-container" data-md-component="container">
+      
+        
+      
+      
+        
+          
+
+  
+
+<nav class="md-tabs md-tabs--active" aria-label="Tabs" data-md-component="tabs">
+  <div class="md-tabs__inner md-grid">
+    <ul class="md-tabs__list">
+      
+        
+  
+  
+    <li class="md-tabs__item">
+      
+        <a href="../.." class="md-tabs__link">
+          Home
+        </a>
+      
+    </li>
+  
+
+      
+        
+  
+  
+    <li class="md-tabs__item">
+      
+        <a href="./" class="md-tabs__link md-tabs__link--active">
+          Reference
+        </a>
+      
+    </li>
+  
+
+      
+        
+  
+  
+    <li class="md-tabs__item">
+      
+        <a href="../../changelog/" class="md-tabs__link">
+          Changelog
+        </a>
+      
+    </li>
+  
+
+      
+    </ul>
+  </div>
+</nav>
+        
+      
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              <div class="md-sidebar md-sidebar--primary" data-md-component="navigation">
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    <nav class="md-nav md-nav--primary" aria-label="Navigation" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href="https://github.com/eddelbuettel/digest" title="digest" class="md-nav__button md-logo" aria-label="digest">
+      
+  <img src="../../assets/Rlogo.svg" alt="logo">
+
+    </a>
+    digest
+  </label>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+      
+
+
+  <li class="md-nav__item md-nav__item--nested">
+    
+      <input class="md-nav__toggle md-toggle" data-md-toggle="nav-1" type="checkbox" id="nav-1">
+    
+    <label class="md-nav__link" for="nav-1">
+      Home
+      <span class="md-nav__icon md-icon"></span>
+    </label>
+    <nav class="md-nav" aria-label="Home" data-md-level="1">
+      <label class="md-nav__title" for="nav-1">
+        <span class="md-nav__icon md-icon"></span>
+        Home
+      </label>
+      <ul class="md-nav__list" data-md-scrollfix>
+        
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../.." title="Index" class="md-nav__link">
+      Index
+    </a>
+  </li>
+
+        
+      </ul>
+    </nav>
+  </li>
+
+    
+      
+      
+      
+
+  
+
+
+  <li class="md-nav__item md-nav__item--active md-nav__item--nested">
+    
+      <input class="md-nav__toggle md-toggle" data-md-toggle="nav-2" type="checkbox" id="nav-2" checked>
+    
+    <label class="md-nav__link" for="nav-2">
+      Reference
+      <span class="md-nav__icon md-icon"></span>
+    </label>
+    <nav class="md-nav" aria-label="Reference" data-md-level="1">
+      <label class="md-nav__title" for="nav-2">
+        <span class="md-nav__icon md-icon"></span>
+        Reference
+      </label>
+      <ul class="md-nav__list" data-md-scrollfix>
+        
+        
+          
+          
+          
+
+  
+
+
+  <li class="md-nav__item md-nav__item--active">
+    
+    <input class="md-nav__toggle md-toggle" data-md-toggle="toc" type="checkbox" id="__toc">
+    
+    
+      <label class="md-nav__link md-nav__link--active" for="__toc">
+        Digest
+        <span class="md-nav__icon md-icon"></span>
+      </label>
+    
+    <a href="./" title="Digest" class="md-nav__link md-nav__link--active">
+      Digest
+    </a>
+    
+      
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#create-hash-function-digests-for-arbitrary-r-objects" class="md-nav__link">
+    Create hash function digests for arbitrary R objects
+  </a>
+  
+    <nav class="md-nav" aria-label="Create hash function digests for arbitrary R objects">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#description" class="md-nav__link">
+    Description
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#usage" class="md-nav__link">
+    Usage
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#arguments" class="md-nav__link">
+    Arguments
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#details" class="md-nav__link">
+    Details
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#value" class="md-nav__link">
+    Value
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#change-management" class="md-nav__link">
+    Change Management
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#authors" class="md-nav__link">
+    Author(s)
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#references" class="md-nav__link">
+    References
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#see-also" class="md-nav__link">
+    See Also
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#examples" class="md-nav__link">
+    Examples
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+    
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../AES/" title="AES" class="md-nav__link">
+      AES
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../digest2int/" title="Digest2int" class="md-nav__link">
+      Digest2int
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../hmac/" title="Hmac" class="md-nav__link">
+      Hmac
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../makeRaw/" title="makeRaw" class="md-nav__link">
+      makeRaw
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../sha1/" title="Sha1" class="md-nav__link">
+      Sha1
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../vdigest/" title="Vdigest" class="md-nav__link">
+      Vdigest
+    </a>
+  </li>
+
+        
+      </ul>
+    </nav>
+  </li>
+
+    
+      
+      
+      
+
+
+  <li class="md-nav__item md-nav__item--nested">
+    
+      <input class="md-nav__toggle md-toggle" data-md-toggle="nav-3" type="checkbox" id="nav-3">
+    
+    <label class="md-nav__link" for="nav-3">
+      Changelog
+      <span class="md-nav__icon md-icon"></span>
+    </label>
+    <nav class="md-nav" aria-label="Changelog" data-md-level="1">
+      <label class="md-nav__title" for="nav-3">
+        <span class="md-nav__icon md-icon"></span>
+        Changelog
+      </label>
+      <ul class="md-nav__list" data-md-scrollfix>
+        
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../changelog/" title="Changelog" class="md-nav__link">
+      Changelog
+    </a>
+  </li>
+
+        
+      </ul>
+    </nav>
+  </li>
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="toc">
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#create-hash-function-digests-for-arbitrary-r-objects" class="md-nav__link">
+    Create hash function digests for arbitrary R objects
+  </a>
+  
+    <nav class="md-nav" aria-label="Create hash function digests for arbitrary R objects">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#description" class="md-nav__link">
+    Description
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#usage" class="md-nav__link">
+    Usage
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#arguments" class="md-nav__link">
+    Arguments
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#details" class="md-nav__link">
+    Details
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#value" class="md-nav__link">
+    Value
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#change-management" class="md-nav__link">
+    Change Management
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#authors" class="md-nav__link">
+    Author(s)
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#references" class="md-nav__link">
+    References
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#see-also" class="md-nav__link">
+    See Also
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#examples" class="md-nav__link">
+    Examples
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+          
+          <div class="md-content">
+            <article class="md-content__inner md-typeset">
+              
+                
+                
+                  
+                
+                
+                  <h1>Digest</h1>
+                
+                <h2 id="create-hash-function-digests-for-arbitrary-r-objects">Create hash function digests for arbitrary R objects</h2>
+<h3 id="description">Description</h3>
+<p>The <code>digest</code> function applies a cryptographical hash function to
+arbitrary R objects. By default, the objects are internally serialized,
+and either one of the currently implemented MD5 and SHA-1 hash functions
+algorithms can be used to compute a compact digest of the serialized
+object.</p>
+<p>In order to compare this implementation with others, serialization of
+the input argument can also be turned off in which the input argument
+must be a character string for which its digest is returned.</p>
+<h3 id="usage">Usage</h3>
+<pre><code>digest(object, algo=c("md5", "sha1", "crc32", "sha256", "sha512",
+                      "xxhash32", "xxhash64", "murmur32", "spookyhash",
+                      "blake3"), serialize=TRUE, file=FALSE,
+       length=Inf, skip="auto", ascii=FALSE, raw=FALSE, seed=0,
+       errormode=c("stop","warn","silent"),
+       serializeVersion=.getSerializeVersion())
+</code></pre>
+<h3 id="arguments">Arguments</h3>
+<table>
+<thead>
+<tr>
+<th>Argument</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>object</code></td>
+<td>An arbitrary R object which will then be passed to the <code>serialize</code> function, unless the <code>serialize</code> argument is set to <code>FALSE</code>.</td>
+</tr>
+<tr>
+<td><code>algo</code></td>
+<td>The algorithms to be used; currently available choices are <code>md5</code>, which is also the default, <code>sha1</code>, <code>crc32</code>, <code>sha256</code>, <code>sha512</code>, <code>xxhash32</code>, <code>xxhash64</code>, <code>murmur32</code>, <code>spookyhash</code> and <code>blake3</code>.</td>
+</tr>
+<tr>
+<td><code>serialize</code></td>
+<td>A logical variable indicating whether the object should be serialized using <code>serialize</code> (in ASCII form). Setting this to <code>FALSE</code> allows to compare the digest output of given character strings to known control output. It also allows the use of raw vectors such as the output of non-ASCII serialization.</td>
+</tr>
+<tr>
+<td><code>file</code></td>
+<td>A logical variable indicating whether the object is a file name or a file name if <code>object</code> is not specified.</td>
+</tr>
+<tr>
+<td><code>length</code></td>
+<td>Number of characters to process. By default, when <code>length</code> is set to <code>Inf</code>, the whole string or file is processed.</td>
+</tr>
+<tr>
+<td><code>skip</code></td>
+<td>Number of input bytes to skip before calculating the digest. Negative values are invalid and currently treated as zero. Special value <code>"auto"</code> will cause serialization header to be skipped if <code>serialize</code> is set to <code>TRUE</code> (the serialization header contains the R version number thus skipping it allows the comparison of hashes across platforms and some R versions).</td>
+</tr>
+<tr>
+<td><code>ascii</code></td>
+<td>This flag is passed to the <code>serialize</code> function if <code>serialize</code> is set to <code>TRUE</code>, determining whether the hash is computed on the ASCII or binary representation.</td>
+</tr>
+<tr>
+<td><code>raw</code></td>
+<td>A logical variable with a default value of FALSE, implying <code>digest</code> returns digest output as ASCII hex values. Set to TRUE to return <code>digest</code> output in raw (binary) form. Note that this option is supported by most but not all of the implemented hashing algorithms</td>
+</tr>
+<tr>
+<td><code>seed</code></td>
+<td>an integer to seed the random number generator. This is only used in the <code>xxhash32</code>, <code>xxhash64</code> and <code>murmur32</code> functions and can be used to generate additional hashes for the same input if desired.</td>
+</tr>
+<tr>
+<td><code>errormode</code></td>
+<td>A character value denoting a choice for the behaviour in the case of error: ‘stop’ aborts (and is the default value), ‘warn’ emits a warning and returns <code>NULL</code> and ‘silent’ suppresses the error and returns an empty string.</td>
+</tr>
+<tr>
+<td><code>serializeVersion</code></td>
+<td>An integer value specifying the internal version of the serialization format, with 2 being the default; see <code>serialize</code> for details. The <code>serializeVersion</code> field of <code>option</code> can also be used to set a different value.</td>
+</tr>
+</tbody>
+</table>
+<h3 id="details">Details</h3>
+<p>Cryptographic hash functions are well researched and documented. The MD5
+algorithm by Ron Rivest is specified in RFC 1321. The SHA-1 algorithm is
+specified in FIPS-180-1, SHA-2 is described in FIPS-180-2.</p>
+<p>For md5, sha-1 and sha-256, this R implementation relies on standalone
+implementations in C by Christophe Devine. For crc32, code from the zlib
+library by Jean-loup Gailly and Mark Adler is used.</p>
+<p>For sha-512, a standalone implementation from Aaron Gifford is used.</p>
+<p>For xxhash32 and xxhash64, the reference implementation by Yann Collet
+is used.</p>
+<p>For murmur32, the progressive implementation by Shane Day is used.</p>
+<p>For spookyhash, the original source code by Bob Jenkins is used. The R
+implementation that integrates R's serialization directly with the
+algorithm allowing for memory-efficient incremental calculation of the
+hash is by Gabe Becker.</p>
+<p>For blake3, the C implementation by Samuel Neves and Jack O'Connor is
+used.</p>
+<p>Please note that this package is not meant to be used for cryptographic
+purposes for which more comprehensive (and widely tested) libraries such
+as OpenSSL should be used. Also, it is known that crc32 is not
+collision-proof. For sha-1, recent results indicate certain
+cryptographic weaknesses as well. For more details, see for example
+<a href="https://www.schneier.com/blog/archives/2005/02/cryptanalysis_o.html">https://www.schneier.com/blog/archives/2005/02/cryptanalysis_o.html</a>.</p>
+<h3 id="value">Value</h3>
+<p>The <code>digest</code> function returns a character string of a fixed length
+containing the requested digest of the supplied R object. This string is
+of length 32 for MD5; of length 40 for SHA-1; of length 8 for CRC32 a
+string; of length 8 for for xxhash32; of length 16 for xxhash64; and of
+length 8 for murmur32.</p>
+<h3 id="change-management">Change Management</h3>
+<p>Version 0.6.16 of digest corrects an error in which <code>crc32</code> was not
+guaranteeing an eight-character return. We now pad with zero to always
+return eight characters. Should the previous behaviour be required, set
+<code>option("digestOldCRC32Format"=TRUE)</code> and the output will be consistent
+with prior version (but not be consistentnly eight characters).</p>
+<h3 id="authors">Author(s)</h3>
+<p>Dirk Eddelbuettel <a href="&#109;&#97;&#105;&#108;&#116;&#111;&#58;&#101;&#100;&#100;&#64;&#100;&#101;&#98;&#105;&#97;&#110;&#46;&#111;&#114;&#103;">&#101;&#100;&#100;&#64;&#100;&#101;&#98;&#105;&#97;&#110;&#46;&#111;&#114;&#103;</a> for the <span
+style="font-family: Courier New, Courier; color: #666666;"><strong>R</strong></span>
+interface; Antoine Lucas for the integration of crc32; Jarek Tuszynski
+for the file-based operations; Henrik Bengtsson and Simon Urbanek for
+improved serialization patches; Christophe Devine for the hash function
+implementations for sha-1, sha-256 and md5; Jean-Loup Gailly and Mark
+Adler for crc32; Hannes Muehleisen for the integration of sha-512; Jim
+Hester for the integration of xxhash32, xxhash64 and murmur32; Kendon
+Bell for the integration of spookyhash using Gabe Becker's R package
+fastdigest.</p>
+<h3 id="references">References</h3>
+<p>MD5: <a href="https://www.ietf.org/rfc/rfc1321.txt">https://www.ietf.org/rfc/rfc1321.txt</a>.</p>
+<p>SHA-1: <a href="https://en.wikipedia.org/wiki/SHA-1">https://en.wikipedia.org/wiki/SHA-1</a>. SHA-256:
+<a href="https://csrc.nist.gov/publications/fips/fips180-2/fips180-2withchangenotice.pdf">https://csrc.nist.gov/publications/fips/fips180-2/fips180-2withchangenotice.pdf</a>.
+CRC32: The original reference webpage at <code>rocksoft.com</code> has vanished
+from the web; see
+<a href="https://en.wikipedia.org/wiki/Cyclic_redundancy_check">https://en.wikipedia.org/wiki/Cyclic_redundancy_check</a> for general
+information on CRC algorithms.</p>
+<p><a href="https://aarongifford.com/computers/sha.html">https://aarongifford.com/computers/sha.html</a> for the integrated C
+implementation of sha-512.</p>
+<p>The page for the code underlying the C functions used here for sha-1 and
+md5, and further references, is no longer accessible. Please see
+<a href="https://en.wikipedia.org/wiki/SHA-1">https://en.wikipedia.org/wiki/SHA-1</a> and
+<a href="https://en.wikipedia.org/wiki/MD5">https://en.wikipedia.org/wiki/MD5</a>.</p>
+<p><a href="https://zlib.net">https://zlib.net</a> for documentation on the zlib library which supplied
+the code for crc32.</p>
+<p><a href="https://en.wikipedia.org/wiki/SHA_hash_functions">https://en.wikipedia.org/wiki/SHA_hash_functions</a> for documentation on
+the sha functions.</p>
+<p><a href="https://github.com/Cyan4973/xxHash">https://github.com/Cyan4973/xxHash</a> for documentation on the xxHash
+functions.</p>
+<p><a href="https://github.com/aappleby/smhasher">https://github.com/aappleby/smhasher</a> for documentation on MurmurHash.</p>
+<p><a href="https://burtleburtle.net/bob/hash/spooky.html">https://burtleburtle.net/bob/hash/spooky.html</a> for the original source
+code of SpookyHash.</p>
+<p><a href="https://github.com/BLAKE3-team/BLAKE3/">https://github.com/BLAKE3-team/BLAKE3/</a> for the original source code of
+blake3.</p>
+<h3 id="see-also">See Also</h3>
+<p><code>serialize</code>, <code>md5sum</code></p>
+<h3 id="examples">Examples</h3>
+<pre><code>## Standard RFC 1321 test vectors
+md5Input &lt;-
+  c("",
+    "a",
+    "abc",
+    "message digest",
+    "abcdefghijklmnopqrstuvwxyz",
+    "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789",
+    paste("12345678901234567890123456789012345678901234567890123456789012",
+          "345678901234567890", sep=""))
+md5Output &lt;-
+  c("d41d8cd98f00b204e9800998ecf8427e",
+    "0cc175b9c0f1b6a831c399e269772661",
+    "900150983cd24fb0d6963f7d28e17f72",
+    "f96b697d7cb7938d525a2f31aaf161d0",
+    "c3fcd3d76192e4007dfb496cca67e13b",
+    "d174ab98d277d9f5a5611c2c9f419d9f",
+    "57edf4a22be3c955ac49da2e2107b67a")
+
+for (i in seq(along=md5Input)) {
+  md5 &lt;- digest(md5Input[i], serialize=FALSE)
+  stopifnot(identical(md5, md5Output[i]))
+}
+
+sha1Input &lt;-
+  c("abc", "abcdbcdecdefdefgefghfghighijhijkijkljklmklmnlmnomnopnopq")
+sha1Output &lt;-
+  c("a9993e364706816aba3e25717850c26c9cd0d89d",
+    "84983e441c3bd26ebaae4aa1f95129e5e54670f1")
+
+for (i in seq(along=sha1Input)) {
+  sha1 &lt;- digest(sha1Input[i], algo="sha1", serialize=FALSE)
+  stopifnot(identical(sha1, sha1Output[i]))
+}
+
+crc32Input &lt;-
+  c("abc",
+    "abcdbcdecdefdefgefghfghighijhijkijkljklmklmnlmnomnopnopq")
+crc32Output &lt;-
+  c("352441c2",
+    "171a3f5f")
+
+for (i in seq(along=crc32Input)) {
+  crc32 &lt;- digest(crc32Input[i], algo="crc32", serialize=FALSE)
+  stopifnot(identical(crc32, crc32Output[i]))
+}
+
+
+sha256Input &lt;-
+  c("abc",
+    "abcdbcdecdefdefgefghfghighijhijkijkljklmklmnlmnomnopnopq")
+sha256Output &lt;-
+  c("ba7816bf8f01cfea414140de5dae2223b00361a396177a9cb410ff61f20015ad",
+    "248d6a61d20638b8e5c026930c3e6039a33ce45964ff2167f6ecedd419db06c1")
+
+for (i in seq(along=sha256Input)) {
+  sha256 &lt;- digest(sha256Input[i], algo="sha256", serialize=FALSE)
+  stopifnot(identical(sha256, sha256Output[i]))
+}
+
+# SHA 512 example
+sha512Input &lt;-
+  c("abc",
+    "abcdbcdecdefdefgefghfghighijhijkijkljklmklmnlmnomnopnopq")
+sha512Output &lt;-
+  c(paste("ddaf35a193617abacc417349ae20413112e6fa4e89a97ea20a9eeee64b55d39a",
+          "2192992a274fc1a836ba3c23a3feebbd454d4423643ce80e2a9ac94fa54ca49f",
+          sep=""),
+    paste("204a8fc6dda82f0a0ced7beb8e08a41657c16ef468b228a8279be331a703c335",
+          "96fd15c13b1b07f9aa1d3bea57789ca031ad85c7a71dd70354ec631238ca3445",
+          sep=""))
+
+for (i in seq(along=sha512Input)) {
+  sha512 &lt;- digest(sha512Input[i], algo="sha512", serialize=FALSE)
+  stopifnot(identical(sha512, sha512Output[i]))
+}
+
+## xxhash32 example
+xxhash32Input &lt;-
+    c("abc",
+      "abcdbcdecdefdefgefghfghighijhijkijkljklmklmnlmnomnopnopq",
+      "")
+xxhash32Output &lt;-
+    c("32d153ff",
+      "89ea60c3",
+      "02cc5d05")
+
+for (i in seq(along=xxhash32Input)) {
+    xxhash32 &lt;- digest(xxhash32Input[i], algo="xxhash32", serialize=FALSE)
+    cat(xxhash32, "\n")
+    stopifnot(identical(xxhash32, xxhash32Output[i]))
+}
+
+## xxhash64 example
+xxhash64Input &lt;-
+    c("abc",
+      "abcdbcdecdefdefgefghfghighijhijkijkljklmklmnlmnomnopnopq",
+      "")
+xxhash64Output &lt;-
+    c("44bc2cf5ad770999",
+      "f06103773e8585df",
+      "ef46db3751d8e999")
+
+for (i in seq(along=xxhash64Input)) {
+    xxhash64 &lt;- digest(xxhash64Input[i], algo="xxhash64", serialize=FALSE)
+    cat(xxhash64, "\n")
+    stopifnot(identical(xxhash64, xxhash64Output[i]))
+}
+
+## these outputs were calculated using mmh3 python package
+murmur32Input &lt;-
+    c("abc",
+      "abcdbcdecdefdefgefghfghighijhijkijkljklmklmnlmnomnopnopq",
+      "")
+murmur32Output &lt;-
+    c("b3dd93fa",
+      "ee925b90",
+      "00000000")
+
+for (i in seq(along=murmur32Input)) {
+    murmur32 &lt;- digest(murmur32Input[i], algo="murmur32", serialize=FALSE)
+    cat(murmur32, "\n")
+    stopifnot(identical(murmur32, murmur32Output[i]))
+}
+
+## these outputs were calculated using spooky python package
+spookyInput &lt;-
+    c("a",
+      "abc",
+      "message digest")
+spookyOutput &lt;-
+    c("bdc9bba09181101a922a4161f0584275",
+      "67c93775f715ab8ab01178caf86713c6",
+      "9630c2a55c0987a0db44434f9d67a192")
+
+for (i in seq(along=spookyInput)) {
+    # skip = 30 skips the serialization header and just hashes the strings
+    spooky &lt;- digest(spookyInput[i], algo="spookyhash", skip = 30)
+    cat(spooky, "\n")
+    stopifnot(identical(spooky, spookyOutput[i]))
+}
+
+## blake3 example
+blake3Input &lt;-
+    c("abc",
+      "abcdbcdecdefdefgefghfghighijhijkijkljklmklmnlmnomnopnopq",
+      "")
+blake3Output &lt;-
+    c("6437b3ac38465133ffb63b75273a8db548c558465d79db03fd359c6cd5bd9d85",
+      "c19012cc2aaf0dc3d8e5c45a1b79114d2df42abb2a410bf54be09e891af06ff8",
+      "af1349b9f5f9a1a6a0404dea36dcc9499bcb25c9adc112b7cc9a93cae41f3262")
+
+for (i in seq(along=blake3Input)) {
+    blake3 &lt;- digest(blake3Input[i], algo="blake3", serialize=FALSE)
+    cat(blake3, "\n")
+    stopifnot(identical(blake3, blake3Output[i]))
+}
+
+# example of a digest of a standard R list structure
+digest(list(LETTERS, data.frame(a=letters[1:5], b=matrix(1:10,ncol=2))))
+
+# test 'length' parameter and file input
+fname &lt;- file.path(R.home(),"COPYING")
+x &lt;- readChar(fname, file.info(fname)$size) # read file
+for (alg in c("sha1", "md5", "crc32")) {
+  # partial file
+  h1 &lt;- digest(x    , length=18000, algo=alg, serialize=FALSE)
+  h2 &lt;- digest(fname, length=18000, algo=alg, serialize=FALSE, file=TRUE)
+  h3 &lt;- digest( substr(x,1,18000) , algo=alg, serialize=FALSE)
+  stopifnot( identical(h1,h2), identical(h1,h3) )
+  # whole file
+  h1 &lt;- digest(x    , algo=alg, serialize=FALSE)
+  h2 &lt;- digest(fname, algo=alg, serialize=FALSE, file=TRUE)
+  stopifnot( identical(h1,h2) )
+}
+
+# compare md5 algorithm to other tools
+library(tools)
+fname &lt;- file.path(R.home(),"COPYING")
+h1 &lt;- as.character(md5sum(fname))
+h2 &lt;- digest(fname, algo="md5", file=TRUE)
+stopifnot( identical(h1,h2) )
+
+## digest is _designed_ to return one has summary per object to for a desired
+## For vectorised output see digest::getVDigest() which provides
+## better performance than base::Vectorize()
+
+md5 &lt;- getVDigest()
+v &lt;- md5(1:5)                # digest integers 1 to 5
+stopifnot(identical(v[1], digest(1L)),  # check first and third result
+          identical(v[3], digest(3L)))
+</code></pre>
+                
+              
+              
+                
+
+
+              
+            </article>
+          </div>
+        </div>
+      </main>
+      
+        <!--
+  Copyright (c) 2016-2020 Martin Donath <martin.donath@squidfunk.com>
+  Permission is hereby granted, free of charge, to any person obtaining a copy
+  of this software and associated documentation files (the "Software"), to
+  deal in the Software without restriction, including without limitation the
+  rights to use, copy, modify, merge, publish, distribute, sublicense, and/or
+  sell copies of the Software, and to permit persons to whom the Software is
+  furnished to do so, subject to the following conditions:
+  The above copyright notice and this permission notice shall be included in
+  all copies or substantial portions of the Software.
+  THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+  IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+  FITNESS FOR A PARTICULAR PURPOSE AND NON-INFRINGEMENT. IN NO EVENT SHALL THE
+  AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+  LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING
+  FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS
+  IN THE SOFTWARE.
+-->
+
+
+
+<!-- Application footer -->
+<footer class="md-footer">
+
+  <!-- Link to previous and/or next page -->
+  
+    <div class="md-footer-nav">
+      <nav
+        class="md-footer-nav__inner md-grid"
+        aria-label="Footer"
+      >
+
+        <!-- Link to previous page -->
+        
+          <a
+            href="../.."
+            title="Index"
+            class="md-footer-nav__link md-footer-nav__link--prev"
+            rel="prev"
+          >
+            <div class="md-footer-nav__button md-icon">
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11h12z"/></svg>
+            </div>
+            <div class="md-footer-nav__title">
+              <div class="md-ellipsis">
+                <span class="md-footer-nav__direction">
+                  Previous
+                </span>
+                Index
+              </div>
+            </div>
+          </a>
+        
+
+        <!-- Link to next page -->
+        
+          <a
+            href="../AES/"
+            title="AES"
+            class="md-footer-nav__link md-footer-nav__link--next"
+            rel="next"
+          >
+            <div class="md-footer-nav__title">
+              <div class="md-ellipsis">
+                <span class="md-footer-nav__direction">
+                  Next
+                </span>
+                AES
+              </div>
+            </div>
+            <div class="md-footer-nav__button md-icon">
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M4 11v2h12l-5.5 5.5 1.42 1.42L19.84 12l-7.92-7.92L10.5 5.5 16 11H4z"/></svg>
+            </div>
+          </a>
+        
+      </nav>
+    </div>
+  
+
+  <!-- Further information -->
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+
+      <!-- Copyright and theme information -->
+      <div class="md-footer-copyright">
+        
+          Documentation for <a href="https://github.com/eddelbuettel/digest">digest</a>
+          made by <a href="https://dirk.eddelbuettel.com">Dirk Eddelbuettel</a>
+          using some <a href="https://www.R-Project.org">R</a> scripts and
+          <a href="https://squidfunk.github.io/mkdocs-material/" target="_blank" rel="noopener">Material for MkDocs </a>
+      </div>
+
+      <!-- Social links -->
+      
+  <div class="md-footer-social">
+    
+      
+      
+        
+        
+      
+      <a href="https://github.com/eddelbuettel/digest" target="_blank" rel="noopener" title="github.com" class="md-footer-social__link">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 496 512"><path d="M165.9 397.4c0 2-2.3 3.6-5.2 3.6-3.3.3-5.6-1.3-5.6-3.6 0-2 2.3-3.6 5.2-3.6 3-.3 5.6 1.3 5.6 3.6zm-31.1-4.5c-.7 2 1.3 4.3 4.3 4.9 2.6 1 5.6 0 6.2-2s-1.3-4.3-4.3-5.2c-2.6-.7-5.5.3-6.2 2.3zm44.2-1.7c-2.9.7-4.9 2.6-4.6 4.9.3 2 2.9 3.3 5.9 2.6 2.9-.7 4.9-2.6 4.6-4.6-.3-1.9-3-3.2-5.9-2.9zM244.8 8C106.1 8 0 113.3 0 252c0 110.9 69.8 205.8 169.5 239.2 12.8 2.3 17.3-5.6 17.3-12.1 0-6.2-.3-40.4-.3-61.4 0 0-70 15-84.7-29.8 0 0-11.4-29.1-27.8-36.6 0 0-22.9-15.7 1.6-15.4 0 0 24.9 2 38.6 25.8 21.9 38.6 58.6 27.5 72.9 20.9 2.3-16 8.8-27.1 16-33.7-55.9-6.2-112.3-14.3-112.3-110.5 0-27.5 7.6-41.3 23.6-58.9-2.6-6.5-11.1-33.3 2.6-67.9 20.9-6.5 69 27 69 27 20-5.6 41.5-8.5 62.8-8.5s42.8 2.9 62.8 8.5c0 0 48.1-33.6 69-27 13.7 34.7 5.2 61.4 2.6 67.9 16 17.7 25.8 31.5 25.8 58.9 0 96.5-58.9 104.2-114.8 110.5 9.2 7.9 17 22.9 17 46.4 0 33.7-.3 75.4-.3 83.6 0 6.5 4.6 14.4 17.3 12.1C428.2 457.8 496 362.9 496 252 496 113.3 383.5 8 244.8 8zM97.2 352.9c-1.3 1-1 3.3.7 5.2 1.6 1.6 3.9 2.3 5.2 1 1.3-1 1-3.3-.7-5.2-1.6-1.6-3.9-2.3-5.2-1zm-10.8-8.1c-.7 1.3.3 2.9 2.3 3.9 1.6 1 3.6.7 4.3-.7.7-1.3-.3-2.9-2.3-3.9-2-.6-3.6-.3-4.3.7zm32.4 35.6c-1.6 1.3-1 4.3 1.3 6.2 2.3 2.3 5.2 2.6 6.5 1 1.3-1.3.7-4.3-1.3-6.2-2.2-2.3-5.2-2.6-6.5-1zm-11.4-14.7c-1.6 1-1.6 3.6 0 5.9 1.6 2.3 4.3 3.3 5.6 2.3 1.6-1.3 1.6-3.9 0-6.2-1.4-2.3-4-3.3-5.6-2z"/></svg>
+      </a>
+    
+  </div>
+
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    
+      <script src="../../assets/javascripts/vendor.3636a4ec.min.js"></script>
+      <script src="../../assets/javascripts/bundle.e9fe3281.min.js"></script><script id="__lang" type="application/json">{"clipboard.copy": "Copy to clipboard", "clipboard.copied": "Copied to clipboard", "search.config.lang": "en", "search.config.pipeline": "trimmer, stopWordFilter", "search.config.separator": "[\\s\\-]+", "search.result.placeholder": "Type to start searching", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents"}</script>
+      
+      <script>
+        app = initialize({
+          base: "../..",
+          features: ["tabs"],
+          search: Object.assign({
+            worker: "../../assets/javascripts/worker/search.5eca75d3.min.js"
+          }, typeof search !== "undefined" && search)
+        })
+      </script>
+      
+    
+  </body>
+</html>
