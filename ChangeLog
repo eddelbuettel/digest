@@ -5,6 +5,8 @@
 	* docs/: Added package website
 	* docs-src/: Added package website inputs
 
+	* .travis.yml (dist): Change to focal
+
 2020-10-15  Dirk Eddelbuettel  <edd@debian.org>
 
 	* README.md: Update URLs
