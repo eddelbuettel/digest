@@ -4,3 +4,5 @@
 ^\.codecov\.yml$
 ^.*\.tar\.gz$
 ^local
+^docs
+^docs-src

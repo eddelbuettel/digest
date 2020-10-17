@@ -5,7 +5,8 @@ date: "`r Sys.Date()`"
 output:
   minidown::mini_document:
     framework: water
-    
+    keep_md: TRUE
+
 vignette: >
   %\VignetteIndexEntry{sha1() versus digest()}
   %\VignetteEngine{knitr::rmarkdown}

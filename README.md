@@ -9,7 +9,8 @@
 [![CRAN use](https://jangorecki.gitlab.io/rdeps/digest/CRAN_usage.svg?sanitize=true)](https://cran.r-project.org/package=digest)
 [![CRAN indirect](https://jangorecki.gitlab.io/rdeps/digest/indirect_usage.svg?sanitize=true)](https://cran.r-project.org/package=digest)
 [![BioConductor use](https://jangorecki.gitlab.io/rdeps/digest/BioC_usage.svg?sanitize=true)](https://cran.r-project.org/package=digest)
-[![Code Coverage](https://img.shields.io/codecov/c/github/eddelbuettel/digest/master.svg)](https://codecov.io/gh/eddelbuettel/digest)
+[![Code Coverage](https://img.shields.io/codecov/c/github/eddelbuettel/digest/master.svg)](https://codecov.io/gh/eddelbuettel/digest)  
+[![Documentation](https://img.shields.io/badge/documentation-is_here-blue)](https://eddelbuettel.github.io/digest/)
 
 Compact hash representations of arbitrary R objects
 
@@ -78,8 +79,10 @@ at any later point.
 Dirk Eddelbuettel, with contributions by Antoine Lucas, Jarek Tuszynski,
 Henrik Bengtsson, Simon Urbanek, Mario Frasca, Bryan Lewis, Murray Stokely,
 Hannes Muehleisen, Duncan Murdoch, Jim Hester, Wush Wu, Qiang Kou, Thierry
-Onkelinx, Michel Lang, Viliam Simko, Kurt Hornik, Radford Neal, Kendon Bell, 
-Matthew de Queljoe, Ion Suruceanu, Bill Denney, and Dirk Schumacher.
+Onkelinx, Michel Lang, Viliam Simko, Kurt Hornik, Radford Neal, Kendon Bell,
+Matthew de Queljoe, Ion Suruceanu, Bill Denney, Dirk Schumacher, and Winston
+Chang.
+
 
 ### License
 
