@@ -1,3 +1,8 @@
+2020-10-19  Dirk Eddelbuettel  <edd@debian.org>
+
+	* src/blake3_dispatch.c: Comment-out include of intrinsics to also
+	comment-out erroring on insufficient architectures such as Solaris
+
 2020-10-17  Dirk Eddelbuettel  <edd@debian.org>
 
 	* DESCRIPTION (Version, Date): Release 0.6.26

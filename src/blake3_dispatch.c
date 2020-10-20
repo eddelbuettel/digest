@@ -12,15 +12,17 @@
 
 #include "blake3_impl.h"
 
-#if defined(IS_X86)
-#if defined(_MSC_VER)
-#include <intrin.h>
-#elif defined(__GNUC__)
-#include <immintrin.h>
-#else
-#error "Unimplemented!"
-#endif
-#endif
+// Commenting out this block as intrinic headers are not need or used
+// and the 'non-MSC and non-GNU' leads to an error on Solaris
+// #if defined(IS_X86)
+// #if defined(_MSC_VER)
+// #include <intrin.h>
+// #elif defined(__GNUC__)
+// #include <immintrin.h>
+// #else
+// #error "Unimplemented!"
+// #endif
+// #endif
 
 // This function is disabled in this R package for now
 // #if defined(IS_X86)
