@@ -22,7 +22,7 @@
 
 .onLoad <- function(libname, pkgname) {
     ## we set a default level of two, with a possible override
-    .pkgenv[["serializeVersion"]] <- getOption("serializeVersion", 2L)  # #nocov start
+    .pkgenv[["serializeVersion"]] <- getOption("serializeVersion", 2L)  # #nocov
     ## allow old crc32 behaviour
     .pkgenv[["crc32Preference"]] <- getOption("digestOldCRC32Format", FALSE)
     ## allow version specific sha1 behaviour
