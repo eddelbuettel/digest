@@ -1,3 +1,8 @@
+2021-01-16  Dirk Eddelbuettel  <edd@debian.org>
+
+	* src/SpookyV2.cpp: Disallow unaligned reads which have been seen to
+	trigger SAN issues as reported by Winston in #167
+
 2020-12-23  Dirk Eddelbuettel  <edd@debian.org>
 
         * .github/workflows/ci.yaml: Add CI runner using r-ci

@@ -14,7 +14,8 @@
 #include <memory.h>
 #include "SpookyV2.h"
 
-#define ALLOW_UNALIGNED_READS 1
+// DE 2021-01-16  This defaults to 1 but is seen to trigger SAN warnings (c.f. GitHub issue #167)
+#define ALLOW_UNALIGNED_READS 0
 
 //
 // short hash ... it could be used on any message,
