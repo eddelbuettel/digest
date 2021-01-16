@@ -1,5 +1,7 @@
 2021-01-16  Dirk Eddelbuettel  <edd@debian.org>
 
+	* DESCRIPTION (Version, Date): Roll minor version
+
 	* src/SpookyV2.cpp: Disallow unaligned reads which have been seen to
 	trigger SAN issues as reported by Winston in #167
 
