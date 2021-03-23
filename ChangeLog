@@ -1,3 +1,7 @@
+2021-03-22  Floris Vanderhaeghe  <floris.vanderhaeghe@inbo.be>
+
+	* man/digest.Rd: Reworded to also highlight file mode
+
 2021-01-16  Dirk Eddelbuettel  <edd@debian.org>
 
 	* DESCRIPTION (Version, Date): Roll minor version

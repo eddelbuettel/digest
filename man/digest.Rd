@@ -2,11 +2,11 @@
 \alias{digest}
 \title{Create hash function digests for arbitrary R objects or files}
 \description{
-  The \code{digest} function applies a hash function to
-  arbitrary R objects or files. By default, the objects are internally
-  serialized, and either one of the currently implemented MD5 and SHA-1
-  hash functions algorithms can be used to compute a compact digest of
-  the serialized object.
+  The \code{digest} function applies one of several cryptographic or
+  non-cryptographics hash function to arbitrary R objects or files.  By
+  default, the objects are internally serialized, and the selected hash
+  functions algorithms can be used to compute a compact digest of the
+  serialized object.
 
   In order to compare this implementation with others, serialization of
   the input argument can also be turned off in which the input argument
