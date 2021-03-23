@@ -1,3 +1,8 @@
+2021-03-22  Dirk Eddelbuettel  <edd@debian.org>
+
+	* docs-src/mkdocs.yml (theme): Add (draft, incomplete) vignette
+	* docs-src/src/vignette.md (title): Idem
+
 2021-03-22  Floris Vanderhaeghe  <floris.vanderhaeghe@inbo.be>
 
 	* man/digest.Rd: Reworded to also highlight file mode
