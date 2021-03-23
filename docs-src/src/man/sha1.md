@@ -1,5 +1,4 @@
-Calculate a SHA1 hash of an object
-----------------------------------
+## Calculate a SHA1 hash of an object
 
 ### Description
 

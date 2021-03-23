@@ -1,5 +1,4 @@
-compute a hash-based message authentication code
-------------------------------------------------
+## compute a hash-based message authentication code
 
 ### Description
 

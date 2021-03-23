@@ -1,13 +1,12 @@
-Create hash function digests for arbitrary R objects
-----------------------------------------------------
+## Create hash function digests for arbitrary R objects or files
 
 ### Description
 
-The `digest` function applies a cryptographical hash function to
-arbitrary R objects. By default, the objects are internally serialized,
-and either one of the currently implemented MD5 and SHA-1 hash functions
-algorithms can be used to compute a compact digest of the serialized
-object.
+The `digest` function applies one of several cryptographic or
+non-cryptographics hash function to arbitrary R objects or files. By
+default, the objects are internally serialized, and the selected hash
+functions algorithms can be used to compute a compact digest of the
+serialized object.
 
 In order to compare this implementation with others, serialization of
 the input argument can also be turned off in which the input argument

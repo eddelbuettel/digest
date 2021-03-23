@@ -1,11 +1,45 @@
+###  2021 
+
+2021-03-22  Dirk Eddelbuettel  <edd@debian.org> 
+ 
+        * docs-src/mkdocs.yml (theme): Add (draft, incomplete) vignette 
+        * docs-src/src/vignette.md (title): Idem 
+ 
+2021-03-22  Floris Vanderhaeghe  <floris.vanderhaeghe@inbo.be> 
+ 
+        * man/digest.Rd: Reworded to also highlight file mode 
+ 
+2021-01-16  Dirk Eddelbuettel  <edd@debian.org> 
+ 
+        * DESCRIPTION (Version, Date): Roll minor version 
+ 
+        * src/SpookyV2.cpp: Disallow unaligned reads which have been seen to 
+        trigger SAN issues as reported by Winston in #167 
+ 
 ###  2020 
 
+2020-12-23  Dirk Eddelbuettel  <edd@debian.org> 
+ 
+        * .github/workflows/ci.yaml: Add CI runner using r-ci 
+        * README.md: Add new CI badge 
+ 
+2020-10-20  Dirk Eddelbuettel  <edd@debian.org> 
+ 
+        * DESCRIPTION (Version, Date): Release 0.6.27 
+ 
+2020-10-19  Dirk Eddelbuettel  <edd@debian.org> 
+ 
+        * src/blake3_dispatch.c: Comment-out include of intrinsics to also 
+        comment-out erroring on insufficient architectures such as Solaris 
+ 
 2020-10-17  Dirk Eddelbuettel  <edd@debian.org> 
  
         * DESCRIPTION (Version, Date): Release 0.6.26 
  
         * docs/: Added package website 
         * docs-src/: Added package website inputs 
+ 
+        * .travis.yml (dist): Change to focal 
  
 2020-10-15  Dirk Eddelbuettel  <edd@debian.org> 
  

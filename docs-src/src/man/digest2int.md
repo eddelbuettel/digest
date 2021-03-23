@@ -1,5 +1,4 @@
-hash arbitrary string to integer
---------------------------------
+## hash arbitrary string to integer
 
 ### Description
 

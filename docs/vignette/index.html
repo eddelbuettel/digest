@@ -8,22 +8,24 @@
       
       
       
+        <meta name="author" content="Thierry Onkelinx and Dirk Eddelbuettel">
       
-        <link rel="canonical" href="https://github.com/eddelbuettel/digest/man/digest2int/">
       
-      <link rel="shortcut icon" href="../../assets/Rlogo.png">
+        <link rel="canonical" href="https://github.com/eddelbuettel/digest/vignette/">
+      
+      <link rel="shortcut icon" href="../assets/Rlogo.png">
       <meta name="generator" content="mkdocs-1.1.2, mkdocs-material-7.0.0b2">
     
     
       
-        <title>Digest2int - digest</title>
+        <title>Calculating SHA1 hashes with digest() and sha1() - digest</title>
       
     
     
-      <link rel="stylesheet" href="../../assets/stylesheets/main.45122f27.min.css">
+      <link rel="stylesheet" href="../assets/stylesheets/main.45122f27.min.css">
       
         
-        <link rel="stylesheet" href="../../assets/stylesheets/palette.e03a20ad.min.css">
+        <link rel="stylesheet" href="../assets/stylesheets/palette.e03a20ad.min.css">
         
       
     
@@ -38,7 +40,7 @@
     
     
     
-      <link rel="stylesheet" href="../../assets/extra.css">
+      <link rel="stylesheet" href="../assets/extra.css">
     
     
       
@@ -62,7 +64,7 @@
     <div data-md-component="skip">
       
         
-        <a href="#hash-arbitrary-string-to-integer" class="md-skip">
+        <a href="#short-intro-on-hashes" class="md-skip">
           Skip to content
         </a>
       
@@ -77,7 +79,7 @@
   <nav class="md-header-nav md-grid" aria-label="Header">
     <a href="https://github.com/eddelbuettel/digest" title="digest" class="md-header-nav__button md-logo" aria-label="digest">
       
-  <img src="../../assets/Rlogo.svg" alt="logo">
+  <img src="../assets/Rlogo.svg" alt="logo">
 
     </a>
     <label class="md-header-nav__button md-icon" for="__drawer">
@@ -93,7 +95,7 @@
         <div class="md-header-nav__topic">
           <span class="md-ellipsis">
             
-              Digest2int
+              Calculating SHA1 hashes with digest() and sha1()
             
           </span>
         </div>
@@ -152,8 +154,24 @@
   
   
     <li class="md-tabs__item">
-      <a href="../.." class="md-tabs__link">
+      <a href=".." class="md-tabs__link">
         Home
+      </a>
+    </li>
+  
+
+      
+        
+  
+  
+
+
+  
+  
+  
+    <li class="md-tabs__item">
+      <a href="../man/digest/" class="md-tabs__link">
+        Reference
       </a>
     </li>
   
@@ -170,23 +188,7 @@
   
   
     <li class="md-tabs__item">
-      <a href="../digest/" class="md-tabs__link md-tabs__link--active">
-        Reference
-      </a>
-    </li>
-  
-
-      
-        
-  
-  
-
-
-  
-  
-  
-    <li class="md-tabs__item">
-      <a href="../../vignette/" class="md-tabs__link">
+      <a href="./" class="md-tabs__link md-tabs__link--active">
         Articles
       </a>
     </li>
@@ -202,7 +204,7 @@
   
   
     <li class="md-tabs__item">
-      <a href="../../changelog/" class="md-tabs__link">
+      <a href="../changelog/" class="md-tabs__link">
         Changelog
       </a>
     </li>
@@ -233,7 +235,7 @@
   <label class="md-nav__title" for="__drawer">
     <a href="https://github.com/eddelbuettel/digest" title="digest" class="md-nav__button md-logo" aria-label="digest">
       
-  <img src="../../assets/Rlogo.svg" alt="logo">
+  <img src="../assets/Rlogo.svg" alt="logo">
 
     </a>
     digest
@@ -271,8 +273,123 @@
   
   
     <li class="md-nav__item">
-      <a href="../.." class="md-nav__link">
+      <a href=".." class="md-nav__link">
         Index
+      </a>
+    </li>
+  
+
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+    
+      
+      
+      
+
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="nav-2" type="checkbox" id="nav-2" >
+      
+      <label class="md-nav__link" for="nav-2">
+        Reference
+        <span class="md-nav__icon md-icon"></span>
+      </label>
+      <nav class="md-nav" aria-label="Reference" data-md-level="1">
+        <label class="md-nav__title" for="nav-2">
+          <span class="md-nav__icon md-icon"></span>
+          Reference
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../man/digest/" class="md-nav__link">
+        Digest
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../man/AES/" class="md-nav__link">
+        AES
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../man/digest2int/" class="md-nav__link">
+        Digest2int
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../man/hmac/" class="md-nav__link">
+        Hmac
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../man/makeRaw/" class="md-nav__link">
+        makeRaw
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../man/sha1/" class="md-nav__link">
+        Sha1
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../man/vdigest/" class="md-nav__link">
+        Vdigest
       </a>
     </li>
   
@@ -297,218 +414,7 @@
     <li class="md-nav__item md-nav__item--active md-nav__item--nested">
       
       
-        <input class="md-nav__toggle md-toggle" data-md-toggle="nav-2" type="checkbox" id="nav-2" checked>
-      
-      <label class="md-nav__link" for="nav-2">
-        Reference
-        <span class="md-nav__icon md-icon"></span>
-      </label>
-      <nav class="md-nav" aria-label="Reference" data-md-level="1">
-        <label class="md-nav__title" for="nav-2">
-          <span class="md-nav__icon md-icon"></span>
-          Reference
-        </label>
-        <ul class="md-nav__list" data-md-scrollfix>
-          
-          
-            
-  
-  
-  
-    <li class="md-nav__item">
-      <a href="../digest/" class="md-nav__link">
-        Digest
-      </a>
-    </li>
-  
-
-          
-            
-  
-  
-  
-    <li class="md-nav__item">
-      <a href="../AES/" class="md-nav__link">
-        AES
-      </a>
-    </li>
-  
-
-          
-            
-  
-  
-    
-  
-  
-    <li class="md-nav__item md-nav__item--active">
-      
-      <input class="md-nav__toggle md-toggle" data-md-toggle="toc" type="checkbox" id="__toc">
-      
-      
-        <label class="md-nav__link md-nav__link--active" for="__toc">
-          Digest2int
-          <span class="md-nav__icon md-icon"></span>
-        </label>
-      
-      <a href="./" class="md-nav__link md-nav__link--active">
-        Digest2int
-      </a>
-      
-        
-<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
-  
-  
-  
-    <label class="md-nav__title" for="__toc">
-      <span class="md-nav__icon md-icon"></span>
-      Table of contents
-    </label>
-    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
-      
-        <li class="md-nav__item">
-  <a href="#hash-arbitrary-string-to-integer" class="md-nav__link">
-    hash arbitrary string to integer
-  </a>
-  
-    <nav class="md-nav" aria-label="hash arbitrary string to integer">
-      <ul class="md-nav__list">
-        
-          <li class="md-nav__item">
-  <a href="#description" class="md-nav__link">
-    Description
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#usage" class="md-nav__link">
-    Usage
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#arguments" class="md-nav__link">
-    Arguments
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#value" class="md-nav__link">
-    Value
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#authors" class="md-nav__link">
-    Author(s)
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#references" class="md-nav__link">
-    References
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#see-also" class="md-nav__link">
-    See Also
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#examples" class="md-nav__link">
-    Examples
-  </a>
-  
-</li>
-        
-      </ul>
-    </nav>
-  
-</li>
-      
-    </ul>
-  
-</nav>
-      
-    </li>
-  
-
-          
-            
-  
-  
-  
-    <li class="md-nav__item">
-      <a href="../hmac/" class="md-nav__link">
-        Hmac
-      </a>
-    </li>
-  
-
-          
-            
-  
-  
-  
-    <li class="md-nav__item">
-      <a href="../makeRaw/" class="md-nav__link">
-        makeRaw
-      </a>
-    </li>
-  
-
-          
-            
-  
-  
-  
-    <li class="md-nav__item">
-      <a href="../sha1/" class="md-nav__link">
-        Sha1
-      </a>
-    </li>
-  
-
-          
-            
-  
-  
-  
-    <li class="md-nav__item">
-      <a href="../vdigest/" class="md-nav__link">
-        Vdigest
-      </a>
-    </li>
-  
-
-          
-        </ul>
-      </nav>
-    </li>
-  
-
-    
-      
-      
-      
-
-  
-  
-  
-    
-    <li class="md-nav__item md-nav__item--nested">
-      
-      
-        <input class="md-nav__toggle md-toggle" data-md-toggle="nav-3" type="checkbox" id="nav-3" >
+        <input class="md-nav__toggle md-toggle" data-md-toggle="nav-3" type="checkbox" id="nav-3" checked>
       
       <label class="md-nav__link" for="nav-3">
         Articles
@@ -525,11 +431,100 @@
             
   
   
+    
   
-    <li class="md-nav__item">
-      <a href="../../vignette/" class="md-nav__link">
+  
+    <li class="md-nav__item md-nav__item--active">
+      
+      <input class="md-nav__toggle md-toggle" data-md-toggle="toc" type="checkbox" id="__toc">
+      
+      
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          Sha1 Vignette
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <a href="./" class="md-nav__link md-nav__link--active">
         Sha1 Vignette
       </a>
+      
+        
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#short-intro-on-hashes" class="md-nav__link">
+    Short intro on hashes
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#difference-between-digest-and-sha1" class="md-nav__link">
+    Difference between digest() and sha1()
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#choosing-digest-or-sha1" class="md-nav__link">
+    Choosing digest() or sha1()
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#creating-a-sha1-method-for-other-classes" class="md-nav__link">
+    Creating a sha1 method for other classes
+  </a>
+  
+    <nav class="md-nav" aria-label="Creating a sha1 method for other classes">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#how-to" class="md-nav__link">
+    How to
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#summarylm" class="md-nav__link">
+    summary.lm
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#lm" class="md-nav__link">
+    lm
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#using-hashes-to-track-changes-in-analysis" class="md-nav__link">
+    Using hashes to track changes in analysis
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+      
     </li>
   
 
@@ -570,7 +565,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../changelog/" class="md-nav__link">
+      <a href="../changelog/" class="md-nav__link">
         Changelog
       </a>
     </li>
@@ -606,71 +601,64 @@
     <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
       
         <li class="md-nav__item">
-  <a href="#hash-arbitrary-string-to-integer" class="md-nav__link">
-    hash arbitrary string to integer
+  <a href="#short-intro-on-hashes" class="md-nav__link">
+    Short intro on hashes
   </a>
   
-    <nav class="md-nav" aria-label="hash arbitrary string to integer">
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#difference-between-digest-and-sha1" class="md-nav__link">
+    Difference between digest() and sha1()
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#choosing-digest-or-sha1" class="md-nav__link">
+    Choosing digest() or sha1()
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#creating-a-sha1-method-for-other-classes" class="md-nav__link">
+    Creating a sha1 method for other classes
+  </a>
+  
+    <nav class="md-nav" aria-label="Creating a sha1 method for other classes">
       <ul class="md-nav__list">
         
           <li class="md-nav__item">
-  <a href="#description" class="md-nav__link">
-    Description
+  <a href="#how-to" class="md-nav__link">
+    How to
   </a>
   
 </li>
         
           <li class="md-nav__item">
-  <a href="#usage" class="md-nav__link">
-    Usage
+  <a href="#summarylm" class="md-nav__link">
+    summary.lm
   </a>
   
 </li>
         
           <li class="md-nav__item">
-  <a href="#arguments" class="md-nav__link">
-    Arguments
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#value" class="md-nav__link">
-    Value
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#authors" class="md-nav__link">
-    Author(s)
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#references" class="md-nav__link">
-    References
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#see-also" class="md-nav__link">
-    See Also
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#examples" class="md-nav__link">
-    Examples
+  <a href="#lm" class="md-nav__link">
+    lm
   </a>
   
 </li>
         
       </ul>
     </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#using-hashes-to-track-changes-in-analysis" class="md-nav__link">
+    Using hashes to track changes in analysis
+  </a>
   
 </li>
       
@@ -687,52 +675,216 @@
               
                 
                 
-                  <h1>Digest2int</h1>
+                  <h1>Sha1 Vignette</h1>
                 
-                <h2 id="hash-arbitrary-string-to-integer">hash arbitrary string to integer</h2>
-<h3 id="description">Description</h3>
-<p>The <code>digest2int</code> function calculates integer hash of an arbitrary
-string. This is useful for randomized experiments, feature hashing, etc.</p>
-<h3 id="usage">Usage</h3>
-<pre><code>digest2int(x, seed = 0L)
+                <p>NB: This vignette is work-in-progress and not yet complete.</p>
+<h2 id="short-intro-on-hashes">Short intro on hashes</h2>
+<p>TBD</p>
+<h2 id="difference-between-digest-and-sha1">Difference between <code>digest()</code> and <code>sha1()</code></h2>
+<p>R <a href="https://cran.r-project.org/doc/FAQ/R-FAQ.html#Why-doesn_0027t-R-think-these-numbers-are-equal_003f">FAQ 7.31</a> illustrates potential problems with floating point arithmetic. Mathematically the equality $x = \sqrt{x}^2$ should hold. But the precision of floating points numbers is finite. Hence some rounding is done, leading to numbers which are no longer identical.</p>
+<p>An illustration:</p>
+<pre><code># FAQ 7.31
+a0 &lt;- 2
+b &lt;- sqrt(a0)
+a1 &lt;- b ^ 2
+identical(a0, a1)
+a0 - a1
+a &lt;- c(a0, a1)
+# hexadecimal representation
+sprintf(&quot;%a&quot;, a)
 </code></pre>
-<h3 id="arguments">Arguments</h3>
+<p>Although the difference is small, any difference will result in different hash when using the <code>digest()</code> function. 
+However, the <code>sha1()</code> function tackles this problem by using the hexadecimal representation of the numbers and truncates 
+that representation to a certain number of digits prior to calculating the hash function. </p>
+<pre><code>library(digest)
+# different hashes with digest
+sapply(a, digest, algo = &quot;sha1&quot;)
+# same hash with sha1 with default digits (14)
+sapply(a, sha1)
+# larger digits can lead to different hashes
+sapply(a, sha1, digits = 15)
+# decreasing the number of digits gives a stronger truncation
+# the hash will change when then truncation gives a different result
+# case where truncating gives same hexadecimal value
+sapply(a, sha1, digits = 13)
+sapply(a, sha1, digits = 10)
+# case where truncating gives different hexadecimal value
+c(sha1(pi), sha1(pi, digits = 13), sha1(pi, digits = 10))
+</code></pre>
+<p>The result of floating point arithematic on 32-bit and 64-bit can be slightly different. E.g. <code>print(pi ^ 11, 22)</code> returns <code>294204.01797389047</code> on 32-bit and <code>294204.01797389053</code> on 64-bit. Note that only the last 2 digits are different.  </p>
 <table>
 <thead>
 <tr>
-<th>Argument</th>
-<th>Description</th>
+<th>command</th>
+<th>32-bit</th>
+<th>64-bit</th>
 </tr>
 </thead>
 <tbody>
 <tr>
-<td><code>x</code></td>
-<td>An arbitrary character vector.</td>
+<td><code>print(pi ^ 11, 22)</code></td>
+<td><code>294204.01797389047</code></td>
+<td><code>294204.01797389053</code></td>
 </tr>
 <tr>
-<td><code>seed</code></td>
-<td>an integer for algorithm initial state. Function will produce different hashes for same input and different seed values.</td>
+<td><code>sprintf("%a", pi ^ 11)</code></td>
+<td><code>"0x1.1f4f01267bf5fp+18"</code></td>
+<td><code>"0x1.1f4f01267bf6p+18"</code></td>
+</tr>
+<tr>
+<td><code>digest(pi ^ 11, algo = "sha1")</code></td>
+<td><code>"c5efc7f167df1bb402b27cf9b405d7cebfba339a"</code></td>
+<td><code>"b61f6fea5e2a7952692cefe8bba86a00af3de713"</code></td>
+</tr>
+<tr>
+<td><code>sha1(pi ^ 11, digits = 14)</code></td>
+<td><code>"5c7740500b8f78ec2354ea6af58ea69634d9b7b1"</code></td>
+<td><code>"4f3e296b9922a7ddece2183b1478d0685609a359"</code></td>
+</tr>
+<tr>
+<td><code>sha1(pi ^ 11, digits = 13)</code></td>
+<td><code>"372289f87396b0877ccb4790cf40bcb5e658cad7"</code></td>
+<td><code>"372289f87396b0877ccb4790cf40bcb5e658cad7"</code></td>
+</tr>
+<tr>
+<td><code>sha1(pi ^ 11, digits = 10)</code></td>
+<td><code>"c05965af43f9566bfb5622f335817f674abfc9e4"</code></td>
+<td><code>"c05965af43f9566bfb5622f335817f674abfc9e4"</code></td>
 </tr>
 </tbody>
 </table>
-<h3 id="value">Value</h3>
-<p>The <code>digest2int</code> function returns integer vector of the same length as
-input vector <code>x</code>.</p>
-<h3 id="authors">Author(s)</h3>
-<p>Dmitriy Selivanov <a href="&#109;&#97;&#105;&#108;&#116;&#111;&#58;&#115;&#101;&#108;&#105;&#118;&#97;&#110;&#111;&#118;&#46;&#100;&#109;&#105;&#116;&#114;&#105;&#121;&#64;&#103;&#109;&#97;&#105;&#108;&#46;&#99;&#111;&#109;">&#115;&#101;&#108;&#105;&#118;&#97;&#110;&#111;&#118;&#46;&#100;&#109;&#105;&#116;&#114;&#105;&#121;&#64;&#103;&#109;&#97;&#105;&#108;&#46;&#99;&#111;&#109;</a> for the <span
-style="font-family: Courier New, Courier; color: #666666;"><strong>R</strong></span>
-interface; Bob Jenkins for original implementation
-<a href="http://www.burtleburtle.net/bob/hash/doobs.html">http://www.burtleburtle.net/bob/hash/doobs.html</a></p>
-<h3 id="references">References</h3>
-<p>Jenkins's <code>one_at_a_time</code> hash:
-<a href="https://en.wikipedia.org/wiki/Jenkins_hash_function#one_at_a_time">https://en.wikipedia.org/wiki/Jenkins_hash_function#one_at_a_time</a>.</p>
-<h3 id="see-also">See Also</h3>
-<p><code>digest</code></p>
-<h3 id="examples">Examples</h3>
-<pre><code>current &lt;- digest2int("The quick brown fox jumps over the lazy dog", 0L)
-target &lt;- 1369346549L
-stopifnot(identical(target, current))
+<h2 id="choosing-digest-or-sha1">Choosing <code>digest()</code> or <code>sha1()</code></h2>
+<p>TBD</p>
+<h2 id="creating-a-sha1-method-for-other-classes">Creating a sha1 method for other classes</h2>
+<h3 id="how-to">How to</h3>
+<ol>
+<li>Identify the relevant components for the hash.</li>
+<li>Determine the class of each relevant component and check if they are handled by <code>sha1()</code>.<ul>
+<li>Write a method for each component class not yet handled by <code>sha1</code>.</li>
+</ul>
+</li>
+<li>Extract the relevant components.</li>
+<li>Combine the relevant components into a list. Not required in case of a single component.</li>
+<li>Apply <code>sha1()</code> on the (list of) relevant component(s).</li>
+<li>Turn this into a function with name sha1.<em>classname</em>.</li>
+<li>sha1.<em>classname</em> needs exactly the same arguments as <code>sha1()</code></li>
+<li>Choose sensible defaults for the arguments<ul>
+<li><code>zapsmall = 7</code> is recommended.</li>
+<li><code>digits = 14</code> is recommended in case all numerics are data.</li>
+<li><code>digits = 4</code> is recommended in case some numerics stem from floating point arithmetic.</li>
+</ul>
+</li>
+</ol>
+<h3 id="summarylm">summary.lm</h3>
+<p>Let's illustrate this using the summary of a simple linear regression. Suppose that we want a hash that takes into account the coefficients, their standard error and sigma.</p>
+<pre><code># taken from the help file of lm.influence
+lm_SR &lt;- lm(sr ~ pop15 + pop75 + dpi + ddpi, data = LifeCycleSavings)
+lm_sum &lt;- summary(lm_SR)
+class(lm_sum)
+# str() gives the structure of the lm object
+str(lm_sum)
+# extract the coefficients and their standard error
+coef_sum &lt;- coef(lm_sum)[, c(&quot;Estimate&quot;, &quot;Std. Error&quot;)]
+# extract sigma
+sigma &lt;- lm_sum$sigma
+# check the class of each component
+class(coef_sum)
+class(sigma)
+# sha1() has methods for both matrix and numeric
+# because the values originate from floating point arithmetic it is better to use a low number of digits
+sha1(coef_sum, digits = 4)
+sha1(sigma, digits = 4)
+# we want a single hash
+# combining the components in a list is a solution that works
+sha1(list(coef_sum, sigma), digits = 4)
+# now turn everything into an S3 method
+#   - a function with name &quot;sha1.classname&quot;
+#   - must have the same arguments as sha1()
+sha1.summary.lm &lt;- function(x, digits = 4, zapsmall = 7){
+    coef_sum &lt;- coef(x)[, c(&quot;Estimate&quot;, &quot;Std. Error&quot;)]
+    sigma &lt;- x$sigma
+    combined &lt;- list(coef_sum, sigma)
+    sha1(combined, digits = digits, zapsmall = zapsmall)
+}
+sha1(lm_sum)
+
+# try an altered dataset
+LCS2 &lt;- LifeCycleSavings[rownames(LifeCycleSavings) != &quot;Zambia&quot;, ]
+lm_SR2 &lt;- lm(sr ~ pop15 + pop75 + dpi + ddpi, data = LCS2)
+sha1(summary(lm_SR2))
 </code></pre>
+<h3 id="lm">lm</h3>
+<p>Let's illustrate this using the summary of a simple linear regression. Suppose that we want a hash that takes into account the coefficients, their standard error and sigma.</p>
+<pre><code>class(lm_SR)
+# str() gives the structure of the lm object
+str(lm_SR)
+# extract the model and the terms
+lm_model &lt;- lm_SR$model
+lm_terms &lt;- lm_SR$terms
+# check their class
+class(lm_model) # handled by sha1()
+class(lm_terms) # not handled by sha1()
+# define a method for formula
+sha1.formula &lt;- function(x, digits = 14, zapsmall = 7, ..., algo = &quot;sha1&quot;){
+    sha1(as.character(x), digits = digits, zapsmall = zapsmall, algo = algo)
+}
+sha1(lm_terms)
+sha1(lm_model)
+# define a method for lm
+sha1.lm &lt;- function(x, digits = 14, zapsmall = 7, ..., algo = &quot;sha1&quot;){
+    lm_model &lt;- x$model
+    lm_terms &lt;- x$terms
+    combined &lt;- list(lm_model, lm_terms)
+    sha1(combined, digits = digits, zapsmall = zapsmall, ..., algo = algo)
+}
+sha1(lm_SR)
+sha1(lm_SR2)
+</code></pre>
+<h2 id="using-hashes-to-track-changes-in-analysis">Using hashes to track changes in analysis</h2>
+<p>Use case</p>
+<ul>
+<li>automated analysis</li>
+<li>update frequency of the data might be lower than the frequency of automated analysis</li>
+<li>similar analyses on many datasets (e.g. many species in ecology)</li>
+<li>
+<p>analyses that require a lot of computing time</p>
+<ul>
+<li>not rerunning an analysis because nothing has changed saves enough resources to compensate the overhead of tracking changes</li>
+</ul>
+</li>
+<li>
+<p>Bundle all relevant information on an analysis in a class</p>
+<ul>
+<li>data</li>
+<li>method</li>
+<li>formula</li>
+<li>other metadata</li>
+<li>resulting model</li>
+</ul>
+</li>
+<li>
+<p>calculate <code>sha1()</code></p>
+<p>file fingerprint
+  ~ <code>sha1()</code> on the stable parts</p>
+<p>status fingerprint
+  ~ <code>sha1()</code> on the parts that result for the model</p>
+</li>
+<li>
+<p>Prepare analysis objects</p>
+</li>
+<li>Store each analysis object in a rda file which uses the file fingerprint as filename<ul>
+<li>File will already exist when no change in analysis</li>
+<li>Don't overwrite existing files</li>
+</ul>
+</li>
+<li>Loop over all rda files<ul>
+<li>Do nothing if the analysis was run</li>
+<li>Otherwise run the analysis and update the status and status fingerprint</li>
+</ul>
+</li>
+</ul>
+                
+                  
                 
               
               
@@ -780,8 +932,8 @@ stopifnot(identical(target, current))
         <!-- Link to previous page -->
         
           <a
-            href="../AES/"
-            title="AES"
+            href="../man/vdigest/"
+            title="Vdigest"
             class="md-footer-nav__link md-footer-nav__link--prev"
             rel="prev"
           >
@@ -793,7 +945,7 @@ stopifnot(identical(target, current))
                 <span class="md-footer-nav__direction">
                   Previous
                 </span>
-                AES
+                Vdigest
               </div>
             </div>
           </a>
@@ -802,8 +954,8 @@ stopifnot(identical(target, current))
         <!-- Link to next page -->
         
           <a
-            href="../hmac/"
-            title="Hmac"
+            href="../changelog/"
+            title="Changelog"
             class="md-footer-nav__link md-footer-nav__link--next"
             rel="next"
           >
@@ -812,7 +964,7 @@ stopifnot(identical(target, current))
                 <span class="md-footer-nav__direction">
                   Next
                 </span>
-                Hmac
+                Changelog
               </div>
             </div>
             <div class="md-footer-nav__button md-icon">
@@ -860,11 +1012,11 @@ stopifnot(identical(target, current))
     <div class="md-dialog" data-md-component="dialog">
       <div class="md-dialog__inner md-typeset"></div>
     </div>
-    <script id="__config" type="application/json">{"base": "../..", "features": ["navigation.tabs", "navigation.instant"], "translations": {"clipboard.copy": "Copy to clipboard", "clipboard.copied": "Copied to clipboard", "search.config.lang": "en", "search.config.pipeline": "trimmer, stopWordFilter", "search.config.separator": "[\\s\\-]+", "search.placeholder": "Search", "search.result.placeholder": "Type to start searching", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.term.missing": "Missing"}, "search": "../../assets/javascripts/worker/search.3f4c5856.min.js"}</script>
+    <script id="__config" type="application/json">{"base": "..", "features": ["navigation.tabs", "navigation.instant"], "translations": {"clipboard.copy": "Copy to clipboard", "clipboard.copied": "Copied to clipboard", "search.config.lang": "en", "search.config.pipeline": "trimmer, stopWordFilter", "search.config.separator": "[\\s\\-]+", "search.placeholder": "Search", "search.result.placeholder": "Type to start searching", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.term.missing": "Missing"}, "search": "../assets/javascripts/worker/search.3f4c5856.min.js"}</script>
     
     
-      <script src="../../assets/javascripts/vendor.00ecb175.min.js"></script>
-      <script src="../../assets/javascripts/bundle.fbcb1fc3.min.js"></script>
+      <script src="../assets/javascripts/vendor.00ecb175.min.js"></script>
+      <script src="../assets/javascripts/bundle.fbcb1fc3.min.js"></script>
       
     
   </body>

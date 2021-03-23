@@ -1,5 +1,4 @@
-Set a vectorised function for creating hash function digests
-------------------------------------------------------------
+## Set a vectorised function for creating hash function digests
 
 ### Description
 
