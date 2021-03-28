@@ -9,4 +9,5 @@ inst/doc
 local
 digest.Rcheck
 docs-src/docs
+docs/mkdmt-src/docs
 *~
