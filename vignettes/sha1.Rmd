@@ -1,7 +1,7 @@
 ---
 title: "Calculating SHA1 hashes with digest() and sha1()"
 author: "Thierry Onkelinx and Dirk Eddelbuettel"
-date: "`r Sys.Date()`"
+date: "Written Jan 2016, updated Jan 2018 and Oct 2020"
 output:
   minidown::mini_document:
     framework: water

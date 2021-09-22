@@ -1,7 +1,14 @@
+2021-09-22  Dirk Eddelbuettel  <edd@debian.org>
+
+	* vignettes/sha1.Rmd (date): Remove knitr date calculation in YAML
+	header which GitHub does not like and mistakes for Jekyll code
+
 2021-09-22  András Svraka  <svraka.andras@gmail.com>
 
-	* R/vdigest.R (non_streaming_digest): Ensure UTF-8 encoded file paths on Windows
-	* inst/tinytest/test_encoding.R: Expand test coverage for path name encodings on Windows
+	* R/vdigest.R (non_streaming_digest): Ensure UTF-8 encoded file paths
+	on Windows
+	* inst/tinytest/test_encoding.R: Expand test coverage for path name
+	encodings on Windows
 
 2021-03-28  Dirk Eddelbuettel  <edd@debian.org>
 
