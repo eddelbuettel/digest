@@ -82,6 +82,7 @@ non_streaming_digest <- function(algo, errormode, algoint){
         if (file) {
             algoint <- algoint+100
             object <- path.expand(object)
+            if (.isWindows()) object <- enc2utf8(object)
             check_file(object, errormode)
         }
         ## if skip is auto (or any other text for that matter), we just turn it
