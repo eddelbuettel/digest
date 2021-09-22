@@ -1,8 +1,12 @@
 2021-09-22  Dirk Eddelbuettel  <edd@debian.org>
 
+	* DESCRIPTION (Version, Date): Roll minor version
+
 	* vignettes/sha1.Rmd (date): Remove knitr date calculation in YAML
 	header which GitHub does not like and mistakes for Jekyll code
 	* docs/mkdmt-src/src/vignette.md (date): Idem
+
+	* README.md: Add total download badge, label other as monthly
 
 2021-09-22  András Svraka  <svraka.andras@gmail.com>
 
