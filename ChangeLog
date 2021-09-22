@@ -2,6 +2,7 @@
 
 	* vignettes/sha1.Rmd (date): Remove knitr date calculation in YAML
 	header which GitHub does not like and mistakes for Jekyll code
+	* docs/mkdmt-src/src/vignette.md (date): Idem
 
 2021-09-22  András Svraka  <svraka.andras@gmail.com>
 
