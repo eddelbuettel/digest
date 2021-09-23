@@ -11,8 +11,8 @@
       
         <link rel="canonical" href="https://github.com/eddelbuettel/digest/man/hmac/">
       
-      <link rel="shortcut icon" href="../../assets/Rlogo.png">
-      <meta name="generator" content="mkdocs-1.1.2, mkdocs-material-7.0.0b2">
+      <link rel="icon" href="../../assets/Rlogo.png">
+      <meta name="generator" content="mkdocs-1.1.2, mkdocs-material-7.0.7">
     
     
       
@@ -20,10 +20,10 @@
       
     
     
-      <link rel="stylesheet" href="../../assets/stylesheets/main.45122f27.min.css">
+      <link rel="stylesheet" href="../../assets/stylesheets/main.c772ddf0.min.css">
       
         
-        <link rel="stylesheet" href="../../assets/stylesheets/palette.e03a20ad.min.css">
+        <link rel="stylesheet" href="../../assets/stylesheets/palette.7fa14f5b.min.css">
         
       
     
@@ -33,7 +33,7 @@
         
         <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
         <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Lato:300,400,400i,700%7C&display=fallback">
-        <style>:root{--md-text-font-family:"Lato",;--md-code-font-family:"",}</style>
+        <style>:root{--md-text-font-family:"Lato";--md-code-font-family:""}</style>
       
     
     
@@ -61,36 +61,29 @@
     <label class="md-overlay" for="__drawer"></label>
     <div data-md-component="skip">
       
-        
-        <a href="#compute-a-hash-based-message-authentication-code" class="md-skip">
-          Skip to content
-        </a>
-      
     </div>
     <div data-md-component="announce">
       
     </div>
     
-      
-
-<header class="md-header" data-md-component="header">
-  <nav class="md-header-nav md-grid" aria-label="Header">
-    <a href="https://github.com/eddelbuettel/digest" title="digest" class="md-header-nav__button md-logo" aria-label="digest">
+      <header class="md-header" data-md-component="header">
+  <nav class="md-header__inner md-grid" aria-label="Header">
+    <a href="../.." title="digest" class="md-header__button md-logo" aria-label="digest" data-md-component="logo">
       
   <img src="../../assets/Rlogo.svg" alt="logo">
 
     </a>
-    <label class="md-header-nav__button md-icon" for="__drawer">
+    <label class="md-header__button md-icon" for="__drawer">
       <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 6h18v2H3V6m0 5h18v2H3v-2m0 5h18v2H3v-2z"/></svg>
     </label>
-    <div class="md-header-nav__title" data-md-component="header-title">
-      <div class="md-header-nav__ellipsis">
-        <div class="md-header-nav__topic">
+    <div class="md-header__title" data-md-component="header-title">
+      <div class="md-header__ellipsis">
+        <div class="md-header__topic">
           <span class="md-ellipsis">
             digest
           </span>
         </div>
-        <div class="md-header-nav__topic">
+        <div class="md-header__topic" data-md-component="header-topic">
           <span class="md-ellipsis">
             
               Hmac
@@ -99,9 +92,12 @@
         </div>
       </div>
     </div>
+    <div class="md-header__options">
+      
+    </div>
     
-      <label class="md-header-nav__button md-icon" for="__search">
-        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0116 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.516 6.516 0 019.5 16 6.5 6.5 0 013 9.5 6.5 6.5 0 019.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5z"/></svg>
+      <label class="md-header__button md-icon" for="__search">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.516 6.516 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5z"/></svg>
       </label>
       
 <div class="md-search" data-md-component="search" role="dialog">
@@ -110,11 +106,11 @@
     <form class="md-search__form" name="search">
       <input type="text" class="md-search__input" name="query" aria-label="Search" placeholder="Search" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="search-query" data-md-state="active" required>
       <label class="md-search__icon md-icon" for="__search">
-        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0116 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.516 6.516 0 019.5 16 6.5 6.5 0 013 9.5 6.5 6.5 0 019.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5z"/></svg>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.516 6.516 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5z"/></svg>
         <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11h12z"/></svg>
       </label>
       <button type="reset" class="md-search__icon md-icon" aria-label="Clear" tabindex="-1">
-        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 6.41L17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12 19 6.41z"/></svg>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12 19 6.41z"/></svg>
       </button>
     </form>
     <div class="md-search__output">
@@ -224,14 +220,12 @@
                   <div class="md-sidebar__inner">
                     
 
-
-
   
 
 
 <nav class="md-nav md-nav--primary md-nav--lifted" aria-label="Navigation" data-md-level="0">
   <label class="md-nav__title" for="__drawer">
-    <a href="https://github.com/eddelbuettel/digest" title="digest" class="md-nav__button md-logo" aria-label="digest">
+    <a href="../.." title="digest" class="md-nav__button md-logo" aria-label="digest" data-md-component="logo">
       
   <img src="../../assets/Rlogo.svg" alt="logo">
 
@@ -252,19 +246,18 @@
     <li class="md-nav__item md-nav__item--nested">
       
       
-        <input class="md-nav__toggle md-toggle" data-md-toggle="nav-1" type="checkbox" id="nav-1" >
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_1" type="checkbox" id="__nav_1" >
       
-      <label class="md-nav__link" for="nav-1">
+      <label class="md-nav__link" for="__nav_1">
         Home
         <span class="md-nav__icon md-icon"></span>
       </label>
       <nav class="md-nav" aria-label="Home" data-md-level="1">
-        <label class="md-nav__title" for="nav-1">
+        <label class="md-nav__title" for="__nav_1">
           <span class="md-nav__icon md-icon"></span>
           Home
         </label>
         <ul class="md-nav__list" data-md-scrollfix>
-          
           
             
   
@@ -297,19 +290,18 @@
     <li class="md-nav__item md-nav__item--active md-nav__item--nested">
       
       
-        <input class="md-nav__toggle md-toggle" data-md-toggle="nav-2" type="checkbox" id="nav-2" checked>
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_2" type="checkbox" id="__nav_2" checked>
       
-      <label class="md-nav__link" for="nav-2">
+      <label class="md-nav__link" for="__nav_2">
         Reference
         <span class="md-nav__icon md-icon"></span>
       </label>
       <nav class="md-nav" aria-label="Reference" data-md-level="1">
-        <label class="md-nav__title" for="nav-2">
+        <label class="md-nav__title" for="__nav_2">
           <span class="md-nav__icon md-icon"></span>
           Reference
         </label>
         <ul class="md-nav__list" data-md-scrollfix>
-          
           
             
   
@@ -358,98 +350,9 @@
       <input class="md-nav__toggle md-toggle" data-md-toggle="toc" type="checkbox" id="__toc">
       
       
-        <label class="md-nav__link md-nav__link--active" for="__toc">
-          Hmac
-          <span class="md-nav__icon md-icon"></span>
-        </label>
-      
       <a href="./" class="md-nav__link md-nav__link--active">
         Hmac
       </a>
-      
-        
-<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
-  
-  
-  
-    <label class="md-nav__title" for="__toc">
-      <span class="md-nav__icon md-icon"></span>
-      Table of contents
-    </label>
-    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
-      
-        <li class="md-nav__item">
-  <a href="#compute-a-hash-based-message-authentication-code" class="md-nav__link">
-    compute a hash-based message authentication code
-  </a>
-  
-    <nav class="md-nav" aria-label="compute a hash-based message authentication code">
-      <ul class="md-nav__list">
-        
-          <li class="md-nav__item">
-  <a href="#description" class="md-nav__link">
-    Description
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#usage" class="md-nav__link">
-    Usage
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#arguments" class="md-nav__link">
-    Arguments
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#value" class="md-nav__link">
-    Value
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#authors" class="md-nav__link">
-    Author(s)
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#references" class="md-nav__link">
-    References
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#see-also" class="md-nav__link">
-    See Also
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#examples" class="md-nav__link">
-    Examples
-  </a>
-  
-</li>
-        
-      </ul>
-    </nav>
-  
-</li>
-      
-    </ul>
-  
-</nav>
       
     </li>
   
@@ -508,19 +411,18 @@
     <li class="md-nav__item md-nav__item--nested">
       
       
-        <input class="md-nav__toggle md-toggle" data-md-toggle="nav-3" type="checkbox" id="nav-3" >
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_3" type="checkbox" id="__nav_3" >
       
-      <label class="md-nav__link" for="nav-3">
+      <label class="md-nav__link" for="__nav_3">
         Articles
         <span class="md-nav__icon md-icon"></span>
       </label>
       <nav class="md-nav" aria-label="Articles" data-md-level="1">
-        <label class="md-nav__title" for="nav-3">
+        <label class="md-nav__title" for="__nav_3">
           <span class="md-nav__icon md-icon"></span>
           Articles
         </label>
         <ul class="md-nav__list" data-md-scrollfix>
-          
           
             
   
@@ -551,19 +453,18 @@
     <li class="md-nav__item md-nav__item--nested">
       
       
-        <input class="md-nav__toggle md-toggle" data-md-toggle="nav-4" type="checkbox" id="nav-4" >
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_4" type="checkbox" id="__nav_4" >
       
-      <label class="md-nav__link" for="nav-4">
+      <label class="md-nav__link" for="__nav_4">
         Changelog
         <span class="md-nav__icon md-icon"></span>
       </label>
       <nav class="md-nav" aria-label="Changelog" data-md-level="1">
-        <label class="md-nav__title" for="nav-4">
+        <label class="md-nav__title" for="__nav_4">
           <span class="md-nav__icon md-icon"></span>
           Changelog
         </label>
         <ul class="md-nav__list" data-md-scrollfix>
-          
           
             
   
@@ -590,97 +491,6 @@
               </div>
             
             
-              
-              <div class="md-sidebar md-sidebar--secondary" data-md-component="sidebar" data-md-type="toc" >
-                <div class="md-sidebar__scrollwrap">
-                  <div class="md-sidebar__inner">
-                    
-<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
-  
-  
-  
-    <label class="md-nav__title" for="__toc">
-      <span class="md-nav__icon md-icon"></span>
-      Table of contents
-    </label>
-    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
-      
-        <li class="md-nav__item">
-  <a href="#compute-a-hash-based-message-authentication-code" class="md-nav__link">
-    compute a hash-based message authentication code
-  </a>
-  
-    <nav class="md-nav" aria-label="compute a hash-based message authentication code">
-      <ul class="md-nav__list">
-        
-          <li class="md-nav__item">
-  <a href="#description" class="md-nav__link">
-    Description
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#usage" class="md-nav__link">
-    Usage
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#arguments" class="md-nav__link">
-    Arguments
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#value" class="md-nav__link">
-    Value
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#authors" class="md-nav__link">
-    Author(s)
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#references" class="md-nav__link">
-    References
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#see-also" class="md-nav__link">
-    See Also
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#examples" class="md-nav__link">
-    Examples
-  </a>
-  
-</li>
-        
-      </ul>
-    </nav>
-  
-</li>
-      
-    </ul>
-  
-</nav>
-                  </div>
-                </div>
-              </div>
-            
           
           <div class="md-content" data-md-component="content">
             <article class="md-content__inner md-typeset">
@@ -689,104 +499,104 @@
                 
                   <h1>Hmac</h1>
                 
-                <h2 id="compute-a-hash-based-message-authentication-code">compute a hash-based message authentication code</h2>
-<h3 id="description">Description</h3>
-<p>The <code>hmac</code> function calculates a message authentication code (MAC)
+                <div class="container">
+
+## compute a hash-based message authentication code
+
+### Description
+
+The `hmac` function calculates a message authentication code (MAC)
 involving the specified cryptographic hash function in combination with
-a given secret key.</p>
-<h3 id="usage">Usage</h3>
-<pre><code>hmac(key, object,
-     algo = c("md5", "sha1", "crc32", "sha256", "sha512"),
-     serialize = FALSE, raw = FALSE, ...)
-</code></pre>
-<h3 id="arguments">Arguments</h3>
-<table>
-<thead>
-<tr>
-<th>Argument</th>
-<th>Description</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td><code>key</code></td>
-<td>An arbitrary character or numeric vector, to use as pre-shared secret key.</td>
-</tr>
-<tr>
-<td><code>object</code></td>
-<td>An arbitrary R object which will then be passed to the <code>serialize</code> function, unless the <code>serialize</code> argument is set to <code>FALSE</code>.</td>
-</tr>
-<tr>
-<td><code>algo</code></td>
-<td>The algorithms to be used; currently available choices are <code>md5</code>, which is also the default, <code>sha1</code>, <code>crc32</code> and <code>sha256</code>.</td>
-</tr>
-<tr>
-<td><code>serialize</code></td>
-<td>default value of <code>serialize</code> is here FALSE, not TRUE as it is in <code>digest</code>.</td>
-</tr>
-<tr>
-<td><code>raw</code></td>
-<td>This flag alters the type of the output. Setting this to <code>TRUE</code> causes the function to return an object of type <code>"raw"</code> instead of <code>"character"</code>.</td>
-</tr>
-<tr>
-<td><code>...</code></td>
-<td>All remaining arguments are passed to <code>digest</code>.</td>
-</tr>
-</tbody>
-</table>
-<h3 id="value">Value</h3>
-<p>The <code>hmac</code> function uses the <code>digest</code> to return a hash digest as
-specified in the RFC 2104.</p>
-<h3 id="authors">Author(s)</h3>
-<p>Mario Frasca <a href="&#109;&#97;&#105;&#108;&#116;&#111;&#58;&#109;&#102;&#114;&#97;&#115;&#99;&#97;&#64;&#122;&#111;&#110;&#110;&#101;&#116;&#46;&#110;&#108;">&#109;&#102;&#114;&#97;&#115;&#99;&#97;&#64;&#122;&#111;&#110;&#110;&#101;&#116;&#46;&#110;&#108;</a>.</p>
-<h3 id="references">References</h3>
-<p>MD5: <a href="https://www.ietf.org/rfc/rfc1321.txt">https://www.ietf.org/rfc/rfc1321.txt</a>.</p>
-<p>SHA-1: <a href="https://en.wikipedia.org/wiki/SHA-1">https://en.wikipedia.org/wiki/SHA-1</a>. SHA-256:
-<a href="https://csrc.nist.gov/publications/fips/fips180-2/fips180-2withchangenotice.pdf">https://csrc.nist.gov/publications/fips/fips180-2/fips180-2withchangenotice.pdf</a>.
-CRC32: The original reference webpage at <code>rocksoft.com</code> has vanished
+a given secret key.
+
+### Usage
+
+    hmac(key, object,
+         algo = c("md5", "sha1", "crc32", "sha256", "sha512"),
+         serialize = FALSE, raw = FALSE, ...)
+
+### Arguments
+
+| Argument    | Description                                                                                                                                       |
+|-------------|---------------------------------------------------------------------------------------------------------------------------------------------------|
+| `key`       | An arbitrary character or numeric vector, to use as pre-shared secret key.                                                                        |
+| `object`    | An arbitrary R object which will then be passed to the `serialize` function, unless the `serialize` argument is set to `FALSE`.                   |
+| `algo`      | The algorithms to be used; currently available choices are `md5`, which is also the default, `sha1`, `crc32` and `sha256`.                        |
+| `serialize` | default value of `serialize` is here FALSE, not TRUE as it is in `digest`.                                                                        |
+| `raw`       | This flag alters the type of the output. Setting this to `TRUE` causes the function to return an object of type `"raw"` instead of `"character"`. |
+| `...`       | All remaining arguments are passed to `digest`.                                                                                                   |
+
+### Value
+
+The `hmac` function uses the `digest` to return a hash digest as
+specified in the RFC 2104.
+
+### Author(s)
+
+Mario Frasca <mfrasca@zonnet.nl>.
+
+### References
+
+MD5: <https://www.ietf.org/rfc/rfc1321.txt>.
+
+SHA-1: <https://en.wikipedia.org/wiki/SHA-1>. SHA-256:
+<https://csrc.nist.gov/publications/fips/fips180-2/fips180-2withchangenotice.pdf>.
+CRC32: The original reference webpage at `rocksoft.com` has vanished
 from the web; see
-<a href="https://en.wikipedia.org/wiki/Cyclic_redundancy_check">https://en.wikipedia.org/wiki/Cyclic_redundancy_check</a> for general
-information on CRC algorithms.</p>
-<p><a href="https://aarongifford.com/computers/sha.html">https://aarongifford.com/computers/sha.html</a> for the integrated C
-implementation of sha-512.</p>
-<p>The page for the code underlying the C functions used here for sha-1 and
+<https://en.wikipedia.org/wiki/Cyclic_redundancy_check> for general
+information on CRC algorithms.
+
+<https://aarongifford.com/computers/sha.html> for the integrated C
+implementation of sha-512.
+
+The page for the code underlying the C functions used here for sha-1 and
 md5, and further references, is no longer accessible. Please see
-<a href="https://en.wikipedia.org/wiki/SHA-1">https://en.wikipedia.org/wiki/SHA-1</a> and
-<a href="https://en.wikipedia.org/wiki/MD5">https://en.wikipedia.org/wiki/MD5</a>.</p>
-<p><a href="https://zlib.net">https://zlib.net</a> for documentation on the zlib library which supplied
-the code for crc32.</p>
-<p><a href="https://en.wikipedia.org/wiki/SHA_hash_functions">https://en.wikipedia.org/wiki/SHA_hash_functions</a> for documentation on
-the sha functions.</p>
-<h3 id="see-also">See Also</h3>
-<p><code>digest</code></p>
-<h3 id="examples">Examples</h3>
-<pre><code>## Standard RFC 2104 test vectors
-current &lt;- hmac('Jefe', 'what do ya want for nothing?', "md5")
-target &lt;- '750c783e6ab0b503eaa86e310a5db738'
-stopifnot(identical(target, as.character(current)))
+<https://en.wikipedia.org/wiki/SHA-1> and
+<https://en.wikipedia.org/wiki/MD5>.
 
-current &lt;- hmac(rep(0x0b, 16), 'Hi There', "md5")
-target &lt;- '9294727a3638bb1c13f48ef8158bfc9d'
-stopifnot(identical(target, as.character(current)))
+<https://zlib.net> for documentation on the zlib library which supplied
+the code for crc32.
 
-current &lt;- hmac(rep(0xaa, 16), rep(0xdd, 50), "md5")
-target &lt;- '56be34521d144c88dbb8c733f0e8b3f6'
-stopifnot(identical(target, as.character(current)))
+<https://en.wikipedia.org/wiki/SHA_hash_functions> for documentation on
+the sha functions.
 
-## SHA1 tests inspired to the RFC 2104 and checked against the python
-## hmac implementation.
-current &lt;- hmac('Jefe', 'what do ya want for nothing?', "sha1")
-target &lt;- 'effcdf6ae5eb2fa2d27416d5f184df9c259a7c79'
-stopifnot(identical(target, as.character(current)))
+### See Also
 
-current &lt;- hmac(rep(0x0b, 16), 'Hi There', "sha1")
-target &lt;- '675b0b3a1b4ddf4e124872da6c2f632bfed957e9'
-stopifnot(identical(target, as.character(current)))
+`digest`
 
-current &lt;- hmac(rep(0xaa, 16), rep(0xdd, 50), "sha1")
-target &lt;- 'd730594d167e35d5956fd8003d0db3d3f46dc7bb'
-stopifnot(identical(target, as.character(current)))
-</code></pre>
+### Examples
+
+
+
+
+    ## Standard RFC 2104 test vectors
+    current <- hmac('Jefe', 'what do ya want for nothing?', "md5")
+    target <- '750c783e6ab0b503eaa86e310a5db738'
+    stopifnot(identical(target, as.character(current)))
+
+    current <- hmac(rep(0x0b, 16), 'Hi There', "md5")
+    target <- '9294727a3638bb1c13f48ef8158bfc9d'
+    stopifnot(identical(target, as.character(current)))
+
+    current <- hmac(rep(0xaa, 16), rep(0xdd, 50), "md5")
+    target <- '56be34521d144c88dbb8c733f0e8b3f6'
+    stopifnot(identical(target, as.character(current)))
+
+    ## SHA1 tests inspired to the RFC 2104 and checked against the python
+    ## hmac implementation.
+    current <- hmac('Jefe', 'what do ya want for nothing?', "sha1")
+    target <- 'effcdf6ae5eb2fa2d27416d5f184df9c259a7c79'
+    stopifnot(identical(target, as.character(current)))
+
+    current <- hmac(rep(0x0b, 16), 'Hi There', "sha1")
+    target <- '675b0b3a1b4ddf4e124872da6c2f632bfed957e9'
+    stopifnot(identical(target, as.character(current)))
+
+    current <- hmac(rep(0xaa, 16), rep(0xdd, 50), "sha1")
+    target <- 'd730594d167e35d5956fd8003d0db3d3f46dc7bb'
+    stopifnot(identical(target, as.character(current)))
+
+</div>
                 
               
               
@@ -914,11 +724,10 @@ stopifnot(identical(target, as.character(current)))
     <div class="md-dialog" data-md-component="dialog">
       <div class="md-dialog__inner md-typeset"></div>
     </div>
-    <script id="__config" type="application/json">{"base": "../..", "features": ["navigation.tabs", "navigation.instant"], "translations": {"clipboard.copy": "Copy to clipboard", "clipboard.copied": "Copied to clipboard", "search.config.lang": "en", "search.config.pipeline": "trimmer, stopWordFilter", "search.config.separator": "[\\s\\-]+", "search.placeholder": "Search", "search.result.placeholder": "Type to start searching", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.term.missing": "Missing"}, "search": "../../assets/javascripts/worker/search.3f4c5856.min.js"}</script>
+    <script id="__config" type="application/json">{"base": "../..", "features": ["navigation.tabs", "navigation.instant"], "translations": {"clipboard.copy": "Copy to clipboard", "clipboard.copied": "Copied to clipboard", "search.config.lang": "en", "search.config.pipeline": "trimmer, stopWordFilter", "search.config.separator": "[\\s\\-]+", "search.placeholder": "Search", "search.result.placeholder": "Type to start searching", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.term.missing": "Missing"}, "search": "../../assets/javascripts/workers/search.fe42c31b.min.js", "version": null}</script>
     
     
-      <script src="../../assets/javascripts/vendor.00ecb175.min.js"></script>
-      <script src="../../assets/javascripts/bundle.fbcb1fc3.min.js"></script>
+      <script src="../../assets/javascripts/bundle.65ce87ac.min.js"></script>
       
     
   </body>

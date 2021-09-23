@@ -1,3 +1,5 @@
+<div class="container">
+
 ## hash arbitrary string to integer
 
 ### Description
@@ -43,3 +45,5 @@ Jenkins's `one_at_a_time` hash:
     current <- digest2int("The quick brown fox jumps over the lazy dog", 0L)
     target <- 1369346549L
     stopifnot(identical(target, current))
+
+</div>

@@ -1,3 +1,5 @@
+<div class="container">
+
 ## Create a raw object
 
 ### Description
@@ -37,3 +39,5 @@ Dirk Eddelbuettel
 ### Examples
 
     makeRaw("1234567890ABCDE")
+
+</div>

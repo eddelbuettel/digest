@@ -11,8 +11,8 @@
       
         <link rel="canonical" href="https://github.com/eddelbuettel/digest/man/sha1/">
       
-      <link rel="shortcut icon" href="../../assets/Rlogo.png">
-      <meta name="generator" content="mkdocs-1.1.2, mkdocs-material-7.0.0b2">
+      <link rel="icon" href="../../assets/Rlogo.png">
+      <meta name="generator" content="mkdocs-1.1.2, mkdocs-material-7.0.7">
     
     
       
@@ -20,10 +20,10 @@
       
     
     
-      <link rel="stylesheet" href="../../assets/stylesheets/main.45122f27.min.css">
+      <link rel="stylesheet" href="../../assets/stylesheets/main.c772ddf0.min.css">
       
         
-        <link rel="stylesheet" href="../../assets/stylesheets/palette.e03a20ad.min.css">
+        <link rel="stylesheet" href="../../assets/stylesheets/palette.7fa14f5b.min.css">
         
       
     
@@ -33,7 +33,7 @@
         
         <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
         <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Lato:300,400,400i,700%7C&display=fallback">
-        <style>:root{--md-text-font-family:"Lato",;--md-code-font-family:"",}</style>
+        <style>:root{--md-text-font-family:"Lato";--md-code-font-family:""}</style>
       
     
     
@@ -61,36 +61,29 @@
     <label class="md-overlay" for="__drawer"></label>
     <div data-md-component="skip">
       
-        
-        <a href="#calculate-a-sha1-hash-of-an-object" class="md-skip">
-          Skip to content
-        </a>
-      
     </div>
     <div data-md-component="announce">
       
     </div>
     
-      
-
-<header class="md-header" data-md-component="header">
-  <nav class="md-header-nav md-grid" aria-label="Header">
-    <a href="https://github.com/eddelbuettel/digest" title="digest" class="md-header-nav__button md-logo" aria-label="digest">
+      <header class="md-header" data-md-component="header">
+  <nav class="md-header__inner md-grid" aria-label="Header">
+    <a href="../.." title="digest" class="md-header__button md-logo" aria-label="digest" data-md-component="logo">
       
   <img src="../../assets/Rlogo.svg" alt="logo">
 
     </a>
-    <label class="md-header-nav__button md-icon" for="__drawer">
+    <label class="md-header__button md-icon" for="__drawer">
       <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 6h18v2H3V6m0 5h18v2H3v-2m0 5h18v2H3v-2z"/></svg>
     </label>
-    <div class="md-header-nav__title" data-md-component="header-title">
-      <div class="md-header-nav__ellipsis">
-        <div class="md-header-nav__topic">
+    <div class="md-header__title" data-md-component="header-title">
+      <div class="md-header__ellipsis">
+        <div class="md-header__topic">
           <span class="md-ellipsis">
             digest
           </span>
         </div>
-        <div class="md-header-nav__topic">
+        <div class="md-header__topic" data-md-component="header-topic">
           <span class="md-ellipsis">
             
               Sha1
@@ -99,9 +92,12 @@
         </div>
       </div>
     </div>
+    <div class="md-header__options">
+      
+    </div>
     
-      <label class="md-header-nav__button md-icon" for="__search">
-        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0116 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.516 6.516 0 019.5 16 6.5 6.5 0 013 9.5 6.5 6.5 0 019.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5z"/></svg>
+      <label class="md-header__button md-icon" for="__search">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.516 6.516 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5z"/></svg>
       </label>
       
 <div class="md-search" data-md-component="search" role="dialog">
@@ -110,11 +106,11 @@
     <form class="md-search__form" name="search">
       <input type="text" class="md-search__input" name="query" aria-label="Search" placeholder="Search" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="search-query" data-md-state="active" required>
       <label class="md-search__icon md-icon" for="__search">
-        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0116 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.516 6.516 0 019.5 16 6.5 6.5 0 013 9.5 6.5 6.5 0 019.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5z"/></svg>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.516 6.516 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5z"/></svg>
         <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11h12z"/></svg>
       </label>
       <button type="reset" class="md-search__icon md-icon" aria-label="Clear" tabindex="-1">
-        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 6.41L17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12 19 6.41z"/></svg>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12 19 6.41z"/></svg>
       </button>
     </form>
     <div class="md-search__output">
@@ -224,14 +220,12 @@
                   <div class="md-sidebar__inner">
                     
 
-
-
   
 
 
 <nav class="md-nav md-nav--primary md-nav--lifted" aria-label="Navigation" data-md-level="0">
   <label class="md-nav__title" for="__drawer">
-    <a href="https://github.com/eddelbuettel/digest" title="digest" class="md-nav__button md-logo" aria-label="digest">
+    <a href="../.." title="digest" class="md-nav__button md-logo" aria-label="digest" data-md-component="logo">
       
   <img src="../../assets/Rlogo.svg" alt="logo">
 
@@ -252,19 +246,18 @@
     <li class="md-nav__item md-nav__item--nested">
       
       
-        <input class="md-nav__toggle md-toggle" data-md-toggle="nav-1" type="checkbox" id="nav-1" >
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_1" type="checkbox" id="__nav_1" >
       
-      <label class="md-nav__link" for="nav-1">
+      <label class="md-nav__link" for="__nav_1">
         Home
         <span class="md-nav__icon md-icon"></span>
       </label>
       <nav class="md-nav" aria-label="Home" data-md-level="1">
-        <label class="md-nav__title" for="nav-1">
+        <label class="md-nav__title" for="__nav_1">
           <span class="md-nav__icon md-icon"></span>
           Home
         </label>
         <ul class="md-nav__list" data-md-scrollfix>
-          
           
             
   
@@ -297,19 +290,18 @@
     <li class="md-nav__item md-nav__item--active md-nav__item--nested">
       
       
-        <input class="md-nav__toggle md-toggle" data-md-toggle="nav-2" type="checkbox" id="nav-2" checked>
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_2" type="checkbox" id="__nav_2" checked>
       
-      <label class="md-nav__link" for="nav-2">
+      <label class="md-nav__link" for="__nav_2">
         Reference
         <span class="md-nav__icon md-icon"></span>
       </label>
       <nav class="md-nav" aria-label="Reference" data-md-level="1">
-        <label class="md-nav__title" for="nav-2">
+        <label class="md-nav__title" for="__nav_2">
           <span class="md-nav__icon md-icon"></span>
           Reference
         </label>
         <ul class="md-nav__list" data-md-scrollfix>
-          
           
             
   
@@ -382,84 +374,9 @@
       <input class="md-nav__toggle md-toggle" data-md-toggle="toc" type="checkbox" id="__toc">
       
       
-        <label class="md-nav__link md-nav__link--active" for="__toc">
-          Sha1
-          <span class="md-nav__icon md-icon"></span>
-        </label>
-      
       <a href="./" class="md-nav__link md-nav__link--active">
         Sha1
       </a>
-      
-        
-<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
-  
-  
-  
-    <label class="md-nav__title" for="__toc">
-      <span class="md-nav__icon md-icon"></span>
-      Table of contents
-    </label>
-    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
-      
-        <li class="md-nav__item">
-  <a href="#calculate-a-sha1-hash-of-an-object" class="md-nav__link">
-    Calculate a SHA1 hash of an object
-  </a>
-  
-    <nav class="md-nav" aria-label="Calculate a SHA1 hash of an object">
-      <ul class="md-nav__list">
-        
-          <li class="md-nav__item">
-  <a href="#description" class="md-nav__link">
-    Description
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#usage" class="md-nav__link">
-    Usage
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#arguments" class="md-nav__link">
-    Arguments
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#details" class="md-nav__link">
-    Details
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#note" class="md-nav__link">
-    Note
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#authors" class="md-nav__link">
-    Author(s)
-  </a>
-  
-</li>
-        
-      </ul>
-    </nav>
-  
-</li>
-      
-    </ul>
-  
-</nav>
       
     </li>
   
@@ -494,19 +411,18 @@
     <li class="md-nav__item md-nav__item--nested">
       
       
-        <input class="md-nav__toggle md-toggle" data-md-toggle="nav-3" type="checkbox" id="nav-3" >
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_3" type="checkbox" id="__nav_3" >
       
-      <label class="md-nav__link" for="nav-3">
+      <label class="md-nav__link" for="__nav_3">
         Articles
         <span class="md-nav__icon md-icon"></span>
       </label>
       <nav class="md-nav" aria-label="Articles" data-md-level="1">
-        <label class="md-nav__title" for="nav-3">
+        <label class="md-nav__title" for="__nav_3">
           <span class="md-nav__icon md-icon"></span>
           Articles
         </label>
         <ul class="md-nav__list" data-md-scrollfix>
-          
           
             
   
@@ -537,19 +453,18 @@
     <li class="md-nav__item md-nav__item--nested">
       
       
-        <input class="md-nav__toggle md-toggle" data-md-toggle="nav-4" type="checkbox" id="nav-4" >
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_4" type="checkbox" id="__nav_4" >
       
-      <label class="md-nav__link" for="nav-4">
+      <label class="md-nav__link" for="__nav_4">
         Changelog
         <span class="md-nav__icon md-icon"></span>
       </label>
       <nav class="md-nav" aria-label="Changelog" data-md-level="1">
-        <label class="md-nav__title" for="nav-4">
+        <label class="md-nav__title" for="__nav_4">
           <span class="md-nav__icon md-icon"></span>
           Changelog
         </label>
         <ul class="md-nav__list" data-md-scrollfix>
-          
           
             
   
@@ -576,83 +491,6 @@
               </div>
             
             
-              
-              <div class="md-sidebar md-sidebar--secondary" data-md-component="sidebar" data-md-type="toc" >
-                <div class="md-sidebar__scrollwrap">
-                  <div class="md-sidebar__inner">
-                    
-<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
-  
-  
-  
-    <label class="md-nav__title" for="__toc">
-      <span class="md-nav__icon md-icon"></span>
-      Table of contents
-    </label>
-    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
-      
-        <li class="md-nav__item">
-  <a href="#calculate-a-sha1-hash-of-an-object" class="md-nav__link">
-    Calculate a SHA1 hash of an object
-  </a>
-  
-    <nav class="md-nav" aria-label="Calculate a SHA1 hash of an object">
-      <ul class="md-nav__list">
-        
-          <li class="md-nav__item">
-  <a href="#description" class="md-nav__link">
-    Description
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#usage" class="md-nav__link">
-    Usage
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#arguments" class="md-nav__link">
-    Arguments
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#details" class="md-nav__link">
-    Details
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#note" class="md-nav__link">
-    Note
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#authors" class="md-nav__link">
-    Author(s)
-  </a>
-  
-</li>
-        
-      </ul>
-    </nav>
-  
-</li>
-      
-    </ul>
-  
-</nav>
-                  </div>
-                </div>
-              </div>
-            
           
           <div class="md-content" data-md-component="content">
             <article class="md-content__inner md-typeset">
@@ -661,122 +499,118 @@
                 
                   <h1>Sha1</h1>
                 
-                <h2 id="calculate-a-sha1-hash-of-an-object">Calculate a SHA1 hash of an object</h2>
-<h3 id="description">Description</h3>
-<p>Calculate a SHA1 hash of an object. The main difference with
-<code>digest(x, algo = "sha1")</code> is that <code>sha1()</code> will give the same hash on
+                <div class="container">
+
+## Calculate a SHA1 hash of an object
+
+### Description
+
+Calculate a SHA1 hash of an object. The main difference with
+`digest(x, algo = "sha1")` is that `sha1()` will give the same hash on
 32-bit and 64-bit systems. Note that the results depends on the setting
-of <code>digits</code> and <code>zapsmall</code> when handling floating point numbers. The
-current defaults keep <code>digits</code> and <code>zapsmall</code> as large as possible while
-maintaining the same hash on 32 bit and 64 bit systems.</p>
-<h3 id="usage">Usage</h3>
-<pre><code>sha1(x, digits = 14, zapsmall = 7, ..., algo = "sha1")
-## S3 method for class 'numeric'
-sha1(x, digits = 14, zapsmall = 7, ..., algo = "sha1")
-## S3 method for class 'complex'
-sha1(x, digits = 14, zapsmall = 7, ..., algo = "sha1")
-## S3 method for class 'Date'
-sha1(x, digits = 14, zapsmall = 7, ..., algo = "sha1")
-## S3 method for class 'matrix'
-sha1(x, digits = 14, zapsmall = 7, ..., algo = "sha1")
-## S3 method for class 'data.frame'
-sha1(x, digits = 14, zapsmall = 7, ..., algo = "sha1")
-## S3 method for class 'array'
-sha1(x, digits = 14, zapsmall = 7, ..., algo = "sha1")
-## S3 method for class 'list'
-sha1(x, digits = 14, zapsmall = 7, ..., algo = "sha1")
-## S3 method for class 'pairlist'
-sha1(x, digits = 14, zapsmall = 7, ..., algo = "sha1")
-## S3 method for class 'POSIXlt'
-sha1(x, digits = 14, zapsmall = 7, ..., algo = "sha1")
-## S3 method for class 'POSIXct'
-sha1(x, digits = 14, zapsmall = 7, ..., algo = "sha1")
-## S3 method for class 'anova'
-sha1(x, digits = 4, zapsmall = 7, ..., algo = "sha1")
-## S3 method for class 'function'
-sha1(x, digits = 14, zapsmall = 7, ..., algo = "sha1")
+of `digits` and `zapsmall` when handling floating point numbers. The
+current defaults keep `digits` and `zapsmall` as large as possible while
+maintaining the same hash on 32 bit and 64 bit systems.
 
-## S3 method for class 'formula'
-sha1(x, digits = 14, zapsmall = 7, ..., algo = "sha1")
-## S3 method for class ''(''
-sha1(...)
+### Usage
 
-sha1_digest(x, digits = 14, zapsmall = 7, ..., algo = "sha1")
-## S3 method for class 'NULL'
-sha1(...)
-## S3 method for class 'name'
-sha1(...)
+    sha1(x, digits = 14, zapsmall = 7, ..., algo = "sha1")
+    ## S3 method for class 'numeric'
+    sha1(x, digits = 14, zapsmall = 7, ..., algo = "sha1")
+    ## S3 method for class 'complex'
+    sha1(x, digits = 14, zapsmall = 7, ..., algo = "sha1")
+    ## S3 method for class 'Date'
+    sha1(x, digits = 14, zapsmall = 7, ..., algo = "sha1")
+    ## S3 method for class 'matrix'
+    sha1(x, digits = 14, zapsmall = 7, ..., algo = "sha1")
+    ## S3 method for class 'data.frame'
+    sha1(x, digits = 14, zapsmall = 7, ..., algo = "sha1")
+    ## S3 method for class 'array'
+    sha1(x, digits = 14, zapsmall = 7, ..., algo = "sha1")
+    ## S3 method for class 'list'
+    sha1(x, digits = 14, zapsmall = 7, ..., algo = "sha1")
+    ## S3 method for class 'pairlist'
+    sha1(x, digits = 14, zapsmall = 7, ..., algo = "sha1")
+    ## S3 method for class 'POSIXlt'
+    sha1(x, digits = 14, zapsmall = 7, ..., algo = "sha1")
+    ## S3 method for class 'POSIXct'
+    sha1(x, digits = 14, zapsmall = 7, ..., algo = "sha1")
+    ## S3 method for class 'anova'
+    sha1(x, digits = 4, zapsmall = 7, ..., algo = "sha1")
+    ## S3 method for class 'function'
+    sha1(x, digits = 14, zapsmall = 7, ..., algo = "sha1")
 
-sha1_attr_digest(x, digits = 14, zapsmall = 7, ..., algo = "sha1")
-## S3 method for class 'call'
-sha1(...)
-## S3 method for class 'character'
-sha1(...)
-## S3 method for class 'factor'
-sha1(...)
-## S3 method for class 'integer'
-sha1(...)
-## S3 method for class 'logical'
-sha1(...)
-## S3 method for class 'raw'
-sha1(...)
-</code></pre>
-<h3 id="arguments">Arguments</h3>
-<table>
-<thead>
-<tr>
-<th>Argument</th>
-<th>Description</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td><code>x</code></td>
-<td>the object to calculate the SHA1</td>
-</tr>
-<tr>
-<td><code>digits</code></td>
-<td>the approximate number of significant digits in base 10. Will be converted to a base 16 equivalent. Defaults to <code>digits = 14</code>, except for sha1.anova where <code>digits = 4</code></td>
-</tr>
-<tr>
-<td><code>zapsmall</code></td>
-<td>the approximate negative magnitude of the smallest relevant digit. Will be converted to a base 2 equivalent. Values smaller than this number are equivalent to 0. Defaults to <code>zapsmall = 7</code></td>
-</tr>
-<tr>
-<td><code>...</code></td>
-<td>If it is the only defined argument, passed to another <code>sha1</code> method. If other arguments exist, see Details for usage.</td>
-</tr>
-<tr>
-<td><code>algo</code></td>
-<td>The hashing algoritm to be used by <code>digest</code>. Defaults to "sha1"</td>
-</tr>
-</tbody>
-</table>
-<h3 id="details">Details</h3>
-<p><code>sha1_digest()</code> is a convenience function for objects where attributes
-cannot be added to apply the <code>digest()</code> function to its arguments.
-<code>sha1_attr_digest()</code> is a convenience function for objects where objects
+    ## S3 method for class 'formula'
+    sha1(x, digits = 14, zapsmall = 7, ..., algo = "sha1")
+    ## S3 method for class ''(''
+    sha1(...)
+
+    sha1_digest(x, digits = 14, zapsmall = 7, ..., algo = "sha1")
+    ## S3 method for class 'NULL'
+    sha1(...)
+    ## S3 method for class 'name'
+    sha1(...)
+
+    sha1_attr_digest(x, digits = 14, zapsmall = 7, ..., algo = "sha1")
+    ## S3 method for class 'call'
+    sha1(...)
+    ## S3 method for class 'character'
+    sha1(...)
+    ## S3 method for class 'factor'
+    sha1(...)
+    ## S3 method for class 'integer'
+    sha1(...)
+    ## S3 method for class 'logical'
+    sha1(...)
+    ## S3 method for class 'raw'
+    sha1(...)
+
+### Arguments
+
+| Argument   | Description                                                                                                                                                                                  |
+|------------|----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
+| `x`        | the object to calculate the SHA1                                                                                                                                                             |
+| `digits`   | the approximate number of significant digits in base 10. Will be converted to a base 16 equivalent. Defaults to `digits = 14`, except for sha1.anova where `digits = 4`                      |
+| `zapsmall` | the approximate negative magnitude of the smallest relevant digit. Will be converted to a base 2 equivalent. Values smaller than this number are equivalent to 0. Defaults to `zapsmall = 7` |
+| `...`      | If it is the only defined argument, passed to another `sha1` method. If other arguments exist, see Details for usage.                                                                        |
+| `algo`     | The hashing algoritm to be used by `digest`. Defaults to "sha1"                                                                                                                              |
+
+### Details
+
+`sha1_digest()` is a convenience function for objects where attributes
+cannot be added to apply the `digest()` function to its arguments.
+`sha1_attr_digest()` is a convenience function for objects where objects
 can be added to generate the hash. If generating hashes for objects in
 other packages, one of these two functions is recommended for use
-(typically, <code>sha1_attr_digest()</code>).</p>
-<p>Extra arguments:</p>
-<p>environment: An optional extra argument for <code>sha1.function</code> and
-<code>sha1.formula</code> should be TRUE, FALSE or missing. <code>sha1.function</code> and
-<code>sha1.formula</code> will ignore the enviroment of the function only when
-<code>environment = FALSE</code>.</p>
-<h3 id="note">Note</h3>
-<p><code>sha1</code> gained an <code>algo</code> argument since version 0.6.15. This allows
-<code>sha1()</code> to use all hashing algoritms available in <code>digest()</code>. The
-hashes created with <code>sha1(x)</code> from digest &gt;= 0.6.15 are identical to
-<code>sha1(x)</code> from digest &lt;= 0.6.14. The only exceptions are hashes
-created with <code>sha1(x, algo = "sha1")</code>, they will be different starting
-from digest 0.6.15</p>
-<p>Until version 0.6.22, <code>sha1</code> ignored the attributes of the object for
+(typically, `sha1_attr_digest()`).
+
+Extra arguments:
+
+environment: An optional extra argument for `sha1.function` and
+`sha1.formula` should be TRUE, FALSE or missing. `sha1.function` and
+`sha1.formula` will ignore the enviroment of the function only when
+`environment = FALSE`.
+
+### Note
+
+`sha1` gained an `algo` argument since version 0.6.15. This allows
+`sha1()` to use all hashing algoritms available in `digest()`. The
+hashes created with `sha1(x)` from digest \>= 0.6.15 are identical to
+`sha1(x)` from digest \<= 0.6.14. The only exceptions are hashes created
+with `sha1(x, algo = "sha1")`, they will be different starting from
+digest 0.6.15
+
+Until version 0.6.22, `sha1` ignored the attributes of the object for
 some classes. This was fixed in version 0.6.23. Use
-<code>options(sha1PackageVersion = "0.6.22")</code> to get the old behaviour.</p>
-<p>Version 0.6.24 and later ignore attributes named <code>srcref</code>.</p>
-<h3 id="authors">Author(s)</h3>
-<p>Thierry Onkelinx</p>
+`options(sha1PackageVersion = "0.6.22")` to get the old behaviour.
+
+Version 0.6.24 and later ignore attributes named `srcref`.
+
+### Author(s)
+
+Thierry Onkelinx
+
+</div>
                 
               
               
@@ -904,11 +738,10 @@ some classes. This was fixed in version 0.6.23. Use
     <div class="md-dialog" data-md-component="dialog">
       <div class="md-dialog__inner md-typeset"></div>
     </div>
-    <script id="__config" type="application/json">{"base": "../..", "features": ["navigation.tabs", "navigation.instant"], "translations": {"clipboard.copy": "Copy to clipboard", "clipboard.copied": "Copied to clipboard", "search.config.lang": "en", "search.config.pipeline": "trimmer, stopWordFilter", "search.config.separator": "[\\s\\-]+", "search.placeholder": "Search", "search.result.placeholder": "Type to start searching", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.term.missing": "Missing"}, "search": "../../assets/javascripts/worker/search.3f4c5856.min.js"}</script>
+    <script id="__config" type="application/json">{"base": "../..", "features": ["navigation.tabs", "navigation.instant"], "translations": {"clipboard.copy": "Copy to clipboard", "clipboard.copied": "Copied to clipboard", "search.config.lang": "en", "search.config.pipeline": "trimmer, stopWordFilter", "search.config.separator": "[\\s\\-]+", "search.placeholder": "Search", "search.result.placeholder": "Type to start searching", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.term.missing": "Missing"}, "search": "../../assets/javascripts/workers/search.fe42c31b.min.js", "version": null}</script>
     
     
-      <script src="../../assets/javascripts/vendor.00ecb175.min.js"></script>
-      <script src="../../assets/javascripts/bundle.fbcb1fc3.min.js"></script>
+      <script src="../../assets/javascripts/bundle.65ce87ac.min.js"></script>
       
     
   </body>

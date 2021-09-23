@@ -1,3 +1,5 @@
+<div class="container">
+
 ## Calculate a SHA1 hash of an object
 
 ### Description
@@ -92,10 +94,10 @@ environment: An optional extra argument for `sha1.function` and
 
 `sha1` gained an `algo` argument since version 0.6.15. This allows
 `sha1()` to use all hashing algoritms available in `digest()`. The
-hashes created with `sha1(x)` from digest &gt;= 0.6.15 are identical to
-`sha1(x)` from digest &lt;= 0.6.14. The only exceptions are hashes
-created with `sha1(x, algo = "sha1")`, they will be different starting
-from digest 0.6.15
+hashes created with `sha1(x)` from digest \>= 0.6.15 are identical to
+`sha1(x)` from digest \<= 0.6.14. The only exceptions are hashes created
+with `sha1(x, algo = "sha1")`, they will be different starting from
+digest 0.6.15
 
 Until version 0.6.22, `sha1` ignored the attributes of the object for
 some classes. This was fixed in version 0.6.23. Use
@@ -106,3 +108,5 @@ Version 0.6.24 and later ignore attributes named `srcref`.
 ### Author(s)
 
 Thierry Onkelinx
+
+</div>

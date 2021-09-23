@@ -1,5 +1,38 @@
 ###  2021 
 
+2021-09-23  Dirk Eddelbuettel  <edd@debian.org> 
+ 
+        * DESCRIPTION (Version, Date): Release 0.6.28 
+ 
+2021-09-22  Dirk Eddelbuettel  <edd@debian.org> 
+ 
+        * DESCRIPTION (Version, Date): Roll minor version 
+ 
+        * vignettes/sha1.Rmd (date): Remove knitr date calculation in YAML 
+        header which GitHub does not like and mistakes for Jekyll code 
+        * docs/mkdmt-src/src/vignette.md (date): Idem 
+ 
+        * README.md: Add total download badge, label other as monthly 
+ 
+2021-09-22  András Svraka  <svraka.andras@gmail.com> 
+ 
+        * R/vdigest.R (non_streaming_digest): Ensure UTF-8 encoded file paths 
+        on Windows 
+        * inst/tinytest/test_encoding.R: Expand test coverage for path name 
+        encodings on Windows 
+ 
+2021-03-28  Dirk Eddelbuettel  <edd@debian.org> 
+ 
+        * docs/mkdmt-src/: Moved mkdocs-material input 
+ 
+2021-03-26  Dirk Eddelbuettel  <edd@debian.org> 
+ 
+        * README.md: Add 'last commit' badge 
+ 
+2021-03-23  Dirk Eddelbuettel  <edd@debian.org> 
+ 
+        * DESCRIPTION (URL): Add link to repo 
+ 
 2021-03-22  Dirk Eddelbuettel  <edd@debian.org> 
  
         * docs-src/mkdocs.yml (theme): Add (draft, incomplete) vignette 
