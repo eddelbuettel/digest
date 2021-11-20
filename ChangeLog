@@ -1,3 +1,13 @@
+2021-11-20  Dirk Eddelbuettel  <edd@debian.org>
+
+	* vignettes/sha1.md: Renamed from .Rmd, corrected code block syntax
+
+2021-11-19  Dirk Eddelbuettel  <edd@debian.org>
+
+ 	* DESCRIPTION: Converted to simplermarkdown vignette engine
+	* vignettes/sha1.Rmd: Idem
+	* vignettes/water.css: Added
+
 2021-11-05  Dirk Eddelbuettel  <edd@debian.org>
 
  	* README.md: Remove Travis badge
