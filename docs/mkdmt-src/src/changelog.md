@@ -1,5 +1,26 @@
 ###  2021 
 
+2021-11-30  Dirk Eddelbuettel  <edd@debian.org> 
+ 
+        * DESCRIPTION (Version, Date): Release 0.6.29 
+ 
+2021-11-20  Dirk Eddelbuettel  <edd@debian.org> 
+ 
+        * DESCRIPTION (Version, Date): Roll minor version 
+ 
+        * vignettes/sha1.md: Renamed from .Rmd, corrected code block syntax 
+ 
+2021-11-19  Dirk Eddelbuettel  <edd@debian.org> 
+ 
+         * DESCRIPTION (VignetteBuilder): Converted to simplermarkdown engine 
+        * vignettes/sha1.Rmd: Idem 
+        * vignettes/water.css: Added 
+ 
+2021-11-05  Dirk Eddelbuettel  <edd@debian.org> 
+ 
+         * README.md: Remove Travis badge 
+        * .travis.yml: Remove Travis YAML config 
+ 
 2021-09-23  Dirk Eddelbuettel  <edd@debian.org> 
  
         * DESCRIPTION (Version, Date): Release 0.6.28 

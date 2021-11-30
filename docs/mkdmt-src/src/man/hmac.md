@@ -1,4 +1,3 @@
-<div class="container">
 
 ## compute a hash-based message authentication code
 
@@ -95,4 +94,3 @@ the sha functions.
     target <- 'd730594d167e35d5956fd8003d0db3d3f46dc7bb'
     stopifnot(identical(target, as.character(current)))
 
-</div>

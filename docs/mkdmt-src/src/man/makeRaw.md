@@ -1,4 +1,3 @@
-<div class="container">
 
 ## Create a raw object
 
@@ -40,4 +39,3 @@ Dirk Eddelbuettel
 
     makeRaw("1234567890ABCDE")
 
-</div>

@@ -1,4 +1,4 @@
-<div class="container">
+
 
 ## Create hash function digests for arbitrary R objects or files
 
@@ -335,4 +335,3 @@ blake3.
     stopifnot(identical(v[1], digest(1L)),  # check first and third result
               identical(v[3], digest(3L)))
 
-</div>

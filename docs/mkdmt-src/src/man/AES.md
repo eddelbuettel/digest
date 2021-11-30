@@ -1,4 +1,3 @@
-<div class="container">
 
 ## Create AES block cipher object
 
@@ -167,4 +166,3 @@ Operation". NIST Special Publication 800-38A 2001 Edition.
     aes <- AES(key, mode="CTR", IV=iv)
     stopifnot(identical(plaintext, aes$decrypt(ctr128, raw=TRUE)))
 
-</div>

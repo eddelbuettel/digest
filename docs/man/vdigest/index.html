@@ -61,6 +61,11 @@
     <label class="md-overlay" for="__drawer"></label>
     <div data-md-component="skip">
       
+        
+        <a href="#set-a-vectorised-function-for-creating-hash-function-digests" class="md-skip">
+          Skip to content
+        </a>
+      
     </div>
     <div data-md-component="announce">
       
@@ -386,9 +391,91 @@
       <input class="md-nav__toggle md-toggle" data-md-toggle="toc" type="checkbox" id="__toc">
       
       
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          Vdigest
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
       <a href="./" class="md-nav__link md-nav__link--active">
         Vdigest
       </a>
+      
+        
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#set-a-vectorised-function-for-creating-hash-function-digests" class="md-nav__link">
+    Set a vectorised function for creating hash function digests
+  </a>
+  
+    <nav class="md-nav" aria-label="Set a vectorised function for creating hash function digests">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#description" class="md-nav__link">
+    Description
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#usage" class="md-nav__link">
+    Usage
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#arguments" class="md-nav__link">
+    Arguments
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#details" class="md-nav__link">
+    Details
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#value" class="md-nav__link">
+    Value
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#see-also" class="md-nav__link">
+    See Also
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#examples" class="md-nav__link">
+    Examples
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+    </ul>
+  
+</nav>
       
     </li>
   
@@ -491,6 +578,90 @@
               </div>
             
             
+              
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="sidebar" data-md-type="toc" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#set-a-vectorised-function-for-creating-hash-function-digests" class="md-nav__link">
+    Set a vectorised function for creating hash function digests
+  </a>
+  
+    <nav class="md-nav" aria-label="Set a vectorised function for creating hash function digests">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#description" class="md-nav__link">
+    Description
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#usage" class="md-nav__link">
+    Usage
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#arguments" class="md-nav__link">
+    Arguments
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#details" class="md-nav__link">
+    Details
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#value" class="md-nav__link">
+    Value
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#see-also" class="md-nav__link">
+    See Also
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#examples" class="md-nav__link">
+    Examples
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+                  </div>
+                </div>
+              </div>
+            
           
           <div class="md-content" data-md-component="content">
             <article class="md-content__inner md-typeset">
@@ -499,100 +670,98 @@
                 
                   <h1>Vdigest</h1>
                 
-                <div class="container">
-
-## Set a vectorised function for creating hash function digests
-
-### Description
-
-The `getVDigest` function extends `digest` by allowing one to set a
+                <h2 id="set-a-vectorised-function-for-creating-hash-function-digests">Set a vectorised function for creating hash function digests</h2>
+<h3 id="description">Description</h3>
+<p>The <code>getVDigest</code> function extends <code>digest</code> by allowing one to set a
 function that returns hash summaries as a character vector of the same
 length as the input. It also provides a performance advantage when
 repeated calls are necessary (e.g. applying a hash function repeatedly
 to an object). The returned function contains the same arguments as
-`digest` with the exception of the `raw` argument (see `digest` for more
-details).
-
-### Usage
-
-    getVDigest(algo=c("md5", "sha1", "crc32", "sha256", "sha512", "xxhash32",
-                "xxhash64", "murmur32", "spookyhash"),
-                 errormode=c("stop","warn","silent"))
-
-### Arguments
-
-| Argument    | Description                                                                                                                                                                                                                    |
-|-------------|--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
-| `algo`      | The algorithms to be used; currently available choices are `md5`, which is also the default, `sha1`, `crc32`, `sha256`, `sha512`, `xxhash32`, `xxhash64`, `murmur32` and `spookyhash`.                                         |
-| `errormode` | A character value denoting a choice for the behaviour in the case of error: ‘stop’ aborts (and is the default value), ‘warn’ emits a warning and returns `NULL` and ‘silent’ suppresses the error and returns an empty string. |
-
-### Details
-
-Note that since one hash summary will be returned for each element
+<code>digest</code> with the exception of the <code>raw</code> argument (see <code>digest</code> for more
+details).</p>
+<h3 id="usage">Usage</h3>
+<pre><code>getVDigest(algo=c("md5", "sha1", "crc32", "sha256", "sha512", "xxhash32",
+            "xxhash64", "murmur32", "spookyhash"),
+             errormode=c("stop","warn","silent"))
+</code></pre>
+<h3 id="arguments">Arguments</h3>
+<table>
+<thead>
+<tr>
+<th>Argument</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>algo</code></td>
+<td>The algorithms to be used; currently available choices are <code>md5</code>, which is also the default, <code>sha1</code>, <code>crc32</code>, <code>sha256</code>, <code>sha512</code>, <code>xxhash32</code>, <code>xxhash64</code>, <code>murmur32</code> and <code>spookyhash</code>.</td>
+</tr>
+<tr>
+<td><code>errormode</code></td>
+<td>A character value denoting a choice for the behaviour in the case of error: ‘stop’ aborts (and is the default value), ‘warn’ emits a warning and returns <code>NULL</code> and ‘silent’ suppresses the error and returns an empty string.</td>
+</tr>
+</tbody>
+</table>
+<h3 id="details">Details</h3>
+<p>Note that since one hash summary will be returned for each element
 passed as input, care must be taken when determining whether or not to
 include the data structure as part of the object. For instance, to
-return the equivalent output of `digest(list("a"))` it would be
-necessary to wrap the list object itself `getVDigest()(list(list("a")))`
+return the equivalent output of <code>digest(list("a"))</code> it would be
+necessary to wrap the list object itself <code>getVDigest()(list(list("a")))</code></p>
+<h3 id="value">Value</h3>
+<p>The <code>getVDigest</code> function returns a function for a given algorithm and
+error-mode.</p>
+<h3 id="see-also">See Also</h3>
+<p><code>digest</code>, <code>serialize</code>, <code>md5sum</code></p>
+<h3 id="examples">Examples</h3>
+<pre><code>stretch_key &lt;- function(d, n) {
+    md5 &lt;- getVDigest()
+    for (i in seq_len(n))
+        d &lt;- md5(d, serialize = FALSE)
+    d
+}
+stretch_key('abc123', 65e3)
+sha1 &lt;- getVDigest(algo = 'sha1')
+sha1(letters)
 
-### Value
+md5Input &lt;-
+    c("",
+      "a",
+      "abc",
+      "message digest",
+      "abcdefghijklmnopqrstuvwxyz",
+      "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789",
+      paste("12345678901234567890123456789012345678901234567890123456789012",
+            "345678901234567890", sep=""))
+md5Output &lt;-
+    c("d41d8cd98f00b204e9800998ecf8427e",
+      "0cc175b9c0f1b6a831c399e269772661",
+      "900150983cd24fb0d6963f7d28e17f72",
+      "f96b697d7cb7938d525a2f31aaf161d0",
+      "c3fcd3d76192e4007dfb496cca67e13b",
+      "d174ab98d277d9f5a5611c2c9f419d9f",
+      "57edf4a22be3c955ac49da2e2107b67a")
 
-The `getVDigest` function returns a function for a given algorithm and
-error-mode.
+md5 &lt;- getVDigest()
+stopifnot(identical(md5(md5Input, serialize = FALSE), md5Output))
+stopifnot(identical(digest(list("abc")),
+                 md5(list(list("abc")))))
 
-### See Also
+sha512Input &lt;-c(
+    "",
+    "The quick brown fox jumps over the lazy dog."
+    )
+sha512Output &lt;- c(
+    paste0("cf83e1357eefb8bdf1542850d66d8007d620e4050b5715dc83f4a921d36ce9ce",
+           "47d0d13c5d85f2b0ff8318d2877eec2f63b931bd47417a81a538327af927da3e"),
+    paste0("91ea1245f20d46ae9a037a989f54f1f790f0a47607eeb8a14d12890cea77a1bb",
+           "c6c7ed9cf205e67b7f2b8fd4c7dfd3a7a8617e45f3c463d481c7e586c39ac1ed")
+    )
 
-`digest`, `serialize`, `md5sum`
-
-### Examples
-
-    stretch_key <- function(d, n) {
-        md5 <- getVDigest()
-        for (i in seq_len(n))
-            d <- md5(d, serialize = FALSE)
-        d
-    }
-    stretch_key('abc123', 65e3)
-    sha1 <- getVDigest(algo = 'sha1')
-    sha1(letters)
-
-    md5Input <-
-        c("",
-          "a",
-          "abc",
-          "message digest",
-          "abcdefghijklmnopqrstuvwxyz",
-          "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789",
-          paste("12345678901234567890123456789012345678901234567890123456789012",
-                "345678901234567890", sep=""))
-    md5Output <-
-        c("d41d8cd98f00b204e9800998ecf8427e",
-          "0cc175b9c0f1b6a831c399e269772661",
-          "900150983cd24fb0d6963f7d28e17f72",
-          "f96b697d7cb7938d525a2f31aaf161d0",
-          "c3fcd3d76192e4007dfb496cca67e13b",
-          "d174ab98d277d9f5a5611c2c9f419d9f",
-          "57edf4a22be3c955ac49da2e2107b67a")
-
-    md5 <- getVDigest()
-    stopifnot(identical(md5(md5Input, serialize = FALSE), md5Output))
-    stopifnot(identical(digest(list("abc")),
-                     md5(list(list("abc")))))
-
-    sha512Input <-c(
-        "",
-        "The quick brown fox jumps over the lazy dog."
-        )
-    sha512Output <- c(
-        paste0("cf83e1357eefb8bdf1542850d66d8007d620e4050b5715dc83f4a921d36ce9ce",
-               "47d0d13c5d85f2b0ff8318d2877eec2f63b931bd47417a81a538327af927da3e"),
-        paste0("91ea1245f20d46ae9a037a989f54f1f790f0a47607eeb8a14d12890cea77a1bb",
-               "c6c7ed9cf205e67b7f2b8fd4c7dfd3a7a8617e45f3c463d481c7e586c39ac1ed")
-        )
-
-    sha512 <- getVDigest(algo = 'sha512')
-    stopifnot(identical(sha512(sha512Input, serialize = FALSE), sha512Output))
-
-</div>
+sha512 &lt;- getVDigest(algo = 'sha512')
+stopifnot(identical(sha512(sha512Input, serialize = FALSE), sha512Output))
+</code></pre>
                 
               
               

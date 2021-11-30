@@ -8,8 +8,6 @@
       
       
       
-        <meta name="author" content="Thierry Onkelinx and Dirk Eddelbuettel">
-      
       
         <link rel="canonical" href="https://github.com/eddelbuettel/digest/vignette/">
       
@@ -18,7 +16,7 @@
     
     
       
-        <title>Calculating SHA1 hashes with digest() and sha1() - digest</title>
+        <title>Sha1 Vignette - digest</title>
       
     
     
@@ -64,7 +62,7 @@
     <div data-md-component="skip">
       
         
-        <a href="#short-intro-on-hashes" class="md-skip">
+        <a href="#calculating-sha1-hashes-with-digest-and-sha1" class="md-skip">
           Skip to content
         </a>
       
@@ -93,7 +91,7 @@
         <div class="md-header__topic" data-md-component="header-topic">
           <span class="md-ellipsis">
             
-              Calculating SHA1 hashes with digest() and sha1()
+              Sha1 Vignette
             
           </span>
         </div>
@@ -434,6 +432,8 @@
       
       <input class="md-nav__toggle md-toggle" data-md-toggle="toc" type="checkbox" id="__toc">
       
+        
+      
       
         <label class="md-nav__link md-nav__link--active" for="__toc">
           Sha1 Vignette
@@ -447,6 +447,8 @@
         
 <nav class="md-nav md-nav--secondary" aria-label="Table of contents">
   
+  
+    
   
   
     <label class="md-nav__title" for="__toc">
@@ -588,6 +590,8 @@
 <nav class="md-nav md-nav--secondary" aria-label="Table of contents">
   
   
+    
+  
   
     <label class="md-nav__title" for="__toc">
       <span class="md-nav__icon md-icon"></span>
@@ -670,15 +674,16 @@
               
                 
                 
-                  <h1>Sha1 Vignette</h1>
-                
-                <p>NB: This vignette is work-in-progress and not yet complete.</p>
+                <h1 id="calculating-sha1-hashes-with-digest-and-sha1">Calculating SHA1 hashes with digest() and sha1()</h1>
+<p>Thierry Onkelinx and Dirk Eddelbuettel<br />
+Written Jan 2016, updated Jan 2018 and Oct 2020  </p>
+<p>NB: This vignette is (still) work-in-progress and not yet complete.</p>
 <h2 id="short-intro-on-hashes">Short intro on hashes</h2>
 <p>TBD</p>
 <h2 id="difference-between-digest-and-sha1">Difference between <code>digest()</code> and <code>sha1()</code></h2>
 <p>R <a href="https://cran.r-project.org/doc/FAQ/R-FAQ.html#Why-doesn_0027t-R-think-these-numbers-are-equal_003f">FAQ 7.31</a> illustrates potential problems with floating point arithmetic. Mathematically the equality $x = \sqrt{x}^2$ should hold. But the precision of floating points numbers is finite. Hence some rounding is done, leading to numbers which are no longer identical.</p>
 <p>An illustration:</p>
-<pre><code># FAQ 7.31
+<pre id="faq7_31"><code class="language-R"># FAQ 7.31
 a0 &lt;- 2
 b &lt;- sqrt(a0)
 a1 &lt;- b ^ 2
@@ -691,7 +696,7 @@ sprintf(&quot;%a&quot;, a)
 <p>Although the difference is small, any difference will result in different hash when using the <code>digest()</code> function. 
 However, the <code>sha1()</code> function tackles this problem by using the hexadecimal representation of the numbers and truncates 
 that representation to a certain number of digits prior to calculating the hash function. </p>
-<pre><code>library(digest)
+<pre id="faq7_31digest"><code class="language-R">library(digest)
 # different hashes with digest
 sapply(a, digest, algo = &quot;sha1&quot;)
 # same hash with sha1 with default digits (14)
@@ -772,7 +777,7 @@ c(sha1(pi), sha1(pi, digits = 13), sha1(pi, digits = 10))
 </ol>
 <h3 id="summarylm">summary.lm</h3>
 <p>Let's illustrate this using the summary of a simple linear regression. Suppose that we want a hash that takes into account the coefficients, their standard error and sigma.</p>
-<pre><code># taken from the help file of lm.influence
+<pre id="sha1_lm_sum"><code class="language-R"># taken from the help file of lm.influence
 lm_SR &lt;- lm(sr ~ pop15 + pop75 + dpi + ddpi, data = LifeCycleSavings)
 lm_sum &lt;- summary(lm_SR)
 class(lm_sum)
@@ -810,7 +815,7 @@ sha1(summary(lm_SR2))
 </code></pre>
 <h3 id="lm">lm</h3>
 <p>Let's illustrate this using the summary of a simple linear regression. Suppose that we want a hash that takes into account the coefficients, their standard error and sigma.</p>
-<pre><code>class(lm_SR)
+<pre id="sha1_lm"><code class="language-R">class(lm_SR)
 # str() gives the structure of the lm object
 str(lm_SR)
 # extract the model and the terms
@@ -878,8 +883,6 @@ sha1(lm_SR2)
 </ul>
 </li>
 </ul>
-                
-                  
                 
               
               

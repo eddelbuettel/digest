@@ -61,6 +61,11 @@
     <label class="md-overlay" for="__drawer"></label>
     <div data-md-component="skip">
       
+        
+        <a href="#compute-a-hash-based-message-authentication-code" class="md-skip">
+          Skip to content
+        </a>
+      
     </div>
     <div data-md-component="announce">
       
@@ -350,9 +355,98 @@
       <input class="md-nav__toggle md-toggle" data-md-toggle="toc" type="checkbox" id="__toc">
       
       
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          Hmac
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
       <a href="./" class="md-nav__link md-nav__link--active">
         Hmac
       </a>
+      
+        
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#compute-a-hash-based-message-authentication-code" class="md-nav__link">
+    compute a hash-based message authentication code
+  </a>
+  
+    <nav class="md-nav" aria-label="compute a hash-based message authentication code">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#description" class="md-nav__link">
+    Description
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#usage" class="md-nav__link">
+    Usage
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#arguments" class="md-nav__link">
+    Arguments
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#value" class="md-nav__link">
+    Value
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#authors" class="md-nav__link">
+    Author(s)
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#references" class="md-nav__link">
+    References
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#see-also" class="md-nav__link">
+    See Also
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#examples" class="md-nav__link">
+    Examples
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+    </ul>
+  
+</nav>
       
     </li>
   
@@ -491,6 +585,97 @@
               </div>
             
             
+              
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="sidebar" data-md-type="toc" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#compute-a-hash-based-message-authentication-code" class="md-nav__link">
+    compute a hash-based message authentication code
+  </a>
+  
+    <nav class="md-nav" aria-label="compute a hash-based message authentication code">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#description" class="md-nav__link">
+    Description
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#usage" class="md-nav__link">
+    Usage
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#arguments" class="md-nav__link">
+    Arguments
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#value" class="md-nav__link">
+    Value
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#authors" class="md-nav__link">
+    Author(s)
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#references" class="md-nav__link">
+    References
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#see-also" class="md-nav__link">
+    See Also
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#examples" class="md-nav__link">
+    Examples
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+                  </div>
+                </div>
+              </div>
+            
           
           <div class="md-content" data-md-component="content">
             <article class="md-content__inner md-typeset">
@@ -499,104 +684,104 @@
                 
                   <h1>Hmac</h1>
                 
-                <div class="container">
-
-## compute a hash-based message authentication code
-
-### Description
-
-The `hmac` function calculates a message authentication code (MAC)
+                <h2 id="compute-a-hash-based-message-authentication-code">compute a hash-based message authentication code</h2>
+<h3 id="description">Description</h3>
+<p>The <code>hmac</code> function calculates a message authentication code (MAC)
 involving the specified cryptographic hash function in combination with
-a given secret key.
-
-### Usage
-
-    hmac(key, object,
-         algo = c("md5", "sha1", "crc32", "sha256", "sha512"),
-         serialize = FALSE, raw = FALSE, ...)
-
-### Arguments
-
-| Argument    | Description                                                                                                                                       |
-|-------------|---------------------------------------------------------------------------------------------------------------------------------------------------|
-| `key`       | An arbitrary character or numeric vector, to use as pre-shared secret key.                                                                        |
-| `object`    | An arbitrary R object which will then be passed to the `serialize` function, unless the `serialize` argument is set to `FALSE`.                   |
-| `algo`      | The algorithms to be used; currently available choices are `md5`, which is also the default, `sha1`, `crc32` and `sha256`.                        |
-| `serialize` | default value of `serialize` is here FALSE, not TRUE as it is in `digest`.                                                                        |
-| `raw`       | This flag alters the type of the output. Setting this to `TRUE` causes the function to return an object of type `"raw"` instead of `"character"`. |
-| `...`       | All remaining arguments are passed to `digest`.                                                                                                   |
-
-### Value
-
-The `hmac` function uses the `digest` to return a hash digest as
-specified in the RFC 2104.
-
-### Author(s)
-
-Mario Frasca <mfrasca@zonnet.nl>.
-
-### References
-
-MD5: <https://www.ietf.org/rfc/rfc1321.txt>.
-
-SHA-1: <https://en.wikipedia.org/wiki/SHA-1>. SHA-256:
-<https://csrc.nist.gov/publications/fips/fips180-2/fips180-2withchangenotice.pdf>.
-CRC32: The original reference webpage at `rocksoft.com` has vanished
+a given secret key.</p>
+<h3 id="usage">Usage</h3>
+<pre><code>hmac(key, object,
+     algo = c("md5", "sha1", "crc32", "sha256", "sha512"),
+     serialize = FALSE, raw = FALSE, ...)
+</code></pre>
+<h3 id="arguments">Arguments</h3>
+<table>
+<thead>
+<tr>
+<th>Argument</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>key</code></td>
+<td>An arbitrary character or numeric vector, to use as pre-shared secret key.</td>
+</tr>
+<tr>
+<td><code>object</code></td>
+<td>An arbitrary R object which will then be passed to the <code>serialize</code> function, unless the <code>serialize</code> argument is set to <code>FALSE</code>.</td>
+</tr>
+<tr>
+<td><code>algo</code></td>
+<td>The algorithms to be used; currently available choices are <code>md5</code>, which is also the default, <code>sha1</code>, <code>crc32</code> and <code>sha256</code>.</td>
+</tr>
+<tr>
+<td><code>serialize</code></td>
+<td>default value of <code>serialize</code> is here FALSE, not TRUE as it is in <code>digest</code>.</td>
+</tr>
+<tr>
+<td><code>raw</code></td>
+<td>This flag alters the type of the output. Setting this to <code>TRUE</code> causes the function to return an object of type <code>"raw"</code> instead of <code>"character"</code>.</td>
+</tr>
+<tr>
+<td><code>...</code></td>
+<td>All remaining arguments are passed to <code>digest</code>.</td>
+</tr>
+</tbody>
+</table>
+<h3 id="value">Value</h3>
+<p>The <code>hmac</code> function uses the <code>digest</code> to return a hash digest as
+specified in the RFC 2104.</p>
+<h3 id="authors">Author(s)</h3>
+<p>Mario Frasca <a href="&#109;&#97;&#105;&#108;&#116;&#111;&#58;&#109;&#102;&#114;&#97;&#115;&#99;&#97;&#64;&#122;&#111;&#110;&#110;&#101;&#116;&#46;&#110;&#108;">&#109;&#102;&#114;&#97;&#115;&#99;&#97;&#64;&#122;&#111;&#110;&#110;&#101;&#116;&#46;&#110;&#108;</a>.</p>
+<h3 id="references">References</h3>
+<p>MD5: <a href="https://www.ietf.org/rfc/rfc1321.txt">https://www.ietf.org/rfc/rfc1321.txt</a>.</p>
+<p>SHA-1: <a href="https://en.wikipedia.org/wiki/SHA-1">https://en.wikipedia.org/wiki/SHA-1</a>. SHA-256:
+<a href="https://csrc.nist.gov/publications/fips/fips180-2/fips180-2withchangenotice.pdf">https://csrc.nist.gov/publications/fips/fips180-2/fips180-2withchangenotice.pdf</a>.
+CRC32: The original reference webpage at <code>rocksoft.com</code> has vanished
 from the web; see
-<https://en.wikipedia.org/wiki/Cyclic_redundancy_check> for general
-information on CRC algorithms.
-
-<https://aarongifford.com/computers/sha.html> for the integrated C
-implementation of sha-512.
-
-The page for the code underlying the C functions used here for sha-1 and
+<a href="https://en.wikipedia.org/wiki/Cyclic_redundancy_check">https://en.wikipedia.org/wiki/Cyclic_redundancy_check</a> for general
+information on CRC algorithms.</p>
+<p><a href="https://aarongifford.com/computers/sha.html">https://aarongifford.com/computers/sha.html</a> for the integrated C
+implementation of sha-512.</p>
+<p>The page for the code underlying the C functions used here for sha-1 and
 md5, and further references, is no longer accessible. Please see
-<https://en.wikipedia.org/wiki/SHA-1> and
-<https://en.wikipedia.org/wiki/MD5>.
+<a href="https://en.wikipedia.org/wiki/SHA-1">https://en.wikipedia.org/wiki/SHA-1</a> and
+<a href="https://en.wikipedia.org/wiki/MD5">https://en.wikipedia.org/wiki/MD5</a>.</p>
+<p><a href="https://zlib.net">https://zlib.net</a> for documentation on the zlib library which supplied
+the code for crc32.</p>
+<p><a href="https://en.wikipedia.org/wiki/SHA_hash_functions">https://en.wikipedia.org/wiki/SHA_hash_functions</a> for documentation on
+the sha functions.</p>
+<h3 id="see-also">See Also</h3>
+<p><code>digest</code></p>
+<h3 id="examples">Examples</h3>
+<pre><code>## Standard RFC 2104 test vectors
+current &lt;- hmac('Jefe', 'what do ya want for nothing?', "md5")
+target &lt;- '750c783e6ab0b503eaa86e310a5db738'
+stopifnot(identical(target, as.character(current)))
 
-<https://zlib.net> for documentation on the zlib library which supplied
-the code for crc32.
+current &lt;- hmac(rep(0x0b, 16), 'Hi There', "md5")
+target &lt;- '9294727a3638bb1c13f48ef8158bfc9d'
+stopifnot(identical(target, as.character(current)))
 
-<https://en.wikipedia.org/wiki/SHA_hash_functions> for documentation on
-the sha functions.
+current &lt;- hmac(rep(0xaa, 16), rep(0xdd, 50), "md5")
+target &lt;- '56be34521d144c88dbb8c733f0e8b3f6'
+stopifnot(identical(target, as.character(current)))
 
-### See Also
+## SHA1 tests inspired to the RFC 2104 and checked against the python
+## hmac implementation.
+current &lt;- hmac('Jefe', 'what do ya want for nothing?', "sha1")
+target &lt;- 'effcdf6ae5eb2fa2d27416d5f184df9c259a7c79'
+stopifnot(identical(target, as.character(current)))
 
-`digest`
+current &lt;- hmac(rep(0x0b, 16), 'Hi There', "sha1")
+target &lt;- '675b0b3a1b4ddf4e124872da6c2f632bfed957e9'
+stopifnot(identical(target, as.character(current)))
 
-### Examples
-
-
-
-
-    ## Standard RFC 2104 test vectors
-    current <- hmac('Jefe', 'what do ya want for nothing?', "md5")
-    target <- '750c783e6ab0b503eaa86e310a5db738'
-    stopifnot(identical(target, as.character(current)))
-
-    current <- hmac(rep(0x0b, 16), 'Hi There', "md5")
-    target <- '9294727a3638bb1c13f48ef8158bfc9d'
-    stopifnot(identical(target, as.character(current)))
-
-    current <- hmac(rep(0xaa, 16), rep(0xdd, 50), "md5")
-    target <- '56be34521d144c88dbb8c733f0e8b3f6'
-    stopifnot(identical(target, as.character(current)))
-
-    ## SHA1 tests inspired to the RFC 2104 and checked against the python
-    ## hmac implementation.
-    current <- hmac('Jefe', 'what do ya want for nothing?', "sha1")
-    target <- 'effcdf6ae5eb2fa2d27416d5f184df9c259a7c79'
-    stopifnot(identical(target, as.character(current)))
-
-    current <- hmac(rep(0x0b, 16), 'Hi There', "sha1")
-    target <- '675b0b3a1b4ddf4e124872da6c2f632bfed957e9'
-    stopifnot(identical(target, as.character(current)))
-
-    current <- hmac(rep(0xaa, 16), rep(0xdd, 50), "sha1")
-    target <- 'd730594d167e35d5956fd8003d0db3d3f46dc7bb'
-    stopifnot(identical(target, as.character(current)))
-
-</div>
+current &lt;- hmac(rep(0xaa, 16), rep(0xdd, 50), "sha1")
+target &lt;- 'd730594d167e35d5956fd8003d0db3d3f46dc7bb'
+stopifnot(identical(target, as.character(current)))
+</code></pre>
                 
               
               

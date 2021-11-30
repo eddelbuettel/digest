@@ -1,4 +1,3 @@
-<div class="container">
 
 ## Set a vectorised function for creating hash function digests
 
@@ -91,4 +90,3 @@ error-mode.
     sha512 <- getVDigest(algo = 'sha512')
     stopifnot(identical(sha512(sha512Input, serialize = FALSE), sha512Output))
 
-</div>

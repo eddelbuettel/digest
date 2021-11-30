@@ -1,4 +1,3 @@
-<div class="container">
 
 ## hash arbitrary string to integer
 
@@ -46,4 +45,3 @@ Jenkins's `one_at_a_time` hash:
     target <- 1369346549L
     stopifnot(identical(target, current))
 
-</div>

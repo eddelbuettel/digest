@@ -1,4 +1,3 @@
-<div class="container">
 
 ## Calculate a SHA1 hash of an object
 
@@ -109,4 +108,3 @@ Version 0.6.24 and later ignore attributes named `srcref`.
 
 Thierry Onkelinx
 
-</div>
