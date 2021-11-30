@@ -4,6 +4,10 @@
  
         * DESCRIPTION (Version, Date): Release 0.6.29 
  
+        * src/digest.c (digest): Accomodate Windows UCRT build 
+        * man/AES.Rd: Remove one URL that upsets the URL checker 
+        * README.md: Update one URL that upsets the URL checker 
+ 
 2021-11-20  Dirk Eddelbuettel  <edd@debian.org> 
  
         * DESCRIPTION (Version, Date): Roll minor version 

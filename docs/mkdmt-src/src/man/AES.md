@@ -52,7 +52,6 @@ Processing Standards Publication 197.
 
 Morris Dworkin (2001). "Recommendation for Block Cipher Modes of
 Operation". NIST Special Publication 800-38A 2001 Edition.
-<https://csrc.nist.gov/publications/nistpubs/800-38a/sp800-38a.pdf>.
 
 ### Examples
 
