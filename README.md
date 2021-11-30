@@ -10,7 +10,7 @@
 [![CRAN use](https://jangorecki.gitlab.io/rdeps/digest/CRAN_usage.svg?sanitize=true)](https://cran.r-project.org/package=digest)
 [![CRAN indirect](https://jangorecki.gitlab.io/rdeps/digest/indirect_usage.svg?sanitize=true)](https://cran.r-project.org/package=digest)
 [![BioConductor use](https://jangorecki.gitlab.io/rdeps/digest/BioC_usage.svg?sanitize=true)](https://cran.r-project.org/package=digest)
-[![Code Coverage](https://img.shields.io/codecov/c/github/eddelbuettel/digest/master.svg)](https://codecov.io/gh/eddelbuettel/digest)
+[![Code Coverage](https://img.shields.io/codecov/c/github/eddelbuettel/digest/master.svg)](https://app.codecov.io/gh/eddelbuettel/digest)
 [![Last Commit](https://img.shields.io/github/last-commit/eddelbuettel/digest)](https://github.com/eddelbuettel/digest)
 [![Documentation](https://img.shields.io/badge/documentation-is_here-blue)](https://eddelbuettel.github.io/digest/)
 
@@ -84,7 +84,6 @@ Hannes Muehleisen, Duncan Murdoch, Jim Hester, Wush Wu, Qiang Kou, Thierry
 Onkelinx, Michel Lang, Viliam Simko, Kurt Hornik, Radford Neal, Kendon Bell,
 Matthew de Queljoe, Ion Suruceanu, Bill Denney, Dirk Schumacher, and Winston
 Chang.
-
 
 ### License
 
