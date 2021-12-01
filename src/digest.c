@@ -203,7 +203,7 @@ SEXP digest(SEXP Txt, SEXP Algo, SEXP Length, SEXP Skip, SEXP Leave_raw, SEXP Se
     }
     case 7: {     /* xxhash64 case */
         unsigned long long val =  XXH64(txt, nChar, seed);
-#ifdef WIN32
+#if defined(WIN32) && !defined(_UCRT)
         sprintf(output, "%016" PRIx64, val);
 #else
         sprintf(output, "%016llx", val);
