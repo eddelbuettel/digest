@@ -123,7 +123,7 @@ on big endian machines, or a byte-by-byte read if the endianess is unknown.
 
 /* gcc (usually) defines xEL/EB macros for ARM and MIPS endianess */
 #if !defined(__BYTE_ORDER)
-  #if defined(__ARMEL__) || defined(__MIPSEL__)
+  #if defined(__ARMEL__) || defined(__MIPSEL__) || defined(__loongarch__)
     #define __BYTE_ORDER __LITTLE_ENDIAN
   #endif
   #if defined(__ARMEB__) || defined(__MIPSEB__)
