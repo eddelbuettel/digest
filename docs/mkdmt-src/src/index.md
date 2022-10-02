@@ -1,4 +1,9 @@
-## digest: Compact hash representations of arbitrary R objects 
+--- 
+title: Hash arbitrary R objets
+description: Create hash digests of arbitrary R objects permitting easy comparison of R language objects.
+---
+
+# digest: Compact hash representations of arbitrary R objects 
 
 [![ci](https://github.com/eddelbuettel/digest/workflows/ci/badge.svg)](https://github.com/eddelbuettel/digest/actions?query=workflow%3Aci)
 [![License](http://img.shields.io/badge/license-GPL%20%28%3E=%202%29-brightgreen.svg?style=flat)](http://www.gnu.org/licenses/gpl-2.0.html) 
@@ -14,7 +19,7 @@
 [![Last Commit](https://img.shields.io/github/last-commit/eddelbuettel/digest)](https://github.com/eddelbuettel/digest)
 [![Documentation](https://img.shields.io/badge/documentation-is_here-blue)](https://eddelbuettel.github.io/digest/)
 
-Compact hash representations of arbitrary R objects
+<!-- Compact hash representations of arbitrary R objects -->
 
 ### Overview
 
