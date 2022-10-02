@@ -24,8 +24,8 @@ extra:
       link: https://twitter.com/eddelbuettel
       name: eddelbuettel on Twitter
 
-plugins:
-  - social
+#plugins:
+#  - social
      
 nav:
   - Home:
