@@ -1,3 +1,10 @@
+###  2022 
+
+2022-10-02  Dirk Eddelbuettel  <edd@debian.org> 
+ 
+        * docs/mkdmt-src/src/index.md: Several small updates with upgrade to 
+        Material for MkDocs 8.5.5 
+ 
 ###  2021 
 
 2021-11-30  Dirk Eddelbuettel  <edd@debian.org> 

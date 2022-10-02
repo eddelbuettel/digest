@@ -10,4 +10,6 @@ local
 digest.Rcheck
 docs-src/docs
 docs/mkdmt-src/docs
+docs/mkdmt-src/.cache
+docs/mkdmt-src/deploy.sh
 *~

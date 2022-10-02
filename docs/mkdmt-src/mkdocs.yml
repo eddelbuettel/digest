@@ -3,6 +3,8 @@ site_url: https://github.com/eddelbuettel/digest
 docs_dir: src
 site_dir: docs
 copyright: Copyright &copy; 2003 - present Dirk Eddelbuettel
+repo_url: https://github.com/eddelbuettel/digest
+edit_uri: ""
 
 theme:
   name: material
