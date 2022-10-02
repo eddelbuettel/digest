@@ -2,6 +2,7 @@ site_name: digest
 site_url: https://github.com/eddelbuettel/digest
 docs_dir: src
 site_dir: docs
+copyright: Copyright &copy; 2003 - present Dirk Eddelbuettel
 
 theme:
   name: material
@@ -14,14 +15,18 @@ theme:
   favicon: assets/Rlogo.png
   logo: assets/Rlogo.svg
 
-extra_css:
-  - assets/extra.css
-
 extra:
   social:
     - icon: fontawesome/brands/github
       link: https://github.com/eddelbuettel/digest
+      name: digest on GitHub
+    - icon: fontawesome/brands/twitter
+      link: https://twitter.com/eddelbuettel
+      name: eddelbuettel on Twitter
 
+#plugins:
+#  - social
+     
 nav:
   - Home:
     - index.md

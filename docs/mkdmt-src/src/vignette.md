@@ -17,7 +17,7 @@ R [FAQ 7.31](https://cran.r-project.org/doc/FAQ/R-FAQ.html#Why-doesn_0027t-R-thi
 
 An illustration:
 
-```{#faq7_31 .R} 
+```r 
 # FAQ 7.31
 a0 <- 2
 b <- sqrt(a0)
@@ -33,7 +33,7 @@ Although the difference is small, any difference will result in different hash w
 However, the `sha1()` function tackles this problem by using the hexadecimal representation of the numbers and truncates 
 that representation to a certain number of digits prior to calculating the hash function. 
 
-```{#faq7_31digest .R}
+```r
 library(digest)
 # different hashes with digest
 sapply(a, digest, algo = "sha1")
@@ -86,7 +86,7 @@ TBD
 
 Let's illustrate this using the summary of a simple linear regression. Suppose that we want a hash that takes into account the coefficients, their standard error and sigma.
 
-```{#sha1_lm_sum .R}
+```r
 # taken from the help file of lm.influence
 lm_SR <- lm(sr ~ pop15 + pop75 + dpi + ddpi, data = LifeCycleSavings)
 lm_sum <- summary(lm_SR)
@@ -128,7 +128,7 @@ sha1(summary(lm_SR2))
 
 Let's illustrate this using the summary of a simple linear regression. Suppose that we want a hash that takes into account the coefficients, their standard error and sigma.
 
-```{#sha1_lm .R}
+```r
 class(lm_SR)
 # str() gives the structure of the lm object
 str(lm_SR)
