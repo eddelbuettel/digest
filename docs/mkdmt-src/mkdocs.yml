@@ -17,6 +17,9 @@ theme:
   favicon: assets/Rlogo.png
   logo: assets/Rlogo.svg
 
+extra_css:
+  - stylesheets/extra.css
+  
 extra:
   social:
     - icon: fontawesome/brands/github
@@ -25,7 +28,7 @@ extra:
     - icon: fontawesome/brands/twitter
       link: https://twitter.com/eddelbuettel
       name: eddelbuettel on Twitter
-
+      
 #plugins:
 #  - social
      
