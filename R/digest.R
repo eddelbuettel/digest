@@ -25,7 +25,7 @@
 
 digest <- function(object, algo=c("md5", "sha1", "crc32", "sha256", "sha512",
                                   "xxhash32", "xxhash64", "murmur32",
-                                  "spookyhash", "blake3"),
+                                  "spookyhash", "blake3", "meow"),
                    serialize=TRUE,
                    file=FALSE,
                    length=Inf,
