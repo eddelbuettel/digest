@@ -37,6 +37,7 @@
 #include "xxhash.h"
 #include "pmurhash.h"
 #include "blake3.h"
+#include "meow.h"
 
 #ifdef _WIN32
 #include <Windows.h>
@@ -228,6 +229,16 @@ SEXP digest(SEXP Txt, SEXP Algo, SEXP Length, SEXP Skip, SEXP Leave_raw, SEXP Se
             for (size_t i = 0; i < BLAKE3_OUT_LEN; i++) {
                 sprintf(output + i * 2, "%02x", val[i]);
             }
+        }
+        break;
+    }
+    case 11: {     /* meow */
+        output_length = sizeof(meow_u128);
+        meow_u128 val = MeowHash(MeowDefaultSeed, nChar, txt);
+        if (leaveRaw) {
+            memcpy(&output, &val, sizeof(meow_u128));
+        } else {
+            sprintf(output, "%08x%08x%08x%08x", MeowU32From(val, 3), MeowU32From(val, 2), MeowU32From(val, 1), MeowU32From(val, 0));
         }
         break;
     }

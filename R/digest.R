@@ -40,7 +40,7 @@ digest <- function(object, algo=c("md5", "sha1", "crc32", "sha256", "sha512",
     # infer them from the function's formals.
     algo <- match.arg(algo, c("md5", "sha1", "crc32", "sha256", "sha512",
                               "xxhash32", "xxhash64", "murmur32",
-                              "spookyhash", "blake3"))
+                              "spookyhash", "blake3", "meow"))
     errormode <- match.arg(errormode, c("stop", "warn", "silent"))
 
     if (is.infinite(length)) {
@@ -149,7 +149,8 @@ algo_int <- function(algo)
         xxhash64 = 7,
         murmur32 = 8,
         spookyhash = 9,
-        blake3 = 10
+        blake3 = 10,
+        meow = 11
     )
 
 ## HB 14 Mar 2007:
