@@ -941,7 +941,7 @@ static void SHA512_Last(SHA512_CTX* context) {
 	SHA512_Transform(context);
 }
 
-void SHA512_Final(sha2_byte digest[], SHA512_CTX* context) {
+void SHA512_Final(sha2_byte digest[SHA512_DIGEST_LENGTH], SHA512_CTX* context) {
 	sha2_word64	*d = (sha2_word64*)digest;
 
 	/* Sanity check: */
@@ -970,7 +970,7 @@ void SHA512_Final(sha2_byte digest[], SHA512_CTX* context) {
 	MEMSET_BZERO(context, sizeof(SHA512_CTX));
 }
 
-char *SHA512_End(SHA512_CTX* context, char buffer[]) { /* #nocov start */ 
+char *SHA512_End(SHA512_CTX* context, char buffer[SHA512_DIGEST_STRING_LENGTH]) { /* #nocov start */
 	sha2_byte	digest[SHA512_DIGEST_LENGTH], *d = digest;
 	int		i;
 
