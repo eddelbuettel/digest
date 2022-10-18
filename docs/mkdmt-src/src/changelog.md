@@ -1,5 +1,15 @@
 ###  2022 
 
+2022-10-17  Dirk Eddelbuettel  <edd@debian.org> 
+ 
+        * DESCRIPTION (Version, Date): Release 0.6.30 
+ 
+        * src/crc32.c: Modernize three function signatures to current C 
+        standards to appease clang-15 now used by CRAN 
+ 
+        * src/sha2.c (SHA512_End): Align two function signatures to their 
+        prototypes to appease gcc-12 
+ 
 2022-10-02  Dirk Eddelbuettel  <edd@debian.org> 
  
         * docs/mkdmt-src/src/index.md: Several small updates with upgrade to 

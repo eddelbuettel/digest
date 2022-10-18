@@ -878,6 +878,15 @@
   <h1>Changelog</h1>
 
 <h3 id="2022">2022</h3>
+<p>2022-10-17  Dirk Eddelbuettel  <a href="&#109;&#97;&#105;&#108;&#116;&#111;&#58;&#101;&#100;&#100;&#64;&#100;&#101;&#98;&#105;&#97;&#110;&#46;&#111;&#114;&#103;">&#101;&#100;&#100;&#64;&#100;&#101;&#98;&#105;&#97;&#110;&#46;&#111;&#114;&#103;</a> </p>
+<pre><code>    * DESCRIPTION (Version, Date): Release 0.6.30
+
+    * src/crc32.c: Modernize three function signatures to current C 
+    standards to appease clang-15 now used by CRAN
+
+    * src/sha2.c (SHA512_End): Align two function signatures to their 
+    prototypes to appease gcc-12
+</code></pre>
 <p>2022-10-02  Dirk Eddelbuettel  <a href="&#109;&#97;&#105;&#108;&#116;&#111;&#58;&#101;&#100;&#100;&#64;&#100;&#101;&#98;&#105;&#97;&#110;&#46;&#111;&#114;&#103;">&#101;&#100;&#100;&#64;&#100;&#101;&#98;&#105;&#97;&#110;&#46;&#111;&#114;&#103;</a> </p>
 <pre><code>    * docs/mkdmt-src/src/index.md: Several small updates with upgrade to 
     Material for MkDocs 8.5.5
