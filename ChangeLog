@@ -2,6 +2,9 @@
 
 	* src/digest.c: Replace sprintf with snprintf
 
+	* .editorconfig: Added
+	* .Rbuildignore: Updated
+
 2022-11-05  Dirk Eddelbuettel  <edd@debian.org>
 
 	* .github/workflows/ci.yaml (jobs): Update to actions/checkout@v3
