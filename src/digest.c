@@ -2,7 +2,7 @@
 
   digest -- hash digest functions for R
 
-  Copyright (C) 2003 - 2016  Dirk Eddelbuettel <edd@debian.org>
+  Copyright (C) 2003 - 2022  Dirk Eddelbuettel <edd@debian.org>
 
   This file is part of digest.
 
@@ -124,7 +124,7 @@ SEXP digest(SEXP Txt, SEXP Algo, SEXP Length, SEXP Skip, SEXP Leave_raw, SEXP Se
 
         if (!leaveRaw)
             for (j = 0; j < 16; j++)
-                sprintf(output + j * 2, "%02x", md5sum[j]);
+                snprintf(output + j * 2, 3, "%02x", md5sum[j]);
 
         break;
     }
@@ -141,7 +141,7 @@ SEXP digest(SEXP Txt, SEXP Algo, SEXP Length, SEXP Skip, SEXP Leave_raw, SEXP Se
 
         if (!leaveRaw)
             for ( j = 0; j < 20; j++ )
-                sprintf( output + j * 2, "%02x", sha1sum[j] );
+                snprintf( output + j * 2, 3, "%02x", sha1sum[j] );
 
         break;
     }
@@ -152,7 +152,7 @@ SEXP digest(SEXP Txt, SEXP Algo, SEXP Length, SEXP Skip, SEXP Leave_raw, SEXP Se
         val  = digest_crc32(0L, 0, 0);
         val  = digest_crc32(val, (unsigned char*) txt, (unsigned) l);
 
-        sprintf(output, "%08x", (unsigned int) val);
+        snprintf(output, 128, "%08x", (unsigned int) val);
         break;
     }
     case 4: {     /* sha256 case */
@@ -168,7 +168,7 @@ SEXP digest(SEXP Txt, SEXP Algo, SEXP Length, SEXP Skip, SEXP Leave_raw, SEXP Se
 
         if (!leaveRaw)
             for ( j = 0; j < 32; j++ )
-                sprintf( output + j * 2, "%02x", sha256sum[j] );
+                snprintf( output + j * 2, 3, "%02x", sha256sum[j] );
 
         break;
     }
@@ -198,21 +198,21 @@ SEXP digest(SEXP Txt, SEXP Algo, SEXP Length, SEXP Skip, SEXP Leave_raw, SEXP Se
     }
     case 6: {     /* xxhash32 case */
         unsigned int val =  XXH32(txt, nChar, seed);
-        sprintf(output, "%08x", val);
+        snprintf(output, 128, "%08x", val);
         break;
     }
     case 7: {     /* xxhash64 case */
         unsigned long long val =  XXH64(txt, nChar, seed);
 #if defined(WIN32) && !defined(_UCRT)
-        sprintf(output, "%016" PRIx64, val);
+        snprintf(output, 128, "%016" PRIx64, val);
 #else
-        sprintf(output, "%016llx", val);
+        snprintf(output, 128, "%016llx", val);
 #endif
         break;
     }
     case 8: {     /* MurmurHash3 32 */
         unsigned int val = PMurHash32(seed, txt, nChar);
-        sprintf(output, "%08x", val);
+        snprintf(output, 128, "%08x", val);
         break;
     }
     case 10: {     /* blake3 */
@@ -226,7 +226,7 @@ SEXP digest(SEXP Txt, SEXP Algo, SEXP Length, SEXP Skip, SEXP Leave_raw, SEXP Se
             memcpy(output, val, BLAKE3_OUT_LEN);
         } else {
             for (size_t i = 0; i < BLAKE3_OUT_LEN; i++) {
-                sprintf(output + i * 2, "%02x", val[i]);
+                snprintf(output + i * 2, 3, "%02x", val[i]);
             }
         }
         break;
@@ -255,7 +255,7 @@ SEXP digest(SEXP Txt, SEXP Algo, SEXP Length, SEXP Skip, SEXP Leave_raw, SEXP Se
         memcpy(output, md5sum, 16);
         if (!leaveRaw)
             for (j = 0; j < 16; j++)
-                sprintf(output + j * 2, "%02x", md5sum[j]);
+                snprintf(output + j * 2, 3, "%02x", md5sum[j]);
         break;
     }
     case 102: {     /* sha1 file case */
@@ -281,7 +281,7 @@ SEXP digest(SEXP Txt, SEXP Algo, SEXP Length, SEXP Skip, SEXP Leave_raw, SEXP Se
         memcpy(output, sha1sum, 20);
         if (!leaveRaw)
             for ( j = 0; j < 20; j++ )
-                sprintf( output + j * 2, "%02x", sha1sum[j] );
+                snprintf( output + j * 2, 3, "%02x", sha1sum[j] );
         break;
     }
     case 103: {     /* crc32 file case */
@@ -300,7 +300,7 @@ SEXP digest(SEXP Txt, SEXP Algo, SEXP Length, SEXP Skip, SEXP Leave_raw, SEXP Se
             while ( ( nChar = fread( buf, 1, sizeof( buf ), fp ) ) > 0)
                 val  = digest_crc32(val , buf, (unsigned) nChar);
         }
-        sprintf(output, "%08x", (unsigned int) val);
+        snprintf(output, 128, "%08x", (unsigned int) val);
         break;
     }
     case 104: {     /* sha256 file case */
@@ -326,7 +326,7 @@ SEXP digest(SEXP Txt, SEXP Algo, SEXP Length, SEXP Skip, SEXP Leave_raw, SEXP Se
         memcpy(output, sha256sum, 32);
         if (!leaveRaw)
             for ( j = 0; j < 32; j++ )
-                sprintf( output + j * 2, "%02x", sha256sum[j] );
+                snprintf( output + j * 2, 3, "%02x", sha256sum[j] );
         break;
     }
     case 105: {     /* sha2-512 file case */
@@ -396,7 +396,7 @@ SEXP digest(SEXP Txt, SEXP Algo, SEXP Length, SEXP Skip, SEXP Leave_raw, SEXP Se
         unsigned int val =  XXH32_digest(state);
         XXH32_freeState(state);
 
-        sprintf(output, "%08x", val);
+        snprintf(output, 128, "%08x", val);
         break;
     }
     case 107: {     /* xxhash64 */
@@ -429,9 +429,9 @@ SEXP digest(SEXP Txt, SEXP Algo, SEXP Length, SEXP Skip, SEXP Leave_raw, SEXP Se
         XXH64_freeState(state);
 
 #ifdef WIN32
-        sprintf(output, "%016" PRIx64, val);
+        snprintf(output, 128, "%016" PRIx64, val);
 #else
-        sprintf(output, "%016llx", val);
+        snprintf(output, 128, "%016llx", val);
 #endif
         break;
     }
@@ -457,7 +457,7 @@ SEXP digest(SEXP Txt, SEXP Algo, SEXP Length, SEXP Skip, SEXP Leave_raw, SEXP Se
         }
         unsigned int val = PMurHash32_Result(h1, carry, total_length);
 
-        sprintf(output, "%08x", val);
+        snprintf(output, 128, "%08x", val);
         break;
     }
     case 110: {     /* blake3 file case */
@@ -483,7 +483,7 @@ SEXP digest(SEXP Txt, SEXP Algo, SEXP Length, SEXP Skip, SEXP Leave_raw, SEXP Se
             memcpy(output, val, BLAKE3_OUT_LEN);
         } else {
             for (size_t i = 0; i < BLAKE3_OUT_LEN; i++) {
-                sprintf(output + i * 2, "%02x", val[i]);
+                snprintf(output + i * 2, 3, "%02x", val[i]);
             }
         }
         break;

@@ -1,3 +1,7 @@
+2022-12-10  Dirk Eddelbuettel  <edd@debian.org>
+
+	* src/digest.c: Replace sprintf with snprintf
+
 2022-11-05  Dirk Eddelbuettel  <edd@debian.org>
 
 	* .github/workflows/ci.yaml (jobs): Update to actions/checkout@v3
