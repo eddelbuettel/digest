@@ -1,5 +1,7 @@
 2022-12-10  Dirk Eddelbuettel  <edd@debian.org>
 
+	* DESCRIPTION (Version, Date): Release 0.6.31
+
 	* src/digest.c: Replace sprintf with snprintf
 
 	* .editorconfig: Added
