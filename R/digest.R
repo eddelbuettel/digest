@@ -1,7 +1,7 @@
 
 ##  digest -- hash digest functions for R
 ##
-##  Copyright (C) 2003 - 2019  Dirk Eddelbuettel <edd@debian.org>
+##  Copyright (C) 2003 - 2023  Dirk Eddelbuettel <edd@debian.org>
 ##  Copyright (C) 2009 - 2019  Henrik Bengtsson
 ##  Copyright (C) 2012 - 2019  Hannes Muehleisen
 ##  Copyright (C) 2014 - 2019  Jim Hester
@@ -25,7 +25,7 @@
 
 digest <- function(object, algo=c("md5", "sha1", "crc32", "sha256", "sha512",
                                   "xxhash32", "xxhash64", "murmur32",
-                                  "spookyhash", "blake3"),
+                                  "spookyhash", "blake3", "crc32c"),
                    serialize=TRUE,
                    file=FALSE,
                    length=Inf,
@@ -40,7 +40,7 @@ digest <- function(object, algo=c("md5", "sha1", "crc32", "sha256", "sha512",
     # infer them from the function's formals.
     algo <- match.arg(algo, c("md5", "sha1", "crc32", "sha256", "sha512",
                               "xxhash32", "xxhash64", "murmur32",
-                              "spookyhash", "blake3"))
+                              "spookyhash", "blake3", "crc32c"))
     errormode <- match.arg(errormode, c("stop", "warn", "silent"))
 
     if (is.infinite(length)) {
@@ -149,7 +149,8 @@ algo_int <- function(algo)
         xxhash64 = 7,
         murmur32 = 8,
         spookyhash = 9,
-        blake3 = 10
+        blake3 = 10,
+        crc32c = 11
     )
 
 ## HB 14 Mar 2007:
