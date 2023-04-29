@@ -234,7 +234,7 @@ SEXP digest(SEXP Txt, SEXP Algo, SEXP Length, SEXP Skip, SEXP Leave_raw, SEXP Se
     }
     case 11: {		/* crc32c */
         uint32_t crc = 0;       /* initial value, can be zero */
-        crc = ComputeCrc32c(crc, (void*) txt, (size_t) nChar);
+        crc = crc32c_extend(crc, (const uint8_t*) txt, (size_t) nChar);
         snprintf(output, 128, "%08x", crc);
         break;
     }
@@ -503,12 +503,12 @@ SEXP digest(SEXP Txt, SEXP Algo, SEXP Length, SEXP Skip, SEXP Leave_raw, SEXP Se
         if (length>=0) {
             while ( ( nChar = fread( buf, 1, sizeof( buf ), fp ) ) > 0 && length>0) {
                 if (nChar>length) nChar=length;
-                crc = ComputeCrc32c(crc, (void*) buf, (size_t) nChar);
+                crc = crc32c_extend(crc, (const uint8_t*) buf, (size_t) nChar);
                 length -= nChar;
             }
         } else {
             while ( ( nChar = fread( buf, 1, sizeof( buf ), fp ) ) > 0)
-                crc = ComputeCrc32c(crc, (void*) buf, (size_t) nChar);
+                crc = crc32c_extend(crc, (const uint8_t*) buf, (size_t) nChar);
         }
         snprintf(output, 128, "%08x", (unsigned int) crc);
         break;
