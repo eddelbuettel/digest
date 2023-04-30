@@ -1,8 +1,8 @@
-/* -*- mode: c++; tab-width: 4; indent-tabs-mode: nil; c-basic-offset: 4; -*-
+/*
 
   digest -- hash digest functions for R
 
-  Copyright (C) 2003 - 2022  Dirk Eddelbuettel <edd@debian.org>
+  Copyright (C) 2003 - 2023  Dirk Eddelbuettel <edd@debian.org>
 
   This file is part of digest.
 
@@ -37,6 +37,7 @@
 #include "xxhash.h"
 #include "pmurhash.h"
 #include "blake3.h"
+#include "crc32c.h"
 
 #ifdef _WIN32
 #include <Windows.h>
@@ -229,6 +230,12 @@ SEXP digest(SEXP Txt, SEXP Algo, SEXP Length, SEXP Skip, SEXP Leave_raw, SEXP Se
                 snprintf(output + i * 2, 3, "%02x", val[i]);
             }
         }
+        break;
+    }
+    case 11: {		/* crc32c */
+        uint32_t crc = 0;       /* initial value, can be zero */
+        crc = crc32c_extend(crc, (const uint8_t*) txt, (size_t) nChar);
+        snprintf(output, 128, "%08x", crc);
         break;
     }
     case 101: {     /* md5 file case */
@@ -486,6 +493,24 @@ SEXP digest(SEXP Txt, SEXP Algo, SEXP Length, SEXP Skip, SEXP Leave_raw, SEXP Se
                 snprintf(output + i * 2, 3, "%02x", val[i]);
             }
         }
+        break;
+    }
+    case 111: {		/* crc32c */
+        unsigned char buf[BUF_SIZE];
+        uint32_t crc = 0;
+
+        if (skip > 0) fseek(fp, skip, SEEK_SET);
+        if (length>=0) {
+            while ( ( nChar = fread( buf, 1, sizeof( buf ), fp ) ) > 0 && length>0) {
+                if (nChar>length) nChar=length;
+                crc = crc32c_extend(crc, (const uint8_t*) buf, (size_t) nChar);
+                length -= nChar;
+            }
+        } else {
+            while ( ( nChar = fread( buf, 1, sizeof( buf ), fp ) ) > 0)
+                crc = crc32c_extend(crc, (const uint8_t*) buf, (size_t) nChar);
+        }
+        snprintf(output, 128, "%08x", (unsigned int) crc);
         break;
     }
     default: {
