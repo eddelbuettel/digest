@@ -7,7 +7,7 @@ Author: Dirk Eddelbuettel <edd@debian.org> with contributions
  Matthew de Queljoe, Ion Suruceanu, Bill Denney, Dirk Schumacher,
  and Winston Chang.
 Version: 0.6.31.2
-Date: 2023-04-29
+Date: 2023-04-30
 Maintainer: Dirk Eddelbuettel <edd@debian.org>
 Title: Create Compact Hash Digests of R Objects
 Description: Implementation of a function 'digest()' for the creation of hash

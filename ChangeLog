@@ -1,6 +1,10 @@
-2023-04-29  Dirk Eddelbuettel  <edd@debian.org>
+2023-04-30  Dirk Eddelbuettel  <edd@debian.org>
 
 	* DESCRIPTION (Version, Date): Roll micro version and date
+
+	* R/vdigest.R: Enable vectorised operation for blake3 and crc32v
+
+2023-04-29  Dirk Eddelbuettel  <edd@debian.org>
 
 	* src/digest.c (digest): Support crc33c
 	* man/digest.Rd: Document crc32c option, add two examples
