@@ -15,6 +15,8 @@
 
 	* R/init.R: Added some codecov nocov
 
+	* .codecov.yml (coverage): Added coverage diff settings
+
 2023-02-05  Dirk Eddelbuettel  <edd@debian.org>
 
 	* DESCRIPTION (Version, Date): Roll minor version
