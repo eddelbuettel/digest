@@ -1,7 +1,7 @@
 
 ##  digest -- hash digest functions for R
 ##
-##  Copyright (C) 2003 - 2019  Dirk Eddelbuettel <edd@debian.org>
+##  Copyright (C) 2003 - 2023  Dirk Eddelbuettel <edd@debian.org>
 ##
 ##  This file is part of digest.
 ##
@@ -22,7 +22,7 @@
 
 .onLoad <- function(libname, pkgname) {
     ## we set a default level of two, with a possible override
-    .pkgenv[["serializeVersion"]] <- getOption("serializeVersion", 2L)  # #nocov
+    .pkgenv[["serializeVersion"]] <- getOption("serializeVersion", 2L)  # #nocov start
     ## allow old crc32 behaviour
     .pkgenv[["crc32Preference"]] <- getOption("digestOldCRC32Format", FALSE)
     ## allow version specific sha1 behaviour
@@ -32,7 +32,7 @@
     .pkgenv[["isWindows"]] <- Sys.info()[["sysname"]] == "Windows"
 
     ## cache if serialize() supports 'nosharing'
-    .pkgenv[["hasNoSharing"]] <- "nosharing" %in% names(formals(serialize))
+    .pkgenv[["hasNoSharing"]] <- "nosharing" %in% names(formals(serialize)) # #nocov end
 }
 
 .getSerializeVersion <- function() {

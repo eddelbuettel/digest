@@ -295,7 +295,7 @@ uint32_t ExtendPortable(uint32_t crc, const uint8_t* data, size_t size) {
     }
   }
 
-  if ((e - p) >= 16) {
+  if ((e - p) >= 16) {          // #nocov start
     // Load a 16-byte swath into the stride partial results.
     uint32_t crc0 = ReadUint32LE(p + 0 * 4) ^ l;
     uint32_t crc1 = ReadUint32LE(p + 1 * 4);
@@ -335,7 +335,7 @@ uint32_t ExtendPortable(uint32_t crc, const uint8_t* data, size_t size) {
     STEP4W(crc1);
     STEP4W(crc2);
     STEP4W(crc3);
-  }
+  }							// #nocov end
 
   // Process the last few bytes.
   while (p != e) {

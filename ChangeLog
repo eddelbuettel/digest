@@ -1,14 +1,19 @@
 2023-04-29  Dirk Eddelbuettel  <edd@debian.org>
 
+	* DESCRIPTION (Version, Date): Roll micro version and date
+
 	* src/digest.c (digest): Support crc33c
 	* man/digest.Rd: Document crc32c option, add two examples
 
 	* src/crc32c.h: Adding new CRC32C implementation
 	* src/crc32c.cpp: Idem
-	* src/crc32c_portable.cpp: Idem
+	* src/crc32c_portable.cpp: Idem; also added codecov nocov
 	* src/crc32c/*: Idem
 
 	* src/Makevars: Added for PKG_CPPFLAGS
+	* src/Makevars.win: Idem
+
+	* R/init.R: Added some codecov nocov
 
 2023-02-05  Dirk Eddelbuettel  <edd@debian.org>
 
