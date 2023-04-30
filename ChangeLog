@@ -3,6 +3,7 @@
 	* DESCRIPTION (Version, Date): Roll micro version and date
 
 	* R/vdigest.R: Enable vectorised operation for blake3 and crc32v
+	* man/vdigest.Rd: Update documentation
 
 2023-04-29  Dirk Eddelbuettel  <edd@debian.org>
 
