@@ -9,7 +9,7 @@ This creates an object that can perform the Advanced Encryption
 Standard (AES) block cipher.
 }
 \usage{
-AES(key, mode=c("ECB", "CBC", "CFB", "CTR"), IV=NULL)
+AES(key, mode=c("ECB", "CBC", "CFB", "CTR"), IV=NULL, padding=FALSE)
 }
 \arguments{
   \item{key}{
@@ -24,6 +24,9 @@ codebook} (ECB), \dQuote{cipher-block chaining} (CBC), \dQuote{cipher feedback} 
   \item{IV}{
 The initial vector for CBC and CFB mode or initial counter for CTR mode.
 }
+  \item{padding}{
+Whether or not PKCS#7 padding is used during encryption and decryption in CBC mode.
+}
 }
 \value{
 An object of class \code{"AES"}.  This is a list containing the
@@ -37,7 +40,8 @@ the ciphertext as a raw vector.}
 ciphertext. In ECB mode, the same AES
 object can be used for both encryption and decryption, but in
 CBC, CFB and CTR modes a new object needs to be
-created, using the same initial \code{key} and \code{IV} values.}
+created, using the same initial \code{key} and \code{IV} values.
+Returns a single element character vector, or a raw vector if \code{raw = TRUE}.}
 
 \item{IV()}{Report on the current state of the initialization vector.
 As blocks are encrypted or decrypted in CBC, CFB or CTR mode, the initialization
@@ -86,6 +90,10 @@ code
 # Need a new object for decryption in CBC mode
 aes <- AES(key, mode="CBC", iv)
 aes$decrypt(code, raw=TRUE)
+
+# In CBC mode, the input length must be a multiple of 16 bytes.
+# You can use `padding = TRUE` to ensure the input length is always valid.
+AES(key, mode="CBC", iv, padding = TRUE)$encrypt(as.raw(1:15))
 
 # CFB mode: IV must be the same length as the Block's block size
 # Two different instances of AES are required for encryption and decryption
