@@ -1,3 +1,7 @@
+2023-06-25  Dean Attali  <daattali@gmail.com>
+
+        * R/AES.R: Add `padding` parameter to `AES()` to allow CBC mode to use PKCS#7 padding
+
 2023-04-30  Dirk Eddelbuettel  <edd@debian.org>
 
 	* DESCRIPTION (Version, Date): Roll micro version and date
