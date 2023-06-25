@@ -23,10 +23,12 @@
 
 modes <- c("ECB", "CBC", "CFB", "PGP", "OFB", "CTR", "OPENPGP")
 
-AES <- function(key, mode=c("ECB", "CBC", "CFB", "CTR"), IV=NULL) {
+AES <- function(key, mode=c("ECB", "CBC", "CFB", "CTR"), IV=NULL, padding=FALSE) {
     mode <- match(match.arg(mode), modes)
     if (!(mode %in% c(1:3, 6)))
         stop("Only ECB, CBC, CFB and CTR mode encryption are supported.")	# #nocov
+    if (padding && mode != 2)
+        stop("Only CBC mode supports padding") # #nocov
 
     key <- as.raw(key)
     IV <- as.raw(IV)
@@ -38,16 +40,21 @@ AES <- function(key, mode=c("ECB", "CBC", "CFB", "CTR"), IV=NULL) {
 
     encrypt <- function(text) {
         if (typeof(text) == "character")
-            text <- charToRaw(text)					# #nocov
+            text <- charToRaw(text)
         if (mode == 1)
             .Call(AESencryptECB, context, text)
         else if (mode == 2) {
+            if (padding) {
+              bytes <- block_size - (length(text) %% block_size)
+              text <- c(text, rep(as.raw(bytes), times = bytes))
+            }
+
             len <- length(text)
-            if (len %% 16 != 0)
-                stop("Text length must be a multiple of 16 bytes")	# #nocov
+            if (len %% block_size != 0)
+                stop("Text length must be a multiple of ", block_size, " bytes, or use `padding=TRUE`")
             result <- raw(length(text))
-            for (i in seq_len(len/16)) {
-                ind <- (i-1)*16 + 1:16
+            for (i in seq_len(len/block_size)) {
+                ind <- (i-1)*block_size + seq(block_size)
                 IV <<- .Call(AESencryptECB, context, xor(text[ind], IV))
                 result[ind] <- IV
             }
@@ -103,6 +110,10 @@ AES <- function(key, mode=c("ECB", "CBC", "CFB", "CTR"), IV=NULL) {
                 res <- .Call(AESdecryptECB, context, ciphertext[ind])
                 result[ind] <- xor(res, IV)
                 IV <<- ciphertext[ind]
+            }
+            if (padding) {
+              bytes_to_remove <- as.integer(utils::tail(result, 1))
+              result <- utils::head(result, -bytes_to_remove)
             }
         } else if (mode == 3) {
             if (length(IV) != block_size) {
