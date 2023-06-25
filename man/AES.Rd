@@ -37,7 +37,8 @@ the ciphertext as a raw vector.}
 ciphertext. In ECB mode, the same AES
 object can be used for both encryption and decryption, but in
 CBC, CFB and CTR modes a new object needs to be
-created, using the same initial \code{key} and \code{IV} values.}
+created, using the same initial \code{key} and \code{IV} values.
+Returns a single element character vector, or a raw vector if \code{raw = TRUE}.}
 
 \item{IV()}{Report on the current state of the initialization vector.
 As blocks are encrypted or decrypted in CBC, CFB or CTR mode, the initialization
