@@ -1,8 +1,10 @@
 2023-06-25  Dean Attali  <daattali@gmail.com>
 
-        * R/AES.R: Add `padding` parameter to `AES()` to allow CBC mode to use PKCS#7 padding
-
-        * man/AES.Rd: Document the `raw` argument of `AES()$decrypt()`
+        * R/AES.R: Add `padding` parameter to `AES()` to allow CBC mode to use
+        PKCS#7 padding
+        * inst/tinytest/test_aes.R: Add tests for new `padding` parameter
+        * man/AES.Rd: Document the `raw` argument of `AES()$decrypt()` and the
+        new `padding` parameter
 
 2023-04-30  Dirk Eddelbuettel  <edd@debian.org>
 
