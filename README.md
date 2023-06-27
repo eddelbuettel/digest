@@ -19,10 +19,10 @@ Compact hash representations of arbitrary R objects
 
 ### Overview
 
-The digest package provides a principal function `digest()` for the
-creation of hash digests of arbitrary R objects (using the md5, sha-1,
-sha-256, crc32, xxhash, murmurhash, spookyhash and blake3 algorithms)
-permitting easy comparison of R language objects.
+The digest package provides a principal function `digest()` for the creation
+of hash digests of arbitrary R objects (using the md5, sha-1, sha-256, crc32,
+xxhash, murmurhash, spookyhash, blake3, and crc32c algorithms) permitting
+easy comparison of R language objects.
 
 #### Examples
 
