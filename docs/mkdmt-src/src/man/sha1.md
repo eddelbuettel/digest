@@ -12,60 +12,62 @@ maintaining the same hash on 32 bit and 64 bit systems.
 
 ### Usage
 
-    sha1(x, digits = 14, zapsmall = 7, ..., algo = "sha1")
-    ## S3 method for class 'numeric'
-    sha1(x, digits = 14, zapsmall = 7, ..., algo = "sha1")
-    ## S3 method for class 'complex'
-    sha1(x, digits = 14, zapsmall = 7, ..., algo = "sha1")
-    ## S3 method for class 'Date'
-    sha1(x, digits = 14, zapsmall = 7, ..., algo = "sha1")
-    ## S3 method for class 'matrix'
-    sha1(x, digits = 14, zapsmall = 7, ..., algo = "sha1")
-    ## S3 method for class 'data.frame'
-    sha1(x, digits = 14, zapsmall = 7, ..., algo = "sha1")
-    ## S3 method for class 'array'
-    sha1(x, digits = 14, zapsmall = 7, ..., algo = "sha1")
-    ## S3 method for class 'list'
-    sha1(x, digits = 14, zapsmall = 7, ..., algo = "sha1")
-    ## S3 method for class 'pairlist'
-    sha1(x, digits = 14, zapsmall = 7, ..., algo = "sha1")
-    ## S3 method for class 'POSIXlt'
-    sha1(x, digits = 14, zapsmall = 7, ..., algo = "sha1")
-    ## S3 method for class 'POSIXct'
-    sha1(x, digits = 14, zapsmall = 7, ..., algo = "sha1")
-    ## S3 method for class 'anova'
-    sha1(x, digits = 4, zapsmall = 7, ..., algo = "sha1")
-    ## S3 method for class 'function'
-    sha1(x, digits = 14, zapsmall = 7, ..., algo = "sha1")
+``` R
+sha1(x, digits = 14, zapsmall = 7, ..., algo = "sha1")
+## S3 method for class 'numeric'
+sha1(x, digits = 14, zapsmall = 7, ..., algo = "sha1")
+## S3 method for class 'complex'
+sha1(x, digits = 14, zapsmall = 7, ..., algo = "sha1")
+## S3 method for class 'Date'
+sha1(x, digits = 14, zapsmall = 7, ..., algo = "sha1")
+## S3 method for class 'matrix'
+sha1(x, digits = 14, zapsmall = 7, ..., algo = "sha1")
+## S3 method for class 'data.frame'
+sha1(x, digits = 14, zapsmall = 7, ..., algo = "sha1")
+## S3 method for class 'array'
+sha1(x, digits = 14, zapsmall = 7, ..., algo = "sha1")
+## S3 method for class 'list'
+sha1(x, digits = 14, zapsmall = 7, ..., algo = "sha1")
+## S3 method for class 'pairlist'
+sha1(x, digits = 14, zapsmall = 7, ..., algo = "sha1")
+## S3 method for class 'POSIXlt'
+sha1(x, digits = 14, zapsmall = 7, ..., algo = "sha1")
+## S3 method for class 'POSIXct'
+sha1(x, digits = 14, zapsmall = 7, ..., algo = "sha1")
+## S3 method for class 'anova'
+sha1(x, digits = 4, zapsmall = 7, ..., algo = "sha1")
+## S3 method for class 'function'
+sha1(x, digits = 14, zapsmall = 7, ..., algo = "sha1")
 
-    ## S3 method for class 'formula'
-    sha1(x, digits = 14, zapsmall = 7, ..., algo = "sha1")
-    ## S3 method for class ''(''
-    sha1(...)
+## S3 method for class 'formula'
+sha1(x, digits = 14, zapsmall = 7, ..., algo = "sha1")
+## S3 method for class ''(''
+sha1(...)
 
-    sha1_digest(x, digits = 14, zapsmall = 7, ..., algo = "sha1")
-    ## S3 method for class 'NULL'
-    sha1(...)
-    ## S3 method for class 'name'
-    sha1(...)
+sha1_digest(x, digits = 14, zapsmall = 7, ..., algo = "sha1")
+## S3 method for class 'NULL'
+sha1(...)
+## S3 method for class 'name'
+sha1(...)
 
-    sha1_attr_digest(x, digits = 14, zapsmall = 7, ..., algo = "sha1")
-    ## S3 method for class 'call'
-    sha1(...)
-    ## S3 method for class 'character'
-    sha1(...)
-    ## S3 method for class 'factor'
-    sha1(...)
-    ## S3 method for class 'integer'
-    sha1(...)
-    ## S3 method for class 'logical'
-    sha1(...)
-    ## S3 method for class 'raw'
-    sha1(...)
+sha1_attr_digest(x, digits = 14, zapsmall = 7, ..., algo = "sha1")
+## S3 method for class 'call'
+sha1(...)
+## S3 method for class 'character'
+sha1(...)
+## S3 method for class 'factor'
+sha1(...)
+## S3 method for class 'integer'
+sha1(...)
+## S3 method for class 'logical'
+sha1(...)
+## S3 method for class 'raw'
+sha1(...)
+```
 
 ### Arguments
 
-| Argument   | Description                                                                                                                                                                                  |
+|            |                                                                                                                                                                                              |
 |------------|----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
 | `x`        | the object to calculate the SHA1                                                                                                                                                             |
 | `digits`   | the approximate number of significant digits in base 10. Will be converted to a base 16 equivalent. Defaults to `digits = 14`, except for sha1.anova where `digits = 4`                      |

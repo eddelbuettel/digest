@@ -9,13 +9,15 @@ a given secret key.
 
 ### Usage
 
-    hmac(key, object,
-         algo = c("md5", "sha1", "crc32", "sha256", "sha512"),
-         serialize = FALSE, raw = FALSE, ...)
+``` R
+hmac(key, object,
+     algo = c("md5", "sha1", "crc32", "sha256", "sha512"),
+     serialize = FALSE, raw = FALSE, ...)
+```
 
 ### Arguments
 
-| Argument    | Description                                                                                                                                       |
+|             |                                                                                                                                                   |
 |-------------|---------------------------------------------------------------------------------------------------------------------------------------------------|
 | `key`       | An arbitrary character or numeric vector, to use as pre-shared secret key.                                                                        |
 | `object`    | An arbitrary R object which will then be passed to the `serialize` function, unless the `serialize` argument is set to `FALSE`.                   |
@@ -64,33 +66,33 @@ the sha functions.
 
 ### Examples
 
+``` R
 
+## Standard RFC 2104 test vectors
+current <- hmac('Jefe', 'what do ya want for nothing?', "md5")
+target <- '750c783e6ab0b503eaa86e310a5db738'
+stopifnot(identical(target, as.character(current)))
 
+current <- hmac(rep(0x0b, 16), 'Hi There', "md5")
+target <- '9294727a3638bb1c13f48ef8158bfc9d'
+stopifnot(identical(target, as.character(current)))
 
-    ## Standard RFC 2104 test vectors
-    current <- hmac('Jefe', 'what do ya want for nothing?', "md5")
-    target <- '750c783e6ab0b503eaa86e310a5db738'
-    stopifnot(identical(target, as.character(current)))
+current <- hmac(rep(0xaa, 16), rep(0xdd, 50), "md5")
+target <- '56be34521d144c88dbb8c733f0e8b3f6'
+stopifnot(identical(target, as.character(current)))
 
-    current <- hmac(rep(0x0b, 16), 'Hi There', "md5")
-    target <- '9294727a3638bb1c13f48ef8158bfc9d'
-    stopifnot(identical(target, as.character(current)))
+## SHA1 tests inspired to the RFC 2104 and checked against the python
+## hmac implementation.
+current <- hmac('Jefe', 'what do ya want for nothing?', "sha1")
+target <- 'effcdf6ae5eb2fa2d27416d5f184df9c259a7c79'
+stopifnot(identical(target, as.character(current)))
 
-    current <- hmac(rep(0xaa, 16), rep(0xdd, 50), "md5")
-    target <- '56be34521d144c88dbb8c733f0e8b3f6'
-    stopifnot(identical(target, as.character(current)))
+current <- hmac(rep(0x0b, 16), 'Hi There', "sha1")
+target <- '675b0b3a1b4ddf4e124872da6c2f632bfed957e9'
+stopifnot(identical(target, as.character(current)))
 
-    ## SHA1 tests inspired to the RFC 2104 and checked against the python
-    ## hmac implementation.
-    current <- hmac('Jefe', 'what do ya want for nothing?', "sha1")
-    target <- 'effcdf6ae5eb2fa2d27416d5f184df9c259a7c79'
-    stopifnot(identical(target, as.character(current)))
-
-    current <- hmac(rep(0x0b, 16), 'Hi There', "sha1")
-    target <- '675b0b3a1b4ddf4e124872da6c2f632bfed957e9'
-    stopifnot(identical(target, as.character(current)))
-
-    current <- hmac(rep(0xaa, 16), rep(0xdd, 50), "sha1")
-    target <- 'd730594d167e35d5956fd8003d0db3d3f46dc7bb'
-    stopifnot(identical(target, as.character(current)))
+current <- hmac(rep(0xaa, 16), rep(0xdd, 50), "sha1")
+target <- 'd730594d167e35d5956fd8003d0db3d3f46dc7bb'
+stopifnot(identical(target, as.character(current)))
+```
 

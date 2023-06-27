@@ -768,14 +768,14 @@
 <p>This creates an object that can perform the Advanced Encryption Standard
 (AES) block cipher.</p>
 <h3 id="usage">Usage</h3>
-<pre><code>AES(key, mode=c("ECB", "CBC", "CFB", "CTR"), IV=NULL)
+<pre><code class="language-R">AES(key, mode=c(&quot;ECB&quot;, &quot;CBC&quot;, &quot;CFB&quot;, &quot;CTR&quot;), IV=NULL, padding=FALSE)
 </code></pre>
 <h3 id="arguments">Arguments</h3>
 <table>
 <thead>
 <tr>
-<th>Argument</th>
-<th>Description</th>
+<th></th>
+<th></th>
 </tr>
 </thead>
 <tbody>
@@ -790,6 +790,10 @@
 <tr>
 <td><code>IV</code></td>
 <td>The initial vector for CBC and CFB mode or initial counter for CTR mode.</td>
+</tr>
+<tr>
+<td><code>padding</code></td>
+<td>Whether or not PKCS#7 padding is used during encryption and decryption in CBC mode.</td>
 </tr>
 </tbody>
 </table>
@@ -814,15 +818,15 @@ component functions:</p>
 <td>A function to encrypt a text vector. The text may be a single element character vector or a raw vector. It returns the ciphertext as a raw vector.</td>
 </tr>
 <tr>
-<td><code>decrypt(ciphertext, raw = FALSE)</code></td>
-<td>A function to decrypt the ciphertext. In ECB mode, the same AES object can be used for both encryption and decryption, but in CBC, CFB and CTR modes a new object needs to be created, using the same initial <code>key</code> and <code>IV</code> values.</td>
+<td><code>decrypt(ciphertext</code>, <code>raw = FALSE)</code></td>
+<td>A function to decrypt the ciphertext. In ECB mode, the same AES object can be used for both encryption and decryption, but in CBC, CFB and CTR modes a new object needs to be created, using the same initial <code>key</code> and <code>IV</code> values. Returns a single element character vector, or a raw vector if <code>raw = TRUE</code>.</td>
 </tr>
 <tr>
 <td><code>IV()</code></td>
 <td>Report on the current state of the initialization vector. As blocks are encrypted or decrypted in CBC, CFB or CTR mode, the initialization vector is updated, so both operations can be performed sequentially on subsets of the text or ciphertext.</td>
 </tr>
 <tr>
-<td><code>block_size(), key_size(), mode()</code></td>
+<td><code>block_size()</code>, <code>key_size()</code>, <code>mode()</code></td>
 <td>Report on these aspects of the AES object.</td>
 </tr>
 </tbody>
@@ -839,60 +843,64 @@ Processing Standards Publication 197.
 <p>Morris Dworkin (2001). "Recommendation for Block Cipher Modes of
 Operation". NIST Special Publication 800-38A 2001 Edition.</p>
 <h3 id="examples">Examples</h3>
-<pre><code># First in ECB mode: the repeated block is coded the same way each time
+<pre><code class="language-R"># First in ECB mode: the repeated block is coded the same way each time
 msg &lt;- as.raw(c(1:16, 1:16))
 key &lt;- as.raw(1:16)
-aes &lt;- AES(key, mode="ECB")
+aes &lt;- AES(key, mode=&quot;ECB&quot;)
 aes$encrypt(msg)
 aes$decrypt(aes$encrypt(msg), raw=TRUE)
 
 # Now in CBC mode:  each encoding is different
 iv &lt;- sample(0:255, 16, replace=TRUE)
-aes &lt;- AES(key, mode="CBC", iv)
+aes &lt;- AES(key, mode=&quot;CBC&quot;, iv)
 code &lt;- aes$encrypt(msg)
 code
 
 # Need a new object for decryption in CBC mode
-aes &lt;- AES(key, mode="CBC", iv)
+aes &lt;- AES(key, mode=&quot;CBC&quot;, iv)
 aes$decrypt(code, raw=TRUE)
+
+# In CBC mode, the input length must be a multiple of 16 bytes.
+# You can use `padding = TRUE` to ensure the input length is always valid.
+AES(key, mode=&quot;CBC&quot;, iv, padding = TRUE)$encrypt(as.raw(1:15))
 
 # CFB mode: IV must be the same length as the Block's block size
 # Two different instances of AES are required for encryption and decryption
 iv &lt;- sample(0:255, 16, replace=TRUE)
-aes &lt;- AES(key, mode="CFB", iv)
+aes &lt;- AES(key, mode=&quot;CFB&quot;, iv)
 code &lt;- aes$encrypt(msg)
 code
 #decrypt
-aes &lt;-  AES(key, mode="CFB", iv)
+aes &lt;-  AES(key, mode=&quot;CFB&quot;, iv)
 aes$decrypt(code)
 
 
 # FIPS-197 examples
 
 hextextToRaw &lt;- function(text) {
-  vals &lt;- matrix(as.integer(as.hexmode(strsplit(text, "")[[1]])), ncol=2, byrow=TRUE)
+  vals &lt;- matrix(as.integer(as.hexmode(strsplit(text, &quot;&quot;)[[1]])), ncol=2, byrow=TRUE)
   vals &lt;- vals %*% c(16, 1)
   as.raw(vals)
 }
 
-plaintext       &lt;- hextextToRaw("00112233445566778899aabbccddeeff")
+plaintext       &lt;- hextextToRaw(&quot;00112233445566778899aabbccddeeff&quot;)
 
-aes128key       &lt;- hextextToRaw("000102030405060708090a0b0c0d0e0f")
-aes128output    &lt;- hextextToRaw("69c4e0d86a7b0430d8cdb78070b4c55a")
+aes128key       &lt;- hextextToRaw(&quot;000102030405060708090a0b0c0d0e0f&quot;)
+aes128output    &lt;- hextextToRaw(&quot;69c4e0d86a7b0430d8cdb78070b4c55a&quot;)
 aes &lt;- AES(aes128key)
 aes128 &lt;- aes$encrypt(plaintext)
 stopifnot(identical(aes128, aes128output))
 stopifnot(identical(plaintext, aes$decrypt(aes128, raw=TRUE)))
 
-aes192key       &lt;- hextextToRaw("000102030405060708090a0b0c0d0e0f1011121314151617")
-aes192output    &lt;- hextextToRaw("dda97ca4864cdfe06eaf70a0ec0d7191")
+aes192key       &lt;- hextextToRaw(&quot;000102030405060708090a0b0c0d0e0f1011121314151617&quot;)
+aes192output    &lt;- hextextToRaw(&quot;dda97ca4864cdfe06eaf70a0ec0d7191&quot;)
 aes &lt;- AES(aes192key)
 aes192 &lt;- aes$encrypt(plaintext)
 stopifnot(identical(aes192, aes192output))
 stopifnot(identical(plaintext, aes$decrypt(aes192, raw=TRUE)))
 
-aes256key       &lt;- hextextToRaw("000102030405060708090a0b0c0d0e0f101112131415161718191a1b1c1d1e1f")
-aes256output     &lt;- hextextToRaw("8ea2b7ca516745bfeafc49904b496089")
+aes256key       &lt;- hextextToRaw(&quot;000102030405060708090a0b0c0d0e0f101112131415161718191a1b1c1d1e1f&quot;)
+aes256output     &lt;- hextextToRaw(&quot;8ea2b7ca516745bfeafc49904b496089&quot;)
 aes &lt;- AES(aes256key)
 aes256 &lt;- aes$encrypt(plaintext)
 stopifnot(identical(aes256, aes256output))
@@ -900,53 +908,53 @@ stopifnot(identical(plaintext, aes$decrypt(aes256, raw=TRUE)))
 
 # SP800-38a examples
 
-plaintext &lt;- hextextToRaw(paste("6bc1bee22e409f96e93d7e117393172a",
-                                "ae2d8a571e03ac9c9eb76fac45af8e51",
-                                "30c81c46a35ce411e5fbc1191a0a52ef",
-                                "f69f2445df4f9b17ad2b417be66c3710",sep=""))
-key &lt;- hextextToRaw("2b7e151628aed2a6abf7158809cf4f3c")
+plaintext &lt;- hextextToRaw(paste(&quot;6bc1bee22e409f96e93d7e117393172a&quot;,
+                                &quot;ae2d8a571e03ac9c9eb76fac45af8e51&quot;,
+                                &quot;30c81c46a35ce411e5fbc1191a0a52ef&quot;,
+                                &quot;f69f2445df4f9b17ad2b417be66c3710&quot;,sep=&quot;&quot;))
+key &lt;- hextextToRaw(&quot;2b7e151628aed2a6abf7158809cf4f3c&quot;)
 
-ecb128output &lt;- hextextToRaw(paste("3ad77bb40d7a3660a89ecaf32466ef97",
-                                   "f5d3d58503b9699de785895a96fdbaaf",
-                                   "43b1cd7f598ece23881b00e3ed030688",
-                                   "7b0c785e27e8ad3f8223207104725dd4",sep=""))
+ecb128output &lt;- hextextToRaw(paste(&quot;3ad77bb40d7a3660a89ecaf32466ef97&quot;,
+                                   &quot;f5d3d58503b9699de785895a96fdbaaf&quot;,
+                                   &quot;43b1cd7f598ece23881b00e3ed030688&quot;,
+                                   &quot;7b0c785e27e8ad3f8223207104725dd4&quot;,sep=&quot;&quot;))
 aes &lt;- AES(key)
 ecb128 &lt;- aes$encrypt(plaintext)
 stopifnot(identical(ecb128, ecb128output))
 stopifnot(identical(plaintext, aes$decrypt(ecb128, raw=TRUE)))
 
-cbc128output &lt;- hextextToRaw(paste("7649abac8119b246cee98e9b12e9197d",
-                                   "5086cb9b507219ee95db113a917678b2",
-                                   "73bed6b8e3c1743b7116e69e22229516",
-                                   "3ff1caa1681fac09120eca307586e1a7",sep=""))
-iv &lt;- hextextToRaw("000102030405060708090a0b0c0d0e0f")
-aes &lt;- AES(key, mode="CBC", IV=iv)
+cbc128output &lt;- hextextToRaw(paste(&quot;7649abac8119b246cee98e9b12e9197d&quot;,
+                                   &quot;5086cb9b507219ee95db113a917678b2&quot;,
+                                   &quot;73bed6b8e3c1743b7116e69e22229516&quot;,
+                                   &quot;3ff1caa1681fac09120eca307586e1a7&quot;,sep=&quot;&quot;))
+iv &lt;- hextextToRaw(&quot;000102030405060708090a0b0c0d0e0f&quot;)
+aes &lt;- AES(key, mode=&quot;CBC&quot;, IV=iv)
 cbc128 &lt;- aes$encrypt(plaintext)
 stopifnot(identical(cbc128, cbc128output))
-aes &lt;- AES(key, mode="CBC", IV=iv)
+aes &lt;- AES(key, mode=&quot;CBC&quot;, IV=iv)
 stopifnot(identical(plaintext, aes$decrypt(cbc128, raw=TRUE)))
 
 
-cfb128output &lt;- hextextToRaw(paste("3b3fd92eb72dad20333449f8e83cfb4a",
-                                   "c8a64537a0b3a93fcde3cdad9f1ce58b",
-                                   "26751f67a3cbb140b1808cf187a4f4df",
-                                   "c04b05357c5d1c0eeac4c66f9ff7f2e6",sep=""))
-aes &lt;- AES(key, mode="CFB", IV=iv)
+cfb128output &lt;- hextextToRaw(paste(&quot;3b3fd92eb72dad20333449f8e83cfb4a&quot;,
+                                   &quot;c8a64537a0b3a93fcde3cdad9f1ce58b&quot;,
+                                   &quot;26751f67a3cbb140b1808cf187a4f4df&quot;,
+                                   &quot;c04b05357c5d1c0eeac4c66f9ff7f2e6&quot;,sep=&quot;&quot;))
+aes &lt;- AES(key, mode=&quot;CFB&quot;, IV=iv)
 cfb128 &lt;- aes$encrypt(plaintext)
 stopifnot(identical(cfb128, cfb128output))
-aes &lt;- AES(key, mode="CFB", IV=iv)
+aes &lt;- AES(key, mode=&quot;CFB&quot;, IV=iv)
 stopifnot(identical(plaintext, aes$decrypt(cfb128, raw=TRUE)))
 
 
-ctr128output &lt;- hextextToRaw(paste("874d6191b620e3261bef6864990db6ce",
-                                   "9806f66b7970fdff8617187bb9fffdff",
-                                   "5ae4df3edbd5d35e5b4f09020db03eab",
-                                   "1e031dda2fbe03d1792170a0f3009cee",sep=""))
-iv &lt;- hextextToRaw("f0f1f2f3f4f5f6f7f8f9fafbfcfdfeff")
-aes &lt;- AES(key, mode="CTR", IV=iv)
+ctr128output &lt;- hextextToRaw(paste(&quot;874d6191b620e3261bef6864990db6ce&quot;,
+                                   &quot;9806f66b7970fdff8617187bb9fffdff&quot;,
+                                   &quot;5ae4df3edbd5d35e5b4f09020db03eab&quot;,
+                                   &quot;1e031dda2fbe03d1792170a0f3009cee&quot;,sep=&quot;&quot;))
+iv &lt;- hextextToRaw(&quot;f0f1f2f3f4f5f6f7f8f9fafbfcfdfeff&quot;)
+aes &lt;- AES(key, mode=&quot;CTR&quot;, IV=iv)
 ctr128 &lt;- aes$encrypt(plaintext)
 stopifnot(identical(ctr128, ctr128output))
-aes &lt;- AES(key, mode="CTR", IV=iv)
+aes &lt;- AES(key, mode=&quot;CTR&quot;, IV=iv)
 stopifnot(identical(plaintext, aes$decrypt(ctr128, raw=TRUE)))
 </code></pre>
 

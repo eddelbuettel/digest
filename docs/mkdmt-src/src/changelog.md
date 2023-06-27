@@ -1,5 +1,70 @@
+###  2023 
+
+2023-06-26  Dirk Eddelbuettel  <edd@debian.org> 
+ 
+        * DESCRIPTION (Version, Date): Release 0.6.32 
+ 
+        * README.md: Add r-universe badge 
+ 
+2023-06-25  Dirk Eddelbuettel  <edd@debian.org> 
+ 
+        * DESCRIPTION (Version, Date): Roll micro version and date 
+ 
+        * DESCRIPTION (Author): Add Dean Attali 
+ 
+2023-06-25  Dean Attali  <daattali@gmail.com> 
+ 
+        * R/AES.R: Add `padding` parameter to `AES()` to allow CBC mode to use 
+        PKCS#7 padding 
+        * inst/tinytest/test_aes.R: Add tests for new `padding` parameter 
+        * man/AES.Rd: Document the `raw` argument of `AES()$decrypt()` and the 
+        new `padding` parameter 
+ 
+2023-04-30  Dirk Eddelbuettel  <edd@debian.org> 
+ 
+        * DESCRIPTION (Version, Date): Roll micro version and date 
+ 
+        * R/vdigest.R: Enable vectorised operation for blake3 and crc32v 
+        * man/vdigest.Rd: Update documentation 
+ 
+2023-04-29  Dirk Eddelbuettel  <edd@debian.org> 
+ 
+        * src/digest.c (digest): Support crc33c 
+        * man/digest.Rd: Document crc32c option, add two examples 
+ 
+        * src/crc32c.h: Adding new CRC32C implementation 
+        * src/crc32c.cpp: Idem 
+        * src/crc32c_portable.cpp: Idem; also added codecov nocov 
+        * src/crc32c/*: Idem 
+ 
+        * src/Makevars: Added for PKG_CPPFLAGS 
+        * src/Makevars.win: Idem 
+ 
+        * R/init.R: Added some codecov nocov 
+ 
+        * .codecov.yml (coverage): Added coverage diff settings 
+ 
+2023-02-05  Dirk Eddelbuettel  <edd@debian.org> 
+ 
+        * DESCRIPTION (Version, Date): Roll minor version 
+ 
+        * src/Makevars: No longer require CXX_STD 
+ 
 ###  2022 
 
+2022-12-10  Dirk Eddelbuettel  <edd@debian.org> 
+ 
+        * DESCRIPTION (Version, Date): Release 0.6.31 
+ 
+        * src/digest.c: Replace sprintf with snprintf 
+ 
+        * .editorconfig: Added 
+        * .Rbuildignore: Updated 
+ 
+2022-11-05  Dirk Eddelbuettel  <edd@debian.org> 
+ 
+        * .github/workflows/ci.yaml (jobs): Update to actions/checkout@v3 
+ 
 2022-10-17  Dirk Eddelbuettel  <edd@debian.org> 
  
         * DESCRIPTION (Version, Date): Release 0.6.30 

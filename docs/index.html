@@ -757,10 +757,11 @@
 
 <h1 id="digest-compact-hash-representations-of-arbitrary-r-objects">digest: Compact hash representations of arbitrary R objects</h1>
 <p><a href="https://github.com/eddelbuettel/digest/actions?query=workflow%3Aci"><img alt="ci" src="https://github.com/eddelbuettel/digest/workflows/ci/badge.svg" /></a>
-<a href="http://www.gnu.org/licenses/gpl-2.0.html"><img alt="License" src="http://img.shields.io/badge/license-GPL%20%28%3E=%202%29-brightgreen.svg?style=flat" /></a> 
-<a href="https://cran.r-project.org/package=digest"><img alt="CRAN" src="http://www.r-pkg.org/badges/version/digest" /></a> 
+<a href="http://www.gnu.org/licenses/gpl-2.0.html"><img alt="License" src="http://img.shields.io/badge/license-GPL%20%28%3E=%202%29-brightgreen.svg?style=flat" /></a>
+<a href="https://cran.r-project.org/package=digest"><img alt="CRAN" src="http://www.r-pkg.org/badges/version/digest" /></a>
 <a href="https://cran.r-project.org/package=digest"><img alt="Dependencies" src="https://tinyverse.netlify.com/badge/digest" /></a>
 <a href="https://packages.debian.org/sid/r-cran-digest"><img alt="Debian package" src="https://img.shields.io/debian/v/r-cran-digest/sid?color=green" /></a>
+<a href="https://eddelbuettel.r-universe.dev/digest"><img alt="r-universe" src="https://eddelbuettel.r-universe.dev/badges/digest" /></a>
 <a href="https://www.r-pkg.org:443/pkg/digest"><img alt="Downloads (monthly)" src="http://cranlogs.r-pkg.org/badges/digest?color=brightgreen" /></a>
 <a href="https://www.r-pkg.org:443/pkg/digest"><img alt="Downloads (total)" src="https://cranlogs.r-pkg.org/badges/grand-total/digest?color=brightgreen" /></a>
 <a href="https://cran.r-project.org/package=digest"><img alt="CRAN use" src="https://jangorecki.gitlab.io/rdeps/digest/CRAN_usage.svg?sanitize=true" /></a>
@@ -772,10 +773,10 @@
 <!-- Compact hash representations of arbitrary R objects -->
 
 <h3 id="overview">Overview</h3>
-<p>The digest package provides a principal function <code>digest()</code> for the 
-creation of hash digests of arbitrary R objects (using the md5, sha-1, 
-sha-256, crc32, xxhash, murmurhash, spookyhash and blake3 algorithms)
-permitting easy comparison of R language objects.</p>
+<p>The digest package provides a principal function <code>digest()</code> for the creation
+of hash digests of arbitrary R objects (using the md5, sha-1, sha-256, crc32,
+xxhash, murmurhash, spookyhash, blake3, and crc32c algorithms) permitting
+easy comparison of R language objects.</p>
 <h4 id="examples">Examples</h4>
 <p>As R can serialize any object, we can run <code>digest()</code> on any object:</p>
 <pre><code class="language-r">R&gt; library(digest)
@@ -785,7 +786,7 @@ R&gt; digest(lm(log(Height) ~ log(Girth), data=trees))
 [1] &quot;e25b62de327d079b3ccb98f3e96987b1&quot;
 R&gt; digest(summary(lm(log(Height) ~ log(Girth), data=trees)))
 [1] &quot;86c8c979ee41a09006949e2ad95feb41&quot;
-R&gt; 
+R&gt;
 </code></pre>
 <p>By using the hash sum, which is very likely to be unique, to identify an
 underlying object or calculation, one can easily implement caching strategies.
@@ -798,7 +799,7 @@ This is a common use of the digest package.</p>
 <li><code>AES()</code> for Advanced Encryption Standard block ciphers.</li>
 </ul>
 <h3 id="note">Note</h3>
-<p>Please note that this package is not meant to be deployed for 
+<p>Please note that this package is not meant to be deployed for
 cryptographic purposes. More comprehensive and widely tested
 libraries such as OpenSSL should be used instead.</p>
 <h3 id="installation">Installation</h3>
@@ -817,8 +818,8 @@ already-installed package can also be verified via</p>
 Henrik Bengtsson, Simon Urbanek, Mario Frasca, Bryan Lewis, Murray Stokely,
 Hannes Muehleisen, Duncan Murdoch, Jim Hester, Wush Wu, Qiang Kou, Thierry
 Onkelinx, Michel Lang, Viliam Simko, Kurt Hornik, Radford Neal, Kendon Bell,
-Matthew de Queljoe, Ion Suruceanu, Bill Denney, Dirk Schumacher, and Winston
-Chang.</p>
+Matthew de Queljoe, Ion Suruceanu, Bill Denney, Dirk Schumacher, Winston
+Chang, and Dean Attali.</p>
 <h3 id="license">License</h3>
 <p>GPL (&gt;= 2)</p>
 

@@ -769,16 +769,16 @@
 involving the specified cryptographic hash function in combination with
 a given secret key.</p>
 <h3 id="usage">Usage</h3>
-<pre><code>hmac(key, object,
-     algo = c("md5", "sha1", "crc32", "sha256", "sha512"),
+<pre><code class="language-R">hmac(key, object,
+     algo = c(&quot;md5&quot;, &quot;sha1&quot;, &quot;crc32&quot;, &quot;sha256&quot;, &quot;sha512&quot;),
      serialize = FALSE, raw = FALSE, ...)
 </code></pre>
 <h3 id="arguments">Arguments</h3>
 <table>
 <thead>
 <tr>
-<th>Argument</th>
-<th>Description</th>
+<th></th>
+<th></th>
 </tr>
 </thead>
 <tbody>
@@ -834,30 +834,31 @@ the sha functions.</p>
 <h3 id="see-also">See Also</h3>
 <p><code>digest</code></p>
 <h3 id="examples">Examples</h3>
-<pre><code>## Standard RFC 2104 test vectors
-current &lt;- hmac('Jefe', 'what do ya want for nothing?', "md5")
+<pre><code class="language-R">
+## Standard RFC 2104 test vectors
+current &lt;- hmac('Jefe', 'what do ya want for nothing?', &quot;md5&quot;)
 target &lt;- '750c783e6ab0b503eaa86e310a5db738'
 stopifnot(identical(target, as.character(current)))
 
-current &lt;- hmac(rep(0x0b, 16), 'Hi There', "md5")
+current &lt;- hmac(rep(0x0b, 16), 'Hi There', &quot;md5&quot;)
 target &lt;- '9294727a3638bb1c13f48ef8158bfc9d'
 stopifnot(identical(target, as.character(current)))
 
-current &lt;- hmac(rep(0xaa, 16), rep(0xdd, 50), "md5")
+current &lt;- hmac(rep(0xaa, 16), rep(0xdd, 50), &quot;md5&quot;)
 target &lt;- '56be34521d144c88dbb8c733f0e8b3f6'
 stopifnot(identical(target, as.character(current)))
 
 ## SHA1 tests inspired to the RFC 2104 and checked against the python
 ## hmac implementation.
-current &lt;- hmac('Jefe', 'what do ya want for nothing?', "sha1")
+current &lt;- hmac('Jefe', 'what do ya want for nothing?', &quot;sha1&quot;)
 target &lt;- 'effcdf6ae5eb2fa2d27416d5f184df9c259a7c79'
 stopifnot(identical(target, as.character(current)))
 
-current &lt;- hmac(rep(0x0b, 16), 'Hi There', "sha1")
+current &lt;- hmac(rep(0x0b, 16), 'Hi There', &quot;sha1&quot;)
 target &lt;- '675b0b3a1b4ddf4e124872da6c2f632bfed957e9'
 stopifnot(identical(target, as.character(current)))
 
-current &lt;- hmac(rep(0xaa, 16), rep(0xdd, 50), "sha1")
+current &lt;- hmac(rep(0xaa, 16), rep(0xdd, 50), &quot;sha1&quot;)
 target &lt;- 'd730594d167e35d5956fd8003d0db3d3f46dc7bb'
 stopifnot(identical(target, as.character(current)))
 </code></pre>

@@ -802,19 +802,19 @@ serialized object.</p>
 the input argument can also be turned off in which the input argument
 must be a character string for which its digest is returned.</p>
 <h3 id="usage">Usage</h3>
-<pre><code>digest(object, algo=c("md5", "sha1", "crc32", "sha256", "sha512",
-                      "xxhash32", "xxhash64", "murmur32", "spookyhash",
-                      "blake3"), serialize=TRUE, file=FALSE,
-       length=Inf, skip="auto", ascii=FALSE, raw=FALSE, seed=0,
-       errormode=c("stop","warn","silent"),
+<pre><code class="language-R">digest(object, algo=c(&quot;md5&quot;, &quot;sha1&quot;, &quot;crc32&quot;, &quot;sha256&quot;, &quot;sha512&quot;,
+                      &quot;xxhash32&quot;, &quot;xxhash64&quot;, &quot;murmur32&quot;, &quot;spookyhash&quot;,
+                      &quot;blake3&quot;, &quot;crc32c&quot;), serialize=TRUE, file=FALSE,
+       length=Inf, skip=&quot;auto&quot;, ascii=FALSE, raw=FALSE, seed=0,
+       errormode=c(&quot;stop&quot;,&quot;warn&quot;,&quot;silent&quot;),
        serializeVersion=.getSerializeVersion())
 </code></pre>
 <h3 id="arguments">Arguments</h3>
 <table>
 <thead>
 <tr>
-<th>Argument</th>
-<th>Description</th>
+<th></th>
+<th></th>
 </tr>
 </thead>
 <tbody>
@@ -824,7 +824,7 @@ must be a character string for which its digest is returned.</p>
 </tr>
 <tr>
 <td><code>algo</code></td>
-<td>The algorithms to be used; currently available choices are <code>md5</code>, which is also the default, <code>sha1</code>, <code>crc32</code>, <code>sha256</code>, <code>sha512</code>, <code>xxhash32</code>, <code>xxhash64</code>, <code>murmur32</code>, <code>spookyhash</code> and <code>blake3</code>.</td>
+<td>The algorithms to be used; currently available choices are <code>md5</code>, which is also the default, <code>sha1</code>, <code>crc32</code>, <code>sha256</code>, <code>sha512</code>, <code>xxhash32</code>, <code>xxhash64</code>, <code>murmur32</code>, <code>spookyhash</code>, <code>blake3</code>, and <code>crc32c</code>.</td>
 </tr>
 <tr>
 <td><code>serialize</code></td>
@@ -881,6 +881,8 @@ algorithm allowing for memory-efficient incremental calculation of the
 hash is by Gabe Becker.</p>
 <p>For blake3, the C implementation by Samuel Neves and Jack O'Connor is
 used.</p>
+<p>For crc32c, the portable (i.e. non-hardware accelerated) version from
+Google is used.</p>
 <p>Please note that this package is not meant to be used for cryptographic
 purposes for which more comprehensive (and widely tested) libraries such
 as OpenSSL should be used. Also, it is known that crc32 is not
@@ -901,15 +903,14 @@ return eight characters. Should the previous behaviour be required, set
 with prior version (but not be consistentnly eight characters).</p>
 <h3 id="authors">Author(s)</h3>
 <p>Dirk Eddelbuettel <a href="&#109;&#97;&#105;&#108;&#116;&#111;&#58;&#101;&#100;&#100;&#64;&#100;&#101;&#98;&#105;&#97;&#110;&#46;&#111;&#114;&#103;">&#101;&#100;&#100;&#64;&#100;&#101;&#98;&#105;&#97;&#110;&#46;&#111;&#114;&#103;</a> for the <span
-style="font-family: Courier New, Courier; color: #666666;"><strong>R</strong></span>
-interface; Antoine Lucas for the integration of crc32; Jarek Tuszynski
-for the file-based operations; Henrik Bengtsson and Simon Urbanek for
-improved serialization patches; Christophe Devine for the hash function
-implementations for sha-1, sha-256 and md5; Jean-Loup Gailly and Mark
-Adler for crc32; Hannes Muehleisen for the integration of sha-512; Jim
-Hester for the integration of xxhash32, xxhash64 and murmur32; Kendon
-Bell for the integration of spookyhash using Gabe Becker's R package
-fastdigest.</p>
+class="rlang"><strong>R</strong></span> interface; Antoine Lucas for the integration
+of crc32; Jarek Tuszynski for the file-based operations; Henrik
+Bengtsson and Simon Urbanek for improved serialization patches;
+Christophe Devine for the hash function implementations for sha-1,
+sha-256 and md5; Jean-Loup Gailly and Mark Adler for crc32; Hannes
+Muehleisen for the integration of sha-512; Jim Hester for the
+integration of xxhash32, xxhash64 and murmur32; Kendon Bell for the
+integration of spookyhash using Gabe Becker's R package fastdigest.</p>
 <h3 id="references">References</h3>
 <p>MD5: <a href="https://www.ietf.org/rfc/rfc1321.txt">https://www.ietf.org/rfc/rfc1321.txt</a>.</p>
 <p>SHA-1: <a href="https://en.wikipedia.org/wiki/SHA-1">https://en.wikipedia.org/wiki/SHA-1</a>. SHA-256:
@@ -935,27 +936,29 @@ functions.</p>
 code of SpookyHash.</p>
 <p><a href="https://github.com/BLAKE3-team/BLAKE3/">https://github.com/BLAKE3-team/BLAKE3/</a> for the original source code of
 blake3.</p>
+<p><a href="https://github.com/google/crc32c">https://github.com/google/crc32c</a> for the (non-hardware-accelerated)
+crc32c code.</p>
 <h3 id="see-also">See Also</h3>
 <p><code>serialize</code>, <code>md5sum</code></p>
 <h3 id="examples">Examples</h3>
-<pre><code>## Standard RFC 1321 test vectors
+<pre><code class="language-R">## Standard RFC 1321 test vectors
 md5Input &lt;-
-  c("",
-    "a",
-    "abc",
-    "message digest",
-    "abcdefghijklmnopqrstuvwxyz",
-    "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789",
-    paste("12345678901234567890123456789012345678901234567890123456789012",
-          "345678901234567890", sep=""))
+  c(&quot;&quot;,
+    &quot;a&quot;,
+    &quot;abc&quot;,
+    &quot;message digest&quot;,
+    &quot;abcdefghijklmnopqrstuvwxyz&quot;,
+    &quot;ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789&quot;,
+    paste(&quot;12345678901234567890123456789012345678901234567890123456789012&quot;,
+          &quot;345678901234567890&quot;, sep=&quot;&quot;))
 md5Output &lt;-
-  c("d41d8cd98f00b204e9800998ecf8427e",
-    "0cc175b9c0f1b6a831c399e269772661",
-    "900150983cd24fb0d6963f7d28e17f72",
-    "f96b697d7cb7938d525a2f31aaf161d0",
-    "c3fcd3d76192e4007dfb496cca67e13b",
-    "d174ab98d277d9f5a5611c2c9f419d9f",
-    "57edf4a22be3c955ac49da2e2107b67a")
+  c(&quot;d41d8cd98f00b204e9800998ecf8427e&quot;,
+    &quot;0cc175b9c0f1b6a831c399e269772661&quot;,
+    &quot;900150983cd24fb0d6963f7d28e17f72&quot;,
+    &quot;f96b697d7cb7938d525a2f31aaf161d0&quot;,
+    &quot;c3fcd3d76192e4007dfb496cca67e13b&quot;,
+    &quot;d174ab98d277d9f5a5611c2c9f419d9f&quot;,
+    &quot;57edf4a22be3c955ac49da2e2107b67a&quot;)
 
 for (i in seq(along=md5Input)) {
   md5 &lt;- digest(md5Input[i], serialize=FALSE)
@@ -963,146 +966,155 @@ for (i in seq(along=md5Input)) {
 }
 
 sha1Input &lt;-
-  c("abc", "abcdbcdecdefdefgefghfghighijhijkijkljklmklmnlmnomnopnopq")
+  c(&quot;abc&quot;, &quot;abcdbcdecdefdefgefghfghighijhijkijkljklmklmnlmnomnopnopq&quot;)
 sha1Output &lt;-
-  c("a9993e364706816aba3e25717850c26c9cd0d89d",
-    "84983e441c3bd26ebaae4aa1f95129e5e54670f1")
+  c(&quot;a9993e364706816aba3e25717850c26c9cd0d89d&quot;,
+    &quot;84983e441c3bd26ebaae4aa1f95129e5e54670f1&quot;)
 
 for (i in seq(along=sha1Input)) {
-  sha1 &lt;- digest(sha1Input[i], algo="sha1", serialize=FALSE)
+  sha1 &lt;- digest(sha1Input[i], algo=&quot;sha1&quot;, serialize=FALSE)
   stopifnot(identical(sha1, sha1Output[i]))
 }
 
 crc32Input &lt;-
-  c("abc",
-    "abcdbcdecdefdefgefghfghighijhijkijkljklmklmnlmnomnopnopq")
+  c(&quot;abc&quot;,
+    &quot;abcdbcdecdefdefgefghfghighijhijkijkljklmklmnlmnomnopnopq&quot;)
 crc32Output &lt;-
-  c("352441c2",
-    "171a3f5f")
+  c(&quot;352441c2&quot;,
+    &quot;171a3f5f&quot;)
 
 for (i in seq(along=crc32Input)) {
-  crc32 &lt;- digest(crc32Input[i], algo="crc32", serialize=FALSE)
+  crc32 &lt;- digest(crc32Input[i], algo=&quot;crc32&quot;, serialize=FALSE)
   stopifnot(identical(crc32, crc32Output[i]))
 }
 
 
 sha256Input &lt;-
-  c("abc",
-    "abcdbcdecdefdefgefghfghighijhijkijkljklmklmnlmnomnopnopq")
+  c(&quot;abc&quot;,
+    &quot;abcdbcdecdefdefgefghfghighijhijkijkljklmklmnlmnomnopnopq&quot;)
 sha256Output &lt;-
-  c("ba7816bf8f01cfea414140de5dae2223b00361a396177a9cb410ff61f20015ad",
-    "248d6a61d20638b8e5c026930c3e6039a33ce45964ff2167f6ecedd419db06c1")
+  c(&quot;ba7816bf8f01cfea414140de5dae2223b00361a396177a9cb410ff61f20015ad&quot;,
+    &quot;248d6a61d20638b8e5c026930c3e6039a33ce45964ff2167f6ecedd419db06c1&quot;)
 
 for (i in seq(along=sha256Input)) {
-  sha256 &lt;- digest(sha256Input[i], algo="sha256", serialize=FALSE)
+  sha256 &lt;- digest(sha256Input[i], algo=&quot;sha256&quot;, serialize=FALSE)
   stopifnot(identical(sha256, sha256Output[i]))
 }
 
 # SHA 512 example
 sha512Input &lt;-
-  c("abc",
-    "abcdbcdecdefdefgefghfghighijhijkijkljklmklmnlmnomnopnopq")
+  c(&quot;abc&quot;,
+    &quot;abcdbcdecdefdefgefghfghighijhijkijkljklmklmnlmnomnopnopq&quot;)
 sha512Output &lt;-
-  c(paste("ddaf35a193617abacc417349ae20413112e6fa4e89a97ea20a9eeee64b55d39a",
-          "2192992a274fc1a836ba3c23a3feebbd454d4423643ce80e2a9ac94fa54ca49f",
-          sep=""),
-    paste("204a8fc6dda82f0a0ced7beb8e08a41657c16ef468b228a8279be331a703c335",
-          "96fd15c13b1b07f9aa1d3bea57789ca031ad85c7a71dd70354ec631238ca3445",
-          sep=""))
+  c(paste(&quot;ddaf35a193617abacc417349ae20413112e6fa4e89a97ea20a9eeee64b55d39a&quot;,
+          &quot;2192992a274fc1a836ba3c23a3feebbd454d4423643ce80e2a9ac94fa54ca49f&quot;,
+          sep=&quot;&quot;),
+    paste(&quot;204a8fc6dda82f0a0ced7beb8e08a41657c16ef468b228a8279be331a703c335&quot;,
+          &quot;96fd15c13b1b07f9aa1d3bea57789ca031ad85c7a71dd70354ec631238ca3445&quot;,
+          sep=&quot;&quot;))
 
 for (i in seq(along=sha512Input)) {
-  sha512 &lt;- digest(sha512Input[i], algo="sha512", serialize=FALSE)
+  sha512 &lt;- digest(sha512Input[i], algo=&quot;sha512&quot;, serialize=FALSE)
   stopifnot(identical(sha512, sha512Output[i]))
 }
 
 ## xxhash32 example
 xxhash32Input &lt;-
-    c("abc",
-      "abcdbcdecdefdefgefghfghighijhijkijkljklmklmnlmnomnopnopq",
-      "")
+    c(&quot;abc&quot;,
+      &quot;abcdbcdecdefdefgefghfghighijhijkijkljklmklmnlmnomnopnopq&quot;,
+      &quot;&quot;)
 xxhash32Output &lt;-
-    c("32d153ff",
-      "89ea60c3",
-      "02cc5d05")
+    c(&quot;32d153ff&quot;,
+      &quot;89ea60c3&quot;,
+      &quot;02cc5d05&quot;)
 
 for (i in seq(along=xxhash32Input)) {
-    xxhash32 &lt;- digest(xxhash32Input[i], algo="xxhash32", serialize=FALSE)
-    cat(xxhash32, "\n")
+    xxhash32 &lt;- digest(xxhash32Input[i], algo=&quot;xxhash32&quot;, serialize=FALSE)
+    cat(xxhash32, &quot;\n&quot;)
     stopifnot(identical(xxhash32, xxhash32Output[i]))
 }
 
 ## xxhash64 example
 xxhash64Input &lt;-
-    c("abc",
-      "abcdbcdecdefdefgefghfghighijhijkijkljklmklmnlmnomnopnopq",
-      "")
+    c(&quot;abc&quot;,
+      &quot;abcdbcdecdefdefgefghfghighijhijkijkljklmklmnlmnomnopnopq&quot;,
+      &quot;&quot;)
 xxhash64Output &lt;-
-    c("44bc2cf5ad770999",
-      "f06103773e8585df",
-      "ef46db3751d8e999")
+    c(&quot;44bc2cf5ad770999&quot;,
+      &quot;f06103773e8585df&quot;,
+      &quot;ef46db3751d8e999&quot;)
 
 for (i in seq(along=xxhash64Input)) {
-    xxhash64 &lt;- digest(xxhash64Input[i], algo="xxhash64", serialize=FALSE)
-    cat(xxhash64, "\n")
+    xxhash64 &lt;- digest(xxhash64Input[i], algo=&quot;xxhash64&quot;, serialize=FALSE)
+    cat(xxhash64, &quot;\n&quot;)
     stopifnot(identical(xxhash64, xxhash64Output[i]))
 }
 
 ## these outputs were calculated using mmh3 python package
 murmur32Input &lt;-
-    c("abc",
-      "abcdbcdecdefdefgefghfghighijhijkijkljklmklmnlmnomnopnopq",
-      "")
+    c(&quot;abc&quot;,
+      &quot;abcdbcdecdefdefgefghfghighijhijkijkljklmklmnlmnomnopnopq&quot;,
+      &quot;&quot;)
 murmur32Output &lt;-
-    c("b3dd93fa",
-      "ee925b90",
-      "00000000")
+    c(&quot;b3dd93fa&quot;,
+      &quot;ee925b90&quot;,
+      &quot;00000000&quot;)
 
 for (i in seq(along=murmur32Input)) {
-    murmur32 &lt;- digest(murmur32Input[i], algo="murmur32", serialize=FALSE)
-    cat(murmur32, "\n")
+    murmur32 &lt;- digest(murmur32Input[i], algo=&quot;murmur32&quot;, serialize=FALSE)
+    cat(murmur32, &quot;\n&quot;)
     stopifnot(identical(murmur32, murmur32Output[i]))
 }
 
 ## these outputs were calculated using spooky python package
 spookyInput &lt;-
-    c("a",
-      "abc",
-      "message digest")
+    c(&quot;a&quot;,
+      &quot;abc&quot;,
+      &quot;message digest&quot;)
 spookyOutput &lt;-
-    c("bdc9bba09181101a922a4161f0584275",
-      "67c93775f715ab8ab01178caf86713c6",
-      "9630c2a55c0987a0db44434f9d67a192")
+    c(&quot;bdc9bba09181101a922a4161f0584275&quot;,
+      &quot;67c93775f715ab8ab01178caf86713c6&quot;,
+      &quot;9630c2a55c0987a0db44434f9d67a192&quot;)
 
 for (i in seq(along=spookyInput)) {
     # skip = 30 skips the serialization header and just hashes the strings
-    spooky &lt;- digest(spookyInput[i], algo="spookyhash", skip = 30)
-    cat(spooky, "\n")
+    spooky &lt;- digest(spookyInput[i], algo=&quot;spookyhash&quot;, skip = 30)
+    cat(spooky, &quot;\n&quot;)
     stopifnot(identical(spooky, spookyOutput[i]))
 }
 
 ## blake3 example
 blake3Input &lt;-
-    c("abc",
-      "abcdbcdecdefdefgefghfghighijhijkijkljklmklmnlmnomnopnopq",
-      "")
+    c(&quot;abc&quot;,
+      &quot;abcdbcdecdefdefgefghfghighijhijkijkljklmklmnlmnomnopnopq&quot;,
+      &quot;&quot;)
 blake3Output &lt;-
-    c("6437b3ac38465133ffb63b75273a8db548c558465d79db03fd359c6cd5bd9d85",
-      "c19012cc2aaf0dc3d8e5c45a1b79114d2df42abb2a410bf54be09e891af06ff8",
-      "af1349b9f5f9a1a6a0404dea36dcc9499bcb25c9adc112b7cc9a93cae41f3262")
+    c(&quot;6437b3ac38465133ffb63b75273a8db548c558465d79db03fd359c6cd5bd9d85&quot;,
+      &quot;c19012cc2aaf0dc3d8e5c45a1b79114d2df42abb2a410bf54be09e891af06ff8&quot;,
+      &quot;af1349b9f5f9a1a6a0404dea36dcc9499bcb25c9adc112b7cc9a93cae41f3262&quot;)
 
 for (i in seq(along=blake3Input)) {
-    blake3 &lt;- digest(blake3Input[i], algo="blake3", serialize=FALSE)
-    cat(blake3, "\n")
+    blake3 &lt;- digest(blake3Input[i], algo=&quot;blake3&quot;, serialize=FALSE)
+    cat(blake3, &quot;\n&quot;)
     stopifnot(identical(blake3, blake3Output[i]))
+}
+
+## crc32c
+crc32cInput &lt;- c(&quot;123456789&quot;, &quot;The quick brown fox jumps over the lazy dog&quot;)
+crc32cOutput &lt;- c(&quot;e3069283&quot;, &quot;22620404&quot;)
+for (i in seq_along(crc32cInput)) {
+    crc32c &lt;- digest(crc32cInput[i], algo=&quot;crc32c&quot;, serialize=FALSE)
+    cat(crc32c, &quot;\n&quot;)
+    stopifnot(identical(crc32c, crc32cOutput[i]))
 }
 
 # example of a digest of a standard R list structure
 digest(list(LETTERS, data.frame(a=letters[1:5], b=matrix(1:10,ncol=2))))
 
 # test 'length' parameter and file input
-fname &lt;- file.path(R.home(),"COPYING")
+fname &lt;- file.path(R.home(),&quot;COPYING&quot;)
 x &lt;- readChar(fname, file.info(fname)$size) # read file
-for (alg in c("sha1", "md5", "crc32")) {
+for (alg in c(&quot;sha1&quot;, &quot;md5&quot;, &quot;crc32&quot;)) {
   # partial file
   h1 &lt;- digest(x    , length=18000, algo=alg, serialize=FALSE)
   h2 &lt;- digest(fname, length=18000, algo=alg, serialize=FALSE, file=TRUE)
@@ -1116,9 +1128,9 @@ for (alg in c("sha1", "md5", "crc32")) {
 
 # compare md5 algorithm to other tools
 library(tools)
-fname &lt;- file.path(R.home(),"COPYING")
+fname &lt;- file.path(R.home(),&quot;COPYING&quot;)
 h1 &lt;- as.character(md5sum(fname))
-h2 &lt;- digest(fname, algo="md5", file=TRUE)
+h2 &lt;- digest(fname, algo=&quot;md5&quot;, file=TRUE)
 stopifnot( identical(h1,h2) )
 
 ## digest is _designed_ to return one has summary per object to for a desired

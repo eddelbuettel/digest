@@ -8,14 +8,16 @@ string. This is useful for randomized experiments, feature hashing, etc.
 
 ### Usage
 
-    digest2int(x, seed = 0L)
+``` R
+digest2int(x, seed = 0L)
+```
 
 ### Arguments
 
-| Argument | Description                                                                                                              |
-|----------|--------------------------------------------------------------------------------------------------------------------------|
-| `x`      | An arbitrary character vector.                                                                                           |
-| `seed`   | an integer for algorithm initial state. Function will produce different hashes for same input and different seed values. |
+|        |                                                                                                                          |
+|--------|--------------------------------------------------------------------------------------------------------------------------|
+| `x`    | An arbitrary character vector.                                                                                           |
+| `seed` | an integer for algorithm initial state. Function will produce different hashes for same input and different seed values. |
 
 ### Value
 
@@ -25,9 +27,8 @@ input vector `x`.
 ### Author(s)
 
 Dmitriy Selivanov <selivanov.dmitriy@gmail.com> for the <span
-style="font-family: Courier New, Courier; color: #666666;">**R**</span>
-interface; Bob Jenkins for original implementation
-<http://www.burtleburtle.net/bob/hash/doobs.html>
+class="rlang">**R**</span> interface; Bob Jenkins for original
+implementation <http://www.burtleburtle.net/bob/hash/doobs.html>
 
 ### References
 
@@ -40,8 +41,9 @@ Jenkins's `one_at_a_time` hash:
 
 ### Examples
 
-
-    current <- digest2int("The quick brown fox jumps over the lazy dog", 0L)
-    target <- 1369346549L
-    stopifnot(identical(target, current))
+``` R
+current <- digest2int("The quick brown fox jumps over the lazy dog", 0L)
+target <- 1369346549L
+stopifnot(identical(target, current))
+```
 
