@@ -1,5 +1,7 @@
 2023-06-27  Dirk Eddelbuettel  <edd@debian.org>
 
+	* DESCRIPTION (Version, Date): Roll micro version and date
+
 	* src/crc32c/crc32c_config.h: Undefine HAVE_BUILTIN_PREFETCH and
 	HAVE_MM_PREFETCH for maximum portability and builds on M1/M2/Arm64
 
