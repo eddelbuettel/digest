@@ -3,7 +3,7 @@
 	* DESCRIPTION (Version, Date): Release 0.6.32
 
 	* README.md: Add r-universe badge
-	* README.md: Add crc32c to Overview
+	* README.md: Add crc32c, and link to docs site, to Overview
 
 2023-06-25  Dirk Eddelbuettel  <edd@debian.org>
 

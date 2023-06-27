@@ -24,6 +24,8 @@ of hash digests of arbitrary R objects (using the md5, sha-1, sha-256, crc32,
 xxhash, murmurhash, spookyhash, blake3, and crc32c algorithms) permitting
 easy comparison of R language objects.
 
+Extensive documentation is available at the [package documentation site](https://eddelbuettel.github.io/digest/).
+
 #### Examples
 
 As R can serialize any object, we can run `digest()` on any object:
