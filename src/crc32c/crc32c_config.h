@@ -9,10 +9,12 @@
 #define BYTE_ORDER_BIG_ENDIAN 0
 
 // Define to 1 if the compiler has the __builtin_prefetch intrinsic.
-#define HAVE_BUILTIN_PREFETCH 1
+// edd 2023-06-26  Set to 0 for maximum portability
+#define HAVE_BUILTIN_PREFETCH 0
 
 // Define to 1 if targeting X86 and the compiler has the _mm_prefetch intrinsic.
-#define HAVE_MM_PREFETCH 1
+// edd 2023-06-26  Set to 0 for maximum portability
+#define HAVE_MM_PREFETCH 0
 
 // Define to 1 if targeting X86 and the compiler has the _mm_crc32_u{8,32,64}
 // intrinsics.
