@@ -1,3 +1,7 @@
+2023-06-27  Sergey Fedorov  <vital.had@gmail.com>
+
+	* src/crc32c/crc32c_config.h: Use endian macros to set endianness
+
 2023-06-27  Dirk Eddelbuettel  <edd@debian.org>
 
 	* DESCRIPTION (Version, Date): Roll micro version and date
