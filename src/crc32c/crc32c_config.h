@@ -6,7 +6,11 @@
 #define CRC32C_CRC32C_CONFIG_H_
 
 // Define to 1 if building for a big-endian platform.
+#if defined(__BYTE_ORDER__) && defined(__ORDER_BIG_ENDIAN__) && (__BYTE_ORDER__ == __ORDER_BIG_ENDIAN__)
+#define BYTE_ORDER_BIG_ENDIAN 1
+#else
 #define BYTE_ORDER_BIG_ENDIAN 0
+#endif
 
 // Define to 1 if the compiler has the __builtin_prefetch intrinsic.
 // edd 2023-06-26  Set to 0 for maximum portability
