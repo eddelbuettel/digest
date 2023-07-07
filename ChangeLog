@@ -1,3 +1,9 @@
+2023-06-28  Dirk Eddelbuettel  <edd@debian.org>
+
+	* DESCRIPTION (Version, Date): Release 0.6.33
+
+	* src/crc32c/crc32c_config.h: Minor comment edit
+
 2023-06-27  Sergey Fedorov  <vital.had@gmail.com>
 
 	* src/crc32c/crc32c_config.h: Use endian macros to set endianness

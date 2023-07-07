@@ -5,7 +5,7 @@
 #ifndef CRC32C_CRC32C_CONFIG_H_
 #define CRC32C_CRC32C_CONFIG_H_
 
-// Define to 1 if building for a big-endian platform.
+// Define to 1 if building for a big-endian platform and conditions met ... else 0 for little endian
 #if defined(__BYTE_ORDER__) && defined(__ORDER_BIG_ENDIAN__) && (__BYTE_ORDER__ == __ORDER_BIG_ENDIAN__)
 #define BYTE_ORDER_BIG_ENDIAN 1
 #else
