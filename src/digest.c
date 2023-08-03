@@ -21,6 +21,7 @@
 
 */
 
+#include <stdint.h> // for uint32_t
 #include <stdio.h>
 #include <string.h>
 #include <stdlib.h>
