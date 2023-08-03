@@ -1,4 +1,5 @@
 2023-08-03  Michael Chirico  <chiricom@google.com>
+
         * DESCRIPTION (Suggests): Add version dependency on 'tinytest' for
         `expect_length()`
 
