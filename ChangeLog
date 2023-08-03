@@ -1,7 +1,7 @@
 2023-08-03  Michael Chirico  <chiricom@google.com>
 
-        * DESCRIPTION (Suggests): Add version dependency on 'tinytest' for
-        `expect_length()`
+        * tests/tinytest.R: Define `expect_length()` if needed (it's only
+        available from tinytest 1.4.1, Feb. 2023)
 
 2023-06-28  Dirk Eddelbuettel  <edd@debian.org>
 
