@@ -23,5 +23,5 @@ BugReports: https://github.com/eddelbuettel/digest/issues
 Depends: R (>= 3.3.0)
 Imports: utils
 License: GPL (>= 2)
-Suggests: tinytest, simplermarkdown
+Suggests: tinytest (>= 1.4.1), simplermarkdown
 VignetteBuilder: simplermarkdown
