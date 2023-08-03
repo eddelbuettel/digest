@@ -10,6 +10,10 @@ if (requireNamespace("tinytest", quietly=TRUE)) {
 
     ## we need version 0.9.3 or later
     if (packageVersion("tinytest") >= "0.9.3") {
+        ## expect_length is in tinytest 1.4.1
+        if (!"expect_length" %in% getNamespaceExports("tinytest")) {
+            expect_length <- function(x, n) tinytest::expect_equal(length(x), n)
+        }
         tinytest::test_package("digest")
     }
 }
