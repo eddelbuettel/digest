@@ -5,7 +5,7 @@ Author: Dirk Eddelbuettel <edd@debian.org> with contributions
  Duncan Murdoch, Jim Hester, Wush Wu, Qiang Kou, Thierry Onkelinx,
  Michel Lang, Viliam Simko, Kurt Hornik, Radford Neal, Kendon Bell,
  Matthew de Queljoe, Ion Suruceanu, Bill Denney, Dirk Schumacher,
- Winston Chang, and Dean Attali.
+ Winston Chang, Dean Attali, and Michael Chirico.
 Version: 0.6.33
 Date: 2023-06-28
 Maintainer: Dirk Eddelbuettel <edd@debian.org>

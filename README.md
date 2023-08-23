@@ -86,7 +86,7 @@ Henrik Bengtsson, Simon Urbanek, Mario Frasca, Bryan Lewis, Murray Stokely,
 Hannes Muehleisen, Duncan Murdoch, Jim Hester, Wush Wu, Qiang Kou, Thierry
 Onkelinx, Michel Lang, Viliam Simko, Kurt Hornik, Radford Neal, Kendon Bell,
 Matthew de Queljoe, Ion Suruceanu, Bill Denney, Dirk Schumacher, Winston
-Chang, and Dean Attali.
+Chang, Dean Attali, and Michael Chirico.
 
 ### License
 
