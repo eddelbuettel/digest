@@ -1,7 +1,8 @@
 2023-08-03  Michael Chirico  <chiricom@google.com>
 
-        * tests/tinytest.R: Define `expect_length()` if needed (it's only
-        available from tinytest 1.4.1, Feb. 2023)
+        * tests/tinytest.R: Define `expect_length()` if needed (it is only
+        available from tinytest 1.4.1 released February 2023)
+        * src/digest.c: `#include <stdint.h>` for `uint32_t`
 
 2023-06-28  Dirk Eddelbuettel  <edd@debian.org>
 
