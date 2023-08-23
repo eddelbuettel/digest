@@ -1,10 +1,41 @@
 ###  2023 
 
+2023-08-23  Dirk Eddelbuettel  <edd@debian.org> 
+ 
+        * DESCRIPTION (Version, Date): Roll micro version and date 
+ 
+        * DESCRIPTION: Add Michael contributors 
+        * README.md: Idem 
+ 
+2023-08-03  Michael Chirico  <chiricom@google.com> 
+ 
+        * tests/tinytest.R: Define `expect_length()` if needed (it is only 
+        available from tinytest 1.4.1 released February 2023) 
+        * src/digest.c: `#include <stdint.h>` for `uint32_t` 
+ 
+2023-06-28  Dirk Eddelbuettel  <edd@debian.org> 
+ 
+        * DESCRIPTION (Version, Date): Release 0.6.33 
+ 
+        * src/crc32c/crc32c_config.h: Minor comment edit 
+ 
+2023-06-27  Sergey Fedorov  <vital.had@gmail.com> 
+ 
+        * src/crc32c/crc32c_config.h: Use endian macros to set endianness 
+ 
+2023-06-27  Dirk Eddelbuettel  <edd@debian.org> 
+ 
+        * DESCRIPTION (Version, Date): Roll micro version and date 
+ 
+        * src/crc32c/crc32c_config.h: Undefine HAVE_BUILTIN_PREFETCH and 
+        HAVE_MM_PREFETCH for maximum portability and builds on M1/M2/Arm64 
+ 
 2023-06-26  Dirk Eddelbuettel  <edd@debian.org> 
  
         * DESCRIPTION (Version, Date): Release 0.6.32 
  
         * README.md: Add r-universe badge 
+        * README.md: Add crc32c, and link to docs site, to Overview 
  
 2023-06-25  Dirk Eddelbuettel  <edd@debian.org> 
  
