@@ -1,5 +1,7 @@
 2024-01-04  Dirk Eddelbuettel  <edd@debian.org>
 
+	* DESCRIPTION (Version, Date): Roll micro version and date
+
 	* src/digest.c (open_with_widechar_on_windows): Correct format
 	specification in error() call on Windows
 
