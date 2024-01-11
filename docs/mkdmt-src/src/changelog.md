@@ -1,3 +1,20 @@
+###  2024 
+
+2024-01-11  Dirk Eddelbuettel  <edd@debian.org> 
+ 
+        * DESCRIPTION (Version, Date): Release 0.6.34 
+ 
+2024-01-05  Dirk Eddelbuettel  <edd@debian.org> 
+ 
+        * .github/workflows/ci.yaml (jobs): Update to actions/checkout@v4 
+ 
+2024-01-04  Dirk Eddelbuettel  <edd@debian.org> 
+ 
+        * DESCRIPTION (Version, Date): Roll micro version and date 
+ 
+        * src/digest.c (open_with_widechar_on_windows): Correct format 
+        specification in error() call on Windows 
+ 
 ###  2023 
 
 2023-08-23  Dirk Eddelbuettel  <edd@debian.org> 
