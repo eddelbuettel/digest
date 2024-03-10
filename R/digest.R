@@ -1,7 +1,7 @@
 
 ##  digest -- hash digest functions for R
 ##
-##  Copyright (C) 2003 - 2023  Dirk Eddelbuettel <edd@debian.org>
+##  Copyright (C) 2003 - 2024  Dirk Eddelbuettel <edd@debian.org>
 ##  Copyright (C) 2009 - 2019  Henrik Bengtsson
 ##  Copyright (C) 2012 - 2019  Hannes Muehleisen
 ##  Copyright (C) 2014 - 2019  Jim Hester
@@ -25,7 +25,8 @@
 
 digest <- function(object, algo=c("md5", "sha1", "crc32", "sha256", "sha512",
                                   "xxhash32", "xxhash64", "murmur32",
-                                  "spookyhash", "blake3", "crc32c"),
+                                  "spookyhash", "blake3", "crc32c",
+                                  "xxh3_64", "xxh3_128"),
                    serialize=TRUE,
                    file=FALSE,
                    length=Inf,
@@ -40,7 +41,8 @@ digest <- function(object, algo=c("md5", "sha1", "crc32", "sha256", "sha512",
     # infer them from the function's formals.
     algo <- match.arg(algo, c("md5", "sha1", "crc32", "sha256", "sha512",
                               "xxhash32", "xxhash64", "murmur32",
-                              "spookyhash", "blake3", "crc32c"))
+                              "spookyhash", "blake3", "crc32c",
+                              "xxh3_64", "xxh3_128"))
     errormode <- match.arg(errormode, c("stop", "warn", "silent"))
 
     if (is.infinite(length)) {
@@ -64,10 +66,10 @@ digest <- function(object, algo=c("md5", "sha1", "crc32", "sha256", "sha512",
             ## support the 'nosharing' option in pqR's serialize()
             object <- if (.hasNoSharing())
                 serialize (object, connection=NULL, ascii=ascii,
-                                 nosharing=TRUE, version=serializeVersion)
+                           nosharing=TRUE, version=serializeVersion)
             else
                 serialize (object, connection=NULL, ascii=ascii,
-                                 version=serializeVersion)
+                           version=serializeVersion)
         }
         ## we support raw vectors, so no mangling of 'object' is necessary
         ## regardless of R version
@@ -150,7 +152,9 @@ algo_int <- function(algo)
         murmur32 = 8,
         spookyhash = 9,
         blake3 = 10,
-        crc32c = 11
+        crc32c = 11,
+        xxh3_64 = 12,
+        xxh3_128 = 13
     )
 
 ## HB 14 Mar 2007:

@@ -1,3 +1,14 @@
+2024-03-10  Dirk Eddelbuettel  <edd@debian.org>
+
+	* src/xxhash.h: Update to current release 0.8.2
+	* src/xxhash.c: Idem
+	* src/digest.c: Support new xxhash algorithm xxh3_64 and xxh3_128
+	* R/digest.R: Idem
+	* R/vdigest.R: Support xxh3_64 and xxh3_128 in vectorized mode
+	* inst/tinytest/test_digest.R: Add tests for xxh3_64 and xxh3_128
+	* man/digest.Rd: Documentation
+	* man/vdigest.Rd: Idem
+
 2024-01-11  Dirk Eddelbuettel  <edd@debian.org>
 
 	* DESCRIPTION (Version, Date): Release 0.6.34
