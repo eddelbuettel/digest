@@ -15,7 +15,8 @@
 \usage{
 digest(object, algo=c("md5", "sha1", "crc32", "sha256", "sha512",
                       "xxhash32", "xxhash64", "murmur32", "spookyhash",
-                      "blake3", "crc32c"), serialize=TRUE, file=FALSE,
+                      "blake3", "crc32c", "xxh3_64", "xxh3_128"),
+       serialize=TRUE, file=FALSE,
        length=Inf, skip="auto", ascii=FALSE, raw=FALSE, seed=0,
        errormode=c("stop","warn","silent"),
        serializeVersion=.getSerializeVersion())
@@ -27,7 +28,8 @@ digest(object, algo=c("md5", "sha1", "crc32", "sha256", "sha512",
   \item{algo}{The algorithms to be used; currently available choices are
     \code{md5}, which is also the default, \code{sha1}, \code{crc32},
     \code{sha256}, \code{sha512}, \code{xxhash32}, \code{xxhash64},
-    \code{murmur32}, \code{spookyhash}, \code{blake3}, and \code{crc32c}.}
+    \code{murmur32}, \code{spookyhash}, \code{blake3}, \code{crc32c},
+    \code{xxh3_64}, and \code{xxh3_128}.}
   \item{serialize}{A logical variable indicating whether the object
     should be serialized using \code{serialize} (in ASCII
     form). Setting this to \code{FALSE} allows to compare the digest
@@ -88,7 +90,8 @@ digest(object, algo=c("md5", "sha1", "crc32", "sha256", "sha512",
 
   For sha-512, a standalone implementation from Aaron Gifford is used.
 
-  For xxhash32 and xxhash64, the reference implementation by Yann Collet is used.
+  For xxhash32, xxhash64, xxh3_64 and xxh3_128 the reference implementation
+  by Yann Collet is used.
 
   For murmur32, the progressive implementation by Shane Day is used.
 

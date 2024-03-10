@@ -141,6 +141,8 @@ expect_true(identical(sha1, "a9993e364706816aba3e25717850c26c9cd0d89d"))
 ##                                     ncol=2)))), "\n")
 
 ## these outputs were calculated using xxh32sum
+## [ Correction:  These reproduce via the Python xxhash package and its hexdigest() output
+##   but not the xxh64sum command-line tool as the original comment here implies. ]
 xxhash32Input <-
     c("abc",
       "abcdbcdecdefdefgefghfghighijhijkijkljklmklmnlmnomnopnopq",
@@ -161,6 +163,8 @@ expect_identical(xxhash32(xxhash32Input, serialize = FALSE), xxhash32Output)
 
 
 ## these outputs were calculated using xxh64sum
+## [ Correction:  These reproduce via the Python xxhash package and its hexdigest() output
+##   but not the xxh64sum command-line tool as the original comment here implies. ]
 xxhash64Input <-
     c("abc",
       "abcdbcdecdefdefgefghfghighijhijkijkljklmklmnlmnomnopnopq",
@@ -314,3 +318,41 @@ algos <- eval(formals(getVDigest)$algo)
 for (algo in algos) {
   getVDigest(algo = algo)
 }
+
+
+## xxhash h3_64 variant
+## reference values computed via xxhash and its xxh3_64 object and hexdiges printer:
+## ie print(xxhash.xxh3_64("abc").hexdigest())
+xxh3_64Input <- c("abc",
+                  "abcdbcdecdefdefgefghfghighijhijkijkljklmklmnlmnomnopnopq",
+                  "")
+xxh3_64Output <- c("78af5f94892f3950",
+                   "5bbcbbabcdcc3d3f",
+                   "2d06800538d394c2")
+for (i in seq(along.with=xxh3_64Input)) {
+    xxh3_64 <- digest(xxh3_64Input[i], algo="xxh3_64", serialize=FALSE)
+    #cat(xxh3_64, "\n")
+    expect_true(identical(xxh3_64, xxh3_64Output[i]))
+}
+
+xxh3_64 <- getVDigest(algo = 'xxh3_64')
+expect_identical(xxh3_64(xxh3_64Input, serialize = FALSE), xxh3_64Output)
+
+
+## xxhash h3_128 variant
+## reference values computed via xxhash and its xxh3_128 object and hexdiges printer:
+## ie print(xxhash.xxh3_128("abc").hexdigest())
+xxh3_128Input <- c("abc",
+                   "abcdbcdecdefdefgefghfghighijhijkijkljklmklmnlmnomnopnopq",
+                   "")
+xxh3_128Output <- c("06b05ab6733a618578af5f94892f3950",
+                    "3d62d22a5169b016c0d894fd4828a1a7",
+                    "99aa06d3014798d86001c324468d497f")
+for (i in seq(along.with=xxh3_128Input)) {
+    xxh3_128 <- digest(xxh3_128Input[i], algo="xxh3_128", serialize=FALSE)
+    #cat(xxh3_128, "\n")
+    expect_true(identical(xxh3_128, xxh3_128Output[i]))
+}
+
+xxh3_128 <- getVDigest(algo = 'xxh3_128')
+expect_identical(xxh3_128(xxh3_128Input, serialize = FALSE), xxh3_128Output)

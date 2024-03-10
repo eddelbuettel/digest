@@ -8,14 +8,16 @@ when repeated calls are necessary (e.g. applying a hash function repeatedly to a
 }
 \usage{
 getVDigest(algo=c("md5", "sha1", "crc32", "sha256", "sha512", "xxhash32",
-            "xxhash64", "murmur32", "spookyhash", "blake3", "crc32c"),
+                  "xxhash64", "murmur32", "spookyhash", "blake3", "crc32c",
+                  "xxh3_64", "xxh3_128"),
              errormode=c("stop","warn","silent"))
 }
 \arguments{
   \item{algo}{The algorithms to be used; currently available choices are
     \code{md5}, which is also the default, \code{sha1}, \code{crc32},
     \code{sha256}, \code{sha512}, \code{xxhash32}, \code{xxhash64},
-    \code{murmur32}, \code{spookyhash}, \code{blake3}, and \code{crc32c}.}
+    \code{murmur32}, \code{spookyhash}, \code{blake3}, \code{crc32c},
+    \code{xxh3_64}, and \code{xxh3_128}.}
   \item{errormode}{A character value denoting a choice for the behaviour in
     the case of error: \sQuote{stop} aborts (and is the default value),
     \sQuote{warn} emits a warning and returns \code{NULL} and
