@@ -775,8 +775,9 @@
 <h3 id="overview">Overview</h3>
 <p>The digest package provides a principal function <code>digest()</code> for the creation
 of hash digests of arbitrary R objects (using the md5, sha-1, sha-256, crc32,
-xxhash, murmurhash, spookyhash, blake3, and crc32c algorithms) permitting
-easy comparison of R language objects.</p>
+xxhash, murmurhash, spookyhash, blake3, crc32c, xxh3_64, and xxh3_128
+algorithms) permitting easy comparison of R language objects.</p>
+<p>Extensive documentation is available at the <a href="https://eddelbuettel.github.io/digest/">package documentation site</a>.</p>
 <h4 id="examples">Examples</h4>
 <p>As R can serialize any object, we can run <code>digest()</code> on any object:</p>
 <pre><code class="language-r">R&gt; library(digest)
@@ -796,7 +797,8 @@ This is a common use of the digest package.</p>
 <ul>
 <li><code>sha1()</code> for numerally stable hashsums,</li>
 <li><code>hmac()</code> for hashed message authentication codes based on a key,</li>
-<li><code>AES()</code> for Advanced Encryption Standard block ciphers.</li>
+<li><code>AES()</code> for Advanced Encryption Standard block ciphers,</li>
+<li><code>getVDigest()</code> as a function generator for vectorised versions.</li>
 </ul>
 <h3 id="note">Note</h3>
 <p>Please note that this package is not meant to be deployed for

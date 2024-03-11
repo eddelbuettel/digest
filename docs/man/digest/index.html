@@ -804,7 +804,8 @@ must be a character string for which its digest is returned.</p>
 <h3 id="usage">Usage</h3>
 <pre><code class="language-R">digest(object, algo=c(&quot;md5&quot;, &quot;sha1&quot;, &quot;crc32&quot;, &quot;sha256&quot;, &quot;sha512&quot;,
                       &quot;xxhash32&quot;, &quot;xxhash64&quot;, &quot;murmur32&quot;, &quot;spookyhash&quot;,
-                      &quot;blake3&quot;, &quot;crc32c&quot;), serialize=TRUE, file=FALSE,
+                      &quot;blake3&quot;, &quot;crc32c&quot;, &quot;xxh3_64&quot;, &quot;xxh3_128&quot;),
+       serialize=TRUE, file=FALSE,
        length=Inf, skip=&quot;auto&quot;, ascii=FALSE, raw=FALSE, seed=0,
        errormode=c(&quot;stop&quot;,&quot;warn&quot;,&quot;silent&quot;),
        serializeVersion=.getSerializeVersion())
@@ -824,7 +825,7 @@ must be a character string for which its digest is returned.</p>
 </tr>
 <tr>
 <td><code>algo</code></td>
-<td>The algorithms to be used; currently available choices are <code>md5</code>, which is also the default, <code>sha1</code>, <code>crc32</code>, <code>sha256</code>, <code>sha512</code>, <code>xxhash32</code>, <code>xxhash64</code>, <code>murmur32</code>, <code>spookyhash</code>, <code>blake3</code>, and <code>crc32c</code>.</td>
+<td>The algorithms to be used; currently available choices are <code>md5</code>, which is also the default, <code>sha1</code>, <code>crc32</code>, <code>sha256</code>, <code>sha512</code>, <code>xxhash32</code>, <code>xxhash64</code>, <code>murmur32</code>, <code>spookyhash</code>, <code>blake3</code>, <code>crc32c</code>, <code>xxh3_64</code>, and <code>xxh3_128</code>.</td>
 </tr>
 <tr>
 <td><code>serialize</code></td>
@@ -872,8 +873,8 @@ specified in FIPS-180-1, SHA-2 is described in FIPS-180-2.</p>
 implementations in C by Christophe Devine. For crc32, code from the zlib
 library by Jean-loup Gailly and Mark Adler is used.</p>
 <p>For sha-512, a standalone implementation from Aaron Gifford is used.</p>
-<p>For xxhash32 and xxhash64, the reference implementation by Yann Collet
-is used.</p>
+<p>For xxhash32, xxhash64, xxh3_64 and xxh3_128 the reference
+implementation by Yann Collet is used.</p>
 <p>For murmur32, the progressive implementation by Shane Day is used.</p>
 <p>For spookyhash, the original source code by Bob Jenkins is used. The R
 implementation that integrates R's serialization directly with the

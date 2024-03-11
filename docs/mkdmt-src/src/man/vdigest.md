@@ -15,16 +15,17 @@ details).
 
 ``` R
 getVDigest(algo=c("md5", "sha1", "crc32", "sha256", "sha512", "xxhash32",
-            "xxhash64", "murmur32", "spookyhash", "blake3", "crc32c"),
+                  "xxhash64", "murmur32", "spookyhash", "blake3", "crc32c",
+                  "xxh3_64", "xxh3_128"),
              errormode=c("stop","warn","silent"))
 ```
 
 ### Arguments
 
-|             |                                                                                                                                                                                                                                |
-|-------------|--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
-| `algo`      | The algorithms to be used; currently available choices are `md5`, which is also the default, `sha1`, `crc32`, `sha256`, `sha512`, `xxhash32`, `xxhash64`, `murmur32`, `spookyhash`, `blake3`, and `crc32c`.                    |
-| `errormode` | A character value denoting a choice for the behaviour in the case of error: ‘stop’ aborts (and is the default value), ‘warn’ emits a warning and returns `NULL` and ‘silent’ suppresses the error and returns an empty string. |
+|             |                                                                                                                                                                                                                                    |
+|-------------|------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
+| `algo`      | The algorithms to be used; currently available choices are `md5`, which is also the default, `sha1`, `crc32`, `sha256`, `sha512`, `xxhash32`, `xxhash64`, `murmur32`, `spookyhash`, `blake3`, `crc32c`, `xxh3_64`, and `xxh3_128`. |
+| `errormode` | A character value denoting a choice for the behaviour in the case of error: ‘stop’ aborts (and is the default value), ‘warn’ emits a warning and returns `NULL` and ‘silent’ suppresses the error and returns an empty string.     |
 
 ### Details
 

@@ -18,7 +18,8 @@ must be a character string for which its digest is returned.
 ``` R
 digest(object, algo=c("md5", "sha1", "crc32", "sha256", "sha512",
                       "xxhash32", "xxhash64", "murmur32", "spookyhash",
-                      "blake3", "crc32c"), serialize=TRUE, file=FALSE,
+                      "blake3", "crc32c", "xxh3_64", "xxh3_128"),
+       serialize=TRUE, file=FALSE,
        length=Inf, skip="auto", ascii=FALSE, raw=FALSE, seed=0,
        errormode=c("stop","warn","silent"),
        serializeVersion=.getSerializeVersion())
@@ -29,7 +30,7 @@ digest(object, algo=c("md5", "sha1", "crc32", "sha256", "sha512",
 |                    |                                                                                                                                                                                                                                                                                                                                                                              |
 |--------------------|------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
 | `object`           | An arbitrary R object which will then be passed to the `serialize` function, unless the `serialize` argument is set to `FALSE`.                                                                                                                                                                                                                                              |
-| `algo`             | The algorithms to be used; currently available choices are `md5`, which is also the default, `sha1`, `crc32`, `sha256`, `sha512`, `xxhash32`, `xxhash64`, `murmur32`, `spookyhash`, `blake3`, and `crc32c`.                                                                                                                                                                  |
+| `algo`             | The algorithms to be used; currently available choices are `md5`, which is also the default, `sha1`, `crc32`, `sha256`, `sha512`, `xxhash32`, `xxhash64`, `murmur32`, `spookyhash`, `blake3`, `crc32c`, `xxh3_64`, and `xxh3_128`.                                                                                                                                           |
 | `serialize`        | A logical variable indicating whether the object should be serialized using `serialize` (in ASCII form). Setting this to `FALSE` allows to compare the digest output of given character strings to known control output. It also allows the use of raw vectors such as the output of non-ASCII serialization.                                                                |
 | `file`             | A logical variable indicating whether the object is a file name or a file name if `object` is not specified.                                                                                                                                                                                                                                                                 |
 | `length`           | Number of characters to process. By default, when `length` is set to `Inf`, the whole string or file is processed.                                                                                                                                                                                                                                                           |
@@ -52,8 +53,8 @@ library by Jean-loup Gailly and Mark Adler is used.
 
 For sha-512, a standalone implementation from Aaron Gifford is used.
 
-For xxhash32 and xxhash64, the reference implementation by Yann Collet
-is used.
+For xxhash32, xxhash64, xxh3_64 and xxh3_128 the reference
+implementation by Yann Collet is used.
 
 For murmur32, the progressive implementation by Shane Day is used.
 
