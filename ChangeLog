@@ -1,3 +1,7 @@
+2024-03-12  Dirk Eddelbuettel  <edd@debian.org>
+
+	* src/spooky_serialize.cpp: Use R_NO_REMAP, add three Rf_ prefixes
+
 2024-03-10  Dirk Eddelbuettel  <edd@debian.org>
 
 	* DESCRIPTION (Version, Date): Release 0.6.35

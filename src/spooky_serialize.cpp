@@ -21,6 +21,7 @@
 #include <config.h>
 #endif
 
+#define R_NO_REMAP
 #define USE_RINTERNALS
 #include <R.h>
 #include <Rinternals.h>
@@ -40,9 +41,9 @@ static void OutBytesSpooky(R_outpstream_t stream, void *buf, int length) {
     uint8 to_skip = 0;
     spooky->GetSkipCounter(&skipped);
     spooky->GetToSkip(&to_skip);
-    if(skipped < to_skip){
-        if((skipped + length) > to_skip){
-            error("Serialization header has an unexpected length. Please file an issue at https://github.com/eddelbuettel/digest/issues."); // #nocov
+    if (skipped < to_skip){
+        if ((skipped + length) > to_skip){
+            Rf_error("Serialization header has an unexpected length. Please file an issue at https://github.com/eddelbuettel/digest/issues."); // #nocov
         }
         spooky->UpdateSkipCounter(length);
     } else {
@@ -64,7 +65,7 @@ static void InitSpookyPStream(R_outpstream_t stream, SpookyHash *spooky,
 static SEXP CallHook(SEXP x, SEXP fun) {			// #nocov start
     SEXP val, call;
     PROTECT(call = LCONS(fun, LCONS(x, R_NilValue)));
-    val = eval(call, R_GlobalEnv);
+    val = Rf_eval(call, R_GlobalEnv);
     UNPROTECT(1);
     return val;
 }								// #nocov end
@@ -91,7 +92,7 @@ extern "C" SEXP spookydigest_impl(SEXP s, SEXP to_skip_r, SEXP seed1_r, SEXP see
     uint64 h1, h2;
     spooky.Final(&h1, &h2);
     SEXP ans;
-    PROTECT(ans = allocVector(RAWSXP, 16));
+    PROTECT(ans = Rf_allocVector(RAWSXP, 16));
     unsigned char *tmp;
     tmp  = (unsigned char *) &h1;
     for (int i = 0; i < 8; i++)
