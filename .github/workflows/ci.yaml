@@ -12,6 +12,7 @@ env:
 jobs:
   ci:
     strategy:
+      fail-fast: false
       matrix:
         include:
           - {os: macOS-latest}
@@ -33,6 +34,10 @@ jobs:
 
       - name: Test
         run: ./run.sh run_tests
+
+      - name: Logs
+        run: ./run.sh dump_logs
+        if: failure()
 
       - name: Coverage
         if: ${{ matrix.os == 'ubuntu-latest' }}
