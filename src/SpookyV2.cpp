@@ -295,7 +295,7 @@ void SpookyHash::Final(uint64 *hash1, uint64 *hash2)
 
 void SpookyHash::UpdateSkipCounter(size_t length)
 {
-    m_skipped = m_skipped + length;
+    m_skipped = static_cast<uint8>(m_skipped + length);
 }
 
 void SpookyHash::GetSkipCounter(uint8 *count)

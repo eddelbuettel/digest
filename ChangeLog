@@ -2,6 +2,11 @@
 
 	* README.md: Use tinyverse.netlify.app for dependency badge
 
+	* src/spooky_serialize.cpp: Several small updates to please clang++
+	* src/SpookyV2.cpp: Idem
+
+	* .github/workflows/ci.yaml: Show logs in case of failure
+
 2024-03-12  Dirk Eddelbuettel  <edd@debian.org>
 
 	* DESCRIPTION (Version, Date): Roll micro version and date
