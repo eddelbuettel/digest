@@ -1,3 +1,18 @@
+2024-06-22  Dirk Eddelbuettel  <edd@debian.org>
+
+	* DESCRIPTION (Version, Date): Roll micro version and date
+
+	* src/endian.h: Use endian-ness definition from Rconfig.h
+	* src/digest.c (is_big_endian): Define one-line helper
+
+	* inst/tinytest/test_digest.R: Skip spookyhash test on big endian
+
+2024-06-21  Sergey Fedorov  <vital.had@gmail.com>
+
+	* src/blake3.c: Upstream patch for big endian systems
+	* src/blake3_impl.h: Idem
+	* src/blake3_portable.c: Idem
+
 2024-06-15  Dirk Eddelbuettel  <edd@debian.org>
 
 	* .github/workflows/ci.yaml (jobs): Update to r-ci-setup action

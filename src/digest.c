@@ -39,6 +39,7 @@
 #include "pmurhash.h"
 #include "blake3.h"
 #include "crc32c.h"
+#include "endian.h"
 
 #ifdef _WIN32
 #include <Windows.h>
@@ -619,4 +620,8 @@ SEXP vdigest(SEXP Txt, SEXP Algo, SEXP Length, SEXP Skip, SEXP Leave_raw, SEXP S
     }
     UNPROTECT(1);
     return ans;
+}
+
+SEXP is_big_endian() {
+    return Rf_ScalarLogical(BYTE_ORDER == BIG_ENDIAN);
 }
