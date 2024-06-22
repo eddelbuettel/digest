@@ -2,8 +2,8 @@
 
 	* DESCRIPTION (Version, Date): Roll micro version and date
 
-	* src/endian.h: Use endian-ness definition from Rconfig.h
-	* src/digest.c (is_big_endian): Define one-line helper
+	* src/digest.c (is_big_endian): Use endian-ness definition from
+	Rconfig.h and define one-line helper
 
 	* inst/tinytest/test_digest.R: Skip spookyhash test on big endian
 
