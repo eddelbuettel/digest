@@ -208,100 +208,97 @@ expect_identical(murmur32(murmur32Input, serialize = FALSE), murmur32Output)
 
 ## tests for digest spooky
 
-expect_true(require(digest))
+## Per PR 205, see comment in https://github.com/facebook/folly/blob/4c603f8c2add8d0228de0e073c5ae3ce9b02b6f3/folly/hash/SpookyHashV2.h#L35-L36
+## Values ought to be sensible on big endian too but different from little endian reference
+## so we do not test on big endian
+if (isTRUE(.Call(digest:::is_little_endian))) {
 
-## test vectors (originally for md5)
-spookyInput <-
-  c("",
-    "a",
-    "abc",
-    "message digest",
-    "abcdefghijklmnopqrstuvwxyz",
-    "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789",
-    paste("12345678901234567890123456789012345678901234567890123456789012",
-          "345678901234567890", sep=""))
+    ## test vectors (originally for md5)
+    spookyInput <- c("",
+                     "a",
+                     "abc",
+                     "message digest",
+                     "abcdefghijklmnopqrstuvwxyz",
+                     "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789",
+                     paste("12345678901234567890123456789012345678901234567890123456789012",
+                           "345678901234567890", sep=""))
 
-# from spooky import hash128
-# from binascii import hexlify
-#
-# spookyInput = [
-#     "",
-#       "a",
-#       "abc",
-#       "message digest",
-#       "abcdefghijklmnopqrstuvwxyz",
-#       "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789",
-#       "12345678901234567890123456789012345678901234567890123456789012345678901234567890"
-#     ]
-#
-# for s in spookyInput:
-#     hexlify(hash128(s).to_bytes(16, 'little')).decode()
-#
-# '1909f56bfc062723c751e8b465ee728b'
-# 'bdc9bba09181101a922a4161f0584275'
-# '67c93775f715ab8ab01178caf86713c6'
-# '9630c2a55c0987a0db44434f9d67a192'
-# '5172de938ce149a98f4d06d3c3168ffe'
-# 'b5b3b2d0f08b58aa07f551895f929f81'
-# '3621ec01112dafa1610a4bd23041966b'
+    # from spooky import hash128
+    # from binascii import hexlify
+    #
+    # spookyInput = [
+    #     "",
+    #       "a",
+    #       "abc",
+    #       "message digest",
+    #       "abcdefghijklmnopqrstuvwxyz",
+    #       "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789",
+    #       "12345678901234567890123456789012345678901234567890123456789012345678901234567890"
+    #     ]
+    #
+    # for s in spookyInput:
+    #     hexlify(hash128(s).to_bytes(16, 'little')).decode()
+    #
+    # '1909f56bfc062723c751e8b465ee728b'
+    # 'bdc9bba09181101a922a4161f0584275'
+    # '67c93775f715ab8ab01178caf86713c6'
+    # '9630c2a55c0987a0db44434f9d67a192'
+    # '5172de938ce149a98f4d06d3c3168ffe'
+    # 'b5b3b2d0f08b58aa07f551895f929f81'
+    # '3621ec01112dafa1610a4bd23041966b'
 
-spookyOutputPython <-
-  c(
-    '1909f56bfc062723c751e8b465ee728b',
-    'bdc9bba09181101a922a4161f0584275',
-    '67c93775f715ab8ab01178caf86713c6',
-    '9630c2a55c0987a0db44434f9d67a192',
-    '5172de938ce149a98f4d06d3c3168ffe',
-    'b5b3b2d0f08b58aa07f551895f929f81',
-    '3621ec01112dafa1610a4bd23041966b'
-  )
+    spookyOutputPython <-   c('1909f56bfc062723c751e8b465ee728b',
+                              'bdc9bba09181101a922a4161f0584275',
+                              '67c93775f715ab8ab01178caf86713c6',
+                              '9630c2a55c0987a0db44434f9d67a192',
+                              '5172de938ce149a98f4d06d3c3168ffe',
+                              'b5b3b2d0f08b58aa07f551895f929f81',
+                              '3621ec01112dafa1610a4bd23041966b')
 
-## spooky raw output test
-for (i in seq(along.with=spookyInput)) {
-  # skip = 30 skips the entire serialization header for a length 1 character vector
-  # this is equivalent to raw = TRUE and matches the python spooky implementation for those vectors
-  spooky <- digest(spookyInput[i], algo = "spookyhash", skip = 30)
-  expect_true(identical(spooky, spookyOutputPython[i]))
-  #cat(spooky, "\n")
+    ## spooky raw output test
+    for (i in seq(along.with=spookyInput)) {
+      # skip = 30 skips the entire serialization header for a length 1 character vector
+      # this is equivalent to raw = TRUE and matches the python spooky implementation for those vectors
+      spooky <- digest(spookyInput[i], algo = "spookyhash", skip = 30)
+      expect_true(identical(spooky, spookyOutputPython[i]))
+      #cat(spooky, "\n")
+    }
+
+    expect_identical(
+        getVDigest(algo = 'spookyhash')(spookyInput, skip = 30),
+        spookyOutputPython
+    )
+
+    ## some extras to get coverage up - these aren't tested against reference output,
+    ## just output from R 3.6.0
+    spookyInput <- c("a", "aaaaaaaaa", "aaaaaaaaaaaaa")
+    spookyOutput <- c("b7a3573ba6139dfdc52db30acba87f46",
+                      "fd876ecaa5d1e442600333118f223e02",
+                      "91848873bf91d06ad321bbd47400a556")
+    for (i in seq(along.with=spookyInput)) {
+        spooky <- digest(spookyInput[i], algo = "spookyhash")
+        expect_true(identical(spooky, spookyOutput[i]))
+        ##cat(spooky, "\n")
+    }
+
+    expect_identical(
+        getVDigest(algo = 'spookyhash')(spookyInput),
+        spookyOutput
+    )
+
+    ## test a bigger object
+    spooky <- digest(iris, algo = "spookyhash")
+    expect_true(identical(spooky, "af58add8b4f7044582b331083bc239ff"))
+    expect_identical(getVDigest('spookyhash')(list(iris)),
+                     "af58add8b4f7044582b331083bc239ff")
+    ##cat(spooky, "\n")
+
+    # test error message
+    #error.message <- try(digest(spookyInput[i], algo = "spookyhash", serialize = FALSE))
+    #expect_true(
+    #  grepl("spookyhash algorithm is not available without serialization.", error.message)
+    #)
 }
-
-expect_identical(
-  getVDigest(algo = 'spookyhash')(spookyInput, skip = 30),
-  spookyOutputPython
-)
-
-## some extras to get coverage up - these aren't tested against reference output,
-## just output from R 3.6.0
-spookyInput <- c("a", "aaaaaaaaa", "aaaaaaaaaaaaa")
-spookyOutput <- c(
-  "b7a3573ba6139dfdc52db30acba87f46",
-  "fd876ecaa5d1e442600333118f223e02",
-  "91848873bf91d06ad321bbd47400a556"
-)
-for (i in seq(along.with=spookyInput)) {
-  spooky <- digest(spookyInput[i], algo = "spookyhash")
-  expect_true(identical(spooky, spookyOutput[i]))
-  #cat(spooky, "\n")
-}
-
-expect_identical(
-  getVDigest(algo = 'spookyhash')(spookyInput),
-  spookyOutput
-)
-
-# test a bigger object
-spooky <- digest(iris, algo = "spookyhash")
-expect_true(identical(spooky, "af58add8b4f7044582b331083bc239ff"))
-expect_identical(getVDigest('spookyhash')(list(iris)),
-                 "af58add8b4f7044582b331083bc239ff")
-#cat(spooky, "\n")
-
-# test error message
-#error.message <- try(digest(spookyInput[i], algo = "spookyhash", serialize = FALSE))
-#expect_true(
-#  grepl("spookyhash algorithm is not available without serialization.", error.message)
-#)
-
 
 ## Ensure that all values of algo are actually allowed (in case a new one is
 ## added in the future). The call to match.arg() passes choices explicitly

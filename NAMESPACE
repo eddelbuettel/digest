@@ -1,5 +1,5 @@
 ## package has a dynamic library
-useDynLib(digest, digest_impl=digest, vdigest_impl=vdigest, digest2int_impl=digest2int, AESinit, AESencryptECB, AESdecryptECB, spookydigest_impl, .registration=TRUE)
+useDynLib(digest, digest_impl=digest, vdigest_impl=vdigest, digest2int_impl=digest2int, AESinit, AESencryptECB, AESdecryptECB, spookydigest_impl, is_little_endian, is_big_endian, .registration=TRUE)
 
 importFrom(utils, packageVersion)
 
