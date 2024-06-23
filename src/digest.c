@@ -643,9 +643,9 @@ SEXP vdigest(SEXP Txt, SEXP Algo, SEXP Length, SEXP Skip, SEXP Leave_raw, SEXP S
 #endif
 #endif
 
-SEXP is_big_endian() {
+SEXP is_big_endian(void) {
     return Rf_ScalarLogical(BYTE_ORDER == BIG_ENDIAN);
 }
-SEXP is_little_endian() {
+SEXP is_little_endian(void) {
     return Rf_ScalarLogical(BYTE_ORDER == LITTLE_ENDIAN);
 }
