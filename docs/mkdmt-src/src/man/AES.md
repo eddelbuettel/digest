@@ -1,4 +1,5 @@
 
+
 ## Create AES block cipher object
 
 ### Description
@@ -173,4 +174,5 @@ stopifnot(identical(ctr128, ctr128output))
 aes <- AES(key, mode="CTR", IV=iv)
 stopifnot(identical(plaintext, aes$decrypt(ctr128, raw=TRUE)))
 ```
+
 

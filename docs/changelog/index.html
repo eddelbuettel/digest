@@ -906,6 +906,41 @@
   <h1>Changelog</h1>
 
 <h3 id="2024">2024</h3>
+<p>2024-06-23  Dirk Eddelbuettel  <a href="&#109;&#97;&#105;&#108;&#116;&#111;&#58;&#101;&#100;&#100;&#64;&#100;&#101;&#98;&#105;&#97;&#110;&#46;&#111;&#114;&#103;">&#101;&#100;&#100;&#64;&#100;&#101;&#98;&#105;&#97;&#110;&#46;&#111;&#114;&#103;</a> </p>
+<pre><code>    * DESCRIPTION (Version, Date): Release 0.6.36
+
+    * src/digest.c (is_little_endian): Define alternate helper tooo 
+    * man/digest.Rd: Compare to spookyhash ref only on little endian
+</code></pre>
+<p>2024-06-22  Dirk Eddelbuettel  <a href="&#109;&#97;&#105;&#108;&#116;&#111;&#58;&#101;&#100;&#100;&#64;&#100;&#101;&#98;&#105;&#97;&#110;&#46;&#111;&#114;&#103;">&#101;&#100;&#100;&#64;&#100;&#101;&#98;&#105;&#97;&#110;&#46;&#111;&#114;&#103;</a> </p>
+<pre><code>    * src/digest.c (is_big_endian): Use endian-ness definition from 
+    Rconfig.h and define one-line helper
+
+    * inst/tinytest/test_digest.R: Skip spookyhash test on big endian
+</code></pre>
+<p>2024-06-21  Sergey Fedorov  <a href="&#109;&#97;&#105;&#108;&#116;&#111;&#58;&#118;&#105;&#116;&#97;&#108;&#46;&#104;&#97;&#100;&#64;&#103;&#109;&#97;&#105;&#108;&#46;&#99;&#111;&#109;">&#118;&#105;&#116;&#97;&#108;&#46;&#104;&#97;&#100;&#64;&#103;&#109;&#97;&#105;&#108;&#46;&#99;&#111;&#109;</a> </p>
+<pre><code>    * src/blake3.c: Upstream patch for big endian systems 
+    * src/blake3_impl.h: Idem 
+    * src/blake3_portable.c: Idem
+</code></pre>
+<p>2024-06-15  Dirk Eddelbuettel  <a href="&#109;&#97;&#105;&#108;&#116;&#111;&#58;&#101;&#100;&#100;&#64;&#100;&#101;&#98;&#105;&#97;&#110;&#46;&#111;&#114;&#103;">&#101;&#100;&#100;&#64;&#100;&#101;&#98;&#105;&#97;&#110;&#46;&#111;&#114;&#103;</a> </p>
+<pre><code>    * .github/workflows/ci.yaml (jobs): Update to r-ci-setup action
+</code></pre>
+<p>2024-05-16  Dirk Eddelbuettel  <a href="&#109;&#97;&#105;&#108;&#116;&#111;&#58;&#101;&#100;&#100;&#64;&#100;&#101;&#98;&#105;&#97;&#110;&#46;&#111;&#114;&#103;">&#101;&#100;&#100;&#64;&#100;&#101;&#98;&#105;&#97;&#110;&#46;&#111;&#114;&#103;</a> </p>
+<pre><code>    * DESCRIPTION (Version, Date): Roll micro version and date
+
+    * README.md: Use tinyverse.netlify.app for dependency badge
+
+    * src/spooky_serialize.cpp: Several small updates to please clang++ 
+    * src/SpookyV2.cpp: Idem
+
+    * .github/workflows/ci.yaml: Show logs in case of failure
+</code></pre>
+<p>2024-03-12  Dirk Eddelbuettel  <a href="&#109;&#97;&#105;&#108;&#116;&#111;&#58;&#101;&#100;&#100;&#64;&#100;&#101;&#98;&#105;&#97;&#110;&#46;&#111;&#114;&#103;">&#101;&#100;&#100;&#64;&#100;&#101;&#98;&#105;&#97;&#110;&#46;&#111;&#114;&#103;</a> </p>
+<pre><code>    * DESCRIPTION (Version, Date): Roll micro version and date
+
+    * src/spooky_serialize.cpp: Use R_NO_REMAP, add three Rf_ prefixes
+</code></pre>
 <p>2024-03-10  Dirk Eddelbuettel  <a href="&#109;&#97;&#105;&#108;&#116;&#111;&#58;&#101;&#100;&#100;&#64;&#100;&#101;&#98;&#105;&#97;&#110;&#46;&#111;&#114;&#103;">&#101;&#100;&#100;&#64;&#100;&#101;&#98;&#105;&#97;&#110;&#46;&#111;&#114;&#103;</a> </p>
 <pre><code>    * DESCRIPTION (Version, Date): Release 0.6.35
 

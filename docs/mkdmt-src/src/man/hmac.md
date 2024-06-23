@@ -1,4 +1,5 @@
 
+
 ## compute a hash-based message authentication code
 
 ### Description
@@ -95,4 +96,5 @@ current <- hmac(rep(0xaa, 16), rep(0xdd, 50), "sha1")
 target <- 'd730594d167e35d5956fd8003d0db3d3f46dc7bb'
 stopifnot(identical(target, as.character(current)))
 ```
+
 

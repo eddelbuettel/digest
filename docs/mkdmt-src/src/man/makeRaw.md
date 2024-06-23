@@ -1,4 +1,5 @@
 
+
 ## Create a raw object
 
 ### Description
@@ -42,4 +43,5 @@ Dirk Eddelbuettel
 ``` R
 makeRaw("1234567890ABCDE")
 ```
+
 

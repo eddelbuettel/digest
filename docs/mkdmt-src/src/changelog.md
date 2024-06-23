@@ -1,5 +1,46 @@
 ###  2024 
 
+2024-06-23  Dirk Eddelbuettel  <edd@debian.org> 
+ 
+        * DESCRIPTION (Version, Date): Release 0.6.36 
+ 
+        * src/digest.c (is_little_endian): Define alternate helper tooo 
+        * man/digest.Rd: Compare to spookyhash ref only on little endian 
+ 
+2024-06-22  Dirk Eddelbuettel  <edd@debian.org> 
+ 
+        * src/digest.c (is_big_endian): Use endian-ness definition from 
+        Rconfig.h and define one-line helper 
+ 
+        * inst/tinytest/test_digest.R: Skip spookyhash test on big endian 
+ 
+2024-06-21  Sergey Fedorov  <vital.had@gmail.com> 
+ 
+        * src/blake3.c: Upstream patch for big endian systems 
+        * src/blake3_impl.h: Idem 
+        * src/blake3_portable.c: Idem 
+ 
+2024-06-15  Dirk Eddelbuettel  <edd@debian.org> 
+ 
+        * .github/workflows/ci.yaml (jobs): Update to r-ci-setup action 
+ 
+2024-05-16  Dirk Eddelbuettel  <edd@debian.org> 
+ 
+        * DESCRIPTION (Version, Date): Roll micro version and date 
+ 
+        * README.md: Use tinyverse.netlify.app for dependency badge 
+ 
+        * src/spooky_serialize.cpp: Several small updates to please clang++ 
+        * src/SpookyV2.cpp: Idem 
+ 
+        * .github/workflows/ci.yaml: Show logs in case of failure 
+ 
+2024-03-12  Dirk Eddelbuettel  <edd@debian.org> 
+ 
+        * DESCRIPTION (Version, Date): Roll micro version and date 
+ 
+        * src/spooky_serialize.cpp: Use R_NO_REMAP, add three Rf_ prefixes 
+ 
 2024-03-10  Dirk Eddelbuettel  <edd@debian.org> 
  
         * DESCRIPTION (Version, Date): Release 0.6.35 

@@ -1,4 +1,5 @@
 
+
 ## Calculate a SHA1 hash of an object
 
 ### Description
@@ -109,4 +110,5 @@ Version 0.6.24 and later ignore attributes named `srcref`.
 ### Author(s)
 
 Thierry Onkelinx
+
 

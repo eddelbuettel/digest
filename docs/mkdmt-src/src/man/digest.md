@@ -1,4 +1,5 @@
 
+
 ## Create hash function digests for arbitrary R objects or files
 
 ### Description
@@ -289,7 +290,9 @@ for (i in seq(along=spookyInput)) {
     # skip = 30 skips the serialization header and just hashes the strings
     spooky <- digest(spookyInput[i], algo="spookyhash", skip = 30)
     cat(spooky, "\n")
-    stopifnot(identical(spooky, spookyOutput[i]))
+    ## we can only compare to reference output on little-endian systems
+    if (isTRUE(.Call(digest:::is_little_endian)))
+        stopifnot(identical(spooky, spookyOutput[i]))
 }
 
 ## blake3 example
@@ -351,4 +354,5 @@ v <- md5(1:5)                # digest integers 1 to 5
 stopifnot(identical(v[1], digest(1L)),  # check first and third result
           identical(v[3], digest(3L)))
 ```
+
 
