@@ -304,7 +304,9 @@ for (i in seq(along=spookyInput)) {
     # skip = 30 skips the serialization header and just hashes the strings
     spooky <- digest(spookyInput[i], algo="spookyhash", skip = 30)
     cat(spooky, "\n")
-    stopifnot(identical(spooky, spookyOutput[i]))
+    ## we can only compare to reference output on little-endian systems
+    if (isTRUE(.Call(digest:::is_little_endian)))
+        stopifnot(identical(spooky, spookyOutput[i]))
 }
 
 ## blake3 example

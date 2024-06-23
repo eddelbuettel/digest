@@ -211,7 +211,7 @@ expect_identical(murmur32(murmur32Input, serialize = FALSE), murmur32Output)
 ## Per PR 205, see comment in https://github.com/facebook/folly/blob/4c603f8c2add8d0228de0e073c5ae3ce9b02b6f3/folly/hash/SpookyHashV2.h#L35-L36
 ## Values ought to be sensible on big endian too but different from little endian reference
 ## so we do not test on big endian
-if (isFALSE(.Call("is_big_endian"))) {
+if (isTRUE(.Call(digest:::is_little_endian))) {
 
     ## test vectors (originally for md5)
     spookyInput <- c("",
