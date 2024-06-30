@@ -2,7 +2,7 @@
 
 	* DESCRIPTION (Version, Date): Release 0.6.36
 
-	* src/digest.c (is_little_endian): Define alternate helper tooo
+	* src/digest.c (is_little_endian): Define alternate helper too
 	* man/digest.Rd: Compare to spookyhash ref only on little endian
 
 2024-06-22  Dirk Eddelbuettel  <edd@debian.org>
