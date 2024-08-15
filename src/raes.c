@@ -22,7 +22,7 @@ static void AESFinalizer(SEXP ptr)
 {
   void *ctx = R_ExternalPtrAddr(ptr);
   if (!ctx) return;
-  Free(ctx);
+  R_Free(ctx);
   R_ClearExternalPtr(ptr);
 } /* #nocov end */
 
@@ -38,9 +38,9 @@ SEXP AESinit(SEXP key) {
   
   if (nbits != 128 && nbits != 192 && nbits != 256)
     error("AES only supports 16, 24 and 32 byte keys"); 	/* #nocov */
-    
-  ctx = (aes_context*)Calloc(sizeof(*ctx), char);
-  
+
+  ctx = (aes_context*)R_Calloc(sizeof(*ctx), char);
+
   status = aes_set_key(ctx, (uint8 *) RAW(key), nbits);
   if (status)
     error("AES initialization failed");				/* #nocov */

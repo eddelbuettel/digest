@@ -1,3 +1,7 @@
+2024-08-15  Kevin Ushey  <kevinushey@gmail.com>
+
+	* src/raes.c: Calloc => R_Calloc; Free => R_Free
+
 2024-07-15  Dirk Eddelbuettel  <edd@debian.org>
 
 	* README.md: Switch some URLs from http to https
