@@ -72,13 +72,65 @@ FILE* open_with_widechar_on_windows(const char* txt) {
     return out;
 }
 
+
+// Also already used in sha2.h
+//
+// We can rely on WORDS_BIGENDIAN only be defined on big endian systems thanks to Rconfig.
+//
+// A number of other #define based tests are in other source files here for different hash
+// algorithm implementations notably crc32c, pmurhash, sha2 and xxhash
+//
+// A small and elegant test is also in package qs based on https://stackoverflow.com/a/1001373
+
+// edd 02 Dec 2013  use Rconfig.h to define BYTE_ORDER, unless already defined
+#ifndef BYTE_ORDER
+// see sha2.c comments, and on the internet at large
+#define LITTLE_ENDIAN 1234
+#define BIG_ENDIAN    4321
+#ifdef WORDS_BIGENDIAN
+#define BYTE_ORDER  BIG_ENDIAN
+#else
+#define BYTE_ORDER  LITTLE_ENDIAN
+#endif
+#endif
+
+SEXP is_big_endian(void) {
+  return Rf_ScalarLogical(BYTE_ORDER == BIG_ENDIAN);
+}
+
+SEXP is_little_endian(void) {
+  return Rf_ScalarLogical(BYTE_ORDER == LITTLE_ENDIAN);
+}
+
 /* shorthand memcpy for consistent re-use */
 #define MCP(WHAT) memcpy(output, (WHAT), output_length)
 /* for any algorithm that has output as unsigned char*, can use resolve */
-#define resolve(WHAT) if (leaveRaw) { MCP((WHAT)); } else for (int j = 0; j < output_length; j++) snprintf(output + j * 2, 3, "%02x", (WHAT)[j]);
-/* for any algorithm that has output as an integral value, can use dump */
-#define dump(FMT, WHAT) if (leaveRaw) { MCP(&(WHAT)); } else snprintf(output, 128, (FMT), (WHAT));
+#define resolve(WHAT) if (leaveRaw) {                          \
+  memcpy(output, (WHAT), output_length);                       \
+} else for (int j = 0; j < output_length; j++) {               \
+  snprintf(output + j * 2, 3, "%02x", (WHAT)[j]);              \
+}                                                              \
 
+#define decl_tmp32(WHAT) uint32_t tmp = (WHAT);
+#define decl_tmp64(WHAT) uint64_t tmp = (WHAT);
+
+/* for any algorithm that has output as an integral value, can use dump */
+
+void rev_memcpy(char *dst, const void *src, int len) {
+  for (int i = 0; i < len; i++) {
+    dst[i] = ((char*)src)[len - i - 1];
+  }
+}
+
+#define dump32(WHAT) decl_tmp32(WHAT);     \
+if (leaveRaw) {                            \
+  rev_memcpy(output, &tmp, output_length);     \
+} else snprintf(output, 128, "%08x", tmp);
+
+#define dump64(WHAT) decl_tmp64(WHAT);     \
+if (leaveRaw) {                            \
+  rev_memcpy(output, &tmp, output_length);                                                     \
+} else snprintf(output, 128, "%016" PRIx64, tmp);
 
 SEXP digest(SEXP Txt, SEXP Algo, SEXP Length, SEXP Skip, SEXP Leave_raw, SEXP Seed) {
     size_t BUF_SIZE = 1024;
@@ -90,6 +142,7 @@ SEXP digest(SEXP Txt, SEXP Algo, SEXP Length, SEXP Skip, SEXP Leave_raw, SEXP Se
     int seed = INTEGER_VALUE(Seed);
     int leaveRaw = INTEGER_VALUE(Leave_raw);
     SEXP result = R_NilValue;
+    
     /* use char[] for either raw or character output */
     /* for raw output, get 8 bits / 1 byte out of each entry */
     /* for character output, get 4 bits out of each entry */
@@ -106,7 +159,7 @@ SEXP digest(SEXP Txt, SEXP Algo, SEXP Length, SEXP Skip, SEXP Leave_raw, SEXP Se
     } else { /* or a string */
         txt = (char*) STRING_VALUE(Txt);
         nChar = strlen(txt);
-
+        
         if (algo >= 100) {
             fp = open_with_widechar_on_windows(txt);
             if (!fp)  {
@@ -151,12 +204,11 @@ SEXP digest(SEXP Txt, SEXP Algo, SEXP Length, SEXP Skip, SEXP Leave_raw, SEXP Se
     case 3: {     /* crc32 case */
         unsigned long val;
         unsigned l = nChar;
-        output_length = 4;
+        output_length = sizeof(unsigned int);
 
         val  = digest_crc32(0L, 0, 0);
         val  = digest_crc32(val, (unsigned char*) txt, l);
-        unsigned int downcast = val;
-        dump("%08x", downcast);
+        dump32(val);
         break;
     }
     case 4: {     /* sha256 case */
@@ -197,21 +249,21 @@ SEXP digest(SEXP Txt, SEXP Algo, SEXP Length, SEXP Skip, SEXP Leave_raw, SEXP Se
     case 6: {     /* xxhash32 case */
         XXH32_hash_t val =  XXH32(txt, nChar, seed);
         output_length = 4;
-        dump("%08x", val);
+        dump32(val);
 
         break;
     }
     case 7: {     /* xxhash64 case */
         XXH64_hash_t val =  XXH64(txt, nChar, seed);
         output_length = 8;
-        dump("%016" PRIx64, val);
+        dump64(val);
 
         break;
     }
     case 8: {     /* MurmurHash3 32 */
         unsigned int val = PMurHash32(seed, txt, nChar);
         output_length = 4;
-        dump("%08x", val);
+        dump32(val);
         break;
     }
     case 10: {     /* blake3 */
@@ -229,14 +281,14 @@ SEXP digest(SEXP Txt, SEXP Algo, SEXP Length, SEXP Skip, SEXP Leave_raw, SEXP Se
         uint32_t crc = 0;       /* initial value, can be zero */
         output_length = 4;
         crc = crc32c_extend(crc, (const uint8_t*) txt, (size_t) nChar);
-        dump("%08x", crc);
+        dump32(crc);
 
         break;
     }
     case 12: {		/* xxh3_64bits */
         output_length = 8;
         XXH64_hash_t val =  XXH3_64bits_withSeed(txt, nChar, seed);
-        dump("%016" PRIx64, val);
+        dump64(val);
 
         break;
     }
@@ -245,8 +297,8 @@ SEXP digest(SEXP Txt, SEXP Algo, SEXP Length, SEXP Skip, SEXP Leave_raw, SEXP Se
         output_length = 16;
         // need something a bit fancier here
         if (leaveRaw) {
-          memcpy(output, &val.high64, 8);
-          memcpy(output + 8, &val.low64, 8);
+          rev_memcpy(output, &val.high64, 8);
+          rev_memcpy(output + 8, &val.low64, 8);
         } else {
           snprintf(output, 128, "%016" PRIx64 "%016" PRIx64, val.high64, val.low64);
         }
@@ -318,8 +370,7 @@ SEXP digest(SEXP Txt, SEXP Algo, SEXP Length, SEXP Skip, SEXP Leave_raw, SEXP Se
             while ( ( nChar = fread( buf, 1, sizeof( buf ), fp ) ) > 0)
                 val  = digest_crc32(val , buf, (unsigned) nChar);
         }
-        unsigned int downcast = val;
-        dump("%08x", downcast);
+        dump32(val);
         break;
     }
     case 104: {     /* sha256 file case */
@@ -414,7 +465,7 @@ SEXP digest(SEXP Txt, SEXP Algo, SEXP Length, SEXP Skip, SEXP Leave_raw, SEXP Se
         XXH32_hash_t val =  XXH32_digest(state);
         XXH32_freeState(state);
 
-        dump("%08x", val);
+        dump32(val);
         
         break;
     }
@@ -448,7 +499,7 @@ SEXP digest(SEXP Txt, SEXP Algo, SEXP Length, SEXP Skip, SEXP Leave_raw, SEXP Se
         XXH64_hash_t val =  XXH64_digest(state);
         XXH64_freeState(state);
         
-        dump("%016" PRIx64, val);
+        dump64(val);
 
         break;
     }
@@ -475,7 +526,7 @@ SEXP digest(SEXP Txt, SEXP Algo, SEXP Length, SEXP Skip, SEXP Leave_raw, SEXP Se
         }
         unsigned int val = PMurHash32_Result(h1, carry, total_length);
 
-        dump("%08x", val);
+        dump32(val);
         
         break;
     }
@@ -519,7 +570,7 @@ SEXP digest(SEXP Txt, SEXP Algo, SEXP Length, SEXP Skip, SEXP Leave_raw, SEXP Se
             while ( ( nChar = fread( buf, 1, sizeof( buf ), fp ) ) > 0)
                 crc = crc32c_extend(crc, (const uint8_t*) buf, (size_t) nChar);
         }
-        dump("%08x", crc);
+        dump32(crc);
         break;
     }
     case 112: {     /* xxh3_64 */
@@ -551,7 +602,7 @@ SEXP digest(SEXP Txt, SEXP Algo, SEXP Length, SEXP Skip, SEXP Leave_raw, SEXP Se
         }
         XXH64_hash_t val =  XXH3_64bits_digest(state);
         XXH3_freeState(state);
-        dump("%016" PRIx64, val);
+        dump64(val);
 
         break;
     }
@@ -586,8 +637,8 @@ SEXP digest(SEXP Txt, SEXP Algo, SEXP Length, SEXP Skip, SEXP Leave_raw, SEXP Se
         XXH3_freeState(state);
         // need something a bit fancier here
         if (leaveRaw) {
-          memcpy(output, &val.high64, 8);
-          memcpy(output + 8, &val.low64, 8);
+          rev_memcpy(output, &val.high64, 8);
+          rev_memcpy(output + 8, &val.low64, 8);
         } else {
           snprintf(output, 128, "%016" PRIx64 "%016" PRIx64, val.high64, val.low64);
         }
@@ -636,33 +687,4 @@ SEXP vdigest(SEXP Txt, SEXP Algo, SEXP Length, SEXP Skip, SEXP Leave_raw, SEXP S
     }
     UNPROTECT(1);
     return ans;
-}
-
-
-// Also already used in sha2.h
-//
-// We can rely on WORDS_BIGENDIAN only be defined on big endian systems thanks to Rconfig.
-//
-// A number of other #define based tests are in other source files here for different hash
-// algorithm implementations notably crc32c, pmurhash, sha2 and xxhash
-//
-// A small and elegant test is also in package qs based on https://stackoverflow.com/a/1001373
-
-// edd 02 Dec 2013  use Rconfig.h to define BYTE_ORDER, unless already defined
-#ifndef BYTE_ORDER
-    // see sha2.c comments, and on the internet at large
-    #define LITTLE_ENDIAN 1234
-    #define BIG_ENDIAN    4321
-#ifdef WORDS_BIGENDIAN
-    #define BYTE_ORDER  BIG_ENDIAN
-#else
-    #define BYTE_ORDER  LITTLE_ENDIAN
-#endif
-#endif
-
-SEXP is_big_endian(void) {
-    return Rf_ScalarLogical(BYTE_ORDER == BIG_ENDIAN);
-}
-SEXP is_little_endian(void) {
-    return Rf_ScalarLogical(BYTE_ORDER == LITTLE_ENDIAN);
 }
