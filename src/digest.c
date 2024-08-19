@@ -95,20 +95,18 @@ FILE* open_with_widechar_on_windows(const char* txt) {
 #endif
 
 SEXP is_big_endian(void) {
-  return Rf_ScalarLogical(BYTE_ORDER == BIG_ENDIAN);
+    return Rf_ScalarLogical(BYTE_ORDER == BIG_ENDIAN);
 }
 
 SEXP is_little_endian(void) {
-  return Rf_ScalarLogical(BYTE_ORDER == LITTLE_ENDIAN);
+    return Rf_ScalarLogical(BYTE_ORDER == LITTLE_ENDIAN);
 }
 
-/* shorthand memcpy for consistent re-use */
-#define MCP(WHAT) memcpy(output, (WHAT), output_length)
 /* for any algorithm that has output as unsigned char*, can use resolve */
 #define resolve(WHAT) if (leaveRaw) {                          \
-  memcpy(output, (WHAT), output_length);                       \
+    memcpy(output, (WHAT), output_length);                     \
 } else for (int j = 0; j < output_length; j++) {               \
-  snprintf(output + j * 2, 3, "%02x", (WHAT)[j]);              \
+    snprintf(output + j * 2, 3, "%02x", (WHAT)[j]);            \
 }                                                              \
 
 #define decl_tmp32(WHAT) uint32_t tmp = (WHAT);
@@ -117,19 +115,19 @@ SEXP is_little_endian(void) {
 /* for any algorithm that has output as an integral value, can use dump */
 
 void rev_memcpy(char *dst, const void *src, int len) {
-  for (int i = 0; i < len; i++) {
-    dst[i] = ((char*)src)[len - i - 1];
-  }
+    for (int i = 0; i < len; i++) {
+        dst[i] = ((char*)src)[len - i - 1];
+    }
 }
 
-#define dump32(WHAT) decl_tmp32(WHAT);     \
-if (leaveRaw) {                            \
-  rev_memcpy(output, &tmp, output_length);     \
+#define dump32(WHAT) decl_tmp32(WHAT);            \
+if (leaveRaw) {                                   \
+    rev_memcpy(output, &tmp, output_length);      \
 } else snprintf(output, 128, "%08x", tmp);
 
-#define dump64(WHAT) decl_tmp64(WHAT);     \
-if (leaveRaw) {                            \
-  rev_memcpy(output, &tmp, output_length);                                                     \
+#define dump64(WHAT) decl_tmp64(WHAT);            \
+if (leaveRaw) {                                   \
+    rev_memcpy(output, &tmp, output_length);      \
 } else snprintf(output, 128, "%016" PRIx64, tmp);
 
 SEXP digest(SEXP Txt, SEXP Algo, SEXP Length, SEXP Skip, SEXP Leave_raw, SEXP Seed) {
@@ -159,7 +157,7 @@ SEXP digest(SEXP Txt, SEXP Algo, SEXP Length, SEXP Skip, SEXP Leave_raw, SEXP Se
     } else { /* or a string */
         txt = (char*) STRING_VALUE(Txt);
         nChar = strlen(txt);
-        
+
         if (algo >= 100) {
             fp = open_with_widechar_on_windows(txt);
             if (!fp)  {
@@ -182,11 +180,12 @@ SEXP digest(SEXP Txt, SEXP Algo, SEXP Length, SEXP Skip, SEXP Leave_raw, SEXP Se
         md5_context ctx;
         output_length = 16; // produces 16*8 = 128 bits
         unsigned char md5sum[output_length];
+
         md5_starts( &ctx );
         md5_update( &ctx, (uint8 *) txt, nChar);
         md5_finish( &ctx, md5sum );
-        resolve(md5sum);
 
+        resolve(md5sum);
         break;
     }
     case 2: {     /* sha1 case */
@@ -197,8 +196,8 @@ SEXP digest(SEXP Txt, SEXP Algo, SEXP Length, SEXP Skip, SEXP Leave_raw, SEXP Se
         sha1_starts( &ctx );
         sha1_update( &ctx, (uint8 *) txt, nChar);
         sha1_finish( &ctx, sha1sum );
-        resolve(sha1sum);
 
+        resolve(sha1sum);
         break;
     }
     case 3: {     /* crc32 case */
@@ -208,6 +207,7 @@ SEXP digest(SEXP Txt, SEXP Algo, SEXP Length, SEXP Skip, SEXP Leave_raw, SEXP Se
 
         val  = digest_crc32(0L, 0, 0);
         val  = digest_crc32(val, (unsigned char*) txt, l);
+
         dump32(val);
         break;
     }
@@ -219,8 +219,8 @@ SEXP digest(SEXP Txt, SEXP Algo, SEXP Length, SEXP Skip, SEXP Leave_raw, SEXP Se
         sha256_starts( &ctx );
         sha256_update( &ctx, (uint8 *) txt, nChar);
         sha256_finish( &ctx, sha256sum );
-        resolve(sha256sum);
 
+        resolve(sha256sum);
         break;
     }
     case 5: {     /* sha2-512 case */
@@ -235,7 +235,7 @@ SEXP digest(SEXP Txt, SEXP Algo, SEXP Length, SEXP Skip, SEXP Leave_raw, SEXP Se
         SHA512_Final(sha512sum, &ctx);
 
         if (leaveRaw) {
-          MCP(sha512sum);
+            memcpy(output, sha512sum, output_length);
         } else { /* adapted from SHA512_End */
             for (int j = 0; j < output_length; j++) {
                 *outputp++ = sha2_hex_digits[(*d & 0xf0) >> 4];
@@ -247,54 +247,63 @@ SEXP digest(SEXP Txt, SEXP Algo, SEXP Length, SEXP Skip, SEXP Leave_raw, SEXP Se
         break;
     }
     case 6: {     /* xxhash32 case */
-        XXH32_hash_t val =  XXH32(txt, nChar, seed);
         output_length = 4;
-        dump32(val);
 
+        XXH32_hash_t val = XXH32(txt, nChar, seed);
+
+        dump32(val);
         break;
     }
     case 7: {     /* xxhash64 case */
-        XXH64_hash_t val =  XXH64(txt, nChar, seed);
         output_length = 8;
-        dump64(val);
 
+        XXH64_hash_t val = XXH64(txt, nChar, seed);
+        
+        dump64(val);
         break;
     }
     case 8: {     /* MurmurHash3 32 */
-        unsigned int val = PMurHash32(seed, txt, nChar);
         output_length = 4;
+
+        unsigned int val = PMurHash32(seed, txt, nChar);
+
         dump32(val);
         break;
     }
     case 10: {     /* blake3 */
         output_length = BLAKE3_OUT_LEN;
+        uint8_t val[output_length];
         blake3_hasher hasher;
+
         blake3_hasher_init(&hasher);
         blake3_hasher_update(&hasher, txt, nChar);
-        uint8_t val[BLAKE3_OUT_LEN];
-        blake3_hasher_finalize(&hasher, val, BLAKE3_OUT_LEN);
+        blake3_hasher_finalize(&hasher, val, output_length);
+
         resolve(val);
-        
         break;
     }
     case 11: {		/* crc32c */
-        uint32_t crc = 0;       /* initial value, can be zero */
         output_length = 4;
-        crc = crc32c_extend(crc, (const uint8_t*) txt, (size_t) nChar);
-        dump32(crc);
 
+        uint32_t crc = 0;       /* initial value, can be zero */
+        crc = crc32c_extend(crc, (const uint8_t*) txt, (size_t) nChar);
+
+        dump32(crc);
         break;
     }
     case 12: {		/* xxh3_64bits */
         output_length = 8;
-        XXH64_hash_t val =  XXH3_64bits_withSeed(txt, nChar, seed);
-        dump64(val);
 
+        XXH64_hash_t val = XXH3_64bits_withSeed(txt, nChar, seed);
+
+        dump64(val);
         break;
     }
     case 13: {		/* xxh3_128bits */
-        XXH128_hash_t val =  XXH3_128bits_withSeed(txt, nChar, seed);
         output_length = 16;
+
+        XXH128_hash_t val =  XXH3_128bits_withSeed(txt, nChar, seed);
+
         // need something a bit fancier here
         if (leaveRaw) {
           rev_memcpy(output, &val.high64, 8);
@@ -309,8 +318,8 @@ SEXP digest(SEXP Txt, SEXP Algo, SEXP Length, SEXP Skip, SEXP Leave_raw, SEXP Se
         output_length = 16;
         unsigned char buf[BUF_SIZE];
         unsigned char md5sum[output_length];
-
         if (skip > 0) fseek(fp, skip, SEEK_SET);
+
         md5_starts( &ctx );
         if (length>=0) {
             while ( ( nChar = fread( buf, 1, sizeof( buf ), fp ) ) > 0
@@ -324,8 +333,8 @@ SEXP digest(SEXP Txt, SEXP Algo, SEXP Length, SEXP Skip, SEXP Leave_raw, SEXP Se
                 md5_update( &ctx, buf, nChar );
         }
         md5_finish( &ctx, md5sum );
-        resolve(md5sum);
-        
+
+        resolve(md5sum);        
         break;
     }
     case 102: {     /* sha1 file case */
@@ -333,8 +342,8 @@ SEXP digest(SEXP Txt, SEXP Algo, SEXP Length, SEXP Skip, SEXP Leave_raw, SEXP Se
         output_length = 20;
         unsigned char buf[BUF_SIZE];
         unsigned char sha1sum[output_length];
-
         if (skip > 0) fseek(fp, skip, SEEK_SET);
+
         sha1_starts ( &ctx );
         if (length>=0) {
             while ( ( nChar = fread( buf, 1, sizeof( buf ), fp ) ) > 0 && length>0) {
@@ -347,16 +356,16 @@ SEXP digest(SEXP Txt, SEXP Algo, SEXP Length, SEXP Skip, SEXP Leave_raw, SEXP Se
                 sha1_update( &ctx, buf, nChar );
         }
         sha1_finish ( &ctx, sha1sum );
+
         resolve(sha1sum);
-        
         break;
     }
     case 103: {     /* crc32 file case */
         unsigned char buf[BUF_SIZE];
         unsigned long val;
         output_length = 4;
-
         if (skip > 0) fseek(fp, skip, SEEK_SET);
+
         val  = digest_crc32(0L, 0, 0);
         if (length>=0) {
             while ( ( nChar = fread( buf, 1, sizeof( buf ), fp ) ) > 0 && length>0) {
@@ -368,6 +377,7 @@ SEXP digest(SEXP Txt, SEXP Algo, SEXP Length, SEXP Skip, SEXP Leave_raw, SEXP Se
             while ( ( nChar = fread( buf, 1, sizeof( buf ), fp ) ) > 0)
                 val  = digest_crc32(val , buf, (unsigned) nChar);
         }
+
         dump32(val);
         break;
     }
@@ -376,8 +386,8 @@ SEXP digest(SEXP Txt, SEXP Algo, SEXP Length, SEXP Skip, SEXP Leave_raw, SEXP Se
         output_length = 32;
         unsigned char buf[BUF_SIZE];
         unsigned char sha256sum[output_length];
-
         if (skip > 0) fseek(fp, skip, SEEK_SET);
+
         sha256_starts ( &ctx );
         if (length>=0) {
             while ( ( nChar = fread( buf, 1, sizeof( buf ), fp ) ) > 0 && length>0) {
@@ -390,18 +400,17 @@ SEXP digest(SEXP Txt, SEXP Algo, SEXP Length, SEXP Skip, SEXP Leave_raw, SEXP Se
                 sha256_update( &ctx, buf, nChar );
         }
         sha256_finish ( &ctx, sha256sum );
-        resolve(sha256sum);
 
+        resolve(sha256sum);
         break;
     }
     case 105: {     /* sha2-512 file case */
         SHA512_CTX ctx;
         output_length = SHA512_DIGEST_LENGTH;
         uint8_t sha512sum[output_length], *d = sha512sum;
-
         unsigned char buf[BUF_SIZE];
-
         if (skip > 0) fseek(fp, skip, SEEK_SET);
+
         SHA512_Init(&ctx);
         if (length>=0) {
             while ( ( nChar = fread( buf, 1, sizeof( buf ), fp ) ) > 0 && length>0) {
@@ -413,13 +422,12 @@ SEXP digest(SEXP Txt, SEXP Algo, SEXP Length, SEXP Skip, SEXP Leave_raw, SEXP Se
             while ( ( nChar = fread( buf, 1, sizeof( buf ), fp ) ) > 0)
                 SHA512_Update( &ctx, buf, nChar );
         }
-
 		/* Calling SHA512_Final, because SHA512_End will already
 		   convert the hash to a string, and we also want RAW */
 		SHA512_Final(sha512sum, &ctx);
     
         if (leaveRaw) {
-          MCP(sha512sum);
+            memcpy(output, sha512sum, output_length);
         } else { /* adapted from SHA512_End */
     	  	for (int j = 0; j < output_length; j++) {
     		    *outputp++ = sha2_hex_digits[(*d & 0xf0) >> 4];
@@ -428,18 +436,17 @@ SEXP digest(SEXP Txt, SEXP Algo, SEXP Length, SEXP Skip, SEXP Leave_raw, SEXP Se
     		  }
       		*outputp = (char)0;
         }
-
         break;
     }
     case 106: {     /* xxhash32 */
         unsigned char buf[BUF_SIZE];
         XXH32_state_t* const state = XXH32_createState();
         output_length = 4;
-
         if (skip > 0) fseek(fp, skip, SEEK_SET);
+
         XXH_errorcode const resetResult = XXH32_reset(state, seed);
         if (resetResult == XXH_ERROR) {
-          error("Error in `XXH32_reset()`"); 				/* #nocov */
+            error("Error in `XXH32_reset()`"); 				/* #nocov */
         }
         if (length>=0) {
             while ( ( nChar = fread( buf, 1, sizeof( buf ), fp ) ) > 0 && length>0) {
@@ -452,51 +459,49 @@ SEXP digest(SEXP Txt, SEXP Algo, SEXP Length, SEXP Skip, SEXP Leave_raw, SEXP Se
             }
         } else {
             while ( ( nChar = fread( buf, 1, sizeof( buf ), fp ) ) > 0) {
-              XXH_errorcode const updateResult = XXH32_update(state, buf, nChar);
-              if (updateResult == XXH_ERROR) {
-                error("Error in `XXH32_update()`");	 		/* #nocov */
-              }
+                XXH_errorcode const updateResult = XXH32_update(state, buf, nChar);
+                if (updateResult == XXH_ERROR) {
+                    error("Error in `XXH32_update()`");	 		/* #nocov */
+                }
             }
         }
         XXH32_hash_t val =  XXH32_digest(state);
         XXH32_freeState(state);
 
         dump32(val);
-        
         break;
     }
     case 107: {     /* xxhash64 */
         unsigned char buf[BUF_SIZE];
         XXH64_state_t* const state = XXH64_createState();
         output_length = 8;
-
         if (skip > 0) fseek(fp, skip, SEEK_SET);
+
         XXH_errorcode const resetResult = XXH64_reset(state, seed);
         if (resetResult == XXH_ERROR) {
-          error("Error in `XXH64_reset()`"); 				/* #nocov */
+            error("Error in `XXH64_reset()`"); 				/* #nocov */
         }
         if (length>=0) {
             while ( ( nChar = fread( buf, 1, sizeof( buf ), fp ) ) > 0 && length>0) {
                 if (nChar>length) nChar=length;
                 XXH_errorcode const updateResult = XXH64_update(state, buf, nChar);
                 if (updateResult == XXH_ERROR) {
-                  error("Error in `XXH64_update()`"); 		/* #nocov */
+                    error("Error in `XXH64_update()`"); 		/* #nocov */
                 }
                 length -= nChar;
             }
         } else {
             while ( ( nChar = fread( buf, 1, sizeof( buf ), fp ) ) > 0) {
                 XXH_errorcode const updateResult = XXH64_update(state, buf, nChar);
-              if (updateResult == XXH_ERROR) {
-                error("Error in `XXH64_update()`"); 		/* #nocov */
-              }
+                if (updateResult == XXH_ERROR) {
+                    error("Error in `XXH64_update()`"); 		/* #nocov */
+                }
             }
         }
         XXH64_hash_t val =  XXH64_digest(state);
         XXH64_freeState(state);
         
         dump64(val);
-
         break;
     }
     case 108: {     /* murmur32 */
@@ -504,8 +509,8 @@ SEXP digest(SEXP Txt, SEXP Algo, SEXP Length, SEXP Skip, SEXP Leave_raw, SEXP Se
         unsigned char buf[BUF_SIZE];
         size_t total_length = 0;
         output_length = 4;
-
         if (skip > 0) fseek(fp, skip, SEEK_SET);
+
         if (length>=0) {
             while( ( nChar = fread( buf, 1, sizeof( buf ), fp ) ) > 0
                    && length>0) {
@@ -523,7 +528,6 @@ SEXP digest(SEXP Txt, SEXP Algo, SEXP Length, SEXP Skip, SEXP Leave_raw, SEXP Se
         unsigned int val = PMurHash32_Result(h1, carry, total_length);
 
         dump32(val);
-        
         break;
     }
     case 110: {     /* blake3 file case */
@@ -531,9 +535,9 @@ SEXP digest(SEXP Txt, SEXP Algo, SEXP Length, SEXP Skip, SEXP Leave_raw, SEXP Se
         unsigned char buf[BUF_SIZE];
         uint8_t val[BLAKE3_OUT_LEN];
         blake3_hasher hasher;
-        blake3_hasher_init(&hasher);
-
         if (skip > 0) fseek(fp, skip, SEEK_SET);
+
+        blake3_hasher_init(&hasher);
         if (length>=0) {
             while ( ( nChar = fread( buf, 1, sizeof( buf ), fp ) ) > 0 && length>0) {
                 if (nChar>length) nChar=length;
@@ -547,15 +551,14 @@ SEXP digest(SEXP Txt, SEXP Algo, SEXP Length, SEXP Skip, SEXP Leave_raw, SEXP Se
         blake3_hasher_finalize(&hasher, val, BLAKE3_OUT_LEN);
         
         resolve(val);
-        
         break;
     }
     case 111: {		/* crc32c */
         unsigned char buf[BUF_SIZE];
         output_length = 4;
         uint32_t crc = 0;
-
         if (skip > 0) fseek(fp, skip, SEEK_SET);
+
         if (length>=0) {
             while ( ( nChar = fread( buf, 1, sizeof( buf ), fp ) ) > 0 && length>0) {
                 if (nChar>length) nChar=length;
@@ -566,6 +569,7 @@ SEXP digest(SEXP Txt, SEXP Algo, SEXP Length, SEXP Skip, SEXP Leave_raw, SEXP Se
             while ( ( nChar = fread( buf, 1, sizeof( buf ), fp ) ) > 0)
                 crc = crc32c_extend(crc, (const uint8_t*) buf, (size_t) nChar);
         }
+
         dump32(crc);
         break;
     }
@@ -573,8 +577,8 @@ SEXP digest(SEXP Txt, SEXP Algo, SEXP Length, SEXP Skip, SEXP Leave_raw, SEXP Se
         unsigned char buf[BUF_SIZE];
         output_length = 8;
         XXH3_state_t* const state = XXH3_createState();
-
         if (skip > 0) fseek(fp, skip, SEEK_SET);
+
         XXH_errorcode const resetResult = XXH3_64bits_reset(state);
         if (resetResult == XXH_ERROR) {
             error("Error in `XXH3_reset()`"); 				/* #nocov */
@@ -598,16 +602,16 @@ SEXP digest(SEXP Txt, SEXP Algo, SEXP Length, SEXP Skip, SEXP Leave_raw, SEXP Se
         }
         XXH64_hash_t val =  XXH3_64bits_digest(state);
         XXH3_freeState(state);
-        dump64(val);
 
+        dump64(val);
         break;
     }
     case 113: {     /* xxh3_128 */
         unsigned char buf[BUF_SIZE];
         XXH3_state_t* const state = XXH3_createState();
         output_length = 16;
-
         if (skip > 0) fseek(fp, skip, SEEK_SET);
+
         XXH_errorcode const resetResult = XXH3_128bits_reset(state);
         if (resetResult == XXH_ERROR) {
             error("Error in `XXH3_reset()`"); 				/* #nocov */
@@ -631,14 +635,14 @@ SEXP digest(SEXP Txt, SEXP Algo, SEXP Length, SEXP Skip, SEXP Leave_raw, SEXP Se
         }
         XXH128_hash_t val =  XXH3_128bits_digest(state);
         XXH3_freeState(state);
+
         // need something a bit fancier here
         if (leaveRaw) {
-          rev_memcpy(output, &val.high64, 8);
-          rev_memcpy(output + 8, &val.low64, 8);
+            rev_memcpy(output, &val.high64, 8);
+            rev_memcpy(output + 8, &val.low64, 8);
         } else {
-          snprintf(output, 128, "%016" PRIx64 "%016" PRIx64, val.high64, val.low64);
+            snprintf(output, 128, "%016" PRIx64 "%016" PRIx64, val.high64, val.low64);
         }
-        
         break;
     }
 
