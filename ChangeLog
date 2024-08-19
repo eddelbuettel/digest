@@ -1,6 +1,10 @@
+2024-08-18  Dirk Eddelbuettel  <edd@debian.org>
+
+	* DESCRIPTION (Authors@R): Added
+
 2024-08-15  Kevin Ushey  <kevinushey@gmail.com>
 
-	* src/raes.c: Calloc => R_Calloc; Free => R_Free
+	* src/raes.c: Calloc -> R_Calloc; Free -> R_Free
 
 2024-07-15  Dirk Eddelbuettel  <edd@debian.org>
 
