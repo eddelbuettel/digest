@@ -137,7 +137,7 @@ SEXP digest(SEXP Txt, SEXP Algo, SEXP Length, SEXP Skip, SEXP Leave_raw, SEXP Se
     FILE *fp=0;
     char *txt;
     int algo = INTEGER_VALUE(Algo);
-    int  length = INTEGER_VALUE(Length);
+    int length = INTEGER_VALUE(Length);
     int skip = INTEGER_VALUE(Skip);
     int seed = INTEGER_VALUE(Seed);
     int leaveRaw = INTEGER_VALUE(Leave_raw);
@@ -305,7 +305,6 @@ SEXP digest(SEXP Txt, SEXP Algo, SEXP Length, SEXP Skip, SEXP Leave_raw, SEXP Se
         break;
     }
     case 101: {     /* md5 file case */
-        int j;
         md5_context ctx;
         output_length = 16;
         unsigned char buf[BUF_SIZE];
@@ -330,7 +329,6 @@ SEXP digest(SEXP Txt, SEXP Algo, SEXP Length, SEXP Skip, SEXP Leave_raw, SEXP Se
         break;
     }
     case 102: {     /* sha1 file case */
-        int j;
         sha1_context ctx;
         output_length = 20;
         unsigned char buf[BUF_SIZE];
@@ -374,7 +372,6 @@ SEXP digest(SEXP Txt, SEXP Algo, SEXP Length, SEXP Skip, SEXP Leave_raw, SEXP Se
         break;
     }
     case 104: {     /* sha256 file case */
-        int j;
         sha256_context ctx;
         output_length = 32;
         unsigned char buf[BUF_SIZE];
@@ -398,7 +395,6 @@ SEXP digest(SEXP Txt, SEXP Algo, SEXP Length, SEXP Skip, SEXP Leave_raw, SEXP Se
         break;
     }
     case 105: {     /* sha2-512 file case */
-        int j;
         SHA512_CTX ctx;
         output_length = SHA512_DIGEST_LENGTH;
         uint8_t sha512sum[output_length], *d = sha512sum;
