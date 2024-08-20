@@ -18,3 +18,17 @@ expect_equal(current, expected)
 
 ## feed raw to sha1() to test sha1.raw() as well
 expect_true(sha1(expected) == "75a2995eeec0fcb5d7fa97c676a37f4e224981a1")
+
+
+for (algo in c("md5", "sha1", "crc32", "sha256", "sha512",
+               "xxhash32", "xxhash64", "murmur32",
+               "spookyhash", "blake3", "crc32c",
+               "xxh3_64", "xxh3_128")) {
+
+    digestchar <- digest("The quick brown fox", algo = algo, raw = FALSE)
+    digestraw <- paste0(as.character(
+        digest("The quick brown fox", algo = algo, raw = TRUE)
+    ), collapse = "")
+
+    expect_equal(digestchar, digestraw, info = sprintf("error in %s", algo))
+}
