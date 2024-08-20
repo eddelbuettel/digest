@@ -6,8 +6,8 @@
 
 2024-08-19  Carl A. B. Pearson  <carl.ab.pearson@gmail.com>
 
-  * src/digest.c: enable all hashing algorithms to return raw output.
-  * inst/tinytest/test_raw.R: test raw vs not consistency for all algos.
+	* src/digest.c: enable all hashing algorithms to return raw output.
+	* inst/tinytest/test_raw.R: test raw vs not consistency for all algos.
 
 2024-08-19  Dirk Eddelbuettel  <edd@debian.org>
 

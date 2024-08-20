@@ -1,10 +1,26 @@
 ###  2024 
 
+2024-08-19  Dirk Eddelbuettel  <edd@debian.org> 
+ 
+        * DESCRIPTION (Version, Date): Release 0.6.37 
+ 
+2024-08-18  Dirk Eddelbuettel  <edd@debian.org> 
+ 
+        * DESCRIPTION (Authors@R): Added 
+ 
+2024-08-15  Kevin Ushey  <kevinushey@gmail.com> 
+ 
+        * src/raes.c: Calloc -> R_Calloc; Free -> R_Free 
+ 
+2024-07-15  Dirk Eddelbuettel  <edd@debian.org> 
+ 
+        * README.md: Switch some URLs from http to https 
+ 
 2024-06-23  Dirk Eddelbuettel  <edd@debian.org> 
  
         * DESCRIPTION (Version, Date): Release 0.6.36 
  
-        * src/digest.c (is_little_endian): Define alternate helper tooo 
+        * src/digest.c (is_little_endian): Define alternate helper too 
         * man/digest.Rd: Compare to spookyhash ref only on little endian 
  
 2024-06-22  Dirk Eddelbuettel  <edd@debian.org> 
