@@ -120,12 +120,12 @@ void rev_memcpy(char *dst, const void *src, int len) {
     }
 }
 
-#define dump32(WHAT) decl_tmp32(WHAT);            \
+#define _dump32(WHAT) decl_tmp32(WHAT);            \
 if (leaveRaw) {                                   \
     rev_memcpy(output, &tmp, output_length);      \
 } else snprintf(output, 128, "%08x", tmp);
 
-#define dump64(WHAT) decl_tmp64(WHAT);            \
+#define _dump64(WHAT) decl_tmp64(WHAT);            \
 if (leaveRaw) {                                   \
     rev_memcpy(output, &tmp, output_length);      \
 } else snprintf(output, 128, "%016" PRIx64, tmp);
@@ -208,7 +208,7 @@ SEXP digest(SEXP Txt, SEXP Algo, SEXP Length, SEXP Skip, SEXP Leave_raw, SEXP Se
         val  = digest_crc32(0L, 0, 0);
         val  = digest_crc32(val, (unsigned char*) txt, l);
 
-        dump32(val);
+        _dump32(val);
         break;
     }
     case 4: {     /* sha256 case */
@@ -251,7 +251,7 @@ SEXP digest(SEXP Txt, SEXP Algo, SEXP Length, SEXP Skip, SEXP Leave_raw, SEXP Se
 
         XXH32_hash_t val = XXH32(txt, nChar, seed);
 
-        dump32(val);
+        _dump32(val);
         break;
     }
     case 7: {     /* xxhash64 case */
@@ -259,7 +259,7 @@ SEXP digest(SEXP Txt, SEXP Algo, SEXP Length, SEXP Skip, SEXP Leave_raw, SEXP Se
 
         XXH64_hash_t val = XXH64(txt, nChar, seed);
         
-        dump64(val);
+        _dump64(val);
         break;
     }
     case 8: {     /* MurmurHash3 32 */
@@ -267,7 +267,7 @@ SEXP digest(SEXP Txt, SEXP Algo, SEXP Length, SEXP Skip, SEXP Leave_raw, SEXP Se
 
         unsigned int val = PMurHash32(seed, txt, nChar);
 
-        dump32(val);
+        _dump32(val);
         break;
     }
     case 10: {     /* blake3 */
@@ -288,7 +288,7 @@ SEXP digest(SEXP Txt, SEXP Algo, SEXP Length, SEXP Skip, SEXP Leave_raw, SEXP Se
         uint32_t crc = 0;       /* initial value, can be zero */
         crc = crc32c_extend(crc, (const uint8_t*) txt, (size_t) nChar);
 
-        dump32(crc);
+        _dump32(crc);
         break;
     }
     case 12: {		/* xxh3_64bits */
@@ -296,7 +296,7 @@ SEXP digest(SEXP Txt, SEXP Algo, SEXP Length, SEXP Skip, SEXP Leave_raw, SEXP Se
 
         XXH64_hash_t val = XXH3_64bits_withSeed(txt, nChar, seed);
 
-        dump64(val);
+        _dump64(val);
         break;
     }
     case 13: {		/* xxh3_128bits */
@@ -378,7 +378,7 @@ SEXP digest(SEXP Txt, SEXP Algo, SEXP Length, SEXP Skip, SEXP Leave_raw, SEXP Se
                 val  = digest_crc32(val , buf, (unsigned) nChar);
         }
 
-        dump32(val);
+        _dump32(val);
         break;
     }
     case 104: {     /* sha256 file case */
@@ -468,7 +468,7 @@ SEXP digest(SEXP Txt, SEXP Algo, SEXP Length, SEXP Skip, SEXP Leave_raw, SEXP Se
         XXH32_hash_t val =  XXH32_digest(state);
         XXH32_freeState(state);
 
-        dump32(val);
+        _dump32(val);
         break;
     }
     case 107: {     /* xxhash64 */
@@ -501,7 +501,7 @@ SEXP digest(SEXP Txt, SEXP Algo, SEXP Length, SEXP Skip, SEXP Leave_raw, SEXP Se
         XXH64_hash_t val =  XXH64_digest(state);
         XXH64_freeState(state);
         
-        dump64(val);
+        _dump64(val);
         break;
     }
     case 108: {     /* murmur32 */
@@ -527,7 +527,7 @@ SEXP digest(SEXP Txt, SEXP Algo, SEXP Length, SEXP Skip, SEXP Leave_raw, SEXP Se
         }
         unsigned int val = PMurHash32_Result(h1, carry, total_length);
 
-        dump32(val);
+        _dump32(val);
         break;
     }
     case 110: {     /* blake3 file case */
@@ -570,7 +570,7 @@ SEXP digest(SEXP Txt, SEXP Algo, SEXP Length, SEXP Skip, SEXP Leave_raw, SEXP Se
                 crc = crc32c_extend(crc, (const uint8_t*) buf, (size_t) nChar);
         }
 
-        dump32(crc);
+        _dump32(crc);
         break;
     }
     case 112: {     /* xxh3_64 */
@@ -603,7 +603,7 @@ SEXP digest(SEXP Txt, SEXP Algo, SEXP Length, SEXP Skip, SEXP Leave_raw, SEXP Se
         XXH64_hash_t val =  XXH3_64bits_digest(state);
         XXH3_freeState(state);
 
-        dump64(val);
+        _dump64(val);
         break;
     }
     case 113: {     /* xxh3_128 */
