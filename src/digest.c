@@ -102,8 +102,8 @@ SEXP is_little_endian(void) {
     return Rf_ScalarLogical(BYTE_ORDER == LITTLE_ENDIAN);
 }
 
-/* for any algorithm that has output as unsigned char*, can use resolve */
-#define resolve(WHAT) if (leaveRaw) {                          \
+/* for any algorithm that has output as unsigned char*, can use _store_from_char_ptr */
+#define _store_from_char_ptr(WHAT) if (leaveRaw) {                          \
     memcpy(output, (WHAT), output_length);                     \
 } else for (int j = 0; j < output_length; j++) {               \
     snprintf(output + j * 2, 3, "%02x", (WHAT)[j]);            \
@@ -120,12 +120,12 @@ void rev_memcpy(char *dst, const void *src, int len) {
     }
 }
 
-#define _dump32(WHAT) decl_tmp32(WHAT);            \
+#define _store_from_int32(WHAT) decl_tmp32(WHAT);            \
 if (leaveRaw) {                                   \
     rev_memcpy(output, &tmp, output_length);      \
 } else snprintf(output, 128, "%08x", tmp);
 
-#define _dump64(WHAT) decl_tmp64(WHAT);            \
+#define _store_from_int64(WHAT) decl_tmp64(WHAT);            \
 if (leaveRaw) {                                   \
     rev_memcpy(output, &tmp, output_length);      \
 } else snprintf(output, 128, "%016" PRIx64, tmp);
@@ -185,7 +185,7 @@ SEXP digest(SEXP Txt, SEXP Algo, SEXP Length, SEXP Skip, SEXP Leave_raw, SEXP Se
         md5_update( &ctx, (uint8 *) txt, nChar);
         md5_finish( &ctx, md5sum );
 
-        resolve(md5sum);
+        _store_from_char_ptr(md5sum);
         break;
     }
     case 2: {     /* sha1 case */
@@ -197,7 +197,7 @@ SEXP digest(SEXP Txt, SEXP Algo, SEXP Length, SEXP Skip, SEXP Leave_raw, SEXP Se
         sha1_update( &ctx, (uint8 *) txt, nChar);
         sha1_finish( &ctx, sha1sum );
 
-        resolve(sha1sum);
+        _store_from_char_ptr(sha1sum);
         break;
     }
     case 3: {     /* crc32 case */
@@ -208,7 +208,7 @@ SEXP digest(SEXP Txt, SEXP Algo, SEXP Length, SEXP Skip, SEXP Leave_raw, SEXP Se
         val  = digest_crc32(0L, 0, 0);
         val  = digest_crc32(val, (unsigned char*) txt, l);
 
-        _dump32(val);
+        _store_from_int32(val);
         break;
     }
     case 4: {     /* sha256 case */
@@ -220,7 +220,7 @@ SEXP digest(SEXP Txt, SEXP Algo, SEXP Length, SEXP Skip, SEXP Leave_raw, SEXP Se
         sha256_update( &ctx, (uint8 *) txt, nChar);
         sha256_finish( &ctx, sha256sum );
 
-        resolve(sha256sum);
+        _store_from_char_ptr(sha256sum);
         break;
     }
     case 5: {     /* sha2-512 case */
@@ -251,7 +251,7 @@ SEXP digest(SEXP Txt, SEXP Algo, SEXP Length, SEXP Skip, SEXP Leave_raw, SEXP Se
 
         XXH32_hash_t val = XXH32(txt, nChar, seed);
 
-        _dump32(val);
+        _store_from_int32(val);
         break;
     }
     case 7: {     /* xxhash64 case */
@@ -259,7 +259,7 @@ SEXP digest(SEXP Txt, SEXP Algo, SEXP Length, SEXP Skip, SEXP Leave_raw, SEXP Se
 
         XXH64_hash_t val = XXH64(txt, nChar, seed);
         
-        _dump64(val);
+        _store_from_int64(val);
         break;
     }
     case 8: {     /* MurmurHash3 32 */
@@ -267,7 +267,7 @@ SEXP digest(SEXP Txt, SEXP Algo, SEXP Length, SEXP Skip, SEXP Leave_raw, SEXP Se
 
         unsigned int val = PMurHash32(seed, txt, nChar);
 
-        _dump32(val);
+        _store_from_int32(val);
         break;
     }
     case 10: {     /* blake3 */
@@ -279,7 +279,7 @@ SEXP digest(SEXP Txt, SEXP Algo, SEXP Length, SEXP Skip, SEXP Leave_raw, SEXP Se
         blake3_hasher_update(&hasher, txt, nChar);
         blake3_hasher_finalize(&hasher, val, output_length);
 
-        resolve(val);
+        _store_from_char_ptr(val);
         break;
     }
     case 11: {		/* crc32c */
@@ -288,7 +288,7 @@ SEXP digest(SEXP Txt, SEXP Algo, SEXP Length, SEXP Skip, SEXP Leave_raw, SEXP Se
         uint32_t crc = 0;       /* initial value, can be zero */
         crc = crc32c_extend(crc, (const uint8_t*) txt, (size_t) nChar);
 
-        _dump32(crc);
+        _store_from_int32(crc);
         break;
     }
     case 12: {		/* xxh3_64bits */
@@ -296,7 +296,7 @@ SEXP digest(SEXP Txt, SEXP Algo, SEXP Length, SEXP Skip, SEXP Leave_raw, SEXP Se
 
         XXH64_hash_t val = XXH3_64bits_withSeed(txt, nChar, seed);
 
-        _dump64(val);
+        _store_from_int64(val);
         break;
     }
     case 13: {		/* xxh3_128bits */
@@ -334,7 +334,7 @@ SEXP digest(SEXP Txt, SEXP Algo, SEXP Length, SEXP Skip, SEXP Leave_raw, SEXP Se
         }
         md5_finish( &ctx, md5sum );
 
-        resolve(md5sum);        
+        _store_from_char_ptr(md5sum);        
         break;
     }
     case 102: {     /* sha1 file case */
@@ -357,7 +357,7 @@ SEXP digest(SEXP Txt, SEXP Algo, SEXP Length, SEXP Skip, SEXP Leave_raw, SEXP Se
         }
         sha1_finish ( &ctx, sha1sum );
 
-        resolve(sha1sum);
+        _store_from_char_ptr(sha1sum);
         break;
     }
     case 103: {     /* crc32 file case */
@@ -378,7 +378,7 @@ SEXP digest(SEXP Txt, SEXP Algo, SEXP Length, SEXP Skip, SEXP Leave_raw, SEXP Se
                 val  = digest_crc32(val , buf, (unsigned) nChar);
         }
 
-        _dump32(val);
+        _store_from_int32(val);
         break;
     }
     case 104: {     /* sha256 file case */
@@ -401,7 +401,7 @@ SEXP digest(SEXP Txt, SEXP Algo, SEXP Length, SEXP Skip, SEXP Leave_raw, SEXP Se
         }
         sha256_finish ( &ctx, sha256sum );
 
-        resolve(sha256sum);
+        _store_from_char_ptr(sha256sum);
         break;
     }
     case 105: {     /* sha2-512 file case */
@@ -468,7 +468,7 @@ SEXP digest(SEXP Txt, SEXP Algo, SEXP Length, SEXP Skip, SEXP Leave_raw, SEXP Se
         XXH32_hash_t val =  XXH32_digest(state);
         XXH32_freeState(state);
 
-        _dump32(val);
+        _store_from_int32(val);
         break;
     }
     case 107: {     /* xxhash64 */
@@ -501,7 +501,7 @@ SEXP digest(SEXP Txt, SEXP Algo, SEXP Length, SEXP Skip, SEXP Leave_raw, SEXP Se
         XXH64_hash_t val =  XXH64_digest(state);
         XXH64_freeState(state);
         
-        _dump64(val);
+        _store_from_int64(val);
         break;
     }
     case 108: {     /* murmur32 */
@@ -527,7 +527,7 @@ SEXP digest(SEXP Txt, SEXP Algo, SEXP Length, SEXP Skip, SEXP Leave_raw, SEXP Se
         }
         unsigned int val = PMurHash32_Result(h1, carry, total_length);
 
-        _dump32(val);
+        _store_from_int32(val);
         break;
     }
     case 110: {     /* blake3 file case */
@@ -550,7 +550,7 @@ SEXP digest(SEXP Txt, SEXP Algo, SEXP Length, SEXP Skip, SEXP Leave_raw, SEXP Se
         }
         blake3_hasher_finalize(&hasher, val, BLAKE3_OUT_LEN);
         
-        resolve(val);
+        _store_from_char_ptr(val);
         break;
     }
     case 111: {		/* crc32c */
@@ -570,7 +570,7 @@ SEXP digest(SEXP Txt, SEXP Algo, SEXP Length, SEXP Skip, SEXP Leave_raw, SEXP Se
                 crc = crc32c_extend(crc, (const uint8_t*) buf, (size_t) nChar);
         }
 
-        _dump32(crc);
+        _store_from_int32(crc);
         break;
     }
     case 112: {     /* xxh3_64 */
@@ -603,7 +603,7 @@ SEXP digest(SEXP Txt, SEXP Algo, SEXP Length, SEXP Skip, SEXP Leave_raw, SEXP Se
         XXH64_hash_t val =  XXH3_64bits_digest(state);
         XXH3_freeState(state);
 
-        _dump64(val);
+        _store_from_int64(val);
         break;
     }
     case 113: {     /* xxh3_128 */
