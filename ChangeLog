@@ -1,3 +1,9 @@
+2024-08-20  Dirk Eddelbuettel  <edd@debian.org>
+
+	* DESCRIPTION (Version, Date): Roll micro version and date
+
+	* DESCRIPTION (Authors@R): Add five ORCID IDs
+
 2024-08-19  Carl A. B. Pearson  <carl.ab.pearson@gmail.com>
 
   * src/digest.c: enable all hashing algorithms to return raw output.
