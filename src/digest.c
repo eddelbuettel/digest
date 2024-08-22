@@ -123,6 +123,7 @@ void _store_from_char_ptr(const unsigned char * hash, unsigned char * const outp
             *outputp++ = sha2_hex_digits[*d & 0x0f];
             d++;
 #else
+            // a char = 2 hex digits => to (0-9A-F)-charset = writing 2 spots
             snprintf(output + j * 2, 3, "%02x", hash[j]);
 #endif
         }
@@ -138,17 +139,14 @@ void rev_memcpy(char *dst, const void *src, int len) {
     }
 }
 
-// n.b. ripe templating if switching to c++
-
+// n.b. ripe templating to e.g. _store_from_integral<> if switching to c++
 void _store_from_int32(const uint32_t hash, char *output, const int leaveRaw) {
     if (leaveRaw) {
         rev_memcpy(output, &hash, sizeof(uint32_t));
     } else snprintf(output, sizeof(uint32_t)*2 + 1, "%08x", hash);
 }
 
-void _store_from_int64(
-    const uint64_t hash, char *output, const int leaveRaw
-) {
+void _store_from_int64(const uint64_t hash, char *output, const int leaveRaw) {
     if (leaveRaw) {
         rev_memcpy(output, &hash, sizeof(uint64_t));
     } else snprintf(output, sizeof(uint64_t)*2 + 1, "%016" PRIx64, hash);
