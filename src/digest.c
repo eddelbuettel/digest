@@ -132,6 +132,37 @@ void _store_from_char_ptr(const unsigned char * hash, unsigned char * const outp
     }
 }
 
+SEXP _store_from_char_ptr_alt(const unsigned char * hash,
+                              const size_t output_length, const int leaveRaw) {
+    SEXP result = R_NilValue;
+    if (leaveRaw) {
+        PROTECT(result = allocVector(RAWSXP, output_length));
+        memcpy(RAW(result), hash, output_length);
+    } else {
+        unsigned char outputp[output_length * 2 + 1];
+#if USESHA512
+        unsigned const char *d = hash;
+#endif
+        for (int j = 0; j < output_length; j++) {
+#if USESHA512
+            *outputp++ = sha2_hex_digits[(*d & 0xf0) >> 4];
+            *outputp++ = sha2_hex_digits[*d & 0x0f];
+            d++;
+#else
+            // a char = 2 hex digits => to (0-9A-F)-charset = writing 2 spots
+            snprintf(outputp + j * 2, 3, "%02x", hash[j]);
+#endif
+        }
+#if USESHA512
+        *outputp = (char)0;
+#endif
+        PROTECT(result = allocVector(STRSXP, 1));
+        SET_STRING_ELT(result, 0, mkChar(outputp));
+    }
+    UNPROTECT(1);
+    return result;
+}
+
 void rev_memcpy(char *dst, const void *src, int len) {
     for (int i = 0; i < len; i++) {
         dst[i] = ((char*)src)[len - i - 1];
@@ -145,11 +176,70 @@ void _store_from_int32(const uint32_t hash, char *output, const int leaveRaw) {
     } else snprintf(output, sizeof(uint32_t)*2 + 1, "%08x", hash);
 }
 
+SEXP _store_from_int32_alt(const uint32_t hash, const int leaveRaw) {
+    SEXP result = R_NilValue; int output_length = sizeof(uint32_t);
+    if (leaveRaw) {
+        PROTECT(result = allocVector(RAWSXP, output_length));
+        rev_memcpy(RAW(result), &hash, output_length);
+    } else {
+        char output[output_length*2 + 1];
+        snprintf(output, output_length*2 + 1, "%08x", hash);
+        PROTECT(result = allocVector(STRSXP, 1));
+        SET_STRING_ELT(result, 0, mkChar(output));
+    }
+    UNPROTECT(1);
+    return result;
+}
+
+SEXP _store_from_int64_alt(const uint64_t hash, const int leaveRaw) {
+    SEXP result = R_NilValue; int output_length = sizeof(uint64_t);
+    if (leaveRaw) {
+        PROTECT(result = allocVector(RAWSXP, output_length));
+        rev_memcpy(RAW(result), &hash, output_length);
+    } else {
+        char output[output_length*2 + 1];
+        snprintf(output, output_length*2 + 1, "%016" PRIx64, hash);
+        PROTECT(result = allocVector(STRSXP, 1));
+        SET_STRING_ELT(result, 0, mkChar(output));
+    }
+    UNPROTECT(1);
+    return result;
+}
+
+SEXP _store_from_2xint64_alt(const uint64_t hashlo, const uint64_t hashhi, const int leaveRaw) {
+    SEXP result = R_NilValue; int output_length = 2*sizeof(uint64_t);
+    if (leaveRaw) {
+        PROTECT(result = allocVector(RAWSXP, output_length));
+        rev_memcpy(RAW(result), &hashhi, 8);
+        rev_memcpy(RAW(result) + 8, &hashlo, 8);
+    } else {
+        char output[output_length*2 + 1];
+        snprintf(output, output_length*2 + 1, "%016" PRIx64 "%016" PRIx64, hashhi, hashlo);
+        PROTECT(result = allocVector(STRSXP, 1));
+        SET_STRING_ELT(result, 0, mkChar(output));
+    }
+    UNPROTECT(1);
+    return result;
+}
+
 void _store_from_int64(const uint64_t hash, char *output, const int leaveRaw) {
     if (leaveRaw) {
         rev_memcpy(output, &hash, sizeof(uint64_t));
     } else snprintf(output, sizeof(uint64_t)*2 + 1, "%016" PRIx64, hash);
 }
+
+#define FILEHASH(WHAT) if (length >= 0) { \
+    while ( ( nChar = fread( buf, 1, sizeof( buf ), fp ) ) > 0 && length > 0) { \
+        if (nChar > length) nChar = length; \
+        WHAT; \
+        length -= nChar; \
+    } \
+} else { \
+    while ( ( nChar = fread( buf, 1, sizeof( buf ), fp ) ) > 0) { \
+        WHAT; \
+    } \
+} \
+fclose(fp);
 
 SEXP digest(SEXP Txt, SEXP Algo, SEXP Length, SEXP Skip, SEXP Leave_raw, SEXP Seed) {
     size_t BUF_SIZE = 1024;
@@ -162,10 +252,11 @@ SEXP digest(SEXP Txt, SEXP Algo, SEXP Length, SEXP Skip, SEXP Leave_raw, SEXP Se
     int leaveRaw = INTEGER_VALUE(Leave_raw);
     SEXP result = R_NilValue;
     
-    /* use char[] for either raw or character output */
+    /* using char[] for either raw or character output */
     /* for raw output, get 8 bits / 1 byte out of each entry */
     /* for character output, get 4 bits out of each entry */
-    char output[128+1], *outputp = output;    /* 33 for md5, 41 for sha1, 65 for sha256, 128 for sha512; plus trailing NULL */
+    /* 33 for md5, 41 for sha1, 65 for sha256, 128 for sha512; plus trailing NULL */
+    char output[128+1];
     R_xlen_t nChar;
     int output_length = -1;
     if (IS_RAW(Txt)) { /* Txt is either RAW */
@@ -186,12 +277,16 @@ SEXP digest(SEXP Txt, SEXP Algo, SEXP Length, SEXP Skip, SEXP Leave_raw, SEXP Se
             }
         }
     }
-    if (skip > 0 && algo < 100) {
-        if (skip>=nChar) {
-            nChar=0;                                                            /* #nocov */
+    if (skip > 0) { 
+        if (algo < 100) {
+            if (skip >= nChar) {
+                nChar = 0;                              /* #nocov */
+            } else {
+                nChar -= skip;
+                txt += skip;
+            }
         } else {
-            nChar -= skip;
-            txt += skip;
+            fseek(fp, skip, SEEK_SET);
         }
     }
     if (length>=0 && length<nChar) nChar = length;
@@ -206,8 +301,7 @@ SEXP digest(SEXP Txt, SEXP Algo, SEXP Length, SEXP Skip, SEXP Leave_raw, SEXP Se
         md5_update( &ctx, txt, nChar);
         md5_finish( &ctx, md5sum );
 
-        _store_from_char_ptr(md5sum, output, output_length, leaveRaw);
-        break;
+        return _store_from_char_ptr_alt(md5sum, output_length, leaveRaw);
     }
     case 2: {     /* sha1 case */
         sha1_context ctx;
@@ -218,8 +312,7 @@ SEXP digest(SEXP Txt, SEXP Algo, SEXP Length, SEXP Skip, SEXP Leave_raw, SEXP Se
         sha1_update( &ctx, txt, nChar);
         sha1_finish( &ctx, sha1sum );
 
-        _store_from_char_ptr(sha1sum, output, output_length, leaveRaw);
-        break;
+        return _store_from_char_ptr_alt(sha1sum, output_length, leaveRaw);
     }
     case 3: {     /* crc32 case */
         unsigned long val;
@@ -229,8 +322,7 @@ SEXP digest(SEXP Txt, SEXP Algo, SEXP Length, SEXP Skip, SEXP Leave_raw, SEXP Se
         val  = digest_crc32(0L, 0, 0);
         val  = digest_crc32(val, txt, l);
 
-        _store_from_int32(val, output, leaveRaw);
-        break;
+        return _store_from_int32_alt(val, leaveRaw);
     }
     case 4: {     /* sha256 case */
         sha256_context ctx;
@@ -241,13 +333,12 @@ SEXP digest(SEXP Txt, SEXP Algo, SEXP Length, SEXP Skip, SEXP Leave_raw, SEXP Se
         sha256_update( &ctx, txt, nChar);
         sha256_finish( &ctx, sha256sum );
 
-        _store_from_char_ptr(sha256sum, output, output_length, leaveRaw);
-        break;
+        return _store_from_char_ptr_alt(sha256sum, output_length, leaveRaw);
     }
     case 5: {     /* sha2-512 case */
         SHA512_CTX ctx;
         output_length = SHA512_DIGEST_LENGTH;
-        unsigned char sha512sum[output_length], *d = sha512sum;
+        unsigned char sha512sum[output_length];
 
         SHA512_Init(&ctx);
         SHA512_Update(&ctx, txt, nChar);
@@ -255,32 +346,25 @@ SEXP digest(SEXP Txt, SEXP Algo, SEXP Length, SEXP Skip, SEXP Leave_raw, SEXP Se
            convert the hash to a string, and we also want RAW */
         SHA512_Final(sha512sum, &ctx);
 
-        _store_from_char_ptr(sha512sum, output, output_length, leaveRaw);
-        break;
+        return _store_from_char_ptr_alt(sha512sum, output_length, leaveRaw);
     }
     case 6: {     /* xxhash32 case */
-        output_length = 4;
 
         XXH32_hash_t val = XXH32(txt, nChar, seed);
 
-        _store_from_int32(val, output, leaveRaw);
-        break;
+        return _store_from_int32_alt(val, leaveRaw);
     }
     case 7: {     /* xxhash64 case */
-        output_length = 8;
 
         XXH64_hash_t val = XXH64(txt, nChar, seed);
         
-        _store_from_int64(val, output, leaveRaw);
-        break;
+        return _store_from_int64_alt(val, leaveRaw);
     }
     case 8: {     /* MurmurHash3 32 */
-        output_length = 4;
 
         unsigned int val = PMurHash32(seed, txt, nChar);
 
-        _store_from_int32(val, output, leaveRaw);
-        break;
+        return _store_from_int32_alt(val, leaveRaw);
     }
     case 10: {     /* blake3 */
         output_length = BLAKE3_OUT_LEN;
@@ -291,362 +375,159 @@ SEXP digest(SEXP Txt, SEXP Algo, SEXP Length, SEXP Skip, SEXP Leave_raw, SEXP Se
         blake3_hasher_update(&hasher, txt, nChar);
         blake3_hasher_finalize(&hasher, val, output_length);
 
-        _store_from_char_ptr(val, output, output_length, leaveRaw);
-        break;
+        return _store_from_char_ptr_alt(val, output_length, leaveRaw);
     }
     case 11: {		/* crc32c */
-        output_length = 4;
 
         uint32_t crc = 0;       /* initial value, can be zero */
         crc = crc32c_extend(crc, (const uint8_t*) txt, (size_t) nChar);
 
-        _store_from_int32(crc, output, leaveRaw);
-        break;
+        return _store_from_int32_alt(crc, leaveRaw);
     }
     case 12: {		/* xxh3_64bits */
-        output_length = 8;
 
         XXH64_hash_t val = XXH3_64bits_withSeed(txt, nChar, seed);
 
-        _store_from_int64(val, output, leaveRaw);
-        break;
+        return _store_from_int64_alt(val, leaveRaw);
     }
     case 13: {		/* xxh3_128bits */
-        output_length = 16;
 
         XXH128_hash_t val =  XXH3_128bits_withSeed(txt, nChar, seed);
 
-        // need something a bit fancier here
-        if (leaveRaw) {
-          rev_memcpy(output, &val.high64, 8);
-          rev_memcpy(output + 8, &val.low64, 8);
-        } else {
-          snprintf(output, 128, "%016" PRIx64 "%016" PRIx64, val.high64, val.low64);
-        }
-        break;
+        return _store_from_2xint64_alt(val.low64, val.high64, leaveRaw);
     }
     case 101: {     /* md5 file case */
         md5_context ctx;
         output_length = 16;
         unsigned char buf[BUF_SIZE];
         unsigned char md5sum[output_length];
-        if (skip > 0) fseek(fp, skip, SEEK_SET);
 
         md5_starts( &ctx );
-        if (length>=0) {
-            while ( ( nChar = fread( buf, 1, sizeof( buf ), fp ) ) > 0
-                   && length>0) {
-                if (nChar>length) nChar=length;
-                md5_update( &ctx, buf, nChar );
-                length -= nChar;
-            }
-        } else {
-            while ( ( nChar = fread( buf, 1, sizeof( buf ), fp ) ) > 0)
-                md5_update( &ctx, buf, nChar );
-        }
+        FILEHASH(md5_update( &ctx, buf, nChar ));
         md5_finish( &ctx, md5sum );
 
-        _store_from_char_ptr(md5sum, output, output_length, leaveRaw);
-        break;
+        return _store_from_char_ptr_alt(md5sum, output_length, leaveRaw);
     }
     case 102: {     /* sha1 file case */
         sha1_context ctx;
         output_length = 20;
         unsigned char buf[BUF_SIZE];
         unsigned char sha1sum[output_length];
-        if (skip > 0) fseek(fp, skip, SEEK_SET);
 
         sha1_starts ( &ctx );
-        if (length>=0) {
-            while ( ( nChar = fread( buf, 1, sizeof( buf ), fp ) ) > 0 && length>0) {
-                if (nChar>length) nChar=length;
-                sha1_update( &ctx, buf, nChar );
-                length -= nChar;
-            }
-        } else {
-            while ( ( nChar = fread( buf, 1, sizeof( buf ), fp ) ) > 0)
-                sha1_update( &ctx, buf, nChar );
-        }
+        FILEHASH(sha1_update( &ctx, buf, nChar ));
         sha1_finish ( &ctx, sha1sum );
 
-        _store_from_char_ptr(sha1sum, output, output_length, leaveRaw);
-        break;
+        return _store_from_char_ptr_alt(sha1sum, output_length, leaveRaw);
     }
     case 103: {     /* crc32 file case */
         unsigned char buf[BUF_SIZE];
         unsigned long val;
-        output_length = 4;
-        if (skip > 0) fseek(fp, skip, SEEK_SET);
 
         val  = digest_crc32(0L, 0, 0);
-        if (length>=0) {
-            while ( ( nChar = fread( buf, 1, sizeof( buf ), fp ) ) > 0 && length>0) {
-                if (nChar>length) nChar=length;
-                val  = digest_crc32(val , buf, (unsigned) nChar);
-                length -= nChar;
-            }
-        } else {
-            while ( ( nChar = fread( buf, 1, sizeof( buf ), fp ) ) > 0)
-                val  = digest_crc32(val , buf, (unsigned) nChar);
-        }
+        FILEHASH(val = digest_crc32(val, buf, nChar));
 
-        _store_from_int32(val, output, leaveRaw);
-        break;
+        return _store_from_int32_alt(val, leaveRaw);
     }
     case 104: {     /* sha256 file case */
         sha256_context ctx;
         output_length = 32;
         unsigned char buf[BUF_SIZE];
         unsigned char sha256sum[output_length];
-        if (skip > 0) fseek(fp, skip, SEEK_SET);
 
         sha256_starts ( &ctx );
-        if (length>=0) {
-            while ( ( nChar = fread( buf, 1, sizeof( buf ), fp ) ) > 0 && length>0) {
-                if (nChar>length) nChar=length;
-                sha256_update( &ctx, buf, nChar );
-                length -= nChar;
-            }
-        } else {
-            while ( ( nChar = fread( buf, 1, sizeof( buf ), fp ) ) > 0)
-                sha256_update( &ctx, buf, nChar );
-        }
+        FILEHASH(sha256_update( &ctx, buf, nChar));
         sha256_finish ( &ctx, sha256sum );
 
-        _store_from_char_ptr(sha256sum, output, output_length, leaveRaw);
-        break;
+        return _store_from_char_ptr_alt(sha256sum, output_length, leaveRaw);
     }
     case 105: {     /* sha2-512 file case */
         SHA512_CTX ctx;
         output_length = SHA512_DIGEST_LENGTH;
-        uint8_t sha512sum[output_length], *d = sha512sum;
+        uint8_t sha512sum[output_length];
         unsigned char buf[BUF_SIZE];
-        if (skip > 0) fseek(fp, skip, SEEK_SET);
 
         SHA512_Init(&ctx);
-        if (length>=0) {
-            while ( ( nChar = fread( buf, 1, sizeof( buf ), fp ) ) > 0 && length>0) {
-                if (nChar>length) nChar=length;
-                SHA512_Update( &ctx, buf, nChar );
-                length -= nChar;
-            }
-        } else {
-            while ( ( nChar = fread( buf, 1, sizeof( buf ), fp ) ) > 0)
-                SHA512_Update( &ctx, buf, nChar );
-        }
+        FILEHASH(SHA512_Update(&ctx, buf, nChar));
 		/* Calling SHA512_Final, because SHA512_End will already
 		   convert the hash to a string, and we also want RAW */
 		SHA512_Final(sha512sum, &ctx);
     
-        _store_from_char_ptr(sha512sum, output, output_length, leaveRaw);
-        break;
+        return _store_from_char_ptr_alt(sha512sum, output_length, leaveRaw);
     }
     case 106: {     /* xxhash32 */
         unsigned char buf[BUF_SIZE];
         XXH32_state_t* const state = XXH32_createState();
-        output_length = 4;
-        if (skip > 0) fseek(fp, skip, SEEK_SET);
 
-        XXH_errorcode const resetResult = XXH32_reset(state, seed);
-        if (resetResult == XXH_ERROR) {
-            error("Error in `XXH32_reset()`"); 				/* #nocov */
-        }
-        if (length>=0) {
-            while ( ( nChar = fread( buf, 1, sizeof( buf ), fp ) ) > 0 && length>0) {
-                if (nChar>length) nChar=length;
-                XXH_errorcode const updateResult = XXH32_update(state, buf, nChar);
-                if (updateResult == XXH_ERROR) {
-                  error("Error in `XXH32_update()`"); 		/* #nocov */
-                }
-                length -= nChar;
-            }
-        } else {
-            while ( ( nChar = fread( buf, 1, sizeof( buf ), fp ) ) > 0) {
-                XXH_errorcode const updateResult = XXH32_update(state, buf, nChar);
-                if (updateResult == XXH_ERROR) {
-                    error("Error in `XXH32_update()`");	 		/* #nocov */
-                }
-            }
-        }
+        if (XXH32_reset(state, seed) == XXH_ERROR) error("Error in `XXH32_reset()`"); /* #nocov */
+        FILEHASH(if (XXH32_update(state, buf, nChar)) error("Error in `XXH32_update()`"));
         XXH32_hash_t val =  XXH32_digest(state);
         XXH32_freeState(state);
 
-        _store_from_int32(val, output, leaveRaw);
-        break;
+        return _store_from_int32_alt(val, leaveRaw);
     }
     case 107: {     /* xxhash64 */
         unsigned char buf[BUF_SIZE];
         XXH64_state_t* const state = XXH64_createState();
-        output_length = 8;
-        if (skip > 0) fseek(fp, skip, SEEK_SET);
 
-        XXH_errorcode const resetResult = XXH64_reset(state, seed);
-        if (resetResult == XXH_ERROR) {
-            error("Error in `XXH64_reset()`"); 				/* #nocov */
-        }
-        if (length>=0) {
-            while ( ( nChar = fread( buf, 1, sizeof( buf ), fp ) ) > 0 && length>0) {
-                if (nChar>length) nChar=length;
-                XXH_errorcode const updateResult = XXH64_update(state, buf, nChar);
-                if (updateResult == XXH_ERROR) {
-                    error("Error in `XXH64_update()`"); 		/* #nocov */
-                }
-                length -= nChar;
-            }
-        } else {
-            while ( ( nChar = fread( buf, 1, sizeof( buf ), fp ) ) > 0) {
-                XXH_errorcode const updateResult = XXH64_update(state, buf, nChar);
-                if (updateResult == XXH_ERROR) {
-                    error("Error in `XXH64_update()`"); 		/* #nocov */
-                }
-            }
-        }
+        if (XXH64_reset(state, seed) == XXH_ERROR) error("Error in `XXH64_reset()`"); 				/* #nocov */
+        FILEHASH(if (XXH64_update(state, buf, nChar)) error("Error in `XXH64_update()`"));
         XXH64_hash_t val =  XXH64_digest(state);
         XXH64_freeState(state);
         
-        _store_from_int64(val, output, leaveRaw);
-        break;
+        return _store_from_int64_alt(val, leaveRaw);
     }
     case 108: {     /* murmur32 */
-        unsigned int h1=seed, carry=0;
+        unsigned int h1 = seed, carry = 0;
         unsigned char buf[BUF_SIZE];
         size_t total_length = 0;
-        output_length = 4;
-        if (skip > 0) fseek(fp, skip, SEEK_SET);
 
-        if (length>=0) {
-            while( ( nChar = fread( buf, 1, sizeof( buf ), fp ) ) > 0
-                   && length>0) {
-                if (nChar>length) nChar=length;
-                PMurHash32_Process(&h1, &carry, buf, nChar);
-                length -= nChar;
-                total_length += nChar;
-            }
-        } else {
-            while( ( nChar = fread( buf, 1, sizeof( buf ), fp ) ) > 0) {
-                PMurHash32_Process(&h1, &carry, buf, nChar);
-                total_length += nChar;
-            }
-        }
+        FILEHASH(PMurHash32_Process(&h1, &carry, buf, nChar); total_length += nChar);
         unsigned int val = PMurHash32_Result(h1, carry, total_length);
 
-        _store_from_int32(val, output, leaveRaw);
-        break;
+        return _store_from_int32_alt(val, leaveRaw);
     }
     case 110: {     /* blake3 file case */
         output_length = BLAKE3_OUT_LEN;
         unsigned char buf[BUF_SIZE];
         uint8_t val[BLAKE3_OUT_LEN];
         blake3_hasher hasher;
-        if (skip > 0) fseek(fp, skip, SEEK_SET);
 
         blake3_hasher_init(&hasher);
-        if (length>=0) {
-            while ( ( nChar = fread( buf, 1, sizeof( buf ), fp ) ) > 0 && length>0) {
-                if (nChar>length) nChar=length;
-                blake3_hasher_update( &hasher, buf, nChar );
-                length -= nChar;
-            }
-        } else {
-            while ( ( nChar = fread( buf, 1, sizeof( buf ), fp ) ) > 0)
-                blake3_hasher_update( &hasher, buf, nChar );
-        }
+        FILEHASH(blake3_hasher_update(&hasher, buf, nChar));
         blake3_hasher_finalize(&hasher, val, BLAKE3_OUT_LEN);
         
-        _store_from_char_ptr(val, output, output_length, leaveRaw);
-        break;
+        return _store_from_char_ptr_alt(val, output_length, leaveRaw);
     }
     case 111: {		/* crc32c */
         unsigned char buf[BUF_SIZE];
-        output_length = 4;
         uint32_t crc = 0;
-        if (skip > 0) fseek(fp, skip, SEEK_SET);
 
-        if (length>=0) {
-            while ( ( nChar = fread( buf, 1, sizeof( buf ), fp ) ) > 0 && length>0) {
-                if (nChar>length) nChar=length;
-                crc = crc32c_extend(crc, (const uint8_t*) buf, (size_t) nChar);
-                length -= nChar;
-            }
-        } else {
-            while ( ( nChar = fread( buf, 1, sizeof( buf ), fp ) ) > 0)
-                crc = crc32c_extend(crc, (const uint8_t*) buf, (size_t) nChar);
-        }
+        FILEHASH(crc = crc32c_extend(crc, (const uint8_t*) buf, (size_t) nChar));
 
-        _store_from_int32(crc, output, leaveRaw);
-        break;
+        return _store_from_int32_alt(crc, leaveRaw);
     }
     case 112: {     /* xxh3_64 */
         unsigned char buf[BUF_SIZE];
-        output_length = 8;
         XXH3_state_t* const state = XXH3_createState();
-        if (skip > 0) fseek(fp, skip, SEEK_SET);
 
-        XXH_errorcode const resetResult = XXH3_64bits_reset(state);
-        if (resetResult == XXH_ERROR) {
-            error("Error in `XXH3_reset()`"); 				/* #nocov */
-        }
-        if (length>=0) {
-            while ( ( nChar = fread( buf, 1, sizeof( buf ), fp ) ) > 0 && length>0) {
-                if (nChar>length) nChar=length;
-                XXH_errorcode const updateResult = XXH3_64bits_update(state, buf, nChar);
-                if (updateResult == XXH_ERROR) {
-                    error("Error in `XXH3_64bits_update()`"); 		/* #nocov */
-                }
-                length -= nChar;
-            }
-        } else {
-            while ( ( nChar = fread( buf, 1, sizeof( buf ), fp ) ) > 0) {
-                XXH_errorcode const updateResult = XXH3_64bits_update(state, buf, nChar);
-                if (updateResult == XXH_ERROR) {
-                    error("Error in `XXH3_64bit_update()`"); 		/* #nocov */
-                }
-            }
-        }
+        if (XXH3_64bits_reset(state) == XXH_ERROR) error("Error in `XXH3_reset()`"); /* #nocov */
+        FILEHASH(if (XXH3_64bits_update(state, buf, nChar)) error("Error in `XXH3_64bits_update()`"));
         XXH64_hash_t val =  XXH3_64bits_digest(state);
         XXH3_freeState(state);
 
-        _store_from_int64(val, output, leaveRaw);
-        break;
+        return _store_from_int64_alt(val, leaveRaw);
     }
     case 113: {     /* xxh3_128 */
         unsigned char buf[BUF_SIZE];
         XXH3_state_t* const state = XXH3_createState();
-        output_length = 16;
-        if (skip > 0) fseek(fp, skip, SEEK_SET);
 
-        XXH_errorcode const resetResult = XXH3_128bits_reset(state);
-        if (resetResult == XXH_ERROR) {
-            error("Error in `XXH3_reset()`"); 				/* #nocov */
-        }
-        if (length>=0) {
-            while ( ( nChar = fread( buf, 1, sizeof( buf ), fp ) ) > 0 && length>0) {
-                if (nChar>length) nChar=length;
-                XXH_errorcode const updateResult = XXH3_128bits_update(state, buf, nChar);
-                if (updateResult == XXH_ERROR) {
-                    error("Error in `XXH3_128bits_update()`"); 		/* #nocov */
-                }
-                length -= nChar;
-            }
-        } else {
-            while ( ( nChar = fread( buf, 1, sizeof( buf ), fp ) ) > 0) {
-                XXH_errorcode const updateResult = XXH3_128bits_update(state, buf, nChar);
-                if (updateResult == XXH_ERROR) {
-                    error("Error in `XXH3_128bit_update()`"); 		/* #nocov */
-                }
-            }
-        }
+        if (XXH3_128bits_reset(state) == XXH_ERROR) error("Error in `XXH3_reset()`"); /* #nocov */
+        FILEHASH(if (XXH3_128bits_update(state, buf, nChar)) error("Error in `XXH3_128bits_update()`"));
         XXH128_hash_t val =  XXH3_128bits_digest(state);
         XXH3_freeState(state);
 
-        // need something a bit fancier here
-        if (leaveRaw) {
-            rev_memcpy(output, &val.high64, 8);
-            rev_memcpy(output + 8, &val.low64, 8);
-        } else {
-            snprintf(output, 128, "%016" PRIx64 "%016" PRIx64, val.high64, val.low64);
-        }
-        break;
+        return _store_from_2xint64_alt(val.low64, val.high64, leaveRaw);
     }
 
     default: {
@@ -654,20 +535,6 @@ SEXP digest(SEXP Txt, SEXP Algo, SEXP Length, SEXP Skip, SEXP Leave_raw, SEXP Se
     }
     } /* end switch */
 
-    if (algo >= 100 && fp) {
-        fclose(fp);
-    }
-
-    if (leaveRaw) {
-        PROTECT(result=allocVector(RAWSXP, output_length));
-        memcpy(RAW(result), output, output_length);
-    } else {
-        PROTECT(result=allocVector(STRSXP, 1));
-        SET_STRING_ELT(result, 0, mkChar(output));
-    }
-    UNPROTECT(1);
-
-    return result;
 }
 
 
