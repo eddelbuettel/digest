@@ -191,7 +191,8 @@ SEXP _store_from_2xint64(const uint64_t hashlo, const uint64_t hashhi, const int
     return result;
 }
 
-#define FILEHASH(WHAT) if (length >= 0) { \
+#define FILEHASH(WHAT) unsigned char buf[BUF_SIZE]; \
+if (length >= 0) { \
     while ( ( nChar = fread( buf, 1, sizeof( buf ), fp ) ) > 0 && length > 0) { \
         if (nChar > length) nChar = length; \
         WHAT; \
@@ -356,7 +357,6 @@ SEXP digest(SEXP Txt, SEXP Algo, SEXP Length, SEXP Skip, SEXP Leave_raw, SEXP Se
     case 101: {     /* md5 file case */
         md5_context ctx;
         output_length = 16;
-        unsigned char buf[BUF_SIZE];
         unsigned char md5sum[output_length];
 
         md5_starts( &ctx );
@@ -368,7 +368,6 @@ SEXP digest(SEXP Txt, SEXP Algo, SEXP Length, SEXP Skip, SEXP Leave_raw, SEXP Se
     case 102: {     /* sha1 file case */
         sha1_context ctx;
         output_length = 20;
-        unsigned char buf[BUF_SIZE];
         unsigned char sha1sum[output_length];
 
         sha1_starts ( &ctx );
@@ -378,7 +377,6 @@ SEXP digest(SEXP Txt, SEXP Algo, SEXP Length, SEXP Skip, SEXP Leave_raw, SEXP Se
         return _store_from_char_ptr(sha1sum, output_length, leaveRaw);
     }
     case 103: {     /* crc32 file case */
-        unsigned char buf[BUF_SIZE];
         unsigned long val;
 
         val  = digest_crc32(0L, 0, 0);
@@ -389,7 +387,6 @@ SEXP digest(SEXP Txt, SEXP Algo, SEXP Length, SEXP Skip, SEXP Leave_raw, SEXP Se
     case 104: {     /* sha256 file case */
         sha256_context ctx;
         output_length = 32;
-        unsigned char buf[BUF_SIZE];
         unsigned char sha256sum[output_length];
 
         sha256_starts ( &ctx );
@@ -402,7 +399,6 @@ SEXP digest(SEXP Txt, SEXP Algo, SEXP Length, SEXP Skip, SEXP Leave_raw, SEXP Se
         SHA512_CTX ctx;
         output_length = SHA512_DIGEST_LENGTH;
         uint8_t sha512sum[output_length];
-        unsigned char buf[BUF_SIZE];
 
         SHA512_Init(&ctx);
         FILEHASH(SHA512_Update(&ctx, buf, nChar));
@@ -413,7 +409,6 @@ SEXP digest(SEXP Txt, SEXP Algo, SEXP Length, SEXP Skip, SEXP Leave_raw, SEXP Se
         return _store_from_char_ptr(sha512sum, output_length, leaveRaw);
     }
     case 106: {     /* xxhash32 */
-        unsigned char buf[BUF_SIZE];
         XXH32_state_t* const state = XXH32_createState();
 
         if (XXH32_reset(state, seed) == XXH_ERROR) error("Error in `XXH32_reset()`"); /* #nocov */
@@ -424,7 +419,6 @@ SEXP digest(SEXP Txt, SEXP Algo, SEXP Length, SEXP Skip, SEXP Leave_raw, SEXP Se
         return _store_from_int32(val, leaveRaw);
     }
     case 107: {     /* xxhash64 */
-        unsigned char buf[BUF_SIZE];
         XXH64_state_t* const state = XXH64_createState();
 
         if (XXH64_reset(state, seed) == XXH_ERROR) error("Error in `XXH64_reset()`"); 				/* #nocov */
@@ -436,7 +430,6 @@ SEXP digest(SEXP Txt, SEXP Algo, SEXP Length, SEXP Skip, SEXP Leave_raw, SEXP Se
     }
     case 108: {     /* murmur32 */
         unsigned int h1 = seed, carry = 0;
-        unsigned char buf[BUF_SIZE];
         size_t total_length = 0;
 
         FILEHASH(PMurHash32_Process(&h1, &carry, buf, nChar); total_length += nChar);
@@ -446,7 +439,6 @@ SEXP digest(SEXP Txt, SEXP Algo, SEXP Length, SEXP Skip, SEXP Leave_raw, SEXP Se
     }
     case 110: {     /* blake3 file case */
         output_length = BLAKE3_OUT_LEN;
-        unsigned char buf[BUF_SIZE];
         uint8_t val[BLAKE3_OUT_LEN];
         blake3_hasher hasher;
 
@@ -457,7 +449,6 @@ SEXP digest(SEXP Txt, SEXP Algo, SEXP Length, SEXP Skip, SEXP Leave_raw, SEXP Se
         return _store_from_char_ptr(val, output_length, leaveRaw);
     }
     case 111: {		/* crc32c */
-        unsigned char buf[BUF_SIZE];
         uint32_t crc = 0;
 
         FILEHASH(crc = crc32c_extend(crc, (const uint8_t*) buf, (size_t) nChar));
@@ -465,7 +456,6 @@ SEXP digest(SEXP Txt, SEXP Algo, SEXP Length, SEXP Skip, SEXP Leave_raw, SEXP Se
         return _store_from_int32(crc, leaveRaw);
     }
     case 112: {     /* xxh3_64 */
-        unsigned char buf[BUF_SIZE];
         XXH3_state_t* const state = XXH3_createState();
 
         if (XXH3_64bits_reset(state) == XXH_ERROR) error("Error in `XXH3_reset()`"); /* #nocov */
@@ -476,7 +466,6 @@ SEXP digest(SEXP Txt, SEXP Algo, SEXP Length, SEXP Skip, SEXP Leave_raw, SEXP Se
         return _store_from_int64(val, leaveRaw);
     }
     case 113: {     /* xxh3_128 */
-        unsigned char buf[BUF_SIZE];
         XXH3_state_t* const state = XXH3_createState();
 
         if (XXH3_128bits_reset(state) == XXH_ERROR) error("Error in `XXH3_reset()`"); /* #nocov */
