@@ -107,32 +107,7 @@ SEXP is_little_endian(void) {
 #endif
 
 // USESHA512 seems maybe faster? however, more complex, not obviously faster
-void _store_from_char_ptr(const unsigned char * hash, unsigned char * const output,
-                          const size_t output_length, const int leaveRaw) {
-    if (leaveRaw) {
-        memcpy(output, hash, output_length);
-    } else {
-#if USESHA512
-        unsigned char *outputp = output;
-        unsigned const char *d = hash;
-#endif
-        for (int j = 0; j < output_length; j++) {
-#if USESHA512
-            *outputp++ = sha2_hex_digits[(*d & 0xf0) >> 4];
-            *outputp++ = sha2_hex_digits[*d & 0x0f];
-            d++;
-#else
-            // a char = 2 hex digits => to (0-9A-F)-charset = writing 2 spots
-            snprintf(output + j * 2, 3, "%02x", hash[j]);
-#endif
-        }
-#if USESHA512
-        *outputp = (char)0;
-#endif
-    }
-}
-
-SEXP _store_from_char_ptr_alt(const unsigned char * hash,
+SEXP _store_from_char_ptr(const unsigned char * hash,
                               const size_t output_length, const int leaveRaw) {
     SEXP result = R_NilValue;
     if (leaveRaw) {
@@ -170,13 +145,7 @@ void rev_memcpy(char *dst, const void *src, int len) {
 }
 
 // n.b. ripe templating to e.g. _store_from_integral<> if switching to c++
-void _store_from_int32(const uint32_t hash, char *output, const int leaveRaw) {
-    if (leaveRaw) {
-        rev_memcpy(output, &hash, sizeof(uint32_t));
-    } else snprintf(output, sizeof(uint32_t)*2 + 1, "%08x", hash);
-}
-
-SEXP _store_from_int32_alt(const uint32_t hash, const int leaveRaw) {
+SEXP _store_from_int32(const uint32_t hash, const int leaveRaw) {
     SEXP result = R_NilValue; int output_length = sizeof(uint32_t);
     if (leaveRaw) {
         PROTECT(result = allocVector(RAWSXP, output_length));
@@ -191,7 +160,7 @@ SEXP _store_from_int32_alt(const uint32_t hash, const int leaveRaw) {
     return result;
 }
 
-SEXP _store_from_int64_alt(const uint64_t hash, const int leaveRaw) {
+SEXP _store_from_int64(const uint64_t hash, const int leaveRaw) {
     SEXP result = R_NilValue; int output_length = sizeof(uint64_t);
     if (leaveRaw) {
         PROTECT(result = allocVector(RAWSXP, output_length));
@@ -206,7 +175,7 @@ SEXP _store_from_int64_alt(const uint64_t hash, const int leaveRaw) {
     return result;
 }
 
-SEXP _store_from_2xint64_alt(const uint64_t hashlo, const uint64_t hashhi, const int leaveRaw) {
+SEXP _store_from_2xint64(const uint64_t hashlo, const uint64_t hashhi, const int leaveRaw) {
     SEXP result = R_NilValue; int output_length = 2*sizeof(uint64_t);
     if (leaveRaw) {
         PROTECT(result = allocVector(RAWSXP, output_length));
@@ -220,12 +189,6 @@ SEXP _store_from_2xint64_alt(const uint64_t hashlo, const uint64_t hashhi, const
     }
     UNPROTECT(1);
     return result;
-}
-
-void _store_from_int64(const uint64_t hash, char *output, const int leaveRaw) {
-    if (leaveRaw) {
-        rev_memcpy(output, &hash, sizeof(uint64_t));
-    } else snprintf(output, sizeof(uint64_t)*2 + 1, "%016" PRIx64, hash);
 }
 
 #define FILEHASH(WHAT) if (length >= 0) { \
@@ -250,13 +213,7 @@ SEXP digest(SEXP Txt, SEXP Algo, SEXP Length, SEXP Skip, SEXP Leave_raw, SEXP Se
     int skip = INTEGER_VALUE(Skip);
     int seed = INTEGER_VALUE(Seed);
     int leaveRaw = INTEGER_VALUE(Leave_raw);
-    SEXP result = R_NilValue;
     
-    /* using char[] for either raw or character output */
-    /* for raw output, get 8 bits / 1 byte out of each entry */
-    /* for character output, get 4 bits out of each entry */
-    /* 33 for md5, 41 for sha1, 65 for sha256, 128 for sha512; plus trailing NULL */
-    char output[128+1];
     R_xlen_t nChar;
     int output_length = -1;
     if (IS_RAW(Txt)) { /* Txt is either RAW */
@@ -301,7 +258,7 @@ SEXP digest(SEXP Txt, SEXP Algo, SEXP Length, SEXP Skip, SEXP Leave_raw, SEXP Se
         md5_update( &ctx, txt, nChar);
         md5_finish( &ctx, md5sum );
 
-        return _store_from_char_ptr_alt(md5sum, output_length, leaveRaw);
+        return _store_from_char_ptr(md5sum, output_length, leaveRaw);
     }
     case 2: {     /* sha1 case */
         sha1_context ctx;
@@ -312,7 +269,7 @@ SEXP digest(SEXP Txt, SEXP Algo, SEXP Length, SEXP Skip, SEXP Leave_raw, SEXP Se
         sha1_update( &ctx, txt, nChar);
         sha1_finish( &ctx, sha1sum );
 
-        return _store_from_char_ptr_alt(sha1sum, output_length, leaveRaw);
+        return _store_from_char_ptr(sha1sum, output_length, leaveRaw);
     }
     case 3: {     /* crc32 case */
         unsigned long val;
@@ -322,7 +279,7 @@ SEXP digest(SEXP Txt, SEXP Algo, SEXP Length, SEXP Skip, SEXP Leave_raw, SEXP Se
         val  = digest_crc32(0L, 0, 0);
         val  = digest_crc32(val, txt, l);
 
-        return _store_from_int32_alt(val, leaveRaw);
+        return _store_from_int32(val, leaveRaw);
     }
     case 4: {     /* sha256 case */
         sha256_context ctx;
@@ -333,7 +290,7 @@ SEXP digest(SEXP Txt, SEXP Algo, SEXP Length, SEXP Skip, SEXP Leave_raw, SEXP Se
         sha256_update( &ctx, txt, nChar);
         sha256_finish( &ctx, sha256sum );
 
-        return _store_from_char_ptr_alt(sha256sum, output_length, leaveRaw);
+        return _store_from_char_ptr(sha256sum, output_length, leaveRaw);
     }
     case 5: {     /* sha2-512 case */
         SHA512_CTX ctx;
@@ -346,25 +303,25 @@ SEXP digest(SEXP Txt, SEXP Algo, SEXP Length, SEXP Skip, SEXP Leave_raw, SEXP Se
            convert the hash to a string, and we also want RAW */
         SHA512_Final(sha512sum, &ctx);
 
-        return _store_from_char_ptr_alt(sha512sum, output_length, leaveRaw);
+        return _store_from_char_ptr(sha512sum, output_length, leaveRaw);
     }
     case 6: {     /* xxhash32 case */
 
         XXH32_hash_t val = XXH32(txt, nChar, seed);
 
-        return _store_from_int32_alt(val, leaveRaw);
+        return _store_from_int32(val, leaveRaw);
     }
     case 7: {     /* xxhash64 case */
 
         XXH64_hash_t val = XXH64(txt, nChar, seed);
         
-        return _store_from_int64_alt(val, leaveRaw);
+        return _store_from_int64(val, leaveRaw);
     }
     case 8: {     /* MurmurHash3 32 */
 
         unsigned int val = PMurHash32(seed, txt, nChar);
 
-        return _store_from_int32_alt(val, leaveRaw);
+        return _store_from_int32(val, leaveRaw);
     }
     case 10: {     /* blake3 */
         output_length = BLAKE3_OUT_LEN;
@@ -375,26 +332,26 @@ SEXP digest(SEXP Txt, SEXP Algo, SEXP Length, SEXP Skip, SEXP Leave_raw, SEXP Se
         blake3_hasher_update(&hasher, txt, nChar);
         blake3_hasher_finalize(&hasher, val, output_length);
 
-        return _store_from_char_ptr_alt(val, output_length, leaveRaw);
+        return _store_from_char_ptr(val, output_length, leaveRaw);
     }
     case 11: {		/* crc32c */
 
         uint32_t crc = 0;       /* initial value, can be zero */
         crc = crc32c_extend(crc, (const uint8_t*) txt, (size_t) nChar);
 
-        return _store_from_int32_alt(crc, leaveRaw);
+        return _store_from_int32(crc, leaveRaw);
     }
     case 12: {		/* xxh3_64bits */
 
         XXH64_hash_t val = XXH3_64bits_withSeed(txt, nChar, seed);
 
-        return _store_from_int64_alt(val, leaveRaw);
+        return _store_from_int64(val, leaveRaw);
     }
     case 13: {		/* xxh3_128bits */
 
         XXH128_hash_t val =  XXH3_128bits_withSeed(txt, nChar, seed);
 
-        return _store_from_2xint64_alt(val.low64, val.high64, leaveRaw);
+        return _store_from_2xint64(val.low64, val.high64, leaveRaw);
     }
     case 101: {     /* md5 file case */
         md5_context ctx;
@@ -406,7 +363,7 @@ SEXP digest(SEXP Txt, SEXP Algo, SEXP Length, SEXP Skip, SEXP Leave_raw, SEXP Se
         FILEHASH(md5_update( &ctx, buf, nChar ));
         md5_finish( &ctx, md5sum );
 
-        return _store_from_char_ptr_alt(md5sum, output_length, leaveRaw);
+        return _store_from_char_ptr(md5sum, output_length, leaveRaw);
     }
     case 102: {     /* sha1 file case */
         sha1_context ctx;
@@ -418,7 +375,7 @@ SEXP digest(SEXP Txt, SEXP Algo, SEXP Length, SEXP Skip, SEXP Leave_raw, SEXP Se
         FILEHASH(sha1_update( &ctx, buf, nChar ));
         sha1_finish ( &ctx, sha1sum );
 
-        return _store_from_char_ptr_alt(sha1sum, output_length, leaveRaw);
+        return _store_from_char_ptr(sha1sum, output_length, leaveRaw);
     }
     case 103: {     /* crc32 file case */
         unsigned char buf[BUF_SIZE];
@@ -427,7 +384,7 @@ SEXP digest(SEXP Txt, SEXP Algo, SEXP Length, SEXP Skip, SEXP Leave_raw, SEXP Se
         val  = digest_crc32(0L, 0, 0);
         FILEHASH(val = digest_crc32(val, buf, nChar));
 
-        return _store_from_int32_alt(val, leaveRaw);
+        return _store_from_int32(val, leaveRaw);
     }
     case 104: {     /* sha256 file case */
         sha256_context ctx;
@@ -439,7 +396,7 @@ SEXP digest(SEXP Txt, SEXP Algo, SEXP Length, SEXP Skip, SEXP Leave_raw, SEXP Se
         FILEHASH(sha256_update( &ctx, buf, nChar));
         sha256_finish ( &ctx, sha256sum );
 
-        return _store_from_char_ptr_alt(sha256sum, output_length, leaveRaw);
+        return _store_from_char_ptr(sha256sum, output_length, leaveRaw);
     }
     case 105: {     /* sha2-512 file case */
         SHA512_CTX ctx;
@@ -453,7 +410,7 @@ SEXP digest(SEXP Txt, SEXP Algo, SEXP Length, SEXP Skip, SEXP Leave_raw, SEXP Se
 		   convert the hash to a string, and we also want RAW */
 		SHA512_Final(sha512sum, &ctx);
     
-        return _store_from_char_ptr_alt(sha512sum, output_length, leaveRaw);
+        return _store_from_char_ptr(sha512sum, output_length, leaveRaw);
     }
     case 106: {     /* xxhash32 */
         unsigned char buf[BUF_SIZE];
@@ -464,7 +421,7 @@ SEXP digest(SEXP Txt, SEXP Algo, SEXP Length, SEXP Skip, SEXP Leave_raw, SEXP Se
         XXH32_hash_t val =  XXH32_digest(state);
         XXH32_freeState(state);
 
-        return _store_from_int32_alt(val, leaveRaw);
+        return _store_from_int32(val, leaveRaw);
     }
     case 107: {     /* xxhash64 */
         unsigned char buf[BUF_SIZE];
@@ -475,7 +432,7 @@ SEXP digest(SEXP Txt, SEXP Algo, SEXP Length, SEXP Skip, SEXP Leave_raw, SEXP Se
         XXH64_hash_t val =  XXH64_digest(state);
         XXH64_freeState(state);
         
-        return _store_from_int64_alt(val, leaveRaw);
+        return _store_from_int64(val, leaveRaw);
     }
     case 108: {     /* murmur32 */
         unsigned int h1 = seed, carry = 0;
@@ -485,7 +442,7 @@ SEXP digest(SEXP Txt, SEXP Algo, SEXP Length, SEXP Skip, SEXP Leave_raw, SEXP Se
         FILEHASH(PMurHash32_Process(&h1, &carry, buf, nChar); total_length += nChar);
         unsigned int val = PMurHash32_Result(h1, carry, total_length);
 
-        return _store_from_int32_alt(val, leaveRaw);
+        return _store_from_int32(val, leaveRaw);
     }
     case 110: {     /* blake3 file case */
         output_length = BLAKE3_OUT_LEN;
@@ -497,7 +454,7 @@ SEXP digest(SEXP Txt, SEXP Algo, SEXP Length, SEXP Skip, SEXP Leave_raw, SEXP Se
         FILEHASH(blake3_hasher_update(&hasher, buf, nChar));
         blake3_hasher_finalize(&hasher, val, BLAKE3_OUT_LEN);
         
-        return _store_from_char_ptr_alt(val, output_length, leaveRaw);
+        return _store_from_char_ptr(val, output_length, leaveRaw);
     }
     case 111: {		/* crc32c */
         unsigned char buf[BUF_SIZE];
@@ -505,7 +462,7 @@ SEXP digest(SEXP Txt, SEXP Algo, SEXP Length, SEXP Skip, SEXP Leave_raw, SEXP Se
 
         FILEHASH(crc = crc32c_extend(crc, (const uint8_t*) buf, (size_t) nChar));
 
-        return _store_from_int32_alt(crc, leaveRaw);
+        return _store_from_int32(crc, leaveRaw);
     }
     case 112: {     /* xxh3_64 */
         unsigned char buf[BUF_SIZE];
@@ -516,7 +473,7 @@ SEXP digest(SEXP Txt, SEXP Algo, SEXP Length, SEXP Skip, SEXP Leave_raw, SEXP Se
         XXH64_hash_t val =  XXH3_64bits_digest(state);
         XXH3_freeState(state);
 
-        return _store_from_int64_alt(val, leaveRaw);
+        return _store_from_int64(val, leaveRaw);
     }
     case 113: {     /* xxh3_128 */
         unsigned char buf[BUF_SIZE];
@@ -527,7 +484,7 @@ SEXP digest(SEXP Txt, SEXP Algo, SEXP Length, SEXP Skip, SEXP Leave_raw, SEXP Se
         XXH128_hash_t val =  XXH3_128bits_digest(state);
         XXH3_freeState(state);
 
-        return _store_from_2xint64_alt(val.low64, val.high64, leaveRaw);
+        return _store_from_2xint64(val.low64, val.high64, leaveRaw);
     }
 
     default: {
