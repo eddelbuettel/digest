@@ -102,28 +102,35 @@ SEXP is_little_endian(void) {
     return Rf_ScalarLogical(BYTE_ORDER == LITTLE_ENDIAN);
 }
 
-/* for any algorithm that has output as unsigned char*, can use _store_from_char_ptr */
-void _store_from_char_ptr(
-    const unsigned char *hash, unsigned char *output,
-    const size_t output_length, const int leaveRaw
+#ifndef USESHA512
+#define USESHA512 0
+#endif
+
+// USESHA512 seems maybe faster? however, more complex, not obviously faster
+void _store_from_char_ptr(const unsigned char * hash, unsigned char * const output,
+                          const size_t output_length, const int leaveRaw
 ) {
     if (leaveRaw) {
         memcpy(output, hash, output_length);
-    } else for (int j = 0; j < output_length; j++) {
-// one char is 2 hex digits => converting to (0-9A-F)-chars == writing 2 spots
-        snprintf(output + j * 2, 3, "%02x", hash[j]);
+    } else {
+#if USESHA512
+        unsigned char *outputp = output;
+        unsigned const char *d = hash;
+#endif
+        for (int j = 0; j < output_length; j++) {
+#if USESHA512
+            *outputp++ = sha2_hex_digits[(*d & 0xf0) >> 4];
+            *outputp++ = sha2_hex_digits[*d & 0x0f];
+            d++;
+#else
+            snprintf(output + j * 2, 3, "%02x", hash[j]);
+#endif
+        }
+#if USESHA512
+        *outputp = (char)0;
+#endif
     }
 }
-
-// from SHA512
-// TODO test if this is faster; if so, use it for all:
-// char *outputp = output, *d = hash;
-// for (int j = 0; j < output_length; j++) {
-//     *outputp++ = sha2_hex_digits[(*d & 0xf0) >> 4];
-//     *outputp++ = sha2_hex_digits[*d & 0x0f];
-//     d++;
-// }
-// *outputp = (char)0;
 
 void rev_memcpy(char *dst, const void *src, int len) {
     for (int i = 0; i < len; i++) {
@@ -133,10 +140,7 @@ void rev_memcpy(char *dst, const void *src, int len) {
 
 // n.b. ripe templating if switching to c++
 
-void _store_from_int32(
-    const uint32_t hash, char *output,
-    const int leaveRaw
-) {
+void _store_from_int32(const uint32_t hash, char *output, const int leaveRaw) {
     if (leaveRaw) {
         rev_memcpy(output, &hash, sizeof(uint32_t));
     } else snprintf(output, sizeof(uint32_t)*2 + 1, "%08x", hash);
@@ -254,16 +258,7 @@ SEXP digest(SEXP Txt, SEXP Algo, SEXP Length, SEXP Skip, SEXP Leave_raw, SEXP Se
            convert the hash to a string, and we also want RAW */
         SHA512_Final(sha512sum, &ctx);
 
-        if (leaveRaw) {
-            memcpy(output, sha512sum, output_length);
-        } else { /* adapted from SHA512_End */
-            for (int j = 0; j < output_length; j++) {
-                *outputp++ = sha2_hex_digits[(*d & 0xf0) >> 4];
-                *outputp++ = sha2_hex_digits[*d & 0x0f];
-                d++;
-            }
-            *outputp = (char)0;
-        }
+        _store_from_char_ptr(sha512sum, output, output_length, leaveRaw);
         break;
     }
     case 6: {     /* xxhash32 case */
@@ -446,16 +441,7 @@ SEXP digest(SEXP Txt, SEXP Algo, SEXP Length, SEXP Skip, SEXP Leave_raw, SEXP Se
 		   convert the hash to a string, and we also want RAW */
 		SHA512_Final(sha512sum, &ctx);
     
-        if (leaveRaw) {
-            memcpy(output, sha512sum, output_length);
-        } else { /* adapted from SHA512_End */
-    	  	for (int j = 0; j < output_length; j++) {
-    		    *outputp++ = sha2_hex_digits[(*d & 0xf0) >> 4];
-    		    *outputp++ = sha2_hex_digits[*d & 0x0f];
-    		    d++;
-    		  }
-      		*outputp = (char)0;
-        }
+        _store_from_char_ptr(sha512sum, output, output_length, leaveRaw);
         break;
     }
     case 106: {     /* xxhash32 */
