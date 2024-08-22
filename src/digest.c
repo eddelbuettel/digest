@@ -108,8 +108,7 @@ SEXP is_little_endian(void) {
 
 // USESHA512 seems maybe faster? however, more complex, not obviously faster
 void _store_from_char_ptr(const unsigned char * hash, unsigned char * const output,
-                          const size_t output_length, const int leaveRaw
-) {
+                          const size_t output_length, const int leaveRaw) {
     if (leaveRaw) {
         memcpy(output, hash, output_length);
     } else {
