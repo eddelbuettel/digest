@@ -1,3 +1,12 @@
+2024-08-22  Dirk Eddelbuettel  <edd@debian.org>
+
+	* DESCRIPTION (Authors@R): Add two more ORCID IDs
+
+2024-08-22  Carl A. B. Pearson  <carl.ab.pearson@gmail.com>
+
+	* src/digest.c: switch output handling from macro to function;
+	consolidate stringification loop approaches
+
 2024-08-21  Dirk Eddelbuettel  <edd@debian.org>
 
 	* man/digest.Rd: Update \code{raw} entry
