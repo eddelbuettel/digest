@@ -50,11 +50,11 @@ unsigned long ZEXPORT digest_crc32(unsigned long crc,
 
 static const char *sha2_hex_digits = "0123456789abcdef";
 
-FILE* open_with_widechar_on_windows(const char* txt) {
+FILE* open_with_widechar_on_windows(const unsigned char* txt) {
     FILE* out;
 #ifdef _WIN32
     wchar_t* buf;
-    size_t len = MultiByteToWideChar(CP_UTF8, 0, txt, -1, NULL, 0);
+    size_t len = MultiByteToWideChar(CP_UTF8, 0, (char *)txt, -1, NULL, 0);
     if (len <= 0) {
         error("Cannot convert file to Unicode: %s", txt);
     }
@@ -63,10 +63,10 @@ FILE* open_with_widechar_on_windows(const char* txt) {
         error("Could not allocate buffer of size: %llu", len);
     }
 
-    MultiByteToWideChar(CP_UTF8, 0, txt, -1, buf, len);
+    MultiByteToWideChar(CP_UTF8, 0, (char *)txt, -1, buf, len);
     out = _wfopen(buf, L"rb");
 #else
-    out = fopen(txt, "rb");
+    out = fopen((char *)txt, "rb");
 #endif
 
     return out;
@@ -107,13 +107,13 @@ SEXP is_little_endian(void) {
 #endif
 
 // USESHA512 seems maybe faster? however, more complex, not obviously faster
-void _store_from_char_ptr(const unsigned char * hash, unsigned char * const output,
+void _store_from_char_ptr(const unsigned char * hash, char * const output,
                           const size_t output_length, const int leaveRaw) {
     if (leaveRaw) {
         memcpy(output, hash, output_length);
     } else {
 #if USESHA512
-        unsigned char *outputp = output;
+        char *outputp = output;
         unsigned const char *d = hash;
 #endif
         for (int j = 0; j < output_length; j++) {
@@ -154,7 +154,7 @@ void _store_from_int64(const uint64_t hash, char *output, const int leaveRaw) {
 SEXP digest(SEXP Txt, SEXP Algo, SEXP Length, SEXP Skip, SEXP Leave_raw, SEXP Seed) {
     size_t BUF_SIZE = 1024;
     FILE *fp=0;
-    char *txt;
+    unsigned char *txt;
     int algo = INTEGER_VALUE(Algo);
     int length = INTEGER_VALUE(Length);
     int skip = INTEGER_VALUE(Skip);
@@ -169,15 +169,15 @@ SEXP digest(SEXP Txt, SEXP Algo, SEXP Length, SEXP Skip, SEXP Leave_raw, SEXP Se
     R_xlen_t nChar;
     int output_length = -1;
     if (IS_RAW(Txt)) { /* Txt is either RAW */
-        txt = (char*) RAW(Txt);
+        txt = (unsigned char*) RAW(Txt);
 #if defined(R_VERSION) && R_VERSION >= R_Version(3,0,0)
         nChar = XLENGTH(Txt);
 #else
         nChar = LENGTH(Txt);
 #endif
     } else { /* or a string */
-        txt = (char*) STRING_VALUE(Txt);
-        nChar = strlen(txt);
+        txt = (unsigned char*) STRING_VALUE(Txt);
+        nChar = strlen((char *)txt);
 
         if (algo >= 100) {
             fp = open_with_widechar_on_windows(txt);
