@@ -104,6 +104,10 @@ SEXP is_little_endian(void) {
 #define USESHA512 0
 #endif
 
+#if USESHA512
+static const char *sha2_hex_digits = "0123456789abcdef";
+#endif
+
 // USESHA512 seems maybe faster? however, more complex, not obviously faster
 void _store_from_char_ptr(const unsigned char * hash, char * const output,
                           const size_t output_length, const int leaveRaw) {
@@ -159,7 +163,7 @@ SEXP digest(SEXP Txt, SEXP Algo, SEXP Length, SEXP Skip, SEXP Leave_raw, SEXP Se
     int seed = INTEGER_VALUE(Seed);
     int leaveRaw = INTEGER_VALUE(Leave_raw);
     SEXP result = R_NilValue;
-    
+
     /* use char[] for either raw or character output */
     /* for raw output, get 8 bits / 1 byte out of each entry */
     /* for character output, get 4 bits out of each entry */
@@ -268,7 +272,7 @@ SEXP digest(SEXP Txt, SEXP Algo, SEXP Length, SEXP Skip, SEXP Leave_raw, SEXP Se
         output_length = 8;
 
         XXH64_hash_t val = XXH64(txt, nChar, seed);
-        
+
         _store_from_int64(val, output, leaveRaw);
         break;
     }
@@ -435,7 +439,7 @@ SEXP digest(SEXP Txt, SEXP Algo, SEXP Length, SEXP Skip, SEXP Leave_raw, SEXP Se
 		/* Calling SHA512_Final, because SHA512_End will already
 		   convert the hash to a string, and we also want RAW */
 		SHA512_Final(sha512sum, &ctx);
-    
+
         _store_from_char_ptr(sha512sum, output, output_length, leaveRaw);
         break;
     }
@@ -501,7 +505,7 @@ SEXP digest(SEXP Txt, SEXP Algo, SEXP Length, SEXP Skip, SEXP Leave_raw, SEXP Se
         }
         XXH64_hash_t val =  XXH64_digest(state);
         XXH64_freeState(state);
-        
+
         _store_from_int64(val, output, leaveRaw);
         break;
     }
@@ -550,7 +554,7 @@ SEXP digest(SEXP Txt, SEXP Algo, SEXP Length, SEXP Skip, SEXP Leave_raw, SEXP Se
                 blake3_hasher_update( &hasher, buf, nChar );
         }
         blake3_hasher_finalize(&hasher, val, BLAKE3_OUT_LEN);
-        
+
         _store_from_char_ptr(val, output, output_length, leaveRaw);
         break;
     }
