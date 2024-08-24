@@ -1,3 +1,11 @@
+2024-08-24  Dirk Eddelbuettel  <edd@debian.org>
+
+	* src/digest.c (digest): Remove unused variables
+
+2024-08-24  Carl A. B. Pearson  <carl.ab.pearson@gmail.com>
+
+	* src/digest.c (digest): Address signedness warnings
+
 2024-08-22  Dirk Eddelbuettel  <edd@debian.org>
 
 	* DESCRIPTION (Authors@R): Add two more ORCID IDs

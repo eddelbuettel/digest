@@ -48,8 +48,6 @@ unsigned long ZEXPORT digest_crc32(unsigned long crc,
                                    const unsigned char FAR *buf,
                                    unsigned len);
 
-static const char *sha2_hex_digits = "0123456789abcdef";
-
 FILE* open_with_widechar_on_windows(const unsigned char* txt) {
     FILE* out;
 #ifdef _WIN32
@@ -165,7 +163,7 @@ SEXP digest(SEXP Txt, SEXP Algo, SEXP Length, SEXP Skip, SEXP Leave_raw, SEXP Se
     /* use char[] for either raw or character output */
     /* for raw output, get 8 bits / 1 byte out of each entry */
     /* for character output, get 4 bits out of each entry */
-    char output[128+1], *outputp = output;    /* 33 for md5, 41 for sha1, 65 for sha256, 128 for sha512; plus trailing NULL */
+    char output[128+1];    /* 33 for md5, 41 for sha1, 65 for sha256, 128 for sha512; plus trailing NULL */
     R_xlen_t nChar;
     int output_length = -1;
     if (IS_RAW(Txt)) { /* Txt is either RAW */
@@ -247,7 +245,7 @@ SEXP digest(SEXP Txt, SEXP Algo, SEXP Length, SEXP Skip, SEXP Leave_raw, SEXP Se
     case 5: {     /* sha2-512 case */
         SHA512_CTX ctx;
         output_length = SHA512_DIGEST_LENGTH;
-        unsigned char sha512sum[output_length], *d = sha512sum;
+        unsigned char sha512sum[output_length];
 
         SHA512_Init(&ctx);
         SHA512_Update(&ctx, txt, nChar);
@@ -419,7 +417,7 @@ SEXP digest(SEXP Txt, SEXP Algo, SEXP Length, SEXP Skip, SEXP Leave_raw, SEXP Se
     case 105: {     /* sha2-512 file case */
         SHA512_CTX ctx;
         output_length = SHA512_DIGEST_LENGTH;
-        uint8_t sha512sum[output_length], *d = sha512sum;
+        uint8_t sha512sum[output_length];
         unsigned char buf[BUF_SIZE];
         if (skip > 0) fseek(fp, skip, SEEK_SET);
 
