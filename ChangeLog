@@ -1,3 +1,8 @@
+2024-08-26  Carl A. B. Pearson  <carl.ab.pearson@gmail.com>
+
+	* R/digest.R (digest): change algo arg checking to reduce run time
+	* R/vdigest.R (getVDigest): change algo arg checking to reduce run time
+
 2024-08-24  Dirk Eddelbuettel  <edd@debian.org>
 
 	* src/digest.c (digest): Remove unused variables
