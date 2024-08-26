@@ -53,7 +53,7 @@ digest <- function(object, algo=c("md5", "sha1", "crc32", "sha256", "sha512",
         file <- TRUE                  	# nocov
     }
 
-    is_streaming_algo <- algoint == 9L
+    is_streaming_algo <- algo[1] == "spookyhash"
 
     if (is_streaming_algo && !serialize) {
         return(.errorhandler(paste0(algo[1], " algorithm is not available without serialization."),  # #nocov
@@ -110,7 +110,7 @@ digest <- function(object, algo=c("md5", "sha1", "crc32", "sha256", "sha512",
                      as.integer(skip),
                      as.integer(raw),
                      as.integer(seed))
-    } else if (algoint == 9L){
+    } else if (algo[1] == "spookyhash") {
         # 0s are the seeds. They are included to enable testing against fastdigest.
         val <- paste(.Call(spookydigest_impl, object, skip, 0, 0, serializeVersion, NULL), collapse="")
     }
