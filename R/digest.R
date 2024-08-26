@@ -37,12 +37,11 @@ digest <- function(object, algo=c("md5", "sha1", "crc32", "sha256", "sha512",
                    errormode=c("stop","warn","silent"),
                    serializeVersion=.getSerializeVersion()) {
 
-    algo <- algo[1]
-    algoint <- algo_int[[algo]]
+    algoint <- algo_int[[algo[1]]]
     errormode <- match.arg(errormode, c("stop", "warn", "silent"))
 
     if (is.null(algoint)) {
-        return(.errorhandler(paste0("Did not understand algo=", algo), mode=errormode))  # #nocov
+        return(.errorhandler(paste0("Did not understand algo=", algo[1]), mode=errormode))  # #nocov
     }
     
     if (is.infinite(length)) {
@@ -54,10 +53,10 @@ digest <- function(object, algo=c("md5", "sha1", "crc32", "sha256", "sha512",
         file <- TRUE                  	# nocov
     }
 
-    is_streaming_algo <- algo == "spookyhash"
+    is_streaming_algo <- algoint == 9L
 
     if (is_streaming_algo && !serialize) {
-        return(.errorhandler(paste0(algo, " algorithm is not available without serialization."),  # #nocov
+        return(.errorhandler(paste0(algo[1], " algorithm is not available without serialization."),  # #nocov
                       mode=errormode))                                                      # #nocov
     }
 
@@ -87,7 +86,7 @@ digest <- function(object, algo=c("md5", "sha1", "crc32", "sha256", "sha512",
                              mode=errormode))                                               # #nocov
 
     if (file && is_streaming_algo)
-        return(.errorhandler(paste0(algo, " algorithm can not be used with files."),        # #nocov
+        return(.errorhandler(paste0(algo[1], " algorithm can not be used with files."),        # #nocov
                              mode=errormode))                                               # #nocov
 
     ## HB 14 Mar 2007:  null op, only turned to char if alreadt char
@@ -111,7 +110,7 @@ digest <- function(object, algo=c("md5", "sha1", "crc32", "sha256", "sha512",
                      as.integer(skip),
                      as.integer(raw),
                      as.integer(seed))
-    } else if (algo == "spookyhash"){
+    } else if (algoint == 9L){
         # 0s are the seeds. They are included to enable testing against fastdigest.
         val <- paste(.Call(spookydigest_impl, object, skip, 0, 0, serializeVersion, NULL), collapse="")
     }
