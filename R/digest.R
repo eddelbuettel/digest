@@ -37,14 +37,14 @@ digest <- function(object, algo=c("md5", "sha1", "crc32", "sha256", "sha512",
                    errormode=c("stop","warn","silent"),
                    serializeVersion=.getSerializeVersion()) {
 
-    # Explicitly specify choices; this is much faster than having match.arg()
-    # infer them from the function's formals.
-    algo <- match.arg(algo, c("md5", "sha1", "crc32", "sha256", "sha512",
-                              "xxhash32", "xxhash64", "murmur32",
-                              "spookyhash", "blake3", "crc32c",
-                              "xxh3_64", "xxh3_128"))
+    algo <- algo[1]
+    algoint <- algo_int[[algo]]
     errormode <- match.arg(errormode, c("stop", "warn", "silent"))
 
+    if (is.null(algoint)) {
+        return(.errorhandler(paste0("Did not understand algo=", algo), mode=errormode))  # #nocov
+    }
+    
     if (is.infinite(length)) {
         length <- -1               # internally we use -1 for infinite len
     }
@@ -57,8 +57,8 @@ digest <- function(object, algo=c("md5", "sha1", "crc32", "sha256", "sha512",
     is_streaming_algo <- algo == "spookyhash"
 
     if (is_streaming_algo && !serialize) {
-        .errorhandler(paste0(algo, " algorithm is not available without serialization."),  # #nocov
-                      mode=errormode)                                                      # #nocov
+        return(.errorhandler(paste0(algo, " algorithm is not available without serialization."),  # #nocov
+                      mode=errormode))                                                      # #nocov
     }
 
     if (serialize && !file) {
@@ -93,9 +93,8 @@ digest <- function(object, algo=c("md5", "sha1", "crc32", "sha256", "sha512",
     ## HB 14 Mar 2007:  null op, only turned to char if alreadt char
     ##if (!inherits(object,"raw"))
     ##  object <- as.character(object)
-    algoint <- algo_int(algo)
     if (file) {
-        algoint <- algoint+100
+        algoint <- algoint+100L
         object <- path.expand(object)
         if (.isWindows()) object <- enc2utf8(object)
         check_file(object, errormode)
@@ -107,7 +106,7 @@ digest <- function(object, algo=c("md5", "sha1", "crc32", "sha256", "sha512",
     if (!is_streaming_algo) {
         val <- .Call(digest_impl,
                      object,
-                     as.integer(algoint),
+                     algoint,
                      as.integer(length),
                      as.integer(skip),
                      as.integer(raw),
@@ -139,23 +138,21 @@ digest <- function(object, algo=c("md5", "sha1", "crc32", "sha256", "sha512",
     }
 }
 
-algo_int <- function(algo)
-    switch(
-        algo,
-        md5 = 1,
-        sha1 = 2,
-        crc32 = 3,
-        sha256 = 4,
-        sha512 = 5,
-        xxhash32 = 6,
-        xxhash64 = 7,
-        murmur32 = 8,
-        spookyhash = 9,
-        blake3 = 10,
-        crc32c = 11,
-        xxh3_64 = 12,
-        xxh3_128 = 13
-    )
+algo_int <- list(
+    md5 = 1L,
+    sha1 = 2L,
+    crc32 = 3L,
+    sha256 = 4L,
+    sha512 = 5L,
+    xxhash32 = 6L,
+    xxhash64 = 7L,
+    murmur32 = 8L,
+    spookyhash = 9L,
+    blake3 = 10L,
+    crc32c = 11L,
+    xxh3_64 = 12L,
+    xxh3_128 = 13L
+)
 
 ## HB 14 Mar 2007:
 ## Exclude serialization header (non-data dependent bytes but R
