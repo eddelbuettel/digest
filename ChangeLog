@@ -1,3 +1,8 @@
+2024-08-28  Carl A. B. Pearson  <carl.ab.pearson@gmail.com>
+
+	* R/digest.R (digest): parse errormode only if in error conditions
+	* R/vdigest.R (getVDigest): parse errormode only if in error conditions
+
 2024-08-24  Dirk Eddelbuettel  <edd@debian.org>
 
 	* src/digest.c (digest): Remove unused variables
