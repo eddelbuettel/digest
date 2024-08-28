@@ -43,7 +43,6 @@ digest <- function(object, algo=c("md5", "sha1", "crc32", "sha256", "sha512",
                               "xxhash32", "xxhash64", "murmur32",
                               "spookyhash", "blake3", "crc32c",
                               "xxh3_64", "xxh3_128"))
-    errormode <- match.arg(errormode, c("stop", "warn", "silent"))
 
     if (is.infinite(length)) {
         length <- -1               # internally we use -1 for infinite len
@@ -57,8 +56,8 @@ digest <- function(object, algo=c("md5", "sha1", "crc32", "sha256", "sha512",
     is_streaming_algo <- algo == "spookyhash"
 
     if (is_streaming_algo && !serialize) {
-        .errorhandler(paste0(algo, " algorithm is not available without serialization."),  # #nocov
-                      mode=errormode)                                                      # #nocov
+        return(.errorhandler(paste0(algo, " algorithm is not available without serialization."),  # #nocov
+                      mode=errormode))                                                      # #nocov
     }
 
     if (serialize && !file) {
@@ -129,6 +128,7 @@ digest <- function(object, algo=c("md5", "sha1", "crc32", "sha256", "sha512",
 ## utility functions used by digest() and  getVDigest() below
 
 .errorhandler <- function(txt, obj="", mode="stop") {
+    mode <- match.arg(mode, c("stop","warn","silent"))
     if (mode == "stop") {                                                                # nocov start
         stop(txt, obj, call.=FALSE)
     } else if (mode == "warn") {
