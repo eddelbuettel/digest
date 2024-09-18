@@ -21,15 +21,7 @@
 
 */
 
-#include <stdint.h> // for uint32_t
-#include <stdio.h>
-#include <string.h>
-#include <stdlib.h>
-#include <R.h>
-#include <Rdefines.h>
-#include <Rinternals.h>
-#include <Rversion.h>
-#include <inttypes.h>
+#include "digest.h"
 #include "sha1.h"
 #include "sha2.h"
 #include "sha256.h"
@@ -39,10 +31,6 @@
 #include "pmurhash.h"
 #include "blake3.h"
 #include "crc32c.h"
-
-#ifdef _WIN32
-#include <Windows.h>
-#endif
 
 unsigned long ZEXPORT digest_crc32(unsigned long crc,
                                    const unsigned char FAR *buf,
@@ -70,28 +58,6 @@ FILE* open_with_widechar_on_windows(const unsigned char* txt) {
     return out;
 }
 
-
-// Also already used in sha2.h
-//
-// We can rely on WORDS_BIGENDIAN only be defined on big endian systems thanks to Rconfig.
-//
-// A number of other #define based tests are in other source files here for different hash
-// algorithm implementations notably crc32c, pmurhash, sha2 and xxhash
-//
-// A small and elegant test is also in package qs based on https://stackoverflow.com/a/1001373
-
-// edd 02 Dec 2013  use Rconfig.h to define BYTE_ORDER, unless already defined
-#ifndef BYTE_ORDER
-// see sha2.c comments, and on the internet at large
-#define LITTLE_ENDIAN 1234
-#define BIG_ENDIAN    4321
-#ifdef WORDS_BIGENDIAN
-#define BYTE_ORDER  BIG_ENDIAN
-#else
-#define BYTE_ORDER  LITTLE_ENDIAN
-#endif
-#endif
-
 SEXP is_big_endian(void) {
     return Rf_ScalarLogical(BYTE_ORDER == BIG_ENDIAN);
 }
@@ -100,13 +66,30 @@ SEXP is_little_endian(void) {
     return Rf_ScalarLogical(BYTE_ORDER == LITTLE_ENDIAN);
 }
 
-#ifndef USESHA512
-#define USESHA512 0
-#endif
-
+// rawoutput is a RAWSXP
+SEXP _to_STRINGELT(const SEXP rawoutput) {
+    const size_t output_length = RVLENGTH(rawoutput);
+    char output[output_length*2];
+    const unsigned char * hash = RAW(rawoutput);
 #if USESHA512
-static const char *sha2_hex_digits = "0123456789abcdef";
+    char *outputp = output;
+    unsigned const char *d = hash;
 #endif
+    for (int j = 0; j < output_length; j++) {
+#if USESHA512
+        *outputp++ = sha2_hex_digits[(*d & 0xf0) >> 4];
+        *outputp++ = sha2_hex_digits[*d & 0x0f];
+        d++;
+#else
+        // a char = 2 hex digits => to (0-9A-F)-charset = writing 2 spots
+        snprintf(output + j * 2, 3, "%02x", hash[j]);
+#endif
+    }
+    SEXP result = PROTECT(allocVector(STRSXP, 1));
+    SET_STRING_ELT(result, 0, mkChar(output));
+    UNPROTECT(1);
+    return result;
+}
 
 // USESHA512 seems maybe faster? however, more complex, not obviously faster
 void _store_from_char_ptr(const unsigned char * hash, char * const output,
@@ -153,6 +136,96 @@ void _store_from_int64(const uint64_t hash, char *output, const int leaveRaw) {
     } else snprintf(output, sizeof(uint64_t)*2 + 1, "%016" PRIx64, hash);
 }
 
+// approach:
+//  - for each algorithm, define the core block in terms of char* inputs, char* outputs
+//  - for each input type, define the transformation from input type to char*
+//  - for each algorithm, provide a wrapper which dispatches by input type,
+//    deals with streaming, and handles conversion to string if requested
+//  - export each wrapper (alt: each direct type translator / algo combination?)
+//  - continue
+
+// interfaces:
+// direct_ALGO(SEXP input, SEXP inputtype, SEXP leaveRaw)
+//  - deals with converting input from inputtype to char*,
+//  - ... including extracting input length
+//  - ... invoking one_ALGO on it
+//  - ... handling return (based on leaveRaw TRUE vs FALSE)
+// stream_ALGO()
+//  - ibid, but for file inputs + invoking rep_ALGO
+// one_ALGO(char* input, size_t length_of_input, char* output)
+//  - allocates output to the appropriate size
+//  - invokes update call once
+// rep_ALGO(char* buffer, size_t length)
+//  - ibid, except invokes update call repeatedly
+
+// core_ALGO a macro to encapsulate hashing algorithms
+//
+// @param ALGO: the name of the hashing algorithm
+// @param LEN: the length of the hash from that algorithm
+// @param BLOCK: the block of code to hash the input
+//
+// creates a function taking arguments
+// @param input: the input to hash
+// @param len: the length of the input
+// @param output: pointer to the output buffer to store the hash, unallocated
+# define core_ALGO(ALGO, LEN, BLOCK) SEXP core_ ## ALGO\
+(const unsigned char* input, const size_t len) {\
+    const size_t output_length = LEN; \
+    SEXP result = PROTECT(allocVector(RAWSXP, output_length)); \
+    unsigned char *output = RAW(result); \
+    BLOCK \
+    UNPROTECT(1); \
+    return result; \
+};
+
+core_ALGO(SHA1, 20,
+    sha1_context ctx;
+    sha1_starts( &ctx );
+    sha1_update( &ctx, input, len);
+    sha1_finish( &ctx, output);
+);
+
+core_ALGO(MD5, 16,
+    md5_context ctx;
+    md5_starts( &ctx );
+    md5_update( &ctx, input, len);
+    md5_finish( &ctx, output);
+)
+
+// direct_ALGO
+// @param ALGO which algorithm 
+//
+// creates a function taking arguments:
+// @param inputtype: the type of the input, must be one of the enumerated types
+// @param input: the input to hash
+// @param leaveRaw: whether to return the hash as a raw vector or a character string
+#define direct_ALGO(ALGO) direct_ALGO_SIG(ALGO) {\
+    const SEXPTYPE inputtype = TYPEOF(input); \
+    int len = RVLENGTH(input); \
+    unsigned char* algoinput = NULL; \
+    switch (inputtype) { \
+        case RAWSXP: \
+            algoinput = (unsigned char*) RAW(input); \
+            break; \
+        case INTSXP: \
+            algoinput = (unsigned char*) INTEGER(input); \
+            len *= sizeof(int); \
+            break; \
+        /* TODO: handle other input types */ \
+        default: \
+            exit(-1); \
+            break; \
+    } \
+    if (LOGICAL(leaveRaw)) { \
+        return core_ ## ALGO(algoinput, len); \
+    } else { \
+        return _to_STRINGELT(core_ ## ALGO(algoinput, len)); \
+    } \
+};
+
+direct_ALGO(SHA1);
+direct_ALGO(MD5);
+
 SEXP digest(SEXP Txt, SEXP Algo, SEXP Length, SEXP Skip, SEXP Leave_raw, SEXP Seed) {
     size_t BUF_SIZE = 1024;
     FILE *fp=0;
@@ -161,8 +234,7 @@ SEXP digest(SEXP Txt, SEXP Algo, SEXP Length, SEXP Skip, SEXP Leave_raw, SEXP Se
     int length = INTEGER_VALUE(Length);
     int skip = INTEGER_VALUE(Skip);
     int seed = INTEGER_VALUE(Seed);
-    int leaveRaw = INTEGER_VALUE(Leave_raw);
-    SEXP result = R_NilValue;
+    int leaveRaw = LOGICAL_VALUE(Leave_raw);
 
     /* use char[] for either raw or character output */
     /* for raw output, get 8 bits / 1 byte out of each entry */
@@ -172,11 +244,7 @@ SEXP digest(SEXP Txt, SEXP Algo, SEXP Length, SEXP Skip, SEXP Leave_raw, SEXP Se
     int output_length = -1;
     if (IS_RAW(Txt)) { /* Txt is either RAW */
         txt = (unsigned char*) RAW(Txt);
-#if defined(R_VERSION) && R_VERSION >= R_Version(3,0,0)
-        nChar = XLENGTH(Txt);
-#else
-        nChar = LENGTH(Txt);
-#endif
+        nChar = RVLENGTH(Txt);
     } else { /* or a string */
         txt = (unsigned char*) STRING_VALUE(Txt);
         nChar = strlen((char *)txt);
@@ -200,28 +268,18 @@ SEXP digest(SEXP Txt, SEXP Algo, SEXP Length, SEXP Skip, SEXP Leave_raw, SEXP Se
 
     switch (algo) {
     case 1: {     /* md5 case */
-        md5_context ctx;
-        output_length = 16; // produces 16*8 = 128 bits
-        unsigned char md5sum[output_length];
-
-        md5_starts( &ctx );
-        md5_update( &ctx, txt, nChar);
-        md5_finish( &ctx, md5sum );
-
-        _store_from_char_ptr(md5sum, output, output_length, leaveRaw);
-        break;
+        if (leaveRaw) {
+            return core_MD5(txt, nChar);
+        } else {
+            return _to_STRINGELT(core_MD5(txt, nChar));
+        }
     }
     case 2: {     /* sha1 case */
-        sha1_context ctx;
-        output_length = 20;
-        unsigned char sha1sum[output_length];
-
-        sha1_starts( &ctx );
-        sha1_update( &ctx, txt, nChar);
-        sha1_finish( &ctx, sha1sum );
-
-        _store_from_char_ptr(sha1sum, output, output_length, leaveRaw);
-        break;
+        if (leaveRaw) {
+            return core_SHA1(txt, nChar);
+        } else {
+            return _to_STRINGELT(core_SHA1(txt, nChar));
+        }
     }
     case 3: {     /* crc32 case */
         unsigned long val;
@@ -659,6 +717,8 @@ SEXP digest(SEXP Txt, SEXP Algo, SEXP Length, SEXP Skip, SEXP Leave_raw, SEXP Se
     if (algo >= 100 && fp) {
         fclose(fp);
     }
+
+    SEXP result = R_NilValue;
 
     if (leaveRaw) {
         PROTECT(result=allocVector(RAWSXP, output_length));

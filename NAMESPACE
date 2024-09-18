@@ -1,5 +1,10 @@
 ## package has a dynamic library
-useDynLib(digest, digest_impl=digest, vdigest_impl=vdigest, digest2int_impl=digest2int, AESinit, AESencryptECB, AESdecryptECB, spookydigest_impl, is_little_endian, is_big_endian, .registration=TRUE)
+useDynLib(digest,
+          digest_impl=digest, vdigest_impl=vdigest, digest2int_impl=digest2int,
+          AESinit, AESencryptECB, AESdecryptECB, spookydigest_impl,
+          is_little_endian, is_big_endian,
+          md5_impl=direct_MD5, sha1_impl=direct_SHA1,
+          .registration=TRUE)
 
 importFrom(utils, packageVersion)
 
@@ -12,9 +17,14 @@ export(AES,
        sha1_attr_digest,
        sha1_digest,
        hmac,
-       makeRaw)
+       makeRaw,
+       md5)
 
 S3method(print, AES)
+
+S3method(md5, default)
+S3method(md5, integer)
+S3method(md5, raw)
 
 S3method(sha1, anova)
 S3method(sha1, array)
