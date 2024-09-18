@@ -24,9 +24,15 @@
 #include <R_ext/Rdynload.h>
 #include "xxhash.h"
 #include "pmurhash.h"
+#include "digest.h"
+
+#define stringify(TAR) #TAR
+#define Register_ALGO(ALGO) R_RegisterCCallable("digest", stringify(direct_ ## ALGO), (DL_FUNC) &direct_ ## ALGO);
 
 void R_init_digest(DllInfo *info) {
     R_RegisterCCallable("digest", "PMurHash32", (DL_FUNC) &PMurHash32);
+    Register_ALGO(SHA1);
+    Register_ALGO(MD5);
 
     /* tools::package_native_routine_registration_skeleton() reports empty set */
     R_registerRoutines(info,
