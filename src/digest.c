@@ -25,10 +25,12 @@
 #include <stdio.h>
 #include <string.h>
 #include <stdlib.h>
-#include <R.h>
+
 #include <Rdefines.h>
 #include <Rinternals.h>
-#include <Rversion.h>
+
+#include "digest.h"
+
 #include <inttypes.h>
 #include "sha1.h"
 #include "sha2.h"
@@ -172,11 +174,7 @@ SEXP digest(SEXP Txt, SEXP Algo, SEXP Length, SEXP Skip, SEXP Leave_raw, SEXP Se
     int output_length = -1;
     if (IS_RAW(Txt)) { /* Txt is either RAW */
         txt = (unsigned char*) RAW(Txt);
-#if defined(R_VERSION) && R_VERSION >= R_Version(3,0,0)
         nChar = XLENGTH(Txt);
-#else
-        nChar = LENGTH(Txt);
-#endif
     } else { /* or a string */
         txt = (unsigned char*) STRING_VALUE(Txt);
         nChar = strlen((char *)txt);
