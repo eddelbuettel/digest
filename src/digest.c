@@ -155,6 +155,63 @@ void _store_from_int64(const uint64_t hash, char *output, const int leaveRaw) {
     } else snprintf(output, sizeof(uint64_t)*2 + 1, "%016" PRIx64, hash);
 }
 
+// _to_STRINGELT  
+//
+// @param rawoutput a RAWSXP, as produced by any core_ALGO definition
+SEXP _to_STRINGELT(const SEXP rawoutput) {
+    const size_t rawlength = XLENGTH(rawoutput);
+    const size_t charlength = rawlength * 2;
+    char output[charlength];
+    const unsigned char * hash = RAW(rawoutput);
+#if USESHA512
+    char *outputp = output;
+    unsigned const char *d = hash;
+    for (int j = 0; j < rawlength; j++) {
+        *outputp++ = sha2_hex_digits[(*d & 0xf0) >> 4];
+        *outputp++ = sha2_hex_digits[*d & 0x0f];
+        d++;
+    }
+#else
+    for (int j = 0; j < rawlength; j++) {
+      // a char = 2 hex digits => to (0-9A-F)-charset = writing 2 spots
+      snprintf(output + j * 2, 3, "%02x", hash[j]);
+    }
+#endif
+      
+    SEXP result = PROTECT(allocVector(STRSXP, 1));
+    SET_STRING_ELT(result, 0, mkCharLen(output, charlength));
+    UNPROTECT(1);
+    return result;
+}
+
+// core_ALGO a macro to encapsulate hashing algorithms
+//
+// @param ALGO: the name of the hashing algorithm
+// @param LEN: the length of the hash from that algorithm
+// @param BLOCK: the block of code to hash the input
+//
+// creates a function taking arguments
+// @param input: the input to hash
+// @param len: the length of the input
+// @return a SEXP, RAWSXP flavor
+# define core_ALGO(ALGO, LEN, BLOCK) SEXP core_ ## ALGO\
+(unsigned char* input, const size_t len) {\
+    const size_t output_length = LEN; \
+    SEXP result = PROTECT(allocVector(RAWSXP, output_length)); \
+    unsigned char *output = RAW(result); \
+    BLOCK \
+    UNPROTECT(1); \
+    return result; \
+}
+
+// define MD5
+core_ALGO(MD5, 16,
+    md5_context ctx;
+    md5_starts( &ctx );
+    md5_update( &ctx, input, len);
+    md5_finish( &ctx, output);
+);
+
 SEXP digest(SEXP Txt, SEXP Algo, SEXP Length, SEXP Skip, SEXP Leave_raw, SEXP Seed) {
     size_t BUF_SIZE = 1024;
     FILE *fp=0;
@@ -198,16 +255,11 @@ SEXP digest(SEXP Txt, SEXP Algo, SEXP Length, SEXP Skip, SEXP Leave_raw, SEXP Se
 
     switch (algo) {
     case 1: {     /* md5 case */
-        md5_context ctx;
-        output_length = 16; // produces 16*8 = 128 bits
-        unsigned char md5sum[output_length];
-
-        md5_starts( &ctx );
-        md5_update( &ctx, txt, nChar);
-        md5_finish( &ctx, md5sum );
-
-        _store_from_char_ptr(md5sum, output, output_length, leaveRaw);
-        break;
+        if (LOGICAL_VALUE(Leave_raw)) {
+            return core_MD5(txt, nChar);
+        } else {
+            return _to_STRINGELT(core_MD5(txt, nChar));
+        }
     }
     case 2: {     /* sha1 case */
         sha1_context ctx;

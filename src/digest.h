@@ -21,6 +21,9 @@
 
 */
 
+#ifndef DIGEST_H
+#define DIGEST_H
+
 #include <Rinternals.h>
 
 SEXP is_big_endian(void);
@@ -28,3 +31,5 @@ SEXP is_little_endian(void);
 
 SEXP digest(SEXP Txt, SEXP Algo, SEXP Length, SEXP Skip, SEXP Leave_raw, SEXP Seed);
 SEXP vdigest(SEXP Txt, SEXP Algo, SEXP Length, SEXP Skip, SEXP Leave_raw, SEXP Seed);
+
+#endif // DIGEST_H
