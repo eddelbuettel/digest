@@ -184,33 +184,67 @@ SEXP _to_STRINGELT(const SEXP rawoutput) {
     return result;
 }
 
-// core_ALGO a macro to encapsulate hashing algorithms
-//
-// @param ALGO: the name of the hashing algorithm
-// @param LEN: the length of the hash from that algorithm
-// @param BLOCK: the block of code to hash the input
-//
-// creates a function taking arguments
-// @param input: the input to hash
-// @param len: the length of the input
-// @return a SEXP, RAWSXP flavor
-# define core_ALGO(ALGO, LEN, BLOCK) SEXP core_ ## ALGO\
-(unsigned char* input, const size_t len) {\
-    const size_t output_length = LEN; \
-    SEXP result = PROTECT(allocVector(RAWSXP, output_length)); \
-    unsigned char *output = RAW(result); \
-    BLOCK \
-    UNPROTECT(1); \
-    return result; \
+R_xlen_t _convert_to_charptr(const SEXP input, unsigned char** newinput) {
+    R_xlen_t len = XLENGTH(input);
+    switch(TYPEOF(input)) {
+        case RAWSXP:
+            *newinput = (unsigned char*)RAW(input);
+            return len;
+        case INTSXP:
+            *newinput = (unsigned char*)INTEGER(input);
+            return len*sizeof(int);
+        default:
+            exit(-1);
+    }
 }
 
-// define MD5
-core_ALGO(MD5, 16,
+typedef SEXP (*coreALGO)(unsigned char*, const size_t, const int);
+
+SEXP _gen_digest(coreALGO algo, const SEXP Leave_raw, const int seed,
+                 unsigned char* txt, const R_xlen_t length) {
+    if (LOGICAL_VALUE(Leave_raw)) {
+        return (*algo)(txt, length, seed);
+    } else {
+        return _to_STRINGELT((*algo)(txt, length, seed));
+    }
+}
+
+SEXP _gen_direct(coreALGO algo, const SEXP Leave_raw, const int seed,
+                 const SEXP input) {
+    unsigned char* txt;
+    const R_xlen_t length = _convert_to_charptr(input, &txt);
+    return _gen_digest(algo, Leave_raw, seed, txt, length);
+}
+
+SEXP _core_XXH32(unsigned char* input, const size_t len, const int seed) {
+    const size_t output_length = 4;
+    XXH32_hash_t val = XXH32(input, len, seed);
+    SEXP result = PROTECT(allocVector(RAWSXP, output_length));
+    unsigned char *output = RAW(result);
+    rev_memcpy(output, &val, sizeof(XXH32_hash_t));
+    UNPROTECT(1);
+    return result;
+}
+
+SEXP _core_MD5(unsigned char* input, const size_t len, const int seed) {
+    const size_t output_length = 16; // produces 16*8 = 128 bits
     md5_context ctx;
     md5_starts( &ctx );
     md5_update( &ctx, input, len);
-    md5_finish( &ctx, output);
-);
+    SEXP result = PROTECT(allocVector(RAWSXP, output_length));
+    unsigned char *output = RAW(result);
+    md5_finish( &ctx, output );
+    UNPROTECT(1);
+    return result;
+}
+
+SEXP direct_XXH32(const SEXP input, const SEXP Leave_raw, const int seed) {
+    return _gen_direct(&_core_XXH32, Leave_raw, seed, input);
+}
+
+SEXP direct_MD5(const SEXP input, const SEXP Leave_raw, const int seed) {
+    return _gen_direct(&_core_MD5, Leave_raw, seed, input);
+}
 
 SEXP digest(SEXP Txt, SEXP Algo, SEXP Length, SEXP Skip, SEXP Leave_raw, SEXP Seed) {
     size_t BUF_SIZE = 1024;
@@ -255,11 +289,7 @@ SEXP digest(SEXP Txt, SEXP Algo, SEXP Length, SEXP Skip, SEXP Leave_raw, SEXP Se
 
     switch (algo) {
     case 1: {     /* md5 case */
-        if (LOGICAL_VALUE(Leave_raw)) {
-            return core_MD5(txt, nChar);
-        } else {
-            return _to_STRINGELT(core_MD5(txt, nChar));
-        }
+        return _gen_digest(&_core_MD5, Leave_raw, seed, txt, nChar);
     }
     case 2: {     /* sha1 case */
         sha1_context ctx;
@@ -311,12 +341,7 @@ SEXP digest(SEXP Txt, SEXP Algo, SEXP Length, SEXP Skip, SEXP Leave_raw, SEXP Se
         break;
     }
     case 6: {     /* xxhash32 case */
-        output_length = 4;
-
-        XXH32_hash_t val = XXH32(txt, nChar, seed);
-
-        _store_from_int32(val, output, leaveRaw);
-        break;
+        return _gen_digest(&_core_XXH32, Leave_raw, seed, txt, nChar);
     }
     case 7: {     /* xxhash64 case */
         output_length = 8;

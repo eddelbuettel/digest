@@ -32,4 +32,7 @@ SEXP is_little_endian(void);
 SEXP digest(SEXP Txt, SEXP Algo, SEXP Length, SEXP Skip, SEXP Leave_raw, SEXP Seed);
 SEXP vdigest(SEXP Txt, SEXP Algo, SEXP Length, SEXP Skip, SEXP Leave_raw, SEXP Seed);
 
+SEXP direct_XXH32(const SEXP input, const SEXP Leave_raw, const int seed);
+SEXP direct_MD5(const SEXP input, const SEXP Leave_raw, const int seed);
+
 #endif // DIGEST_H
