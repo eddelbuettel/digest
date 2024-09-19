@@ -1,3 +1,9 @@
+2024-09-19  Carl A. B. Pearson  <carl.ab.pearson@gmail.com>
+
+	* src/digest.h: introduced, to enable additional registrations in init.c
+        * src/digest.c: add digest.h, prune other imports, eliminate version check
+	* src/init.c: introduce digest.h in anticipation of new registrations
+
 2024-08-28  Carl A. B. Pearson  <carl.ab.pearson@gmail.com>
 
 	* R/digest.R (digest): parse errormode only if in error conditions

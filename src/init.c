@@ -24,6 +24,7 @@
 #include <R_ext/Rdynload.h>
 #include "xxhash.h"
 #include "pmurhash.h"
+#include "digest.h"
 
 void R_init_digest(DllInfo *info) {
     R_RegisterCCallable("digest", "PMurHash32", (DL_FUNC) &PMurHash32);
