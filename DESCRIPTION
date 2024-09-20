@@ -56,6 +56,6 @@ BugReports: https://github.com/eddelbuettel/digest/issues
 Depends: R (>= 3.3.0)
 Imports: utils
 License: GPL (>= 2)
-Suggests: tinytest, simplermarkdown
+Suggests: tinytest, simplermarkdown, microbenchmark
 VignetteBuilder: simplermarkdown
 Encoding: UTF-8

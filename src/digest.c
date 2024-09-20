@@ -193,6 +193,9 @@ R_xlen_t _convert_to_charptr(const SEXP input, unsigned char** newinput) {
         case INTSXP:
             *newinput = (unsigned char*)INTEGER(input);
             return len*sizeof(int);
+        case REALSXP:
+            *newinput = (unsigned char*)REAL(input);
+            return len*sizeof(double);
         default:
             exit(-1);
     }
@@ -200,20 +203,20 @@ R_xlen_t _convert_to_charptr(const SEXP input, unsigned char** newinput) {
 
 typedef SEXP (*coreALGO)(unsigned char*, const size_t, const int);
 
-SEXP _gen_digest(coreALGO algo, const SEXP Leave_raw, const int seed,
+SEXP _gen_digest(coreALGO algo, const int leave_raw, const int seed,
                  unsigned char* txt, const R_xlen_t length) {
-    if (LOGICAL_VALUE(Leave_raw)) {
+    if (leave_raw) {
         return (*algo)(txt, length, seed);
     } else {
         return _to_STRINGELT((*algo)(txt, length, seed));
     }
 }
 
-SEXP _gen_direct(coreALGO algo, const SEXP Leave_raw, const int seed,
+SEXP _gen_direct(coreALGO algo, const int leave_raw, const int seed,
                  const SEXP input) {
     unsigned char* txt;
     const R_xlen_t length = _convert_to_charptr(input, &txt);
-    return _gen_digest(algo, Leave_raw, seed, txt, length);
+    return _gen_digest(algo, leave_raw, seed, txt, length);
 }
 
 SEXP _core_XXH32(unsigned char* input, const size_t len, const int seed) {
@@ -238,12 +241,12 @@ SEXP _core_MD5(unsigned char* input, const size_t len, const int seed) {
     return result;
 }
 
-SEXP direct_XXH32(const SEXP input, const SEXP Leave_raw, const int seed) {
-    return _gen_direct(&_core_XXH32, Leave_raw, seed, input);
+SEXP direct_XXH32(const SEXP input, const SEXP Leave_raw, const SEXP seed) {
+    return _gen_direct(&_core_XXH32, LOGICAL_VALUE(Leave_raw), INTEGER_VALUE(seed), input);
 }
 
-SEXP direct_MD5(const SEXP input, const SEXP Leave_raw, const int seed) {
-    return _gen_direct(&_core_MD5, Leave_raw, seed, input);
+SEXP direct_MD5(const SEXP input, const SEXP Leave_raw, const SEXP seed) {
+    return _gen_direct(&_core_MD5, LOGICAL_VALUE(Leave_raw), INTEGER_VALUE(seed), input);
 }
 
 SEXP digest(SEXP Txt, SEXP Algo, SEXP Length, SEXP Skip, SEXP Leave_raw, SEXP Seed) {
@@ -289,7 +292,7 @@ SEXP digest(SEXP Txt, SEXP Algo, SEXP Length, SEXP Skip, SEXP Leave_raw, SEXP Se
 
     switch (algo) {
     case 1: {     /* md5 case */
-        return _gen_digest(&_core_MD5, Leave_raw, seed, txt, nChar);
+        return _gen_digest(&_core_MD5, leaveRaw, seed, txt, nChar);
     }
     case 2: {     /* sha1 case */
         sha1_context ctx;
@@ -341,7 +344,7 @@ SEXP digest(SEXP Txt, SEXP Algo, SEXP Length, SEXP Skip, SEXP Leave_raw, SEXP Se
         break;
     }
     case 6: {     /* xxhash32 case */
-        return _gen_digest(&_core_XXH32, Leave_raw, seed, txt, nChar);
+        return _gen_digest(&_core_XXH32, leaveRaw, seed, txt, nChar);
     }
     case 7: {     /* xxhash64 case */
         output_length = 8;
