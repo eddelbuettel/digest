@@ -54,7 +54,8 @@ Description: Implementation of a function 'digest()' for the creation of hash
 URL: https://github.com/eddelbuettel/digest, https://dirk.eddelbuettel.com/code/digest.html
 BugReports: https://github.com/eddelbuettel/digest/issues
 Depends: R (>= 3.3.0)
-Imports: utils
+LinkingTo: RApiSerialize
+Imports: utils, RApiSerialize
 License: GPL (>= 2)
 Suggests: tinytest, simplermarkdown, microbenchmark
 VignetteBuilder: simplermarkdown

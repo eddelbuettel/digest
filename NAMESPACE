@@ -3,9 +3,11 @@ useDynLib(digest, digest_impl=digest, vdigest_impl=vdigest,
           digest2int_impl=digest2int, AESinit, AESencryptECB, AESdecryptECB,
           spookydigest_impl, is_little_endian, is_big_endian,
           xxh32_impl=direct_XXH32, md5_impl=direct_MD5,
+          serialize_to_raw, unserialize_from_raw,
           .registration=TRUE)
 
 importFrom(utils, packageVersion)
+import(RApiSerialize)
 
 ## and exported functions
 export(AES,
