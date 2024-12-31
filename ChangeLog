@@ -1,3 +1,7 @@
+2024-12-31  Dirk Eddelbuettel  <edd@debian.org>
+
+	* .github/workflows/ci.yaml: Simplify to r-ci with included bootstrap
+
 2024-09-19  Carl A. B. Pearson  <carl.ab.pearson@gmail.com>
 
 	* src/digest.h: introduced, to enable additional registrations in init.c
