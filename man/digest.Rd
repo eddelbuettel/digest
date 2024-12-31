@@ -84,7 +84,7 @@ digest(object, algo=c("md5", "sha1", "crc32", "sha256", "sha512",
 
   For md5, sha-1 and sha-256, this R implementation relies on standalone
   implementations in C by Christophe Devine. For crc32, code from the
-  zlib library by Jean-Loup Gailly and Mark Adler is used.
+  zlib library by Jean-loup Gailly and Mark Adler is used.
 
   For sha-512, a standalone implementation from Aaron Gifford is used.
 
@@ -155,7 +155,7 @@ digest(object, algo=c("md5", "sha1", "crc32", "sha256", "sha512",
   Antoine Lucas for the integration of crc32; Jarek Tuszynski for the
   file-based operations; Henrik Bengtsson and Simon Urbanek for improved
   serialization patches; Christophe Devine for the hash function
-  implementations for sha-1, sha-256 and md5; Jean-Loup Gailly and Mark Adler
+  implementations for sha-1, sha-256 and md5; Jean-loup Gailly and Mark Adler
   for crc32; Hannes Muehleisen for the integration of sha-512; Jim Hester for
   the integration of xxhash32, xxhash64 and murmur32; Kendon Bell for
   the integration of spookyhash using Gabe Becker's R package fastdigest.}

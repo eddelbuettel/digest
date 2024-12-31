@@ -790,7 +790,7 @@ sapply(a, sha1, digits = 10)
 # case where truncating gives different hexadecimal value
 c(sha1(pi), sha1(pi, digits = 13), sha1(pi, digits = 10))
 </code></pre>
-<p>The result of floating point arithmetic on 32-bit and 64-bit can be slightly different. E.g. <code>print(pi ^ 11, 22)</code> returns <code>294204.01797389047</code> on 32-bit and <code>294204.01797389053</code> on 64-bit. Note that only the last 2 digits are different.  </p>
+<p>The result of floating point arithematic on 32-bit and 64-bit can be slightly different. E.g. <code>print(pi ^ 11, 22)</code> returns <code>294204.01797389047</code> on 32-bit and <code>294204.01797389053</code> on 64-bit. Note that only the last 2 digits are different.  </p>
 <table>
 <thead>
 <tr>
