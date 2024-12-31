@@ -50,7 +50,7 @@ sapply(a, sha1, digits = 10)
 c(sha1(pi), sha1(pi, digits = 13), sha1(pi, digits = 10))
 ```
 
-The result of floating point arithematic on 32-bit and 64-bit can be slightly different. E.g. `print(pi ^ 11, 22)` returns `294204.01797389047` on 32-bit and `294204.01797389053` on 64-bit. Note that only the last 2 digits are different.  
+The result of floating point arithmetic on 32-bit and 64-bit can be slightly different. E.g. `print(pi ^ 11, 22)` returns `294204.01797389047` on 32-bit and `294204.01797389053` on 64-bit. Note that only the last 2 digits are different.  
 
 | command | 32-bit | 64-bit|
 | - | - | - |

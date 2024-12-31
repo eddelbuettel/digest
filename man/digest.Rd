@@ -84,7 +84,7 @@ digest(object, algo=c("md5", "sha1", "crc32", "sha256", "sha512",
 
   For md5, sha-1 and sha-256, this R implementation relies on standalone
   implementations in C by Christophe Devine. For crc32, code from the
-  zlib library by Jean-loup Gailly and Mark Adler is used.
+  zlib library by Jean-Loup Gailly and Mark Adler is used.
 
   For sha-512, a standalone implementation from Aaron Gifford is used.
 
@@ -114,7 +114,7 @@ digest(object, algo=c("md5", "sha1", "crc32", "sha256", "sha512",
   guaranteeing an eight-character return. We now pad with zero to always
   return eight characters. Should the previous behaviour be required,
   set \code{option("digestOldCRC32Format"=TRUE)} and the output will be
-  consistent with prior version (but not be consistentnly eight characters).
+  consistent with prior version (but not be consistently eight characters).
 }
 \references{
   MD5: \url{https://www.ietf.org/rfc/rfc1321.txt}.

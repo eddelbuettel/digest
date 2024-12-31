@@ -822,7 +822,7 @@ sha1(...)
 </tr>
 <tr>
 <td><code>algo</code></td>
-<td>The hashing algoritm to be used by <code>digest</code>. Defaults to "sha1"</td>
+<td>The hashing algorithm to be used by <code>digest</code>. Defaults to "sha1"</td>
 </tr>
 </tbody>
 </table>
@@ -836,11 +836,11 @@ other packages, one of these two functions is recommended for use
 <p>Extra arguments:</p>
 <p>environment: An optional extra argument for <code>sha1.function</code> and
 <code>sha1.formula</code> should be TRUE, FALSE or missing. <code>sha1.function</code> and
-<code>sha1.formula</code> will ignore the enviroment of the function only when
+<code>sha1.formula</code> will ignore the environment of the function only when
 <code>environment = FALSE</code>.</p>
 <h3 id="note">Note</h3>
 <p><code>sha1</code> gained an <code>algo</code> argument since version 0.6.15. This allows
-<code>sha1()</code> to use all hashing algoritms available in <code>digest()</code>. The
+<code>sha1()</code> to use all hashing algorithms available in <code>digest()</code>. The
 hashes created with <code>sha1(x)</code> from digest >= 0.6.15 are identical to
 <code>sha1(x)</code> from digest \&lt;= 0.6.14. The only exceptions are hashes created
 with <code>sha1(x, algo = "sha1")</code>, they will be different starting from

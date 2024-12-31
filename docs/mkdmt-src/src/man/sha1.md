@@ -74,7 +74,7 @@ sha1(...)
 | `digits`   | the approximate number of significant digits in base 10. Will be converted to a base 16 equivalent. Defaults to `digits = 14`, except for sha1.anova where `digits = 4`                      |
 | `zapsmall` | the approximate negative magnitude of the smallest relevant digit. Will be converted to a base 2 equivalent. Values smaller than this number are equivalent to 0. Defaults to `zapsmall = 7` |
 | `...`      | If it is the only defined argument, passed to another `sha1` method. If other arguments exist, see Details for usage.                                                                        |
-| `algo`     | The hashing algoritm to be used by `digest`. Defaults to "sha1"                                                                                                                              |
+| `algo`     | The hashing algorithm to be used by `digest`. Defaults to "sha1"                                                                                                                              |
 
 ### Details
 
@@ -89,13 +89,13 @@ Extra arguments:
 
 environment: An optional extra argument for `sha1.function` and
 `sha1.formula` should be TRUE, FALSE or missing. `sha1.function` and
-`sha1.formula` will ignore the enviroment of the function only when
+`sha1.formula` will ignore the environment of the function only when
 `environment = FALSE`.
 
 ### Note
 
 `sha1` gained an `algo` argument since version 0.6.15. This allows
-`sha1()` to use all hashing algoritms available in `digest()`. The
+`sha1()` to use all hashing algorithms available in `digest()`. The
 hashes created with `sha1(x)` from digest \>= 0.6.15 are identical to
 `sha1(x)` from digest \<= 0.6.14. The only exceptions are hashes created
 with `sha1(x, algo = "sha1")`, they will be different starting from
