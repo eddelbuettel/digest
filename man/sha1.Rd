@@ -4,14 +4,10 @@
 \alias{sha1_attr_digest}
 \alias{sha1_digest}
 \alias{sha1.array}
-\alias{sha1.integer}
 \alias{sha1.numeric}
-\alias{sha1.character}
 \alias{sha1.complex}
 \alias{sha1.Date}
-\alias{sha1.factor}
 \alias{sha1.NULL}
-\alias{sha1.logical}
 \alias{sha1.matrix}
 \alias{sha1.data.frame}
 \alias{sha1.list}
@@ -21,8 +17,6 @@
 \alias{sha1.POSIXct}
 \alias{sha1.anova}
 \alias{sha1.function}
-\alias{sha1.call}
-\alias{sha1.raw}
 \alias{sha1.formula}
 \alias{sha1.(}
 \title{Calculate a SHA1 hash of an object}
@@ -50,12 +44,6 @@ sha1_digest(x, digits = 14, zapsmall = 7, ..., algo = "sha1")
 \method{sha1}{name}(...)
 
 sha1_attr_digest(x, digits = 14, zapsmall = 7, ..., algo = "sha1")
-\method{sha1}{call}(...)
-\method{sha1}{character}(...)
-\method{sha1}{factor}(...)
-\method{sha1}{integer}(...)
-\method{sha1}{logical}(...)
-\method{sha1}{raw}(...)
 }
 \arguments{
 \item{x}{the object to calculate the SHA1}
