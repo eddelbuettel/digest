@@ -37,7 +37,7 @@ digest(object, algo=c("md5", "sha1", "crc32", "sha256", "sha512",
 | `length`           | Number of characters to process. By default, when `length` is set to `Inf`, the whole string or file is processed.                                                                                                                                                                                                                                                           |
 | `skip`             | Number of input bytes to skip before calculating the digest. Negative values are invalid and currently treated as zero. Special value `"auto"` will cause serialization header to be skipped if `serialize` is set to `TRUE` (the serialization header contains the R version number thus skipping it allows the comparison of hashes across platforms and some R versions). |
 | `ascii`            | This flag is passed to the `serialize` function if `serialize` is set to `TRUE`, determining whether the hash is computed on the ASCII or binary representation.                                                                                                                                                                                                             |
-| `raw`              | A logical variable with a default value of FALSE, implying `digest` returns digest output as ASCII hex values. Set to TRUE to return `digest` output in raw (binary) form. Note that this option is supported by most but not all of the implemented hashing algorithms                                                                                                      |
+| `raw`              | A logical variable with a default value of FALSE, implying `digest` returns digest output as ASCII hex values. Set to TRUE to return `digest` output in raw (binary) form.                                                                                                                                                                                                   |
 | `seed`             | an integer to seed the random number generator. This is only used in the `xxhash32`, `xxhash64` and `murmur32` functions and can be used to generate additional hashes for the same input if desired.                                                                                                                                                                        |
 | `errormode`        | A character value denoting a choice for the behaviour in the case of error: ‘stop’ aborts (and is the default value), ‘warn’ emits a warning and returns `NULL` and ‘silent’ suppresses the error and returns an empty string.                                                                                                                                               |
 | `serializeVersion` | An integer value specifying the internal version of the serialization format, with 2 being the default; see `serialize` for details. The `serializeVersion` field of `option` can also be used to set a different value.                                                                                                                                                     |
@@ -91,16 +91,16 @@ Version 0.6.16 of digest corrects an error in which `crc32` was not
 guaranteeing an eight-character return. We now pad with zero to always
 return eight characters. Should the previous behaviour be required, set
 `option("digestOldCRC32Format"=TRUE)` and the output will be consistent
-with prior version (but not be consistentnly eight characters).
+with prior version (but not be consistently eight characters).
 
 ### Author(s)
 
-Dirk Eddelbuettel <edd@debian.org> for the <span
-class="rlang">**R**</span> interface; Antoine Lucas for the integration
-of crc32; Jarek Tuszynski for the file-based operations; Henrik
-Bengtsson and Simon Urbanek for improved serialization patches;
+Dirk Eddelbuettel <edd@debian.org> for the
+<span class="rlang">**R**</span> interface; Antoine Lucas for the
+integration of crc32; Jarek Tuszynski for the file-based operations;
+Henrik Bengtsson and Simon Urbanek for improved serialization patches;
 Christophe Devine for the hash function implementations for sha-1,
-sha-256 and md5; Jean-Loup Gailly and Mark Adler for crc32; Hannes
+sha-256 and md5; Jean-loup Gailly and Mark Adler for crc32; Hannes
 Muehleisen for the integration of sha-512; Jim Hester for the
 integration of xxhash32, xxhash64 and murmur32; Kendon Bell for the
 integration of spookyhash using Gabe Becker's R package fastdigest.

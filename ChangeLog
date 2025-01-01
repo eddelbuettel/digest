@@ -2,6 +2,14 @@
 
   * R/sha1.R: Default sha1 method now works for all classes by default
 
+2024-12-31  Bill Denney  <wdenney@humanpredictions.com>
+
+	* DESCRiPTION (Description): Correct typos
+	* README.md: Idem
+	* man/digest.Rd: Idem
+	* sha1.Rd: Idem
+	* vignette/sha1.md: Idem
+
 2024-12-31  Dirk Eddelbuettel  <edd@debian.org>
 
 	* .github/workflows/ci.yaml: Simplify to r-ci with included bootstrap

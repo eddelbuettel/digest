@@ -59,7 +59,7 @@ number are equivalent to 0. Defaults to \code{zapsmall = 7}}
 \item{...}{If it is the only defined argument, passed to another \code{sha1}
 method.  If other arguments exist, see Details for usage.}
 
-\item{algo}{The hashing algoritm to be used by \code{\link{digest}}. Defaults to
+\item{algo}{The hashing algorithm to be used by \code{\link{digest}}. Defaults to
 "sha1"}
 }
 \description{
@@ -82,12 +82,12 @@ Extra arguments:
 
 environment: An optional extra argument for \code{sha1.function} and
 \code{sha1.formula} should be TRUE, FALSE or missing. \code{sha1.function} and
-\code{sha1.formula} will ignore the enviroment of the function only when
+\code{sha1.formula} will ignore the environment of the function only when
 \code{environment = FALSE}.
 }
 \note{
 \code{sha1} gained an \code{algo} argument since version 0.6.15. This allows
-\code{sha1()} to use all hashing algoritms available in \code{digest()}. The
+\code{sha1()} to use all hashing algorithms available in \code{digest()}. The
 hashes created with \code{sha1(x)} from digest >= 0.6.15 are identical to
 \code{sha1(x)} from digest <= 0.6.14. The only exceptions are hashes created
 with \code{sha1(x, algo = "sha1")}, they will be different starting from digest
