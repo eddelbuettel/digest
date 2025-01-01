@@ -754,8 +754,8 @@
 
 
 <h1 id="calculating-sha1-hashes-with-digest-and-sha1">Calculating SHA1 hashes with digest() and sha1()</h1>
-<p>Thierry Onkelinx and Dirk Eddelbuettel<br />
-Written Jan 2016, updated Jan 2018 and Oct 2020  </p>
+<p>Thierry Onkelinx and Dirk Eddelbuettel
+Written Jan 2016, updated Jan 2018 and Oct 2020</p>
 <p>NB: This vignette is (still) work-in-progress and not yet complete.</p>
 <h2 id="short-intro-on-hashes">Short intro on hashes</h2>
 <p>TBD</p>
@@ -772,9 +772,9 @@ a &lt;- c(a0, a1)
 # hexadecimal representation
 sprintf(&quot;%a&quot;, a)
 </code></pre>
-<p>Although the difference is small, any difference will result in different hash when using the <code>digest()</code> function. 
-However, the <code>sha1()</code> function tackles this problem by using the hexadecimal representation of the numbers and truncates 
-that representation to a certain number of digits prior to calculating the hash function. </p>
+<p>Although the difference is small, any difference will result in different hash when using the <code>digest()</code> function.
+However, the <code>sha1()</code> function tackles this problem by using the hexadecimal representation of the numbers and truncates
+that representation to a certain number of digits prior to calculating the hash function.</p>
 <pre><code class="language-r">library(digest)
 # different hashes with digest
 sapply(a, digest, algo = &quot;sha1&quot;)
@@ -790,7 +790,7 @@ sapply(a, sha1, digits = 10)
 # case where truncating gives different hexadecimal value
 c(sha1(pi), sha1(pi, digits = 13), sha1(pi, digits = 10))
 </code></pre>
-<p>The result of floating point arithematic on 32-bit and 64-bit can be slightly different. E.g. <code>print(pi ^ 11, 22)</code> returns <code>294204.01797389047</code> on 32-bit and <code>294204.01797389053</code> on 64-bit. Note that only the last 2 digits are different.  </p>
+<p>The result of floating point arithmetic on 32-bit and 64-bit can be slightly different. E.g. <code>print(pi ^ 11, 22)</code> returns <code>294204.01797389047</code> on 32-bit and <code>294204.01797389053</code> on 64-bit. Note that only the last 2 digits are different.</p>
 <table>
 <thead>
 <tr>

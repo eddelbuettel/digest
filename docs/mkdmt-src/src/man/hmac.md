@@ -69,6 +69,7 @@ the sha functions.
 
 ``` R
 
+
 ## Standard RFC 2104 test vectors
 current <- hmac('Jefe', 'what do ya want for nothing?', "md5")
 target <- '750c783e6ab0b503eaa86e310a5db738'
