@@ -312,6 +312,8 @@ sha1.factor <- function(...) {sha1_attr_digest(...)}
 sha1.logical <- function(...) {sha1_attr_digest(...)}
 sha1.integer <- function(...) {sha1_attr_digest(...)}
 sha1.raw <- function(...) {sha1_attr_digest(...)}
+sha1.environment <- function(...) { sha1_attr_digest(...) }
+`sha1.<-` <- function(...) { sha1_attr_digest(...) }
 
 # sha1_digest variants ####
 

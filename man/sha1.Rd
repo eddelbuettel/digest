@@ -25,6 +25,7 @@
 \alias{sha1.raw}
 \alias{sha1.formula}
 \alias{sha1.(}
+\alias{sha1.environment}
 \title{Calculate a SHA1 hash of an object}
 \author{Thierry Onkelinx}
 \usage{
@@ -56,6 +57,7 @@ sha1_attr_digest(x, digits = 14, zapsmall = 7, ..., algo = "sha1")
 \method{sha1}{integer}(...)
 \method{sha1}{logical}(...)
 \method{sha1}{raw}(...)
+\method{sha1}{environment}(...)
 }
 \arguments{
 \item{x}{the object to calculate the SHA1}

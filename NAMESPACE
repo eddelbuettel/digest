@@ -39,6 +39,8 @@ S3method(sha1, POSIXct)
 S3method(sha1, POSIXlt)
 S3method(sha1, raw)
 S3method(sha1, "(")
+S3method(sha1, environment)
+S3method(sha1, "<-")
 
 S3method(makeRaw, default)
 S3method(makeRaw, digest)
