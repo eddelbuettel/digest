@@ -31,12 +31,7 @@ sha1.default <- function(x, digits = 14L, zapsmall = 7L, ..., algo = "sha1") {
             sha1.list(x, digits = digits, zapsmall = zapsmall, ..., algo = algo)
         )
     }
-    stop(  							# #nocov start
-        "sha1() has no method for the '",
-        paste(class(x), collapse = "', '"),
-        "' class",
-        call. = FALSE
-    )								# #nocov end
+  sha1_attr_digest(x = x, digits = digits, zapsmall = zapsmall, ..., algo = algo)
 }
 
 sha1.numeric <- function(x, digits = 14L, zapsmall = 7L, ..., algo = "sha1"){
@@ -305,13 +300,6 @@ sha1_attr_digest <- function(x, digits = 14L, zapsmall = 7L, ..., algo = "sha1")
     )
     digest(x, algo = algo)
 }
-
-sha1.call <- function(...) {sha1_attr_digest(...)}
-sha1.character <- function(...) {sha1_attr_digest(...)}
-sha1.factor <- function(...) {sha1_attr_digest(...)}
-sha1.logical <- function(...) {sha1_attr_digest(...)}
-sha1.integer <- function(...) {sha1_attr_digest(...)}
-sha1.raw <- function(...) {sha1_attr_digest(...)}
 
 # sha1_digest variants ####
 
