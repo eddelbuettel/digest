@@ -56,8 +56,8 @@ digest <- function(object, algo=c("md5", "sha1", "crc32", "sha256", "sha512",
     is_streaming_algo <- algo == "spookyhash"
 
     if (is_streaming_algo && !serialize) {
-        return(.errorhandler(paste0(algo, " algorithm is not available without serialization."),  # #nocov
-                      mode=errormode))                                                      # #nocov
+        return(.errorhandler(paste0(algo, " algorithm is not available without serialization."),
+                      mode=errormode))
     }
 
     if (serialize && !file) {

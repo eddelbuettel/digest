@@ -356,3 +356,9 @@ expect_identical(xxh3_128(xxh3_128Input, serialize = FALSE), xxh3_128Output)
 
 ## Verify that is.character(file) && missing(object) is tested
 expect_true(is.character(digest(file = "test_digest.R")))
+
+## Verify that a streaming algorithm with serialize is an error
+expect_error(
+    digest(object = "A", algo = "spookyhash", serialize = FALSE),
+    pattern = "algorithm is not available without serialization"
+)
