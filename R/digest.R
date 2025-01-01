@@ -49,8 +49,8 @@ digest <- function(object, algo=c("md5", "sha1", "crc32", "sha256", "sha512",
     }
 
     if (is.character(file) && missing(object)) {
-        object <- file                  # nocov
-        file <- TRUE                  	# nocov
+        object <- file
+        file <- TRUE
     }
 
     is_streaming_algo <- algo == "spookyhash"

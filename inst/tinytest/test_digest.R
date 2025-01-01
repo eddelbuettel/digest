@@ -353,3 +353,6 @@ for (i in seq(along.with=xxh3_128Input)) {
 
 xxh3_128 <- getVDigest(algo = 'xxh3_128')
 expect_identical(xxh3_128(xxh3_128Input, serialize = FALSE), xxh3_128Output)
+
+## Verify that is.character(file) && missing(object) is tested
+expect_true(is.character(digest(file = "test_digest.R")))
