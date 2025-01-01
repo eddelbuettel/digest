@@ -1,6 +1,8 @@
 2025-01-01  Bill Denney  <wdenney@humanpredictions.com>
 
-  * R/sha1.R: Default sha1 method now works for all classes by default
+	* R/sha1.R: Default sha1 method now works for all classes by default. If you
+	  were previously using one of the methods directly (like `sha1.call()`),
+	  please switch to using `sha1()` directly.
 
 2024-12-31  Bill Denney  <wdenney@humanpredictions.com>
 
