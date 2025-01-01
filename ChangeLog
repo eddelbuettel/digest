@@ -1,3 +1,8 @@
+2025-01-01  Bill Denney  <wdenney@humanpredictions.com>
+
+	* R/digest.R: Increase testing removing "nocov" lines
+	* inst/tinytest/test_digest.R: Add tests for `digest()`
+
 2024-12-31  Dirk Eddelbuettel  <edd@debian.org>
 
 	* .github/workflows/ci.yaml: Simplify to r-ci with included bootstrap
