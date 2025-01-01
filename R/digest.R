@@ -78,8 +78,8 @@ digest <- function(object, algo=c("md5", "sha1", "crc32", "sha256", "sha512",
 
     } else if (!is.character(object) && !inherits(object,"raw") &&
                !is_streaming_algo) {
-        return(.errorhandler(paste("Argument object must be of type character",		    # #nocov
-                                   "or raw vector if serialize is FALSE"), mode=errormode)) # #nocov
+        return(.errorhandler(paste("Argument object must be of type character",
+                                   "or raw vector if serialize is FALSE"), mode=errormode))
     }
     if (file && !is.character(object))
         return(.errorhandler("file=TRUE can only be used with a character object",          # #nocov

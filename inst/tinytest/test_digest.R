@@ -362,3 +362,9 @@ expect_error(
     digest(object = "A", algo = "spookyhash", serialize = FALSE),
     pattern = "algorithm is not available without serialization"
 )
+
+## Verify that a non-character, non-raw object with a non-streaming algorithm is an error
+expect_error(
+    digest(object = 1, serialize = FALSE),
+    pattern = "Argument object must be of type character or raw vector if serialize is FALSE"
+)
