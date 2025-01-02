@@ -114,7 +114,7 @@ digest(object, algo=c("md5", "sha1", "crc32", "sha256", "sha512",
   guaranteeing an eight-character return. We now pad with zero to always
   return eight characters. Should the previous behaviour be required,
   set \code{option("digestOldCRC32Format"=TRUE)} and the output will be
-  consistent with prior version (but not be consistentnly eight characters).
+  consistent with prior version (but not be consistently eight characters).
 }
 \references{
   MD5: \url{https://www.ietf.org/rfc/rfc1321.txt}.
@@ -155,7 +155,7 @@ digest(object, algo=c("md5", "sha1", "crc32", "sha256", "sha512",
   Antoine Lucas for the integration of crc32; Jarek Tuszynski for the
   file-based operations; Henrik Bengtsson and Simon Urbanek for improved
   serialization patches; Christophe Devine for the hash function
-  implementations for sha-1, sha-256 and md5; Jean-Loup Gailly and Mark Adler
+  implementations for sha-1, sha-256 and md5; Jean-loup Gailly and Mark Adler
   for crc32; Hannes Muehleisen for the integration of sha-512; Jim Hester for
   the integration of xxhash32, xxhash64 and murmur32; Kendon Bell for
   the integration of spookyhash using Gabe Becker's R package fastdigest.}

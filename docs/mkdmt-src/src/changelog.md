@@ -1,5 +1,62 @@
 ###  2024 
 
+2024-12-31  Bill Denney  <wdenney@humanpredictions.com> 
+ 
+        * DESCRiPTION (Description): Correct typos 
+        * README.md: Idem 
+        * man/digest.Rd: Idem 
+        * sha1.Rd: Idem 
+        * vignette/sha1.md: Idem 
+ 
+2024-12-31  Dirk Eddelbuettel  <edd@debian.org> 
+ 
+        * .github/workflows/ci.yaml: Simplify to r-ci with included bootstrap 
+ 
+2024-09-19  Carl A. B. Pearson  <carl.ab.pearson@gmail.com> 
+ 
+        * src/digest.h: introduced, to enable additional registrations in init.c 
+        * src/digest.c: add digest.h, prune other imports, eliminate version check 
+        * src/init.c: introduce digest.h in anticipation of new registrations 
+ 
+2024-08-28  Carl A. B. Pearson  <carl.ab.pearson@gmail.com> 
+ 
+        * R/digest.R (digest): parse errormode only if in error conditions 
+        * R/vdigest.R (getVDigest): parse errormode only if in error conditions 
+ 
+2024-08-24  Dirk Eddelbuettel  <edd@debian.org> 
+ 
+        * src/digest.c (digest): Remove unused variables 
+ 
+2024-08-24  Carl A. B. Pearson  <carl.ab.pearson@gmail.com> 
+ 
+        * src/digest.c (digest): Address signedness warnings 
+ 
+2024-08-22  Dirk Eddelbuettel  <edd@debian.org> 
+ 
+        * DESCRIPTION (Authors@R): Add two more ORCID IDs 
+ 
+2024-08-22  Carl A. B. Pearson  <carl.ab.pearson@gmail.com> 
+ 
+        * src/digest.c: switch output handling from macro to function; 
+        consolidate stringification loop approaches 
+ 
+2024-08-21  Dirk Eddelbuettel  <edd@debian.org> 
+ 
+        * man/digest.Rd: Update \code{raw} entry 
+ 
+        * DESCRIPTION (Authors@R): Add two more ORCID IDs 
+ 
+2024-08-20  Dirk Eddelbuettel  <edd@debian.org> 
+ 
+        * DESCRIPTION (Version, Date): Roll micro version and date 
+ 
+        * DESCRIPTION (Authors@R): Add five ORCID IDs 
+ 
+2024-08-19  Carl A. B. Pearson  <carl.ab.pearson@gmail.com> 
+ 
+        * src/digest.c: enable all hashing algorithms to return raw output. 
+        * inst/tinytest/test_raw.R: test raw vs not consistency for all algos. 
+ 
 2024-08-19  Dirk Eddelbuettel  <edd@debian.org> 
  
         * DESCRIPTION (Version, Date): Release 0.6.37 

@@ -27,8 +27,8 @@ input vector `x`.
 
 ### Author(s)
 
-Dmitriy Selivanov <selivanov.dmitriy@gmail.com> for the <span
-class="rlang">**R**</span> interface; Bob Jenkins for original
+Dmitriy Selivanov <selivanov.dmitriy@gmail.com> for the
+<span class="rlang">**R**</span> interface; Bob Jenkins for original
 implementation <http://www.burtleburtle.net/bob/hash/doobs.html>
 
 ### References

@@ -54,7 +54,7 @@ This is a common use of the digest package.
 
 A small number of additional functions is available:
 
-- `sha1()` for numerally stable hashsums,
+- `sha1()` for numerically stable hashsums,
 - `hmac()` for hashed message authentication codes based on a key,
 - `AES()` for Advanced Encryption Standard block ciphers,
 - `getVDigest()` as a function generator for vectorised versions.
