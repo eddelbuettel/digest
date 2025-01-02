@@ -3,6 +3,8 @@
 	* R/sha1.R: Default sha1 method attempts to create a hash for all classess
 	  without specific S3 methods. Several methods `sha1()` methods have been
 	  removed as they provided the same result as the new default method.
+	* R/digest.R: Increase testing removing "nocov" lines
+	* inst/tinytest/test_digest.R: Additional digest() tests
 
 2024-12-31  Bill Denney  <wdenney@humanpredictions.com>
 

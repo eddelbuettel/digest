@@ -7,6 +7,7 @@
 ##  Copyright (C) 2014 - 2019  Jim Hester
 ##  Copyright (C) 2019         Kendon Bell
 ##  Copyright (C) 2019         Matthew de Queljoe
+##  Copyright (C) 2025         Bill Denney
 ##
 ##  This file is part of digest.
 ##
@@ -49,15 +50,15 @@ digest <- function(object, algo=c("md5", "sha1", "crc32", "sha256", "sha512",
     }
 
     if (is.character(file) && missing(object)) {
-        object <- file                  # nocov
-        file <- TRUE                  	# nocov
+        object <- file
+        file <- TRUE
     }
 
     is_streaming_algo <- algo == "spookyhash"
 
     if (is_streaming_algo && !serialize) {
-        return(.errorhandler(paste0(algo, " algorithm is not available without serialization."),  # #nocov
-                      mode=errormode))                                                      # #nocov
+        return(.errorhandler(paste0(algo, " algorithm is not available without serialization."),
+                             mode=errormode))
     }
 
     if (serialize && !file) {
@@ -78,8 +79,8 @@ digest <- function(object, algo=c("md5", "sha1", "crc32", "sha256", "sha512",
 
     } else if (!is.character(object) && !inherits(object,"raw") &&
                !is_streaming_algo) {
-        return(.errorhandler(paste("Argument object must be of type character",		    # #nocov
-                                   "or raw vector if serialize is FALSE"), mode=errormode)) # #nocov
+        return(.errorhandler(paste("Argument object must be of type character",
+                                   "or raw vector if serialize is FALSE"), mode=errormode))
     }
     if (file && !is.character(object))
         return(.errorhandler("file=TRUE can only be used with a character object",          # #nocov
