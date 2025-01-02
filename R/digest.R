@@ -7,6 +7,7 @@
 ##  Copyright (C) 2014 - 2019  Jim Hester
 ##  Copyright (C) 2019         Kendon Bell
 ##  Copyright (C) 2019         Matthew de Queljoe
+##  Copyright (C) 2025         Bill Denney
 ##
 ##  This file is part of digest.
 ##
@@ -57,7 +58,7 @@ digest <- function(object, algo=c("md5", "sha1", "crc32", "sha256", "sha512",
 
     if (is_streaming_algo && !serialize) {
         return(.errorhandler(paste0(algo, " algorithm is not available without serialization."),
-                      mode=errormode))
+                             mode=errormode))
     }
 
     if (serialize && !file) {
