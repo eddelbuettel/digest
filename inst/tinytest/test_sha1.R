@@ -495,7 +495,7 @@ y <- readRDS(f)
 expect_identical(sha1(x), sha1(y))
 expect_identical(sha1(x, environment = FALSE), sha1(y, environment = FALSE))
 
-# Check that default sha1 method works for many types (#224)
+# Check that default sha1 method works for many types
 # Class: <-
 expect_true(is.character(sha1(str2lang("a <- b"))))
 # Class: character
