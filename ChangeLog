@@ -1,3 +1,8 @@
+2025-01-03  Dirk Eddelbuettel  <edd@debian.org>
+
+	* R/sha1.R (sha1.default): Add fallback conversion for S3 classes not
+	covered, along with (suppressable) message
+
 2025-01-01  Dirk Eddelbuettel  <edd@debian.org>
 
 	* R/sha1.R: Add support for environment and '<-'
