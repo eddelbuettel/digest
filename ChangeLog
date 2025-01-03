@@ -1,5 +1,7 @@
 2025-01-03  Dirk Eddelbuettel  <edd@debian.org>
 
+	* DESCRIPTION (Version, Date): Roll micro version and date
+
 	* R/sha1.R (sha1.default): Add fallback conversion for S3 classes not
 	covered, along with (suppressable) message
 
