@@ -1,7 +1,19 @@
+2025-01-03  Dirk Eddelbuettel  <edd@debian.org>
+
+	* R/sha1.R (sha1.default): Add fallback conversion for S3 classes not
+	covered, along with (suppressable) message
+
+2025-01-01  Dirk Eddelbuettel  <edd@debian.org>
+
+	* R/sha1.R: Add support for environment and '<-'
+	* man/sha1.R: Add alias
+	* NAMESPACE: Export new methods
+
 2025-01-01  Bill Denney  <wdenney@humanpredictions.com>
 
 	* R/digest.R: Increase testing removing "nocov" lines
 	* inst/tinytest/test_digest.R: Additional digest() tests
+	* inst/tinytest/test_sha1.R: Additional sha1() tests
 
 2024-12-31  Bill Denney  <wdenney@humanpredictions.com>
 
