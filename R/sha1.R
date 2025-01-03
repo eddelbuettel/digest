@@ -301,6 +301,13 @@ sha1_attr_digest <- function(x, digits = 14L, zapsmall = 7L, ..., algo = "sha1")
     digest(x, algo = algo)
 }
 
+sha1.call <- function(...) {sha1_attr_digest(...)}
+sha1.character <- function(...) {sha1_attr_digest(...)}
+sha1.factor <- function(...) {sha1_attr_digest(...)}
+sha1.logical <- function(...) {sha1_attr_digest(...)}
+sha1.integer <- function(...) {sha1_attr_digest(...)}
+sha1.raw <- function(...) {sha1_attr_digest(...)}
+
 # sha1_digest variants ####
 
 sha1_digest <- function(x, digits = 14L, zapsmall = 7L, ..., algo = "sha1") {
