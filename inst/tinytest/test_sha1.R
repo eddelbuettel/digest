@@ -494,3 +494,19 @@ saveRDS(x, f)
 y <- readRDS(f)
 expect_identical(sha1(x), sha1(y))
 expect_identical(sha1(x, environment = FALSE), sha1(y, environment = FALSE))
+
+# Check that default sha1 method works for many types
+# Class: <-
+expect_true(is.character(sha1(str2lang("a <- b"))))
+# Class: character
+expect_true(is.character(sha1("a")))
+# Class: call
+expect_true(is.character(sha1(str2lang("a(b)"))))
+# Class: environment
+expect_true(is.character(sha1(new.env())))
+# Class: factor
+expect_true(is.character(sha1(factor())))
+# Class: integer
+expect_true(is.character(sha1(1L)))
+# Class: raw
+expect_true(is.character(sha1(as.raw(1))))
