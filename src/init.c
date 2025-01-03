@@ -28,6 +28,8 @@
 
 void R_init_digest(DllInfo *info) {
     R_RegisterCCallable("digest", "PMurHash32", (DL_FUNC) &PMurHash32);
+    R_RegisterCCallable("digest", "direct_MD5", (DL_FUNC) &direct_MD5);
+    R_RegisterCCallable("digest", "direct_XXH32", (DL_FUNC) &direct_XXH32);
 
     /* tools::package_native_routine_registration_skeleton() reports empty set */
     R_registerRoutines(info,
