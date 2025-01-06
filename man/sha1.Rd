@@ -114,4 +114,9 @@ some classes. This was fixed in version 0.6.23. Use
 \code{options(sha1PackageVersion = "0.6.22")} to get the old behaviour.
 
 Version 0.6.24 and later ignore attributes named \code{srcref}.
+
+The project \url{https://github.com/inbo/n2kanalysis/} demonstrates
+how to create custom \code{sha1} dispatchers for other S3 classes, see
+file \url{https://github.com/inbo/n2kanalysis/blob/main/R/sha1.R}.
+
 }
