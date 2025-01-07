@@ -30,7 +30,8 @@ sha1.default <- function(x, digits = 14L, zapsmall = 7L, ..., algo = "sha1") {
         return(sha1.list(x, digits = digits, zapsmall = zapsmall, ..., algo = algo))
     }
     warning("sha1() has no method for the '", paste(class(x), collapse = "', '"),
-            "' class, so using fallback.")
+            "' class, so using fallback.",
+            "\nPlease read the note in ?digest::sha1 on why this might be a problem.")
     sha1_attr_digest(x = x, digits = digits, zapsmall = zapsmall, ..., algo = algo)
 }
 
