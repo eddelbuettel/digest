@@ -1,7 +1,7 @@
 
 ##  sha1 -- SHA1 hash generation for R
 ##
-##  Copyright (C) 2015 - 2019  Thierry Onkelinx and Dirk Eddelbuettel
+##  Copyright (C) 2015 - 2025  Thierry Onkelinx and Dirk Eddelbuettel
 ##  Copyright (C) 2016 - 2019  Viliam Simko
 ##
 ##  This file is part of digest.
@@ -29,8 +29,9 @@ sha1.default <- function(x, digits = 14L, zapsmall = 7L, ..., algo = "sha1") {
     if (is.list(x)) {
         return(sha1.list(x, digits = digits, zapsmall = zapsmall, ..., algo = algo))
     }
-    message("sha1() has no method for the '", paste(class(x), collapse = "', '"),
-            "' class, so using fallback.")
+    warning("sha1() has no method for the '", paste(class(x), collapse = "', '"),
+            "' class, so using fallback.\nPlease read the note in ?digest::sha1",
+            "on why this might be a problem.")
     sha1_attr_digest(x = x, digits = digits, zapsmall = zapsmall, ..., algo = algo)
 }
 

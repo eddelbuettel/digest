@@ -511,9 +511,7 @@ expect_true(is.character(sha1(1L)))
 # Class: raw
 expect_true(is.character(sha1(as.raw(1))))
 
-# Check that the expected warning is given for sha1.default usage and that a result is produced
-expect_message(
-    sha1(logLik(lmx <- lm(x ~ 1, data = data.frame(x = 1:5)))),
-    pattern = "sha1\\(\\) has no method for the 'logLik' class, so using fallback\\."
-)
-expect_true(is.character(sha1(logLik(lmx <- lm(x ~ 1, data = data.frame(x = 1:5))))))
+# Check that a warning is given for sha1.default usage and that a result is produced
+expect_warning(val <- sha1(logLik(lmx <- lm(x ~ 1, data = data.frame(x = 1:5)))),
+               "sha1\\(\\) has no method for the 'logLik' class, so using fallback.")
+expect_true(is.character(val))
