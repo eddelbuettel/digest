@@ -115,12 +115,11 @@ some classes. This was fixed in version 0.6.23. Use
 
 Version 0.6.24 and later ignore attributes named \code{srcref}.
 
-Version 0.6.37 and later use \code{digest()} as a fallback for undefined
+Version 0.6.38 and later use \code{digest()} as a fallback for undefined
 methods. Note that this breaks the guarantee for identical hashes between 32-bit
 and 64-bit system. We recommend to write a custom method for such class. The
 basic idea is the convert the class in a list of classes that \code{sha1} can
-handle.
-The project \url{https://github.com/inbo/n2kanalysis/} demonstrates
+handle. The project \url{https://github.com/inbo/n2kanalysis/} demonstrates
 how to create custom \code{sha1} dispatchers for other S3 classes, see
 file \url{https://github.com/inbo/n2kanalysis/blob/main/R/sha1.R}.
 
