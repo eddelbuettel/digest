@@ -155,6 +155,100 @@ void _store_from_int64(const uint64_t hash, char *output, const int leaveRaw) {
     } else snprintf(output, sizeof(uint64_t)*2 + 1, "%016" PRIx64, hash);
 }
 
+// _to_STRINGELT  
+//
+// @param rawoutput a RAWSXP, as produced by any core_ALGO definition
+SEXP _to_STRINGELT(const SEXP rawoutput) {
+    const size_t rawlength = XLENGTH(rawoutput);
+    const size_t charlength = rawlength * 2;
+    char output[charlength];
+    const unsigned char * hash = RAW(rawoutput);
+#if USESHA512
+    char *outputp = output;
+    unsigned const char *d = hash;
+    for (int j = 0; j < rawlength; j++) {
+        *outputp++ = sha2_hex_digits[(*d & 0xf0) >> 4];
+        *outputp++ = sha2_hex_digits[*d & 0x0f];
+        d++;
+    }
+#else
+    for (int j = 0; j < rawlength; j++) {
+      // a char = 2 hex digits => to (0-9A-F)-charset = writing 2 spots
+      snprintf(output + j * 2, 3, "%02x", hash[j]);
+    }
+#endif
+      
+    SEXP result = PROTECT(allocVector(STRSXP, 1));
+    SET_STRING_ELT(result, 0, mkCharLen(output, charlength));
+    UNPROTECT(1);
+    return result;
+}
+
+R_xlen_t _convert_to_charptr(const SEXP input, unsigned char** newinput) {
+    R_xlen_t len = XLENGTH(input);
+    switch(TYPEOF(input)) {
+        case RAWSXP:
+            *newinput = (unsigned char*)RAW(input);
+            return len;
+        case INTSXP:
+            *newinput = (unsigned char*)INTEGER(input);
+            return len*sizeof(int);
+        case REALSXP:
+            *newinput = (unsigned char*)REAL(input);
+            return len*sizeof(double);
+        default:
+            exit(-1);
+    }
+}
+
+typedef SEXP (*coreALGO)(unsigned char*, const size_t, const int);
+
+SEXP _gen_digest(coreALGO algo, const int leave_raw, const int seed,
+                 unsigned char* txt, const R_xlen_t length) {
+    if (leave_raw) {
+        return (*algo)(txt, length, seed);
+    } else {
+        return _to_STRINGELT((*algo)(txt, length, seed));
+    }
+}
+
+SEXP _gen_direct(coreALGO algo, const int leave_raw, const int seed,
+                 const SEXP input) {
+    unsigned char* txt;
+    const R_xlen_t length = _convert_to_charptr(input, &txt);
+    return _gen_digest(algo, leave_raw, seed, txt, length);
+}
+
+SEXP _core_XXH32(unsigned char* input, const size_t len, const int seed) {
+    const size_t output_length = 4;
+    XXH32_hash_t val = XXH32(input, len, seed);
+    SEXP result = PROTECT(allocVector(RAWSXP, output_length));
+    unsigned char *output = RAW(result);
+    rev_memcpy(output, &val, sizeof(XXH32_hash_t));
+    UNPROTECT(1);
+    return result;
+}
+
+SEXP _core_MD5(unsigned char* input, const size_t len, const int seed) {
+    const size_t output_length = 16; // produces 16*8 = 128 bits
+    md5_context ctx;
+    md5_starts( &ctx );
+    md5_update( &ctx, input, len);
+    SEXP result = PROTECT(allocVector(RAWSXP, output_length));
+    unsigned char *output = RAW(result);
+    md5_finish( &ctx, output );
+    UNPROTECT(1);
+    return result;
+}
+
+SEXP direct_XXH32(const SEXP input, const SEXP Leave_raw, const SEXP seed) {
+    return _gen_direct(&_core_XXH32, LOGICAL_VALUE(Leave_raw), INTEGER_VALUE(seed), input);
+}
+
+SEXP direct_MD5(const SEXP input, const SEXP Leave_raw, const SEXP seed) {
+    return _gen_direct(&_core_MD5, LOGICAL_VALUE(Leave_raw), INTEGER_VALUE(seed), input);
+}
+
 SEXP digest(SEXP Txt, SEXP Algo, SEXP Length, SEXP Skip, SEXP Leave_raw, SEXP Seed) {
     size_t BUF_SIZE = 1024;
     FILE *fp=0;
@@ -198,16 +292,7 @@ SEXP digest(SEXP Txt, SEXP Algo, SEXP Length, SEXP Skip, SEXP Leave_raw, SEXP Se
 
     switch (algo) {
     case 1: {     /* md5 case */
-        md5_context ctx;
-        output_length = 16; // produces 16*8 = 128 bits
-        unsigned char md5sum[output_length];
-
-        md5_starts( &ctx );
-        md5_update( &ctx, txt, nChar);
-        md5_finish( &ctx, md5sum );
-
-        _store_from_char_ptr(md5sum, output, output_length, leaveRaw);
-        break;
+        return _gen_digest(&_core_MD5, leaveRaw, seed, txt, nChar);
     }
     case 2: {     /* sha1 case */
         sha1_context ctx;
@@ -259,12 +344,7 @@ SEXP digest(SEXP Txt, SEXP Algo, SEXP Length, SEXP Skip, SEXP Leave_raw, SEXP Se
         break;
     }
     case 6: {     /* xxhash32 case */
-        output_length = 4;
-
-        XXH32_hash_t val = XXH32(txt, nChar, seed);
-
-        _store_from_int32(val, output, leaveRaw);
-        break;
+        return _gen_digest(&_core_XXH32, leaveRaw, seed, txt, nChar);
     }
     case 7: {     /* xxhash64 case */
         output_length = 8;
