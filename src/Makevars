@@ -1,2 +1,4 @@
 
 PKG_CPPFLAGS = -I.
+PKG_CFLAGS = -Wstringop-overread
+PKG_CXXFLAGS = -Wstringop-overread
