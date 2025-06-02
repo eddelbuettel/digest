@@ -1,6 +1,9 @@
 #ifndef BLAKE3_H
 #define BLAKE3_H
 
+/* defines overrides to skip hardware acceleration on amd64 and arm64 */
+#include "blake3_portability.h"
+
 #include <stddef.h>
 #include <stdint.h>
 

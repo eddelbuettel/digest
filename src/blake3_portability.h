@@ -2,7 +2,7 @@
 
   digest -- hash digest functions for R
 
-  Copyright (C) 2003 - 2025  Dirk Eddelbuettel <edd@debian.org>
+  Copyright (C) 2025 - current  Dirk Eddelbuettel <edd@debian.org>
 
   This file is part of digest.
 
@@ -21,10 +21,27 @@
 
 */
 
-#include <Rinternals.h>
+/* blake3 supports hardware acceleration in the full (upstream)
+   version, but we carry only the 'portable' version so we need to
+   explicitly un-select hardware acceleration on amd64 (SSE*, AVX*)
+   and (recent) arm64 (NEON */
 
-SEXP is_big_endian(void);
-SEXP is_little_endian(void);
+#if !defined(BLAKE3_NO_SSE2)
+#define BLAKE3_NO_SSE2
+#endif
 
-SEXP digest(SEXP Txt, SEXP Algo, SEXP Length, SEXP Skip, SEXP Leave_raw, SEXP Seed);
-SEXP vdigest(SEXP Txt, SEXP Algo, SEXP Length, SEXP Skip, SEXP Leave_raw, SEXP Seed);
+#if !defined(BLAKE3_NO_SSE41)
+#define BLAKE3_NO_SSE41
+#endif
+
+#if !defined(BLAKE3_NO_AVX2)
+#define BLAKE3_NO_AVX2
+#endif
+
+#if !defined(BLAKE3_NO_AVX512)
+#define BLAKE3_NO_AVX512
+#endif
+
+#if !defined(BLAKE3_USE_NEON)
+#define BLAKE3_USE_NEON 0
+#endif
