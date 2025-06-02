@@ -1,3 +1,18 @@
+2025-06-02  Dirk Eddelbuettel  <edd@debian.org>
+
+	* src/blake3_portability.h: New header to skip hardware accelerated
+	modes on arm64 and amd64 available upstream but not included here
+
+	* src/blake3.h: Include new header to guide blake3 compilation
+
+2025-06-01  Dirk Eddelbuettel  <edd@debian.org>
+
+	* src/blake3.c: Sync with updated upstream version
+	* src/blake3_dispatch.c: Idem
+	* src/blake3.h: Idem
+	* src/blake3_impl/h: Idem
+	* src/blake3_portable.c: Idem
+
 2025-01-07  Thierry Onkelinx <thierry.onkelinx@inbo.be>
 
 	* R/sha1.R (sha1.default): Tweak message
