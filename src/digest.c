@@ -442,9 +442,9 @@ SEXP digest(SEXP Txt, SEXP Algo, SEXP Length, SEXP Skip, SEXP Leave_raw, SEXP Se
             while ( ( nChar = fread( buf, 1, sizeof( buf ), fp ) ) > 0)
                 SHA512_Update( &ctx, buf, nChar );
         }
-		/* Calling SHA512_Final, because SHA512_End will already
-		   convert the hash to a string, and we also want RAW */
-		SHA512_Final(sha512sum, &ctx);
+        /* Calling SHA512_Final, because SHA512_End will already
+           convert the hash to a string, and we also want RAW */
+        SHA512_Final(sha512sum, &ctx);
 
         _store_from_char_ptr(sha512sum, output, output_length, leaveRaw);
         break;
