@@ -145,13 +145,21 @@ void rev_memcpy(char *dst, const void *src, int len) {
 // n.b. ripe templating to e.g. _store_from_integral<> if switching to c++
 void _store_from_int32(const uint32_t hash, char *output, const int leaveRaw) {
     if (leaveRaw) {
+#if BYTE_ORDER == LITTLE_ENDIAN
         rev_memcpy(output, &hash, sizeof(uint32_t));
+#else
+        memcpy(output, &hash, sizeof(uint32_t));
+#endif
     } else snprintf(output, sizeof(uint32_t)*2 + 1, "%08x", hash);
 }
 
 void _store_from_int64(const uint64_t hash, char *output, const int leaveRaw) {
     if (leaveRaw) {
+#if BYTE_ORDER == LITTLE_ENDIAN
         rev_memcpy(output, &hash, sizeof(uint64_t));
+#else
+        memcpy(output, &hash, sizeof(uint64_t));
+#endif
     } else snprintf(output, sizeof(uint64_t)*2 + 1, "%016" PRIx64, hash);
 }
 
@@ -316,12 +324,12 @@ SEXP digest(SEXP Txt, SEXP Algo, SEXP Length, SEXP Skip, SEXP Leave_raw, SEXP Se
 
         XXH128_hash_t val =  XXH3_128bits_withSeed(txt, nChar, seed);
 
-        // need something a bit fancier here
         if (leaveRaw) {
-          rev_memcpy(output, &val.high64, 8);
-          rev_memcpy(output + 8, &val.low64, 8);
+            XXH128_canonical_t canon;
+            XXH128_canonicalFromHash(&canon, val);
+            memcpy(output, &canon, 16);
         } else {
-          snprintf(output, 128, "%016" PRIx64 "%016" PRIx64, val.high64, val.low64);
+            snprintf(output, 128, "%016" PRIx64 "%016" PRIx64, val.high64, val.low64);
         }
         break;
     }
@@ -434,9 +442,9 @@ SEXP digest(SEXP Txt, SEXP Algo, SEXP Length, SEXP Skip, SEXP Leave_raw, SEXP Se
             while ( ( nChar = fread( buf, 1, sizeof( buf ), fp ) ) > 0)
                 SHA512_Update( &ctx, buf, nChar );
         }
-		/* Calling SHA512_Final, because SHA512_End will already
-		   convert the hash to a string, and we also want RAW */
-		SHA512_Final(sha512sum, &ctx);
+        /* Calling SHA512_Final, because SHA512_End will already
+           convert the hash to a string, and we also want RAW */
+        SHA512_Final(sha512sum, &ctx);
 
         _store_from_char_ptr(sha512sum, output, output_length, leaveRaw);
         break;
@@ -639,10 +647,10 @@ SEXP digest(SEXP Txt, SEXP Algo, SEXP Length, SEXP Skip, SEXP Leave_raw, SEXP Se
         XXH128_hash_t val =  XXH3_128bits_digest(state);
         XXH3_freeState(state);
 
-        // need something a bit fancier here
         if (leaveRaw) {
-            rev_memcpy(output, &val.high64, 8);
-            rev_memcpy(output + 8, &val.low64, 8);
+            XXH128_canonical_t canon;
+            XXH128_canonicalFromHash(&canon, val);
+            memcpy(output, &canon, 16);
         } else {
             snprintf(output, 128, "%016" PRIx64 "%016" PRIx64, val.high64, val.low64);
         }
