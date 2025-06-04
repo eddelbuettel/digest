@@ -324,12 +324,12 @@ SEXP digest(SEXP Txt, SEXP Algo, SEXP Length, SEXP Skip, SEXP Leave_raw, SEXP Se
 
         XXH128_hash_t val =  XXH3_128bits_withSeed(txt, nChar, seed);
 
-        // need something a bit fancier here
         if (leaveRaw) {
-          rev_memcpy(output, &val.high64, 8);
-          rev_memcpy(output + 8, &val.low64, 8);
+            XXH128_canonical_t canon;
+            XXH128_canonicalFromHash(&canon, val);
+            memcpy(output, &canon, 16);
         } else {
-          snprintf(output, 128, "%016" PRIx64 "%016" PRIx64, val.high64, val.low64);
+            snprintf(output, 128, "%016" PRIx64 "%016" PRIx64, val.high64, val.low64);
         }
         break;
     }
@@ -647,10 +647,10 @@ SEXP digest(SEXP Txt, SEXP Algo, SEXP Length, SEXP Skip, SEXP Leave_raw, SEXP Se
         XXH128_hash_t val =  XXH3_128bits_digest(state);
         XXH3_freeState(state);
 
-        // need something a bit fancier here
         if (leaveRaw) {
-            rev_memcpy(output, &val.high64, 8);
-            rev_memcpy(output + 8, &val.low64, 8);
+            XXH128_canonical_t canon;
+            XXH128_canonicalFromHash(&canon, val);
+            memcpy(output, &canon, 16);
         } else {
             snprintf(output, 128, "%016" PRIx64 "%016" PRIx64, val.high64, val.low64);
         }
