@@ -145,13 +145,21 @@ void rev_memcpy(char *dst, const void *src, int len) {
 // n.b. ripe templating to e.g. _store_from_integral<> if switching to c++
 void _store_from_int32(const uint32_t hash, char *output, const int leaveRaw) {
     if (leaveRaw) {
+#if BYTE_ORDER == LITTLE_ENDIAN
         rev_memcpy(output, &hash, sizeof(uint32_t));
+#else
+        memcpy(output, &hash, sizeof(uint32_t));
+#endif
     } else snprintf(output, sizeof(uint32_t)*2 + 1, "%08x", hash);
 }
 
 void _store_from_int64(const uint64_t hash, char *output, const int leaveRaw) {
     if (leaveRaw) {
+#if BYTE_ORDER == LITTLE_ENDIAN
         rev_memcpy(output, &hash, sizeof(uint64_t));
+#else
+        memcpy(output, &hash, sizeof(uint64_t));
+#endif
     } else snprintf(output, sizeof(uint64_t)*2 + 1, "%016" PRIx64, hash);
 }
 
