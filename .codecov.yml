@@ -2,6 +2,10 @@ comment: false
 ignore:
   - "src/blake*.c"
   - "src/blake*.h"
+  - "src/crc32c/*"
+  - "src/crc32c.*"
+  - "src/SpookyV2.*"
+  - "src/xxhash.h"
 coverage:
   status:
     project:

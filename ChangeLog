@@ -2,6 +2,8 @@
 
 	* .github/workflows/ci.yaml (jobs): Use codecov token
 
+	* .codecov.yml (ignore): Add a few more files
+
 2025-08-05  Dirk Eddelbuettel  <edd@debian.org>
 
 	* DESCRIPTION (Suggests): Add rbenchmark as used in demo/
