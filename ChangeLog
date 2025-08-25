@@ -1,3 +1,7 @@
+2025-08-25  Dirk Eddelbuettel  <edd@debian.org>
+
+	* .github/workflows/ci.yaml (jobs): Use codecov token
+
 2025-08-05  Dirk Eddelbuettel  <edd@debian.org>
 
 	* DESCRIPTION (Suggests): Add rbenchmark as used in demo/
