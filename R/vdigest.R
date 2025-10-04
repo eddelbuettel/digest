@@ -1,7 +1,7 @@
 
 ##  vdigest -- Vectorist digest functions for R
 ##
-##  Copyright (C) 2019 - 2024  Matthew de Queljoe and Dirk Eddelbuettel
+##  Copyright (C) 2019 - 2025  Matthew de Queljoe and Dirk Eddelbuettel
 ##
 ##  This file is part of digest.
 ##
@@ -85,7 +85,7 @@ non_streaming_digest <- function(algo, errormode, algoint){
         if (file) {
             algoint <- algoint+100
             object <- path.expand(object)
-            if (.isWindows()) object <- enc2utf8(object)
+            if (.isWindows()) object <- enc2utf8(object)                                        # #nocov
             check_file(object, errormode)
         }
         ## if skip is auto (or any other text for that matter), we just turn it

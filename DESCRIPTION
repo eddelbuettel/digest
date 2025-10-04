@@ -51,7 +51,7 @@ Description: Implementation of a function 'digest()' for the creation of hash
  such as 'hmac()' to create hash-based message authentication code. Please note that
  this package is not meant to be deployed for cryptographic purposes for which more
  comprehensive (and widely tested) libraries such as 'OpenSSL' should be used.
-URL: https://github.com/eddelbuettel/digest, https://dirk.eddelbuettel.com/code/digest.html
+URL: https://github.com/eddelbuettel/digest, https://eddelbuettel.github.io/digest/, https://dirk.eddelbuettel.com/code/digest.html
 BugReports: https://github.com/eddelbuettel/digest/issues
 Depends: R (>= 3.3.0)
 Imports: utils

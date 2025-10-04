@@ -1,7 +1,7 @@
 
 ##  digest -- hash digest functions for R
 ##
-##  Copyright (C) 2003 - 2024  Dirk Eddelbuettel <edd@debian.org>
+##  Copyright (C) 2003 - 2025  Dirk Eddelbuettel <edd@debian.org>
 ##  Copyright (C) 2009 - 2019  Henrik Bengtsson
 ##  Copyright (C) 2012 - 2019  Hannes Muehleisen
 ##  Copyright (C) 2014 - 2019  Jim Hester
@@ -97,7 +97,7 @@ digest <- function(object, algo=c("md5", "sha1", "crc32", "sha256", "sha512",
     if (file) {
         algoint <- algoint+100
         object <- path.expand(object)
-        if (.isWindows()) object <- enc2utf8(object)
+        if (.isWindows()) object <- enc2utf8(object)                                        # #nocov
         check_file(object, errormode)
     }
     ## if skip is auto (or any other text for that matter), we just turn it

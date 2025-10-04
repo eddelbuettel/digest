@@ -2,7 +2,7 @@
 
   digest -- hash digest functions for R
 
-  Copyright (C) 2003 - 2024  Dirk Eddelbuettel <edd@debian.org>
+  Copyright (C) 2003 - 2025  Dirk Eddelbuettel <edd@debian.org>
 
   This file is part of digest.
 
@@ -94,9 +94,9 @@ FILE* open_with_widechar_on_windows(const unsigned char* txt) {
 #endif
 #endif
 
-SEXP is_big_endian(void) {
+SEXP is_big_endian(void) {      							/* #nocov start */
     return Rf_ScalarLogical(BYTE_ORDER == BIG_ENDIAN);
-}
+}															/* #nocov end */
 
 SEXP is_little_endian(void) {
     return Rf_ScalarLogical(BYTE_ORDER == LITTLE_ENDIAN);
@@ -550,10 +550,10 @@ SEXP digest(SEXP Txt, SEXP Algo, SEXP Length, SEXP Skip, SEXP Leave_raw, SEXP Se
 
         blake3_hasher_init(&hasher);
         if (length>=0) {
-            while ( ( nChar = fread( buf, 1, sizeof( buf ), fp ) ) > 0 && length>0) {
+            while ( ( nChar = fread( buf, 1, sizeof( buf ), fp ) ) > 0 && length>0) {	/* #nocov start */
                 if (nChar>length) nChar=length;
                 blake3_hasher_update( &hasher, buf, nChar );
-                length -= nChar;
+                length -= nChar;														/* #nocov end */
             }
         } else {
             while ( ( nChar = fread( buf, 1, sizeof( buf ), fp ) ) > 0)
@@ -564,7 +564,7 @@ SEXP digest(SEXP Txt, SEXP Algo, SEXP Length, SEXP Skip, SEXP Leave_raw, SEXP Se
         _store_from_char_ptr(val, output, output_length, leaveRaw);
         break;
     }
-    case 111: {		/* crc32c */
+    case 111: {		/* crc32c */														/* #nocov start */
         unsigned char buf[BUF_SIZE];
         output_length = 4;
         uint32_t crc = 0;
@@ -658,7 +658,7 @@ SEXP digest(SEXP Txt, SEXP Algo, SEXP Length, SEXP Skip, SEXP Leave_raw, SEXP Se
     }
 
     default: {
-        error("Unsupported algorithm code"); /* should not be reached due to test in R */ /* #nocov */
+        error("Unsupported algorithm code"); /* should not be reached due to test in R */ /* #nocov end */
     }
     } /* end switch */
 
