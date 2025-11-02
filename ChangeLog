@@ -1,3 +1,7 @@
+2025-11-02  Dirk Eddelbuettel  <edd@debian.org>
+
+	* README.md: Use R Project URL for GPL-2
+
 2025-10-03  Dirk Eddelbuettel  <edd@debian.org>
 
 	* R/digest.R (digest): Additional #nocov

@@ -1,7 +1,7 @@
 ## digest: Compact hash representations of arbitrary R objects
 
 [![ci](https://github.com/eddelbuettel/digest/workflows/ci/badge.svg)](https://github.com/eddelbuettel/digest/actions?query=workflow%3Aci)
-[![License](http://img.shields.io/badge/license-GPL%20%28%3E=%202%29-brightgreen.svg?style=flat)](https://www.gnu.org/licenses/gpl-2.0.html)
+[![License](https://img.shields.io/badge/license-GPL%20%28%3E=%202%29-brightgreen.svg?style=flat)](https://www.r-project.org/Licenses/GPL-2)
 [![CRAN](https://www.r-pkg.org/badges/version/digest)](https://cran.r-project.org/package=digest)
 [![Dependencies](https://tinyverse.netlify.app/badge/digest)](https://cran.r-project.org/package=digest)
 [![Debian package](https://img.shields.io/debian/v/r-cran-digest/sid?color=green)](https://packages.debian.org/sid/r-cran-digest)
