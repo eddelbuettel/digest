@@ -9,3 +9,6 @@
 ^\.github
 ^\.covrignore
 ^\.editorconfig
+.venv_altdoc
+^docs$
+^altdoc$

@@ -13,3 +13,5 @@ docs/mkdmt-src/docs
 docs/mkdmt-src/.cache
 docs/mkdmt-src/deploy.sh
 *~
+.venv_altdoc
+altdoc/freeze.rds
