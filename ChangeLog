@@ -1,6 +1,6 @@
 2025-11-02  Dirk Eddelbuettel  <edd@debian.org>
 
-	* DESCRIPTION (Version, Date): Release 0.6.37
+	* DESCRIPTION (Version, Date): Roll micro version and date
 
 	* docs/: Regenerated using altdoc with mkdocs-material
 	* .github/altdoc: Added and customized
@@ -8,6 +8,10 @@
 	defaults appears to drop both doi and url entries
 
 	* README.md: Use R Project URL for GPL-2
+
+	* man/digest.Rd: Edit around disappearing ssh certificate of the site
+	of Aaron Gifford and link to alternate source of his code
+	* man/hmac.Rd: Idem
 
 2025-10-03  Dirk Eddelbuettel  <edd@debian.org>
 
