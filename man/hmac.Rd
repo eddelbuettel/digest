@@ -24,7 +24,7 @@ hmac(key, object,
     TRUE as it is in \code{digest}.}
   \item{raw}{This flag alters the type of the output.  Setting this to
     \code{TRUE} causes the function to return an object of type
-    \code{"raw"} instead of \code{"character"}.} 
+    \code{"raw"} instead of \code{"character"}.}
   \item{...}{All remaining arguments are passed to \code{digest}.  }
 }
 \value{
@@ -32,7 +32,7 @@ hmac(key, object,
   digest as specified in the RFC 2104.
 }
 \references{
-  MD5: \url{https://www.ietf.org/rfc/rfc1321.txt}. 
+  MD5: \url{https://www.ietf.org/rfc/rfc1321.txt}.
 
   SHA-1: \url{https://en.wikipedia.org/wiki/SHA-1}.
   SHA-256: \url{https://csrc.nist.gov/publications/fips/fips180-2/fips180-2withchangenotice.pdf}.
@@ -41,13 +41,15 @@ hmac(key, object,
   \url{https://en.wikipedia.org/wiki/Cyclic_redundancy_check} for
   general information on CRC algorithms.
 
-  \url{https://aarongifford.com/computers/sha.html} for the 
-  integrated C implementation of sha-512.
+  The support page for the code underlying the C functions used here for the
+  sha-512 function is no longer accessbible, please see
+  \url{https://web.mit.edu/freebsd/head/crypto/openssh/openbsd-compat/sha2.c} for the
+  code and the eponymous website of Aaron Gifford, its author, for more.
 
   The page for the code underlying the C functions used here for sha-1
   and md5, and further references, is no longer accessible.  Please see
   \url{https://en.wikipedia.org/wiki/SHA-1} and
-  \url{https://en.wikipedia.org/wiki/MD5}.  
+  \url{https://en.wikipedia.org/wiki/MD5}.
 
   \url{https://zlib.net} for documentation on the zlib library which
   supplied the code for crc32.
@@ -55,7 +57,7 @@ hmac(key, object,
   \url{https://en.wikipedia.org/wiki/SHA_hash_functions} for
   documentation on the sha functions.
 }
-\author{Mario Frasca \email{mfrasca@zonnet.nl}.} 
+\author{Mario Frasca \email{mfrasca@zonnet.nl}.}
 \seealso{\code{\link{digest}}}
 
 \examples{
@@ -91,4 +93,3 @@ stopifnot(identical(target, as.character(current)))
 
 }
 \keyword{misc}
-
