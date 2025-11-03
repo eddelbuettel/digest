@@ -233,8 +233,11 @@ vanished from the web; see
 <a href="https://en.wikipedia.org/wiki/Cyclic_redundancy_check">https://en.wikipedia.org/wiki/Cyclic_redundancy_check</a>
 for general information on CRC algorithms.
 
-<a href="https://aarongifford.com/computers/sha.html">https://aarongifford.com/computers/sha.html</a>
-for the integrated C implementation of sha-512.
+The support page for the code underlying the C functions used here for
+the sha-512 function is no longer accessbible, please see
+<a href="https://web.mit.edu/freebsd/head/crypto/openssh/openbsd-compat/sha2.c">https://web.mit.edu/freebsd/head/crypto/openssh/openbsd-compat/sha2.c</a>
+for the code and the eponymous website of Aaron Gifford, its author, for
+more.
 
 The page for the code underlying the C functions used here for sha-1 and
 md5, and further references, is no longer accessible. Please see

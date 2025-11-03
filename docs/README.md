@@ -1,4 +1,4 @@
-# digest: Compact hash representations of arbitrary R objects
+# digest: Hash representations of arbitrary R objects
 
 [![ci](https://github.com/eddelbuettel/digest/workflows/ci/badge.svg)](https://github.com/eddelbuettel/digest/actions?query=workflow%3Aci)
 [![License](https://img.shields.io/badge/license-GPL%20%28%3E=%202%29-brightgreen.svg?style=flat)](https://www.r-project.org/Licenses/GPL-2)
@@ -14,8 +14,6 @@
 [![Code Coverage](https://img.shields.io/codecov/c/github/eddelbuettel/digest/master.svg)](https://app.codecov.io/gh/eddelbuettel/digest)
 [![Last Commit](https://img.shields.io/github/last-commit/eddelbuettel/digest)](https://github.com/eddelbuettel/digest)
 [![Documentation](https://img.shields.io/badge/documentation-is_here-blue)](https://eddelbuettel.github.io/digest/)
-
-Compact hash representations of arbitrary R objects
 
 ### Overview
 
