@@ -1,3 +1,7 @@
+2025-11-09  Dirk Eddelbuettel  <edd@debian.org>
+
+	* DESCRIPTION (Version, Date): Release 0.6.38
+
 2025-11-02  Dirk Eddelbuettel  <edd@debian.org>
 
 	* DESCRIPTION (Version, Date): Roll micro version and date
@@ -7,7 +11,7 @@
 	* inst/CITATION: Added as in-container use of citation() with
 	defaults appears to drop both doi and url entries
 
-	* README.md: Use R Project URL for GPL-2
+	* README.md: Use R Project URL for GPL-2 link in badge
 
 	* man/digest.Rd: Edit around disappearing ssh certificate of the site
 	of Aaron Gifford and link to alternate source of his code
