@@ -1,5 +1,8 @@
 2025-11-12  Dirk Eddelbuettel  <edd@debian.org>
 
+	* R/vdigest.R (streaming_digest): Add a missing NULL for final
+	argument as noted by UBSAN checker
+
 	* src/SpookyV2.cpp (SpookyHash::Update): Add a cast suggested by
 	Brian D. Ripley in email as arm64 showed a SAN warning
 

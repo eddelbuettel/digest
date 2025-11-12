@@ -155,10 +155,8 @@ streaming_digest <- function(algo, errormode, algoint){
             # 0s are the seeds. They are included to enable testing against fastdigest.
             val <- vapply(object,
                           function(o)
-                              paste(
-                                  .Call(spookydigest_impl, o, skip, 0, 0, serializeVersion),
-                                  collapse = ""
-                              ),
+                              paste(.Call(spookydigest_impl, o, skip, 0, 0, serializeVersion, NULL),
+                                    collapse = ""),
                           character(1),
                           USE.NAMES = FALSE)
         }
