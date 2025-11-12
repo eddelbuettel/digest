@@ -227,7 +227,7 @@ void SpookyHash::Update(const void *message, size_t length)
 
     // stuff away the last few bytes
     m_remainder = remainder;
-    memcpy(m_data, end, remainder);
+    memcpy((uint8 *)m_data, (uint8 *)end, remainder); // added by Dirk Eddelbuettel 2025-11-12 following hint by Brian Ripley
 
     // stuff away the variables
     m_state[0] = h0;
