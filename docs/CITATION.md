@@ -1,8 +1,8 @@
 # Citation
 
-To cite digest in publications use:
+To cite package ‘digest’ in publications use:
 
-<p>Eddelbuettel D (2025).
+<p>Eddelbuettel D (2024).
 <em>digest: Create Compact Hash Digests of R Objects</em>.
-<a href="https://doi.org/10.32614/CRAN.package.digest">doi:10.32614/CRAN.package.digest</a>, R package version 0.6.38. 
+R package version 0.6.37, <a href="https://github.com/eddelbuettel/digest">https://github.com/eddelbuettel/digest</a>. 
 </p>

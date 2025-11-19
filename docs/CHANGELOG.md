@@ -1,3 +1,17 @@
+2025-11-19  Dirk Eddelbuettel  <edd@debian.org>
+
+	* DESCRIPTION (Version, Date): Release 0.6.39
+
+2025-11-12  Dirk Eddelbuettel  <edd@debian.org>
+
+	* DESCRIPTION (Version, Date): Roll micro version and date
+
+	* R/vdigest.R (streaming_digest): Add a missing NULL for final
+	argument as noted by UBSAN checker
+
+	* src/SpookyV2.cpp (SpookyHash::Update): Add a cast suggested by
+	Brian D. Ripley in email as arm64 showed a SAN warning
+
 2025-11-09  Dirk Eddelbuettel  <edd@debian.org>
 
 	* DESCRIPTION (Version, Date): Release 0.6.38
