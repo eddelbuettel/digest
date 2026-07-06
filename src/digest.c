@@ -163,6 +163,47 @@ void _store_from_int64(const uint64_t hash, char *output, const int leaveRaw) {
     } else snprintf(output, sizeof(uint64_t)*2 + 1, "%016" PRIx64, hash);
 }
 
+/*
+ * Fletcher-32 checksum: two running sums over 16-bit little-endian words,
+ * each reduced modulo 65535, concatenated as (s2 << 16) | s1. The state
+ * carries a pending low byte so a 16-bit word may span two input buffers
+ * when a file is hashed in chunks; a trailing odd byte is zero-padded.
+ */
+typedef struct {
+    uint32_t s1, s2;
+    int have_low;
+    unsigned char low;
+} fletcher32_ctx;
+
+static void fletcher32_update(fletcher32_ctx *c, const unsigned char *d,
+                              size_t n) {
+    size_t i = 0;
+    if (c->have_low && n > 0) {
+        uint32_t w = c->low | ((uint32_t) d[i++] << 8);
+        c->s1 = (c->s1 + w)     % 65535;
+        c->s2 = (c->s2 + c->s1) % 65535;
+        c->have_low = 0;
+    }
+    for (; i + 1 < n; i += 2) {
+        uint32_t w = d[i] | ((uint32_t) d[i + 1] << 8);
+        c->s1 = (c->s1 + w)     % 65535;
+        c->s2 = (c->s2 + c->s1) % 65535;
+    }
+    if (i < n) {
+        c->low = d[i];
+        c->have_low = 1;
+    }
+}
+
+static uint32_t fletcher32_final(fletcher32_ctx *c) {
+    if (c->have_low) {
+        c->s1 = (c->s1 + c->low)  % 65535;
+        c->s2 = (c->s2 + c->s1)   % 65535;
+        c->have_low = 0;
+    }
+    return (c->s2 << 16) | c->s1;
+}
+
 SEXP digest(SEXP Txt, SEXP Algo, SEXP Length, SEXP Skip, SEXP Leave_raw, SEXP Seed) {
     size_t BUF_SIZE = 1024;
     FILE *fp=0;
@@ -331,6 +372,14 @@ SEXP digest(SEXP Txt, SEXP Algo, SEXP Length, SEXP Skip, SEXP Leave_raw, SEXP Se
         } else {
             snprintf(output, 128, "%016" PRIx64 "%016" PRIx64, val.high64, val.low64);
         }
+        break;
+    }
+    case 14: {     /* fletcher32 case */
+        fletcher32_ctx ctx = {0, 0, 0, 0};
+        output_length = sizeof(uint32_t);
+
+        fletcher32_update(&ctx, txt, (size_t) nChar);
+        _store_from_int32(fletcher32_final(&ctx), output, leaveRaw);
         break;
     }
     case 101: {     /* md5 file case */
@@ -654,6 +703,26 @@ SEXP digest(SEXP Txt, SEXP Algo, SEXP Length, SEXP Skip, SEXP Leave_raw, SEXP Se
         } else {
             snprintf(output, 128, "%016" PRIx64 "%016" PRIx64, val.high64, val.low64);
         }
+        break;
+    }
+    case 114: {    /* fletcher32 file case */
+        unsigned char buf[BUF_SIZE];
+        fletcher32_ctx ctx = {0, 0, 0, 0};
+        output_length = 4;
+        if (skip > 0) fseek(fp, skip, SEEK_SET);
+
+        if (length>=0) {
+            while ( ( nChar = fread( buf, 1, sizeof( buf ), fp ) ) > 0 && length>0) {
+                if (nChar>length) nChar=length;
+                fletcher32_update(&ctx, buf, (size_t) nChar);
+                length -= nChar;
+            }
+        } else {
+            while ( ( nChar = fread( buf, 1, sizeof( buf ), fp ) ) > 0)
+                fletcher32_update(&ctx, buf, (size_t) nChar);
+        }
+
+        _store_from_int32(fletcher32_final(&ctx), output, leaveRaw);
         break;
     }
 

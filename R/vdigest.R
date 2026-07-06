@@ -20,16 +20,18 @@
 
 getVDigest <- function(algo = c("md5", "sha1", "crc32", "sha256", "sha512",
                                 "xxhash32", "xxhash64", "murmur32", "spookyhash",
-                                "blake3", "crc32c", "xxh3_64", "xxh3_128"),
+                                "blake3", "crc32c", "xxh3_64", "xxh3_128",
+                                "fletcher"),
                         errormode=c("stop","warn","silent")){
     algo <- match.arg(algo, c("md5", "sha1", "crc32", "sha256", "sha512",
                               "xxhash32", "xxhash64", "murmur32", "spookyhash",
-                              "blake3", "crc32c", "xxh3_64", "xxh3_128"))
+                              "blake3", "crc32c", "xxh3_64", "xxh3_128",
+                              "fletcher"))
 
     algoint <- algo_int(algo)
     non_streaming_algos <- c("md5", "sha1", "crc32", "sha256", "sha512",
                              "xxhash32", "xxhash64", "murmur32", "blake3",
-                             "crc32c", "xxh3_64", "xxh3_128")
+                             "crc32c", "xxh3_64", "xxh3_128", "fletcher")
     if (algo %in% non_streaming_algos)
         return(non_streaming_digest(algo, errormode, algoint))
     streaming_digest(algo, errormode, algoint)
