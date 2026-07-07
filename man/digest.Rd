@@ -156,6 +156,9 @@ digest(object, algo=c("md5", "sha1", "crc32", "sha256", "sha512",
   \url{https://github.com/BLAKE3-team/BLAKE3/} for the original source code of blake3.
 
   \url{https://github.com/google/crc32c} for the (non-hardware-accelerated) crc32c code.
+
+  \url{https://en.wikipedia.org/wiki/Fletcher%27s_checksum} for a description
+  of Fletcher's checksum.
 }
 \author{Dirk Eddelbuettel \email{edd@debian.org} for the \R interface;
   Antoine Lucas for the integration of crc32; Jarek Tuszynski for the
