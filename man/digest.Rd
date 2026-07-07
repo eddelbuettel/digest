@@ -15,7 +15,7 @@
 \usage{
 digest(object, algo=c("md5", "sha1", "crc32", "sha256", "sha512",
                       "xxhash32", "xxhash64", "murmur32", "spookyhash",
-                      "blake3", "crc32c", "xxh3_64", "xxh3_128"),
+                      "blake3", "crc32c", "xxh3_64", "xxh3_128", "fletcher"),
        serialize=TRUE, file=FALSE,
        length=Inf, skip="auto", ascii=FALSE, raw=FALSE, seed=0,
        errormode=c("stop","warn","silent"),
@@ -29,7 +29,7 @@ digest(object, algo=c("md5", "sha1", "crc32", "sha256", "sha512",
     \code{md5}, which is also the default, \code{sha1}, \code{crc32},
     \code{sha256}, \code{sha512}, \code{xxhash32}, \code{xxhash64},
     \code{murmur32}, \code{spookyhash}, \code{blake3}, \code{crc32c},
-    \code{xxh3_64}, and \code{xxh3_128}.}
+    \code{xxh3_64}, \code{xxh3_128}, and \code{fletcher}.}
   \item{serialize}{A logical variable indicating whether the object
     should be serialized using \code{serialize} (in ASCII
     form). Setting this to \code{FALSE} allows to compare the digest
@@ -102,6 +102,10 @@ digest(object, algo=c("md5", "sha1", "crc32", "sha256", "sha512",
   For crc32c, the portable (i.e. non-hardware accelerated) version from
   Google is used.
 
+  For fletcher, Fletcher's 32-bit position-dependent checksum (two running
+  sums over 16-bit little-endian words, each taken modulo 65535) is computed;
+  the result is an eight-character hex string.
+
   Please note that this package is not meant to be used for
   cryptographic purposes for which more comprehensive (and widely
   tested) libraries such as OpenSSL should be used. Also, it is known
@@ -152,6 +156,9 @@ digest(object, algo=c("md5", "sha1", "crc32", "sha256", "sha512",
   \url{https://github.com/BLAKE3-team/BLAKE3/} for the original source code of blake3.
 
   \url{https://github.com/google/crc32c} for the (non-hardware-accelerated) crc32c code.
+
+  \url{https://en.wikipedia.org/wiki/Fletcher%27s_checksum} for a description
+  of Fletcher's checksum.
 }
 \author{Dirk Eddelbuettel \email{edd@debian.org} for the \R interface;
   Antoine Lucas for the integration of crc32; Jarek Tuszynski for the
@@ -332,6 +339,15 @@ for (i in seq_along(crc32cInput)) {
     crc32c <- digest(crc32cInput[i], algo="crc32c", serialize=FALSE)
     cat(crc32c, "\n")
     stopifnot(identical(crc32c, crc32cOutput[i]))
+}
+
+## fletcher (Fletcher-32)
+fletcherInput  <- c("abcde", "abcdef", "abcdefgh")
+fletcherOutput <- c("f04fc729", "56502d2a", "ebe19591")
+for (i in seq_along(fletcherInput)) {
+    fletcher <- digest(fletcherInput[i], algo="fletcher", serialize=FALSE)
+    cat(fletcher, "\n")
+    stopifnot(identical(fletcher, fletcherOutput[i]))
 }
 
 # example of a digest of a standard R list structure

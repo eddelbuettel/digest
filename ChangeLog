@@ -1,3 +1,11 @@
+2026-07-07  Christos Longros  <chris.longros@gmail.com>
+
+	* src/digest.c: Add Fletcher-32 checksum as algorithm 14
+	* R/digest.R (digest): Register "fletcher" in algo choices
+	* R/vdigest.R (getVDigest): Idem
+	* man/digest.Rd: Document "fletcher" and add reference
+	* inst/tinytest/test_fletcher.R: Add reference check vectors
+
 2025-12-05  Dirk Eddelbuettel  <edd@debian.org>
 
 	* .github/workflows/ci.yaml: Switch to actions/checkout@v6

@@ -27,7 +27,7 @@
 digest <- function(object, algo=c("md5", "sha1", "crc32", "sha256", "sha512",
                                   "xxhash32", "xxhash64", "murmur32",
                                   "spookyhash", "blake3", "crc32c",
-                                  "xxh3_64", "xxh3_128"),
+                                  "xxh3_64", "xxh3_128", "fletcher"),
                    serialize=TRUE,
                    file=FALSE,
                    length=Inf,
@@ -43,7 +43,7 @@ digest <- function(object, algo=c("md5", "sha1", "crc32", "sha256", "sha512",
     algo <- match.arg(algo, c("md5", "sha1", "crc32", "sha256", "sha512",
                               "xxhash32", "xxhash64", "murmur32",
                               "spookyhash", "blake3", "crc32c",
-                              "xxh3_64", "xxh3_128"))
+                              "xxh3_64", "xxh3_128", "fletcher"))
 
     if (is.infinite(length)) {
         length <- -1               # internally we use -1 for infinite len
@@ -155,7 +155,8 @@ algo_int <- function(algo)
         blake3 = 10,
         crc32c = 11,
         xxh3_64 = 12,
-        xxh3_128 = 13
+        xxh3_128 = 13,
+        fletcher = 14
     )
 
 ## HB 14 Mar 2007:
