@@ -4,6 +4,7 @@
 	* DESCRIPTION (Authors@R): Add Christos as contributor
 
 	* man/digest.Rd: Escape the '%27' for the apostrophe in the URL
+	* man/vdigest.Rd: Also register "fletcher" here
 
 2026-07-07  Christos Longros  <chris.longros@gmail.com>
 
