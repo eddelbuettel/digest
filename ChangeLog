@@ -1,3 +1,7 @@
+2026-07-09  Dirk Eddelbuettel  <edd@debian.org>
+
+	* man/digest.Rd: Escape the '%27' for the apostrophe in the URL
+
 2026-07-07  Christos Longros  <chris.longros@gmail.com>
 
 	* src/digest.c: Add Fletcher-32 checksum as algorithm 14
