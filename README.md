@@ -19,8 +19,8 @@
 
 The digest package provides a principal function `digest()` for the creation
 of hash digests of arbitrary R objects (using the md5, sha-1, sha-256, crc32,
-xxhash, murmurhash, spookyhash, blake3, crc32c, xxh3\_64, and xxh3\_128
-algorithms) permitting easy comparison of R language objects.
+xxhash, murmurhash, spookyhash, blake3, crc32c, xxh3\_64, xxh3\_128, and
+fletcher algorithms) permitting easy comparison of R language objects.
 
 Extensive documentation is available at the [package documentation site](https://eddelbuettel.github.io/digest/).
 
@@ -85,7 +85,7 @@ Henrik Bengtsson, Simon Urbanek, Mario Frasca, Bryan Lewis, Murray Stokely,
 Hannes Muehleisen, Duncan Murdoch, Jim Hester, Wush Wu, Qiang Kou, Thierry
 Onkelinx, Michel Lang, Viliam Simko, Kurt Hornik, Radford Neal, Kendon Bell,
 Matthew de Queljoe, Ion Suruceanu, Bill Denney, Dirk Schumacher, Winston
-Chang, Dean Attali, and Michael Chirico.
+Chang, Dean Attali, Michael Chirico, and Christos Longros.
 
 ### License
 
