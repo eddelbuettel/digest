@@ -1,3 +1,7 @@
+2026-07-11  Dirk Eddelbuettel  <edd@debian.org>
+
+	* DESCRIPTION (Description): Add fletcher to Description:
+
 2026-07-11  Christos Longros  <chris.longros@gmail.com>
 
 	* DESCRIPTION (Version, Date): Roll micro version and date
