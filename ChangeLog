@@ -1,3 +1,10 @@
+2026-07-11  Christos Longros  <chris.longros@gmail.com>
+
+	* DESCRIPTION (Version, Date): Roll micro version and date
+
+	* inst/tinytest/test_digest.R: Add sha256 known-answer tests using
+	the NIST test vectors for FIPS 180-4
+
 2026-07-10  Christos Longros  <chris.longros@gmail.com>
 
 	* DESCRIPTION (Version, Date): Roll micro version and date

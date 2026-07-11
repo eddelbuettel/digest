@@ -80,6 +80,36 @@ for (i in seq(along.with=sha1Input)) {
     #cat(sha1, "\n")
 }
 
+## sha256 test using the NIST FIPS 180-4 test vectors
+sha256Input <-
+    c("",
+      "abc",
+      "abcdbcdecdefdefgefghfghighijhijkijkljklmklmnlmnomnopnopq")
+sha256Output <-
+    c("e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "ba7816bf8f01cfea414140de5dae2223b00361a396177a9cb410ff61f20015ad",
+      "248d6a61d20638b8e5c026930c3e6039a33ce45964ff2167f6ecedd419db06c1")
+
+for (i in seq(along.with=sha256Input)) {
+    sha256 <- digest(sha256Input[i], algo="sha256", serialize=FALSE)
+    expect_true(identical(sha256, sha256Output[i]))
+    #cat(sha256, "\n")
+}
+
+sha256 <- getVDigest(algo = 'sha256')
+expect_identical(sha256(sha256Input, serialize = FALSE), sha256Output)
+
+## sha256 raw output test
+for (i in seq(along.with=sha256Input)) {
+    sha256 <- digest(sha256Input[i], algo="sha256", serialize=FALSE, raw=TRUE)
+    sha256 <- gsub(" ","",capture.output(cat(sha256)))
+    expect_true(identical(sha256, sha256Output[i]))
+    #cat(sha256, "\n")
+}
+
+sha256 <- digest(strrep("a", 1e6), algo="sha256", serialize=FALSE)
+expect_true(identical(sha256, "cdc76e5c9914fb9281a1c7e284d73e67f1809a48a497200e046d39ccc7112cd0"))
+
 ## sha512 test
 sha512Input <-c(
     "",
