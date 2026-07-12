@@ -110,13 +110,17 @@ for (i in seq(along.with=sha256Input)) {
 sha256 <- digest(strrep("a", 1e6), algo="sha256", serialize=FALSE)
 expect_true(identical(sha256, "cdc76e5c9914fb9281a1c7e284d73e67f1809a48a497200e046d39ccc7112cd0"))
 
-## sha512 test
+## sha512 test using the NIST FIPS 180-4 test vectors
 sha512Input <-c(
     "",
+    "abc",
+    "abcdefghbcdefghicdefghijdefghijkefghijklfghijklmghijklmnhijklmnoijklmnopjklmnopqklmnopqrlmnopqrsmnopqrstnopqrstu",
     "The quick brown fox jumps over the lazy dog."
     )
 sha512Output <- c(
     "cf83e1357eefb8bdf1542850d66d8007d620e4050b5715dc83f4a921d36ce9ce47d0d13c5d85f2b0ff8318d2877eec2f63b931bd47417a81a538327af927da3e",
+    "ddaf35a193617abacc417349ae20413112e6fa4e89a97ea20a9eeee64b55d39a2192992a274fc1a836ba3c23a3feebbd454d4423643ce80e2a9ac94fa54ca49f",
+    "8e959b75dae313da8cf4f72814fc143f8f7779c6eb9f7fa17299aeadb6889018501d289e4900f7e4331b99dec4b5433ac7d329eeb6dd26545e96e55b874be909",
     "91ea1245f20d46ae9a037a989f54f1f790f0a47607eeb8a14d12890cea77a1bbc6c7ed9cf205e67b7f2b8fd4c7dfd3a7a8617e45f3c463d481c7e586c39ac1ed")
 
 for (i in seq(along.with=sha512Input)) {
@@ -126,7 +130,7 @@ for (i in seq(along.with=sha512Input)) {
 }
 
 sha512 <- getVDigest(algo = 'sha512')
-expect_identical(sha512(sha512Input, serialize = FALSE), sha512Output[1:2])
+expect_identical(sha512(sha512Input, serialize = FALSE), sha512Output)
 
 ## sha512 raw output test
 for (i in seq(along.with=sha512Input)) {
@@ -139,6 +143,9 @@ for (i in seq(along.with=sha512Input)) {
     expect_true(identical(sha512, sha512Output[i]))
     #cat(sha512, "\n")
 }
+
+sha512 <- digest(strrep("a", 1e6), algo="sha512", serialize=FALSE)
+expect_true(identical(sha512, "e718483d0ce769644e2e42c7bc15b4638e1f98b13b2044285632a803afa973ebde0ff244877ea60a4cb0432ce577c31beb009c5c2c49aa2e4eadb217ad8cc09b"))
 
 crc32Input <-
     c("abc",
