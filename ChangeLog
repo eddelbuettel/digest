@@ -1,3 +1,11 @@
+2026-07-12  Dirk Eddelbuettel  <edd@debian.org>
+
+	* DESCRIPTION (Version, Date): Roll micro version and date
+
+2026-07-12  Christos Longros  <chris.longros@gmail.com>
+
+	* inst/tinytest/test_digest.R: Add NIST FIPS 180-4 vectors for sha256
+
 2026-07-11  Dirk Eddelbuettel  <edd@debian.org>
 
 	* DESCRIPTION (Description): Add fletcher to Description:
