@@ -9,7 +9,7 @@
  */
 
 /*-----------------------------------------------------------------------------
- 
+
 If you want to understand the MurmurHash algorithm you would be much better
 off reading the original source. Just point your browser at:
 http://code.google.com/p/smhasher/source/browse/trunk/MurmurHash3.cpp
@@ -98,22 +98,22 @@ on big endian machines, or a byte-by-byte read if the endianess is unknown.
     #define __BYTE_ORDER __BIG_ENDIAN
   #endif
 */
-  #if defined(__LITTLE_ENDIAN__) 
-    #if __LITTLE_ENDIAN__==1 
+  #if defined(__LITTLE_ENDIAN__)
+    #if __LITTLE_ENDIAN__==1
       #define __BYTE_ORDER __LITTLE_ENDIAN
-    #elif defined(_LITTLE_ENDIAN) 
+    #elif defined(_LITTLE_ENDIAN)
       #if x_LITTLE_ENDIAN != x
         #if _LITTLE_ENDIAN==1
           #define __BYTE_ORDER __LITTLE_ENDIAN
         #endif
       #endif
     #endif
-  #elif defined(__BIG_ENDIAN__) 
+  #elif defined(__BIG_ENDIAN__)
     #if __BIG_ENDIAN__==1
       #define __BYTE_ORDER __BIG_ENDIAN
     #endif
-  #elif defined(_BIG_ENDIAN) 
-    #if x_BIG_ENDIAN != x 
+  #elif defined(_BIG_ENDIAN)
+    #if x_BIG_ENDIAN != x
       #if _BIG_ENDIAN==1
         #define __BYTE_ORDER __BIG_ENDIAN
       #endif
@@ -229,7 +229,7 @@ void PMurHash32_Process(uint32_t *ph1, uint32_t *pcarry, const void *key, int le
   /* This CPU does not handle unaligned word access */
 
   /* Consume enough so that the next data byte is word aligned */
-  int i = -(long)ptr & 3;
+  int i = -(intptr_t)ptr & 3;
   if(i && i <= len) {
       DOBYTES(i, h1, c, n, ptr, len);
   }
@@ -278,7 +278,7 @@ void PMurHash32_Process(uint32_t *ph1, uint32_t *pcarry, const void *key, int le
   /* Copy out new running hash and carry */
   *ph1 = h1;
   *pcarry = (c & ~0xff) | n;
-} 
+}
 
 /*---------------------------------------------------------------------------*/
 
@@ -306,7 +306,7 @@ uint32_t PMurHash32_Result(uint32_t h, uint32_t carry, uint32_t total_length)
 /*---------------------------------------------------------------------------*/
 
 /* Murmur3A compatable all-at-once */
-uint32_t PMurHash32(uint32_t seed, const void *key, int len) 
+uint32_t PMurHash32(uint32_t seed, const void *key, int len)
 {
   uint32_t h1=seed, carry=0;
   PMurHash32_Process(&h1, &carry, key, len);

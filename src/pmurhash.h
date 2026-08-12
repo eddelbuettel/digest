@@ -8,6 +8,10 @@
  * with support for progressive processing.
  */
 
+/* for uintptr_t; needed for clang on windows-arm64 as of August 2026,
+ * must precede the uint32_t renaming that follows in the C file  */
+#include <stdint.h>
+
 /* ------------------------------------------------------------------------- */
 /* Determine what native type to use for uint32_t */
 
