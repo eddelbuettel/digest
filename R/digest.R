@@ -171,7 +171,7 @@ is_readable <- function(object){
         return(TRUE)
     }
     ## Double-check negative file.access result on Windows 
-    if (.Platform$OS.type == "windows"){
+    if (.isWindows()){
         readable <- tryCatch({
             con <- file(object, "rb")
             on.exit(close(con), add = TRUE)
