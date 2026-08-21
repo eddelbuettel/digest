@@ -1,3 +1,8 @@
+2026-08-21  Tobias Loka  <tobias.loka@posteo.de>
+
+	* R/digest.R: Added confirmation of negative file readability checks
+	with file.access on Windows to prevent false-negative check results.
+
 2026-08-12  Dirk Eddelbuettel  <edd@debian.org>
 
 	* DESCRIPTION (Version, Date): Roll micro version and date

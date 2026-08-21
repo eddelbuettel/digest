@@ -159,6 +159,29 @@ algo_int <- function(algo)
         fletcher = 14
     )
 
+## Check whether a file is readable.
+## On Linux, this relies on file.access(object, 4) only.
+## On Windows, file.access(object, 4) may provide false negatives, 
+## in particular for files located on network drives. 
+## Therefore, if file.access(object, 4) reports that a file is not readable
+## on Windows OS,actual readability is tested by opening a file connection.
+is_readable <- function(object){
+    ## Use file.access by default
+    if (!file.access(object, 4)){                                                       # nocov start
+        return(TRUE)
+    }
+    ## Double-check negative file.access result on Windows 
+    if (.isWindows()){
+        readable <- tryCatch({
+            con <- file(object, "rb")
+            on.exit(close(con), add = TRUE)
+            TRUE
+        }, error = function(e) FALSE)
+        return(readable)
+    }
+    return(FALSE)                                                                       # nocov end
+}
+
 ## HB 14 Mar 2007:
 ## Exclude serialization header (non-data dependent bytes but R
 ## version specific).  In ASCII, the header consists of for rows
@@ -179,7 +202,7 @@ check_file <- function(object, errormode){
         return(.errorhandler("The specified pathname is not a file: ",
                              object, mode=errormode))
     }
-    if (file.access(object, 4)) {
+    if (!is_readable(object)) {
         return(.errorhandler("The specified file is not readable: ",
                              object, mode=errormode))                  			# #nocov end
     }
