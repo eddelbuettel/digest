@@ -131,7 +131,7 @@ digest(object, algo=c("md5", "sha1", "crc32", "sha256", "sha512",
   general information on CRC algorithms.
 
   The support page for the code underlying the C functions used here for the
-  sha-512 function is no longer accessbible, please see
+  sha-512 function is no longer accessible, please see
   \url{https://web.mit.edu/freebsd/head/crypto/openssh/openbsd-compat/sha2.c} for the
   code and the eponymous website of Aaron Gifford, its author, for more.
 
