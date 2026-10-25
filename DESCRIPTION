@@ -43,8 +43,8 @@ Authors@R: c(person("Dirk", "Eddelbuettel", role = c("aut", "cre"), email = "edd
              person("Carl", "Pearson", role="ctb", comment = c(ORCID = "0000-0003-0701-7860")),
              person("Christos", "Longros", role="ctb", comment = c(ORCID = "0009-0001-2717-0857")),
              person("Jeroen", "Ooms", role="ctb", comment = c(ORCID = "0000-0002-4035-0289")))
-Version: 0.6.39.5
-Date: 2026-08-12
+Version: 0.6.39.6
+Date: 2026-10-25
 Title: Create Compact Hash Digests of R Objects
 Description: Implementation of a function 'digest()' for the creation of hash
  digests of arbitrary R objects (using the 'md5', 'sha-1', 'sha-256', 'crc32',
